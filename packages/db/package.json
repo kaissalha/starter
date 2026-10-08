@@ -23,6 +23,7 @@
 		"migrate": "drizzle-kit migrate && bun scripts/init-mastra.ts",
 		"migrate:dev": "drizzle-kit generate && drizzle-kit migrate && bun scripts/init-mastra.ts",
 		"studio": "drizzle-kit studio",
+		"db:studio": "bunx dotenv-cli@11.0.0 -e ../../apps/webapp/.env -- drizzle-kit studio",
 		"typecheck": "tsc --noEmit --skipLibCheck"
 	},
 	"dependencies": {

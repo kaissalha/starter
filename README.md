@@ -85,15 +85,15 @@ tests), and optionally `ngrok` for Blob upload callbacks in development.
 
 ```sh
 bun install
-make env VERCEL_SCOPE=<your-vercel-team-slug>   # pulls apps/webapp/.env from the starter-webapp project
+cp apps/webapp/.env.example apps/webapp/.env   # then fill in the values
 docker compose up -d       # local Postgres and Redis (loopback only)
 make migrate               # applies migrations to DATABASE_URL from ENV_FILE (default apps/webapp/.env); pass ENV_FILE=<path> to target another database
 bun dev
 ```
 
-`make migrate` targets the `DATABASE_URL` in `ENV_FILE` (default `apps/webapp/.env`, the cloud database after `make env`); pass `ENV_FILE=<path>` to migrate the Docker database. Production requires the variables marked "Required in production" in `apps/webapp/.env.example`.
+`make migrate` targets the `DATABASE_URL` in `ENV_FILE` (default `apps/webapp/.env`); pass `ENV_FILE=<path>` to migrate another database. Production requires the variables marked "Required in production" in `apps/webapp/.env.example`.
 
-`bun dev` also starts the AI SDK DevTools viewer at `http://localhost:4983`. The webapp registers its telemetry
+`bun dev` also starts Drizzle Studio at `https://local.drizzle.studio` (port `4983`, using `DATABASE_URL` from `apps/webapp/.env`) and the AI SDK DevTools viewer at `http://localhost:4984` (`AI_SDK_DEVTOOLS_PORT`, set for both the viewer and the webapp dev server). The webapp registers its telemetry
 integration only during Node development and writes captures to `apps/webapp/.devtools` (gitignored). Run the viewer
 alone with `bun --cwd apps/webapp run dev:ai`. Mastra agent traces remain available in Mastra Studio.
 DevTools registers through the application’s `ai` package. The webapp TypeScript path pins its undeclared `ai` type import

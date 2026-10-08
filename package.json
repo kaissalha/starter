@@ -9,7 +9,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "turbo run build",
-		"dev": "turbo run dev dev:blob dev:ai dev:cron dev:mastra dev:mcp dev:workflow dev:styles --concurrency=15",
+		"dev": "turbo run dev dev:blob dev:ai dev:cron dev:mastra dev:mcp dev:workflow dev:styles db:studio --concurrency=16",
 		"evlog:check": "turbo run evlog:check --filter=webapp",
 		"evlog:doctor": "evlog doctor --cwd apps/webapp",
 		"evlog:map": "evlog map --cwd apps/webapp && oxfmt apps/webapp/evlog.map.json",

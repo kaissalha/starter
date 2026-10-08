@@ -24,7 +24,7 @@
   React Doctor, shadscan, the evlog baseline, jscpd duplication checking, and the migration drift check. CI also runs the full Vitest and workflow suites on every pull request and every push to `master`, and production preparation waits for all of them. Treat warnings or scored findings in touched
   files as work to resolve when they are in scope.
 - Before starting a dev process, check its port with `lsof -nP -i :PORT` and reuse or stop an existing process. The main
-  local ports are webapp `3000` and email preview `3002`.
+  local ports are webapp `3000`, email preview `3002`, Drizzle Studio `4983`, and AI SDK DevTools `4984`.
 - Do not edit generated migrations, Next.js agent blocks, or workflow-generated routes by hand. Use the owning command.
 
 ## Repository map
@@ -144,7 +144,6 @@
 
 ## Commands
 
-- `make env`: link the Vercel project and pull `apps/webapp/.env`.
 - `docker compose up -d`: start local PostgreSQL with pgvector and Redis.
 - `make migrate`: generate and apply Drizzle migrations locally (CI and production only apply committed migrations; see the README); `make studio`: open Drizzle Studio.
 - `bun dev`: start the monorepo development tasks.

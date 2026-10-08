@@ -4,8 +4,8 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "next dev --hostname 0.0.0.0",
-		"dev:ai": "devtools",
+		"dev": "AI_SDK_DEVTOOLS_PORT=4984 next dev --hostname 0.0.0.0",
+		"dev:ai": "AI_SDK_DEVTOOLS_PORT=4984 devtools",
 		"dev:blob": "ngrok http 3000",
 		"dev:cron": "bun scripts/dev-cron.ts",
 		"dev:mcp": "bunx @modelcontextprotocol/inspector",

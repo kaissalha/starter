@@ -19,6 +19,7 @@
 		"@starter/observability": "workspace:*",
 		"@upstash/ratelimit": "^2.2.0",
 		"@upstash/redis": "^1.39.0",
+		"evlog": "^2.30.1",
 		"ioredis": "^6.0.0"
 	},
 	"devDependencies": {
