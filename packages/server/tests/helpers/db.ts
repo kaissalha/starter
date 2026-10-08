@@ -2,10 +2,9 @@ import { and, eq, inArray } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
 import { v4 as uuidv4 } from "uuid";
 
-import { db, eventExecutions, members, oauthConnections, organizations, users } from "@starter/db";
+import { db, eventExecutions, members, organizations, users } from "@starter/db";
 
 export const cleanupOrganization = async (organizationId: string) => {
-	await db.delete(oauthConnections).where(eq(oauthConnections.organizationId, organizationId));
 	await db.delete(organizations).where(eq(organizations.id, organizationId));
 };
 

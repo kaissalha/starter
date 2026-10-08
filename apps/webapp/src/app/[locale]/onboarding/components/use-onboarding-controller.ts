@@ -2,17 +2,14 @@
 
 import { useState } from "react";
 
-import { ORPCError } from "@orpc/client";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
 import { useRouter } from "@/i18n/navigation";
-import { apiClient } from "@/lib/api-client";
 import { authClient, setActiveOrganization } from "@/lib/auth-client";
 import { toast } from "@starter/ui/components/toaster";
 
 import { buildOrganizationSlug } from "./onboarding-utils";
-import type { OnboardingBusiness } from "./use-create-organization-form";
 
 const USER_INVITATIONS_QUERY_KEY = ["onboarding", "user-invitations"];
 
@@ -42,22 +39,16 @@ const createOrganization = async (name: string) => {
 
 export const useOnboardingController = ({
 	initialInvitations,
-	initialOrganization,
 	redirectPath,
 }: {
 	initialInvitations: Array<OnboardingInvitation> | null;
-	initialOrganization?: { id: string; name: string };
 	redirectPath: string;
 }) => {
 	const t = useTranslations("onboarding");
 	const router = useRouter();
 	const queryClient = useQueryClient();
 
-	const [createdOrganization, setCreatedOrganization] = useState<{ id: string; name: string } | null>(
-		initialOrganization ?? null
-	);
-
-	const generation = useMutation(apiClient.websites.generate.mutationOptions());
+	const [createdOrganization, setCreatedOrganization] = useState<{ id: string; name: string } | null>(null);
 
 	const [isCreating, setIsCreating] = useState(false);
 	const [pendingInvitationId, setPendingInvitationId] = useState<string | null>(null);
@@ -101,13 +92,13 @@ export const useOnboardingController = ({
 		}
 	};
 
-	const handleCreateOrganization = async (business: OnboardingBusiness) => {
+	const handleCreateOrganization = async (name: string) => {
 		setIsCreating(true);
 
 		try {
 			const result = createdOrganization
 				? { data: createdOrganization, error: null }
-				: await createOrganization(business.name);
+				: await createOrganization(name);
 
 			if (result?.error || !result?.data) {
 				setIsCreating(false);
@@ -118,9 +109,9 @@ export const useOnboardingController = ({
 			const organization = result.data;
 			setCreatedOrganization({ id: organization.id, name: organization.name });
 
-			if (organization.name !== business.name) {
+			if (organization.name !== name) {
 				const updated = await authClient.organization.update({
-					data: { name: business.name },
+					data: { name },
 					organizationId: organization.id,
 				});
 
@@ -128,7 +119,7 @@ export const useOnboardingController = ({
 					throw new Error("Organization update failed");
 				}
 
-				setCreatedOrganization({ id: organization.id, name: business.name });
+				setCreatedOrganization({ id: organization.id, name });
 			}
 
 			const active = await setActiveOrganization({ organizationId: organization.id });
@@ -137,22 +128,13 @@ export const useOnboardingController = ({
 				throw new Error("Organization activation failed");
 			}
 
-			const website = await queryClient.query(apiClient.websites.get.queryOptions({ staleTime: 0 }));
-
-			if (!website?.snapshot && (!website?.workflow || website.workflow.state === "failed")) {
-				await generation.mutateAsync({ brief: { ...business, schemaVersion: 1 } });
-				queryClient.removeQueries({ queryKey: apiClient.websites.get.key() });
-			}
-
-			router.replace("/dashboard/website");
+			router.replace(redirectPath);
 
 			return null;
-		} catch (error) {
+		} catch {
 			setIsCreating(false);
 
-			return error instanceof ORPCError && error.code === "IMPLAUSIBLE_BRIEF"
-				? t("messages.implausibleBrief")
-				: t("messages.setupFailed");
+			return t("messages.setupFailed");
 		}
 	};
 

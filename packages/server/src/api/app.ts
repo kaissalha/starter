@@ -3,51 +3,31 @@ import type { RouterClient } from "@orpc/server";
 import { ZodToJsonSchemaConverter } from "@orpc/zod";
 
 import { isPublicApiProcedure } from "./base";
-import { analytics } from "./routers/analytics";
-import { blogPosts } from "./routers/blog-posts";
-import { brands } from "./routers/brands";
 import { chats } from "./routers/chats";
-import { contacts } from "./routers/contacts";
 import { documents } from "./routers/documents";
-import { domains } from "./routers/domains";
 import { library } from "./routers/library";
-import { linkPages } from "./routers/link-pages";
 import { linkPreviews } from "./routers/link-previews";
 import { media } from "./routers/media";
 import { notificationSettings } from "./routers/notification-settings";
 import { notifications } from "./routers/notifications";
-import { seo } from "./routers/seo";
-import { websites } from "./routers/websites";
 
 export const apiRouter = {
-	analytics,
-	blogPosts,
-	brands,
 	chats,
-	contacts,
 	documents,
-	domains,
 	library,
-	linkPages,
 	linkPreviews,
 	media,
 	notifications,
 	notificationSettings,
-	seo,
-	websites,
 };
 
 export type ApiRouter = typeof apiRouter;
 
 export type ApiRouterClient = RouterClient<ApiRouter>;
 
-export type { SeoOverview } from "../services/seo/overview";
-
-export type { SeoPromptResult } from "../services/seo/prompt-explorer";
-
 export { isPublicApiProcedure, publicApi } from "./base";
 
-export { handleDataRetention, handleDomainCron, handleOrganizationPurgeCron } from "./cron";
+export { handleDataRetention, handleOrganizationPurgeCron } from "./cron";
 
 export { handleEventDispatch, handleEventRetention } from "./events";
 
@@ -100,40 +80,9 @@ export const generateOpenApiSpec = ({ origin }: { origin: string }) =>
 			],
 			tags: [
 				{
-					description: "Read the active organization's Website, Links and Blog traffic and performance.",
-					name: "analytics",
-				},
-				{
-					description: "Create, edit, generate, and publish the active organization’s blog posts.",
-					name: "blog-posts",
-				},
-				{
-					description: "Read, customize, and publish the active organization's Brand foundation.",
-					name: "brands",
-				},
-				{
-					description:
-						"Manage the active organization's contacts and website inquiries, including inquiry summaries and triage suggestions.",
-					name: "contacts",
-				},
-				{
-					description:
-						"Connect, verify, buy and manage the active organization's website domains, DNS records and free website address.",
-					name: "domains",
-				},
-				{
-					description: "Read, customize, and publish the active organization's Links page.",
-					name: "link-pages",
-				},
-				{
 					description:
 						"Read and change the signed-in member's notification settings for the active organization.",
 					name: "notifications",
-				},
-				{
-					description:
-						"Read the active organization's website search readiness, Google Search Console performance, and AI answer visibility (GEO).",
-					name: "seo",
 				},
 			],
 		},

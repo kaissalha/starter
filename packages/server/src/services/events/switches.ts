@@ -20,9 +20,3 @@ export const isEventConsumerPaused = async ({ consumerKey }: { consumerKey: stri
 
 	return values.includes("1");
 };
-
-export const isLegacyContactTriage = async () => {
-	const [value] = await readSwitches(["starter:events:legacy:contact_triage"]);
-
-	return value === "1";
-};

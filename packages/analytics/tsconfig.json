@@ -1,8 +1,0 @@
-{
-	"extends": "@starter/tsconfig/node.json",
-	"compilerOptions": {
-		"incremental": true
-	},
-	"exclude": ["dist"],
-	"include": [".", "../../tools/testing/dev-dependency-imports.ts"]
-}

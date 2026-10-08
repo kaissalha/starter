@@ -3,11 +3,11 @@ import { and, eq, inArray, sql, type AnyColumn } from "drizzle-orm";
 import { db, eventExecutions, events, type EventExecutionState, type EventRecord } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
 
-import { ContactError, triageContactMessage } from "../contacts";
 import { sendNotificationEmails } from "../notifications/email";
 import { projectNotificationEvent } from "../notifications/projector";
-import { eventCatalog, isEventType, type EventType } from "./catalog";
-import { isEventConsumerPaused, isLegacyContactTriage } from "./switches";
+import { notificationEventTypes } from "../notifications/registry";
+import { isEventType, type EventType } from "./catalog";
+import { isEventConsumerPaused } from "./switches";
 
 export type EventExecutionStep = { status: "done" } | { status: "run" } | { status: "wait"; until: number };
 
@@ -24,52 +24,9 @@ const pauseDelayInSeconds = 300;
 
 const deadlineInSeconds = 900;
 
-const runContactTriage = async ({ event }: { event: EventRecord }): Promise<ConsumerOutcome> => {
-	if (await isLegacyContactTriage()) {
-		return { code: "owned_elsewhere", state: "skipped" };
-	}
-
-	const data = eventCatalog["contact_message.created"].data.parse(event.data);
-
-	try {
-		const result = await triageContactMessage({
-			input: { contactId: data.contactId, messageId: data.messageId },
-			policy: "background",
-			source: "workflow",
-		});
-
-		if (result.status !== "suggested") {
-			throw new Error("Contact triage is unavailable");
-		}
-
-		return { code: "triaged", state: "succeeded" };
-	} catch (error) {
-		if (error instanceof ContactError && error.code === "NOT_FOUND") {
-			return { code: "subject_deleted", state: "skipped" };
-		}
-
-		throw error;
-	}
-};
-
 const builtinConsumers = {
-	contact_triage: { events: ["contact_message.created"], run: runContactTriage },
-	notification_email: {
-		events: ["contact_message.created", "domain_registration.expiring", "domain_registration.failed"],
-		run: sendNotificationEmails,
-	},
-	notifications: {
-		events: [
-			"contact.deleted",
-			"contact_message.created",
-			"contact_message.triaged",
-			"domain_registration.completed",
-			"domain_registration.expiring",
-			"domain_registration.failed",
-			"website_domain.connected",
-		],
-		run: projectNotificationEvent,
-	},
+	notification_email: { events: notificationEventTypes({ email: true }), run: sendNotificationEmails },
+	notifications: { events: notificationEventTypes(), run: projectNotificationEvent },
 } satisfies Record<string, BuiltinConsumer>;
 
 const findBuiltinConsumer = (consumerKey: string): BuiltinConsumer | undefined =>

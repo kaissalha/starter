@@ -5,11 +5,6 @@ import {
 	listUploadedMedia,
 	mediaListInputSchema,
 	uploadedMediaSchema,
-	searchStockImages,
-	selectStockImage,
-	stockImageSearchInputSchema,
-	stockImageSearchResultSchema,
-	stockImageSelectInputSchema,
 } from "../../services/media";
 import { authedWithOrganization, organizationPermission } from "../base";
 
@@ -18,24 +13,6 @@ const list = authedWithOrganization
 	.output(z.object({ items: z.array(uploadedMediaSchema), nextOffset: z.number().nullable() }))
 	.handler(({ context, input, signal }) =>
 		listUploadedMedia({ ...input, abortSignal: signal, organizationId: context.organizationId })
-	);
-
-const searchStock = authedWithOrganization
-	.input(stockImageSearchInputSchema)
-	.output(stockImageSearchResultSchema)
-	.handler(({ input, signal }) =>
-		searchStockImages({
-			...input,
-			signal,
-		})
-	);
-
-const selectStock = authedWithOrganization
-	.use(organizationPermission("write"))
-	.input(stockImageSelectInputSchema)
-	.output(uploadedMediaSchema)
-	.handler(({ context, input }) =>
-		selectStockImage({ ...input, organizationId: context.organizationId, userId: context.session.user.id })
 	);
 
 const remove = authedWithOrganization
@@ -57,4 +34,4 @@ const remove = authedWithOrganization
 		return { id: input.mediaId };
 	});
 
-export const media = { delete: remove, list, searchStock, selectStock };
+export const media = { delete: remove, list };

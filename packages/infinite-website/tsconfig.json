@@ -1,5 +1,0 @@
-{
-	"extends": "@starter/tsconfig/react-lib.json",
-	"include": ["src", "scripts", ".storybook"],
-	"exclude": ["node_modules", "dist"]
-}

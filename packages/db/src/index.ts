@@ -93,23 +93,15 @@ export * from "./schema/auth/users.ts";
 
 export * from "./schema/auth/verifications.ts";
 
-export * from "./schema/contacts/contacts.ts";
-
 export * from "./schema/events/event-dispatches.ts";
 
 export * from "./schema/events/event-executions.ts";
 
 export * from "./schema/events/events.ts";
 
-export * from "./schema/integrations/oauth-connections.ts";
-
 export * from "./schema/files/files.ts";
 
 export * from "./schema/files/tags.ts";
-
-export * from "./schema/legal/terms-acceptances.ts";
-
-export * from "./schema/link-pages/link-pages.ts";
 
 export * from "./schema/notifications/notification-email-deliveries.ts";
 
@@ -120,12 +112,6 @@ export * from "./schema/notifications/notification-preferences.ts";
 export * from "./schema/notifications/notifications.ts";
 
 export * from "./schema/organizations/organization-purges.ts";
-
-export * from "./schema/seo/ai-questions.ts";
-
-export * from "./schema/websites/websites.ts";
-
-export * from "./schema/websites/website-versions.ts";
 
 export * from "./utils/filtering.ts";
 
@@ -141,11 +127,3 @@ export const isUniqueViolation = ({ error }: { error: Error }) =>
 export type Transaction = Parameters<Parameters<(typeof db)["transaction"]>[0]>[0];
 
 export type Database = typeof db;
-
-export * from "./schema/blog-posts/blog-posts.ts";
-
-export * from "./schema/contacts/contact-messages.ts";
-
-export * from "./schema/websites/domain-registrations.ts";
-
-export * from "./schema/websites/website-domains.ts";

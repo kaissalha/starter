@@ -47,9 +47,9 @@ describe("sampled claimed action scorer", () => {
 
 		const output = [
 			assistant("Published.", [
-				{ result: { revision: "1" }, toolName: "inspectWebsite" },
-				{ errorText: "Denied", state: "output-error", toolName: "publishWebsite" },
-				{ result: { error: true }, toolName: "editWebsite" },
+				{ result: { updatedAt: "1" }, toolName: "getLibraryAsset" },
+				{ errorText: "Denied", state: "output-error", toolName: "createLibraryDocument" },
+				{ result: { error: true }, toolName: "editLibraryDocument" },
 			]),
 		];
 
@@ -60,7 +60,7 @@ describe("sampled claimed action scorer", () => {
 			expect.objectContaining({
 				functionId: "dashboard-claimed-action",
 				policy: "background",
-				state: { executedTools: ["inspectWebsite"], response: "Published." },
+				state: { executedTools: ["getLibraryAsset"], response: "Published." },
 			})
 		);
 	});

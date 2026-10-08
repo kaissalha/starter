@@ -36,8 +36,7 @@ const NavbarLink = ({ children, className, href, ...props }: ComponentProps<type
 };
 
 const navLinks = [
-	{ href: "/#platform", key: "platform" },
-	{ href: "/#how-it-works", key: "howItWorks" },
+	{ href: "/#features", key: "features" },
 	{ href: "/#faqs", key: "faqs" },
 ] as const;
 

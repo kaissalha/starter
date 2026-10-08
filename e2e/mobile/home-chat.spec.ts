@@ -2,11 +2,6 @@ import { expect, test } from "@playwright/test";
 
 import { mockChatStream } from "../fixtures/chat";
 import { expectInViewport } from "../fixtures/mobile";
-import { resetWorkspaceWebsite } from "../fixtures/workspace";
-
-test.beforeEach(async () => {
-	await resetWorkspaceWebsite();
-});
 
 test("composes a multi-line prompt on a touch keyboard and sends it with the button", async ({ page }) => {
 	const answer = "Offer a sunrise sauna session for early risers.";
@@ -28,11 +23,4 @@ test("composes a multi-line prompt on a touch keyboard and sends it with the but
 	await send.tap();
 	await expect(page.getByText(answer, { exact: true })).toBeVisible();
 	expect(submitted).toHaveLength(1);
-});
-
-test("opens the website editor from the home overview", async ({ page }) => {
-	await page.goto("/dashboard");
-	await page.getByRole("link", { name: "Edit website" }).tap();
-	await expect(page).toHaveURL(/\/dashboard\/website$/u);
-	await expect(page.getByRole("button", { name: "Open publish panel" })).toBeVisible();
 });

@@ -129,7 +129,7 @@ export const getChats = async ({
 		perPage: CHAT_PAGE_SIZE,
 	});
 
-	const chats = result.threads.filter((thread) => !thread.metadata?.libraryChat && !thread.metadata?.websiteChat);
+	const chats = result.threads.filter((thread) => !thread.metadata?.libraryChat);
 	const nextPage = result.hasMore ? page + 1 : null;
 
 	return chats.length === 0 && nextPage !== null ? getChats({ organizationId, page: nextPage }) : { chats, nextPage };

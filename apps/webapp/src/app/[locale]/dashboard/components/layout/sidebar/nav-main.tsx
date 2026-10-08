@@ -1,15 +1,6 @@
 "use client";
 
-import {
-	Analytics01Icon,
-	FolderLibraryIcon,
-	News01Icon,
-	PanelsTopLeftIcon,
-	Home03Icon,
-	Link04Icon,
-	Search01Icon,
-	UserCircleIcon,
-} from "@hugeicons/core-free-icons";
+import { FolderLibraryIcon, Home03Icon } from "@hugeicons/core-free-icons";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
@@ -29,21 +20,7 @@ export const NavMain = () => {
 			title: t("breadcrumbs.home"),
 			url: "/dashboard" as const,
 		},
-		{
-			icon: PanelsTopLeftIcon,
-			title: t("breadcrumbs.website"),
-			url: "/dashboard/website" as const,
-		},
-		{
-			icon: Link04Icon,
-			title: t("breadcrumbs.links"),
-			url: "/dashboard/links" as const,
-		},
-		{ icon: Search01Icon, title: t("breadcrumbs.seoGeo"), url: "/dashboard/seo-geo" as const },
-		{ icon: UserCircleIcon, title: t("breadcrumbs.contacts"), url: "/dashboard/contacts" as const },
-		{ icon: News01Icon, title: t("breadcrumbs.blog"), url: "/dashboard/blog" as const },
 		{ icon: FolderLibraryIcon, title: t("breadcrumbs.library"), url: "/dashboard/library" as const },
-		{ icon: Analytics01Icon, title: t("breadcrumbs.analytics"), url: "/dashboard/analytics" as const },
 	];
 
 	return (

@@ -30,7 +30,7 @@ import { consumeRateLimit, createTCPRedisClient } from "@starter/cache";
 
 const redis = createTCPRedisClient(process.env.REDIS_URL!);
 const { allowed, retryAfterSeconds } = await consumeRateLimit({
-	key: "ratelimit:contact:site-1",
+	key: "ratelimit:api:org-1",
 	max: 30,
 	redis,
 	windowSeconds: 300,

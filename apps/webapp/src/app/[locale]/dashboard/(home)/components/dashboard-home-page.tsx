@@ -17,8 +17,7 @@ import { apiClient } from "@/lib/api-client";
 import type { DashboardChatUIMessage } from "@starter/server";
 import { SidebarTrigger } from "@starter/ui/components/sidebar";
 
-import { DashboardOverview } from "./dashboard-overview";
-import { DashboardWeather } from "./dashboard-weather";
+import { DashboardHistory } from "./dashboard-history";
 
 type DashboardHomePageProps = {
 	chatId: string;
@@ -111,16 +110,11 @@ const DashboardHomeContent = ({ chatId, greeting, onNewChat }: DashboardHomeCont
 			</header>
 			<div className='min-h-0 flex-1 overflow-y-auto'>
 				<div className='flex w-full flex-col gap-6 px-4 pb-44 md:px-10 md:pt-4'>
-					<div className='flex flex-wrap items-center justify-between gap-4'>
-						<div className='flex flex-col gap-2'>
-							<h1 className='text-3xl leading-tight'>{greeting},</h1>
-							<p className='text-sm text-muted-foreground'>{tHome("subtitle")}</p>
-						</div>
-						<div className='hidden md:block'>
-							<DashboardWeather />
-						</div>
+					<div className='flex flex-col gap-2'>
+						<h1 className='text-3xl leading-tight'>{greeting},</h1>
+						<p className='text-sm text-muted-foreground'>{tHome("subtitle")}</p>
 					</div>
-					<DashboardOverview />
+					<DashboardHistory />
 				</div>
 			</div>
 			<div className='pointer-events-none absolute inset-x-0 bottom-0 px-4 pb-4 md:px-10'>

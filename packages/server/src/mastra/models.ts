@@ -35,35 +35,18 @@ const requestAIMiddleware: LanguageModelMiddleware = {
 const languageModel = (id: string) => wrapLanguageModel({ middleware: requestAIMiddleware, model: gateway(id) });
 
 export const models = {
+	chat: { model: languageModel("openai/gpt-6-luna") },
 	cheapFast: {
 		model: languageModel("deepseek/deepseek-v4-flash"),
 		providerOptions: { gateway: { models: ["google/gemini-3.6-flash"], only: ["baseten", "vertex"] } },
 	},
 	decision: { model: evaluationGateway.evaluationModel("typesafe-ai/jev") },
-	geo: {
-		claude: languageModel("anthropic/claude-haiku-4.5"),
-		gemini: languageModel("google/gemini-3.6-flash"),
-		openai: languageModel("openai/gpt-6-luna"),
-	},
 	image: { model: gateway.image("openai/gpt-image-2") },
 	logo: {
 		model: gateway.image("openai/gpt-image-1.5"),
 		providerOptions: { openai: { background: "transparent" } },
 	},
 	vision: { model: languageModel("google/gemini-3.6-flash") },
-	websiteAuthoring: { model: languageModel("openai/gpt-6-luna") },
-	websiteGeneration: {
-		model: languageModel("deepseek/deepseek-v4-flash-0731"),
-		providerOptions: {
-			deepseek: { thinking: { type: "disabled" } },
-			gateway: {
-				models: ["google/gemini-3.6-flash"],
-				only: ["deepseek", "alibaba", "vertex"],
-				order: ["deepseek", "alibaba"],
-			},
-			google: { thinkingConfig: { thinkingLevel: "minimal" } },
-		},
-	},
 };
 
 export const knowledgeEmbeddingModel = new ModelRouterEmbeddingModel({

@@ -1,38 +1,28 @@
 import { and, asc, eq, inArray, isNull, sql } from "drizzle-orm";
-import { render } from "react-email";
-import { z } from "zod";
 
 import {
-	contactMessages,
-	contacts,
 	db,
 	members,
 	notificationEmailDeliveries,
 	notificationPreferences,
 	users,
-	websites,
 	type EventRecord,
 } from "@starter/db";
-import { ContactMessageEmail, DomainAlertEmail, getI18n, isSupportedLocale } from "@starter/email";
 import { log, serializeLogError } from "@starter/observability";
 import { getBaseURL } from "@starter/utils";
 
 import { sendEmail } from "../../lib/resend";
 import { hasOrganizationPermission } from "../../utils/permissions";
-import { eventCatalog } from "../events/catalog";
 import type { ProjectionOutcome } from "./projector";
-import { audiencePermission, notificationTypeKeys, notificationTypes, type NotificationType } from "./registry";
+import { audiencePermission, notificationTypeKeys, getNotificationDefinition, type NotificationType } from "./registry";
 
 type EmailContent = { html: string; replyTo?: string; subject: string };
-
-const singleLine = ({ length, value }: { length: number; value: string }) =>
-	[...value.replaceAll(/\s+/gu, " ").trim()].slice(0, length).join("");
 
 const dashboardUrl = ({ locale, path }: { locale: string; path: string }) =>
 	new URL(`${locale === "en" ? "" : `/${locale}`}${path}`, getBaseURL()).toString();
 
 const findRecipients = async ({ event, type }: { event: EventRecord; type: NotificationType }) => {
-	const definition = notificationTypes[type].email;
+	const definition = getNotificationDefinition(type).email;
 
 	const candidates = await db
 		.select({
@@ -66,99 +56,16 @@ const findRecipients = async ({ event, type }: { event: EventRecord; type: Notif
 	);
 };
 
-const buildContactContent = async ({
-	event,
-	locale,
-	settingsLink,
-}: {
-	event: EventRecord;
-	locale: string;
-	settingsLink: string;
-}): Promise<EmailContent | ProjectionOutcome> => {
-	const data = eventCatalog["contact_message.created"].data.parse(event.data);
-
-	const [row] = await db
-		.select({
-			email: contacts.email,
-			message: contactMessages.message,
-			senderName: contactMessages.senderName,
-			senderPhone: contactMessages.senderPhone,
-			spamFlag: contactMessages.spamFlag,
-		})
-		.from(contactMessages)
-		.innerJoin(contacts, eq(contacts.id, contactMessages.contactId))
-		.where(and(eq(contactMessages.id, data.messageId), eq(contacts.organizationId, event.organizationId)))
-		.limit(1);
-
-	if (!row) {
-		return { code: "subject_deleted", state: "skipped" };
-	}
-
-	if (row.spamFlag) {
-		return { code: "spam", state: "skipped" };
-	}
-
-	const name = singleLine({ length: 80, value: row.senderName });
-	const characters = [...row.message.trim()];
-
-	const html = await render(
-		ContactMessageEmail({
-			contactLink: dashboardUrl({
-				locale,
-				path: `/dashboard/contacts?contact=${data.contactId}&contactTab=messages&messageId=${data.messageId}`,
-			}),
-			locale,
-			message: characters.length > 500 ? `${characters.slice(0, 500).join("")}…` : characters.join(""),
-			senderEmail: row.email ?? undefined,
-			senderName: name,
-			senderPhone: row.senderPhone,
-			settingsLink,
-		})
-	);
-
-	return {
-		html,
-		replyTo: row.email && z.email().safeParse(row.email).success ? row.email : undefined,
-		subject: getI18n({ locale }).t("contactMessage.subject", { name }),
-	};
-};
-
-const buildDomainContent = async ({
-	event,
-	locale,
-	settingsLink,
-}: {
-	event: EventRecord;
-	locale: string;
-	settingsLink: string;
-}): Promise<EmailContent | ProjectionOutcome> => {
-	const { t } = getI18n({ locale });
-	const manageLink = dashboardUrl({ locale, path: "/dashboard/website?websiteSettings=domains" });
-
-	if (event.type === "domain_registration.expiring") {
-		const data = eventCatalog["domain_registration.expiring"].data.parse(event.data);
-		const domain = singleLine({ length: 253, value: data.domain });
-
-		return {
-			html: await render(
-				DomainAlertEmail({ days: data.days, domain, kind: "expiring", locale, manageLink, settingsLink })
-			),
-			subject: t("domainAlert.expiring.subject", { domain }),
-		};
-	}
-
-	if (event.type === "domain_registration.failed") {
-		const data = eventCatalog["domain_registration.failed"].data.parse(event.data);
-		const domain = singleLine({ length: 253, value: data.domain });
-
-		return {
-			html: await render(DomainAlertEmail({ domain, kind: "failed", locale, manageLink, settingsLink })),
-			subject: t("domainAlert.failed.subject", { domain }),
-		};
-	}
-
-	return { code: "not_applicable", state: "skipped" };
-};
+const emailContentBuilders: Partial<
+	Record<
+		string,
+		(input: {
+			event: EventRecord;
+			locale: string;
+			settingsLink: string;
+		}) => Promise<EmailContent | ProjectionOutcome>
+	>
+> = {};
 
 const deliverEmails = async ({
 	content,
@@ -245,7 +152,8 @@ const deliverEmails = async ({
 
 export const sendNotificationEmails = async ({ event }: { event: EventRecord }): Promise<ProjectionOutcome> => {
 	const type = notificationTypeKeys.find(
-		(candidate) => notificationTypes[candidate].event === event.type && notificationTypes[candidate].email
+		(candidate) =>
+			getNotificationDefinition(candidate).event === event.type && getNotificationDefinition(candidate).email
 	);
 
 	if (!type) {
@@ -262,19 +170,19 @@ export const sendNotificationEmails = async ({ event }: { event: EventRecord }):
 		return { code: "no_recipients", state: "skipped" };
 	}
 
-	const [website] = await db
-		.select({ locale: websites.locale })
-		.from(websites)
-		.where(eq(websites.organizationId, event.organizationId))
-		.limit(1);
+	const build = emailContentBuilders[type];
 
-	const locale = isSupportedLocale(website?.locale) ? website.locale : "en";
-	const settingsLink = dashboardUrl({ locale, path: "/dashboard?settings=notifications" });
+	if (!build) {
+		return { code: "not_applicable", state: "skipped" };
+	}
 
-	const content =
-		event.type === "contact_message.created"
-			? await buildContactContent({ event, locale, settingsLink })
-			: await buildDomainContent({ event, locale, settingsLink });
+	const locale = "en";
+
+	const content = await build({
+		event,
+		locale,
+		settingsLink: dashboardUrl({ locale, path: "/dashboard?settings=notifications" }),
+	});
 
 	if (!("html" in content)) {
 		return content;

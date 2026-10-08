@@ -6,8 +6,7 @@ vi.mock("next-intl", async () => {
 	return {
 		...actual,
 		useLocale: () => "en",
-		useTranslations: () => (key: string, values?: Record<string, number | string>) =>
-			key === "approveCount" ? `${key}:${values?.count}` : key,
+		useTranslations: () => (key: string) => key,
 	};
 });
 

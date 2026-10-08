@@ -1,7 +1,7 @@
 {
 	"version": 1,
-	"generatedAt": "2026-08-15T16:03:11.932Z",
-	"cliVersion": "0.5.2",
+	"generatedAt": "2026-10-08T02:16:12.475Z",
+	"cliVersion": "0.9.0",
 	"ruleSetVersion": 1,
 	"framework": "next",
 	"projectName": "webapp",
@@ -31,6 +31,26 @@
 			"framework": "next",
 			"kind": "page",
 			"method": null,
+			"path": "/:locale/:rest*",
+			"file": "src/app/[locale]/[...rest]/page.tsx",
+			"handler": null,
+			"id": "b749d3a1abc5",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
 			"path": "/:locale/accept-invitation/:id",
 			"file": "src/app/[locale]/accept-invitation/[id]/page.tsx",
 			"handler": null,
@@ -42,8 +62,8 @@
 			},
 			"suggestions": {},
 			"sensitivity": {
-				"level": "none",
-				"reasons": []
+				"level": "high",
+				"reasons": ["auth: imports better-auth"]
 			},
 			"score": 100
 		},
@@ -71,10 +91,30 @@
 			"framework": "next",
 			"kind": "page",
 			"method": null,
-			"path": "/:locale/dashboard/website",
-			"file": "src/app/[locale]/dashboard/website/page.tsx",
+			"path": "/:locale/dashboard/library",
+			"file": "src/app/[locale]/dashboard/library/page.tsx",
 			"handler": null,
-			"id": "5ff239be8d17",
+			"id": "fbdd7a0c64fe",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/dashboard/library/:assetId",
+			"file": "src/app/[locale]/dashboard/library/[assetId]/page.tsx",
+			"handler": null,
+			"id": "e3689fe6a90a",
 			"checks": {
 				"page-error-handling": {
 					"status": "n/a"
@@ -169,12 +209,32 @@
 		},
 		{
 			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/terms",
+			"file": "src/app/[locale]/(site)/terms/page.tsx",
+			"handler": null,
+			"id": "35750ec7847d",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
 			"kind": "api",
 			"method": "GET",
 			"path": "/api/accept-md",
 			"file": "src/app/api/accept-md/route.ts",
 			"handler": {
-				"line": 130,
+				"line": 8,
 				"column": 0
 			},
 			"id": "889633d3b898",
@@ -185,13 +245,13 @@
 				"audit": {
 					"status": "n/a"
 				},
+				"error-handling": {
+					"status": "n/a"
+				},
 				"wide-event": {
 					"status": "pass"
 				},
 				"context": {
-					"status": "pass"
-				},
-				"error-handling": {
 					"status": "pass"
 				}
 			},
@@ -209,7 +269,7 @@
 			"path": "/api/auth/:all*",
 			"file": "src/app/api/auth/[...all]/route.ts",
 			"handler": {
-				"line": 53,
+				"line": 45,
 				"column": 0
 			},
 			"id": "f1e1b342b760",
@@ -250,7 +310,7 @@
 			"path": "/api/auth/:all*",
 			"file": "src/app/api/auth/[...all]/route.ts",
 			"handler": {
-				"line": 54,
+				"line": 47,
 				"column": 0
 			},
 			"id": "5584c3bdc548",
@@ -291,7 +351,7 @@
 			"path": "/api/chats/:chatId/stream",
 			"file": "src/app/api/chats/[chatId]/stream/route.ts",
 			"handler": {
-				"line": 24,
+				"line": 18,
 				"column": 0
 			},
 			"id": "23faf533a61f",
@@ -326,7 +386,7 @@
 			"path": "/api/chats/:chatId/stream",
 			"file": "src/app/api/chats/[chatId]/stream/route.ts",
 			"handler": {
-				"line": 13,
+				"line": 7,
 				"column": 0
 			},
 			"id": "829465f93dc5",
@@ -357,14 +417,49 @@
 		{
 			"framework": "next",
 			"kind": "api",
-			"method": "DELETE",
-			"path": "/api/mcp",
-			"file": "src/app/api/mcp/route.ts",
+			"method": "GET",
+			"path": "/api/events/dispatch",
+			"file": "src/app/api/events/dispatch/route.ts",
 			"handler": {
-				"line": 86,
+				"line": 6,
 				"column": 0
 			},
-			"id": "0ac9cade48a6",
+			"id": "f7f337264b01",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "POST",
+			"path": "/api/events/dispatch",
+			"file": "src/app/api/events/dispatch/route.ts",
+			"handler": {
+				"line": 16,
+				"column": 0
+			},
+			"id": "a0b89e94829e",
 			"checks": {
 				"structured-errors": {
 					"status": "n/a"
@@ -393,13 +488,83 @@
 			"framework": "next",
 			"kind": "api",
 			"method": "GET",
-			"path": "/api/mcp",
-			"file": "src/app/api/mcp/route.ts",
+			"path": "/api/events/retention",
+			"file": "src/app/api/events/retention/route.ts",
 			"handler": {
-				"line": 84,
+				"line": 6,
 				"column": 0
 			},
-			"id": "61ff69b60c1f",
+			"id": "70d1ef8d5029",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/library/:assetId/pdf",
+			"file": "src/app/api/library/[assetId]/pdf/route.ts",
+			"handler": {
+				"line": 5,
+				"column": 0
+			},
+			"id": "0d40d0dec0bd",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/maintenance/retention",
+			"file": "src/app/api/maintenance/retention/route.ts",
+			"handler": {
+				"line": 6,
+				"column": 0
+			},
+			"id": "2ecbc6d4097a",
 			"checks": {
 				"structured-errors": {
 					"status": "n/a"
@@ -431,7 +596,7 @@
 			"path": "/api/mcp",
 			"file": "src/app/api/mcp/route.ts",
 			"handler": {
-				"line": 85,
+				"line": 13,
 				"column": 0
 			},
 			"id": "0a592ecd7006",
@@ -466,7 +631,7 @@
 			"path": "/api/media",
 			"file": "src/app/api/media/route.ts",
 			"handler": {
-				"line": 19,
+				"line": 15,
 				"column": 0
 			},
 			"id": "39a06f692090",
@@ -501,10 +666,45 @@
 			"path": "/api/media",
 			"file": "src/app/api/media/route.ts",
 			"handler": {
-				"line": 10,
+				"line": 5,
 				"column": 0
 			},
 			"id": "8f712acf35c3",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/organizations/purge",
+			"file": "src/app/api/organizations/purge/route.ts",
+			"handler": {
+				"line": 6,
+				"column": 0
+			},
+			"id": "9ec6af268810",
 			"checks": {
 				"structured-errors": {
 					"status": "n/a"
@@ -536,7 +736,7 @@
 			"path": "/api/rpc/:rest*?",
 			"file": "src/app/api/rpc/[[...rest]]/route.ts",
 			"handler": {
-				"line": 33,
+				"line": 35,
 				"column": 0
 			},
 			"id": "4b9301333f91",
@@ -571,7 +771,7 @@
 			"path": "/api/rpc/:rest*?",
 			"file": "src/app/api/rpc/[[...rest]]/route.ts",
 			"handler": {
-				"line": 29,
+				"line": 27,
 				"column": 0
 			},
 			"id": "7ede0b59e3a6",
@@ -606,7 +806,7 @@
 			"path": "/api/rpc/:rest*?",
 			"file": "src/app/api/rpc/[[...rest]]/route.ts",
 			"handler": {
-				"line": 34,
+				"line": 37,
 				"column": 0
 			},
 			"id": "77aeaeaa7acc",
@@ -641,7 +841,7 @@
 			"path": "/api/rpc/:rest*?",
 			"file": "src/app/api/rpc/[[...rest]]/route.ts",
 			"handler": {
-				"line": 32,
+				"line": 33,
 				"column": 0
 			},
 			"id": "bfe07872ad4c",
@@ -676,7 +876,7 @@
 			"path": "/api/rpc/:rest*?",
 			"file": "src/app/api/rpc/[[...rest]]/route.ts",
 			"handler": {
-				"line": 30,
+				"line": 29,
 				"column": 0
 			},
 			"id": "a82fa3928b5a",
@@ -746,7 +946,7 @@
 			"path": "/api/v1/:rest*?",
 			"file": "src/app/api/v1/[[...rest]]/route.ts",
 			"handler": {
-				"line": 54,
+				"line": 55,
 				"column": 0
 			},
 			"id": "e4b642595236",
@@ -781,7 +981,7 @@
 			"path": "/api/v1/:rest*?",
 			"file": "src/app/api/v1/[[...rest]]/route.ts",
 			"handler": {
-				"line": 50,
+				"line": 47,
 				"column": 0
 			},
 			"id": "9f29013d261e",
@@ -851,7 +1051,7 @@
 			"path": "/api/v1/:rest*?",
 			"file": "src/app/api/v1/[[...rest]]/route.ts",
 			"handler": {
-				"line": 51,
+				"line": 49,
 				"column": 0
 			},
 			"id": "35bcde3f66d0",
@@ -886,7 +1086,7 @@
 			"path": "/api/v1/:rest*?",
 			"file": "src/app/api/v1/[[...rest]]/route.ts",
 			"handler": {
-				"line": 52,
+				"line": 51,
 				"column": 0
 			},
 			"id": "04407a07f31d",

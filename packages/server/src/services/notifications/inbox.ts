@@ -1,7 +1,7 @@
 import { and, count, desc, eq, inArray, isNotNull, isNull, lt, lte, sql } from "drizzle-orm";
 import { z } from "zod";
 
-import { contacts, db, notifications } from "@starter/db";
+import { db, notifications } from "@starter/db";
 
 import { isNotificationType, notificationTypeKeys } from "./registry";
 
@@ -30,7 +30,6 @@ export const notificationSequenceInputSchema = z
 export const notificationSchema = z
 	.strictObject({
 		archivedAt: z.string().nullable(),
-		contact: z.strictObject({ email: z.string().nullable(), id: z.uuid(), name: z.string().nullable() }).nullable(),
 		createdAt: z.string(),
 		groupKey: z.string().nullable(),
 		id: z.uuid(),
@@ -102,27 +101,12 @@ export const listNotifications = async ({
 
 	const page = rows.slice(0, limit);
 
-	const contactIds = [
-		...new Set(
-			page.flatMap(({ groupKey, type }) => (type === "contact_message_received" && groupKey ? [groupKey] : []))
-		),
-	];
-
-	const contactRows =
-		contactIds.length === 0
-			? []
-			: await db
-					.select({ email: contacts.email, id: contacts.id, name: contacts.name })
-					.from(contacts)
-					.where(and(eq(contacts.organizationId, actor.organizationId), inArray(contacts.id, contactIds)));
-
 	return {
 		items: page.flatMap(({ subjectId, subjectType, type, ...row }) =>
 			isNotificationType(type)
 				? [
 						{
 							...row,
-							contact: contactRows.find(({ id }) => id === row.groupKey) ?? null,
 							subject: { id: subjectId, type: subjectType },
 							type,
 						},

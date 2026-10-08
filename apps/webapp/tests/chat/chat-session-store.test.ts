@@ -20,14 +20,10 @@ describe("chat session state", () => {
 	it("distinguishes manual approvals that replace the ordinary composer", () => {
 		const approvalPart = {
 			approval: { id: "approval-id" },
-			input: {
-				remove: ["section-root"],
-				revision: "2026-08-22T12:00:00.000Z",
-				section: "s0",
-			},
+			input: { content: "# Notes", name: "Notes" },
 			state: "approval-requested" as const,
 			toolCallId: "edit-call",
-			type: "tool-buildWebsite" as const,
+			type: "tool-createLibraryDocument" as const,
 		};
 
 		const approvalMessage = {
@@ -64,14 +60,10 @@ describe("chat session state", () => {
 							parts: [
 								{
 									approval: { id: "approval-id" },
-									input: {
-										remove: ["section-root"],
-										revision: "2026-08-22T12:00:00.000Z",
-										section: "s0",
-									},
+									input: { content: "# Notes", name: "Notes" },
 									state: "approval-requested",
 									toolCallId: "edit-call",
-									type: "tool-buildWebsite",
+									type: "tool-createLibraryDocument",
 								},
 							],
 							role: "assistant",

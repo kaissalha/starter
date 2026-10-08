@@ -21,17 +21,8 @@ import { dashboardSkills } from "./skills";
 import { getDashboardActiveTools } from "./tool-policy";
 import { dashboardChatTools, isDashboardMutationToolName } from "./tools";
 import { appContextSchema } from "./types";
-import { websiteAuthoringProcessor, websiteAuthoringRetryLimit } from "./website-authoring-processor";
 
 const capabilityContextPrefix = "Current dashboard capabilities: ";
-
-const destructiveTools = new Set([
-	"deleteContact",
-	"deleteBlogPost",
-	"unpublishBlogPost",
-	"changeWebsiteTemplate",
-	"generateWebsiteLayout",
-]);
 
 const failedToolResultSchema = z.compile(z.looseObject({ error: z.literal(true) }));
 
@@ -296,25 +287,14 @@ export const dashboardChatAgent = new Agent({
 			const context = appContextSchema.parse(requestContext?.all);
 			const role = await requireOrganizationPermission({ ...context, permission: "read" });
 			const canWrite = hasOrganizationPermission({ permission: "write", role });
-			const canDelete = hasOrganizationPermission({ permission: "delete", role });
 
 			const activeTools = getDashboardActiveTools(messages, context.approvalContinuation === true, {
-				routedReference: context.routedReference,
 				routedSkill: context.routedSkill,
-			}).filter(
-				(name) => (canDelete || !destructiveTools.has(name)) && (canWrite || !isDashboardMutationToolName(name))
-			);
+			}).filter((name) => canWrite || !isDashboardMutationToolName(name));
 
-			const restrictions = [
-				canDelete &&
-					"The user may perform all changes, including deletions, after required reads and approvals.",
-				canWrite &&
-					!canDelete &&
-					"The user may read, create, update, and publish, but cannot delete or remove content, unpublish, replace templates, regenerate layouts, or clear logic. editWebsite and buildWebsite allow only non-destructive edits.",
-				!canWrite && "The user has read-only access. Do not request approval or attempt any modification.",
-			]
-				.filter(Boolean)
-				.join(" ");
+			const restrictions = canWrite
+				? "The user may perform changes after required reads and approvals."
+				: "The user has read-only access. Do not request approval or attempt any modification.";
 
 			return {
 				activeTools,
@@ -323,7 +303,7 @@ export const dashboardChatAgent = new Agent({
 						(message) => !(message.role === "system" && message.content.startsWith(capabilityContextPrefix))
 					),
 					{
-						content: `${capabilityContextPrefix}${activeTools.join(", ")}. ${restrictions} Availability also depends on the skill's fresh-read requirements. composeWebsiteSection stays unavailable until this turn has read inspectWebsite scope "reference" and scope "context" for the same page and index. An available editing tool does not authorize every edit. Approval never overrides permissions. If access prevents a requested change, briefly explain that their current role does not allow that change and an owner can help. Do not expose tool names, IDs, or internal access checks to the user. Never claim a change is prepared or saved without the corresponding tool result.`,
+						content: `${capabilityContextPrefix}${activeTools.join(", ")}. ${restrictions} Availability also depends on the skill's fresh-read requirements. An available editing tool does not authorize every edit. Approval never overrides permissions. If access prevents a requested change, briefly explain that their current role does not allow that change and an owner can help. Do not expose tool names, IDs, or internal access checks to the user. Never claim a change is prepared or saved without the corresponding tool result.`,
 						role: "system",
 					},
 				],
@@ -331,28 +311,24 @@ export const dashboardChatAgent = new Agent({
 		},
 		toolCallConcurrency: { limit: 6, strategy: "called" },
 	},
-	description: "Organization-scoped dashboard assistant for knowledge, Brand, Links, and website work.",
+	description: "Organization-scoped dashboard assistant for knowledge and library work.",
 	id: "dashboard-chat-agent",
 	inputProcessors: async () => [await createDashboardWorkingMemoryProcessor()],
 	instructions: ({ requestContext }) =>
 		[dashboardChatSystemPrompt, dashboardChatCurrentUserPrompt(requestContext.get("currentUser"))]
 			.filter(Boolean)
 			.join("\n\n"),
-	maxProcessorRetries: websiteAuthoringRetryLimit,
 	memory: dashboardChatMemory,
 	model: ({ requestContext }) => {
 		if (requestContext.get("useVisionModel")) {
 			return models.vision.model;
 		}
 
-		return requestContext.get("modelTier") === "simple" &&
-			!requestContext.get("websiteEditor") &&
-			!requestContext.get("approvalContinuation")
+		return requestContext.get("modelTier") === "simple" && !requestContext.get("approvalContinuation")
 			? [{ model: models.cheapFast.model, providerOptions: models.cheapFast.providerOptions }]
-			: models.websiteAuthoring.model;
+			: models.chat.model;
 	},
 	name: "Dashboard Chat Agent",
-	outputProcessors: [websiteAuthoringProcessor],
 	requestContextSchema: appContextSchema,
 	scorers: {
 		answeredInUserLocale: { sampling: { rate: 0.1, type: "ratio" }, scorer: dashboardLocaleScorer },

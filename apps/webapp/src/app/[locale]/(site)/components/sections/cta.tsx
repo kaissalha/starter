@@ -25,7 +25,7 @@ export const CTA = async () => {
 					<Button
 						className='mt-12 border-white bg-white text-olive-950 hover:bg-olive-50 dark:bg-white dark:hover:bg-olive-50'
 						nativeButton={false}
-						render={<Link href='/dashboard/website' />}
+						render={<Link href='/dashboard' />}
 						size='xl'
 						variant='outline'
 					>
@@ -38,7 +38,6 @@ export const CTA = async () => {
 							strokeWidth={1.75}
 						/>
 					</Button>
-					<p className='mt-6 text-sm text-white/70'>{t("reassurance")}</p>
 				</div>
 			</SilkCard>
 		</section>

@@ -12,16 +12,13 @@ const footerSections = [
 	{
 		id: "product",
 		links: [
-			{ href: "/#platform", id: "platform" },
-			{ href: "/#links", id: "links" },
-			{ href: "/#how-it-works", id: "howItWorks" },
-			{ href: "/templates", id: "templates" },
+			{ href: "/#features", id: "features" },
+			{ href: "/#faqs", id: "faqs" },
 		],
 	},
 	{
-		id: "help",
+		id: "legal",
 		links: [
-			{ href: "/#faqs", id: "faqs" },
 			{ href: "/privacy", id: "privacy" },
 			{ href: "/terms", id: "terms" },
 		],

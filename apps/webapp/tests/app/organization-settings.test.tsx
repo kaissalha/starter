@@ -1,33 +1,13 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, fireEvent, render, renderHook, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { OrganizationLogoUpload } from "@/app/[locale]/dashboard/components/settings/organization-logo-upload";
 import { useOrganizationSettingsForm } from "@/app/[locale]/dashboard/components/settings/use-organization-settings-form";
 
-const mocks = vi.hoisted(() => ({ error: vi.fn(), setLogo: vi.fn(), success: vi.fn(), update: vi.fn() }));
+const mocks = vi.hoisted(() => ({ error: vi.fn(), success: vi.fn(), update: vi.fn() }));
 
 vi.mock("@/lib/auth-client", () => ({
 	authClient: { organization: { update: mocks.update }, useActiveOrganization: () => ({ refetch: vi.fn() }) },
-}));
-
-vi.mock("@/lib/api-client", () => ({
-	apiClient: {
-		brands: {
-			get: {
-				key: () => ["brands", "get"],
-				queryOptions: () => ({ queryFn: () => null, queryKey: ["brands", "get"] }),
-			},
-			setLogo: {
-				mutationOptions: (options: { onError?: () => void; onSuccess?: () => Promise<void> }) => ({
-					...options,
-					mutationFn: mocks.setLogo,
-				}),
-			},
-		},
-		linkPages: { get: { key: () => ["linkPages", "get"] } },
-		websites: { get: { key: () => ["websites", "get"] } },
-	},
 }));
 
 vi.mock("@/components/media/media-picker", () => ({ MediaPickerContent: () => null }));
@@ -60,16 +40,13 @@ describe("organization settings", () => {
 	});
 
 	it("ends saving when removing the logo fails on the network", async () => {
-		mocks.setLogo.mockRejectedValue(new Error("Offline"));
-		render(
-			<QueryClientProvider client={new QueryClient()}>
-				<OrganizationLogoUpload canEdit organization={organization} />
-			</QueryClientProvider>
-		);
-		fireEvent.click(screen.getByRole("button", { name: "text" }));
+		mocks.update.mockReset().mockRejectedValue(new Error("Offline"));
+		mocks.success.mockReset();
+		render(<OrganizationLogoUpload canEdit organization={organization} />);
+		fireEvent.click(screen.getByRole("button", { name: "delete" }));
 		await waitFor(() => expect(mocks.error).toHaveBeenCalledWith("failed"));
-		expect(mocks.setLogo.mock.calls[0]?.[0]).toEqual({ logo: null });
-		await waitFor(() => expect(screen.getByRole("button", { name: "text" })).toBeEnabled());
+		expect(mocks.update).toHaveBeenCalledWith({ data: { logo: "" }, organizationId: "org" });
+		await waitFor(() => expect(screen.getByRole("button", { name: "delete" })).toBeEnabled());
 		expect(mocks.success).not.toHaveBeenCalled();
 	});
 });

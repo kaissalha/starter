@@ -12,12 +12,7 @@ export default defineProject({
 	},
 	test: {
 		environment: "node",
-		exclude: [
-			"**/*.integration.test.{ts,tsx}",
-			"**/*.workflow.test.ts",
-			"tests/lib/auth.test.ts",
-			"tests/services/websites.test.ts",
-		],
+		exclude: ["**/*.integration.test.{ts,tsx}", "**/*.workflow.test.ts", "tests/lib/auth.test.ts"],
 		globals: true,
 		include: ["tests/**/*.test.{ts,tsx}"],
 		setupFiles: ["./tests/setup.ts"],

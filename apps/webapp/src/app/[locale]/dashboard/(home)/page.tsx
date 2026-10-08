@@ -39,10 +39,6 @@ const DashboardPageContent = async ({ searchParams }: DashboardPageProps) => {
 
 	if (!parsedChatId.success) {
 		const queryClient = getQueryClient();
-		prefetch(queryClient.query(serverApiClient.websites.get.queryOptions()));
-		prefetch(queryClient.query(serverApiClient.linkPages.get.queryOptions()));
-		prefetch(queryClient.query(serverApiClient.contacts.list.queryOptions({ input: { pageSize: 3 } })));
-		prefetch(queryClient.query(serverApiClient.blogPosts.list.queryOptions({ input: { pageSize: 3 } })));
 		prefetch(
 			queryClient.infiniteQuery(
 				serverApiClient.chats.list.infiniteOptions<number>({
@@ -80,11 +76,7 @@ export default function DashboardPage(props: DashboardPageProps) {
 				<div className='flex w-full flex-1 flex-col gap-6 px-4 py-5 md:px-10 md:py-8'>
 					<Skeleton className='h-9 w-64 max-w-full' />
 					<Skeleton className='h-4 w-96 max-w-full' />
-					<div className='grid gap-4 lg:grid-cols-3'>
-						<Skeleton className='h-96 w-full' />
-						<Skeleton className='h-96 w-full' />
-						<Skeleton className='h-96 w-full' />
-					</div>
+					<Skeleton className='h-96 w-full' />
 					<Skeleton className='mx-auto mt-auto h-28 w-full max-w-3xl' />
 				</div>
 			}

@@ -11,14 +11,7 @@ import {
 	resolveSession,
 } from "../lib/auth";
 import { requireOrganizationPermission } from "../services/permissions";
-import { registerAnalyticsMcpTools } from "./mcp-tools/analytics";
-import { registerBlogMcpTools } from "./mcp-tools/blog-posts";
-import { registerBrandMcpTools } from "./mcp-tools/brand";
-import { registerContactMcpTools } from "./mcp-tools/contacts";
-import { registerDomainMcpTools } from "./mcp-tools/domains";
-import { registerLinkPageMcpTools } from "./mcp-tools/link-pages";
 import { registerNotificationMcpTools } from "./mcp-tools/notifications";
-import { registerSeoMcpTools } from "./mcp-tools/seo";
 
 const createOrganizationMcpHandler = async ({ organizationId, userId }: { organizationId: string; userId: string }) => {
 	await requireOrganizationPermission({ organizationId, permission: "read", userId });
@@ -26,14 +19,7 @@ const createOrganizationMcpHandler = async ({ organizationId, userId }: { organi
 	return createMcpHandler(() => {
 		const server = new McpServer({ name: "starter", version: "1.0.0" });
 		const context = { organizationId, server, userId };
-		registerBlogMcpTools(context);
-		registerAnalyticsMcpTools(context);
-		registerSeoMcpTools(context);
-		registerContactMcpTools(context);
-		registerDomainMcpTools(context);
 		registerNotificationMcpTools(context);
-		registerBrandMcpTools(context);
-		registerLinkPageMcpTools(context);
 
 		return server;
 	});

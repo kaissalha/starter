@@ -19,11 +19,10 @@ import { createHash } from "node:crypto";
 import { z } from "zod";
 
 import { checkRateLimit } from "@starter/cache";
-import { apikeys, db, members, schema, termsAcceptances, users } from "@starter/db";
+import { apikeys, db, members, schema, users } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
 import { getBaseURL } from "@starter/utils";
 
-import { legalVersion } from "../contracts";
 import type { OrganizationAIShutdownLease } from "../services/chat-stream-state";
 import {
 	authPermissionHook,
@@ -112,13 +111,6 @@ const authOptions = {
 							activeOrganizationId: member.organizationId,
 						},
 					};
-				},
-			},
-		},
-		user: {
-			create: {
-				after: async (user) => {
-					await db.insert(termsAcceptances).values({ userId: user.id, version: legalVersion });
 				},
 			},
 		},

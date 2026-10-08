@@ -31,7 +31,6 @@ const mocks = vi.hoisted(() => ({
 	resolveLibraryAssetBinding: vi.fn(),
 	resolvePersistedAssistantContinuationClaim: vi.fn(),
 	resolveSession: vi.fn(),
-	resolveWebsiteEditorBinding: vi.fn(),
 	resumableStream: vi.fn(),
 	setChatStreamId: vi.fn(),
 	waitForFilesReady: vi.fn(),
@@ -126,7 +125,6 @@ vi.mock("../../src/api/chat-stream-validation", () => ({
 		),
 	resolveLibraryAssetBinding: mocks.resolveLibraryAssetBinding,
 	resolvePersistedAssistantContinuationClaim: mocks.resolvePersistedAssistantContinuationClaim,
-	resolveWebsiteEditorBinding: mocks.resolveWebsiteEditorBinding,
 }));
 
 import { handleCreateChatStream, handleResumeChatStream } from "../../src/api/chat-stream";
@@ -173,7 +171,6 @@ describe("chat stream HTTP handlers", () => {
 
 		mocks.getChatWithMessages.mockResolvedValue(null);
 		mocks.convertChatMessagesForUI.mockResolvedValue([]);
-		mocks.resolveWebsiteEditorBinding.mockResolvedValue(undefined);
 		mocks.resolveLibraryAssetBinding.mockResolvedValue(undefined);
 		mocks.waitForFilesReady.mockResolvedValue(undefined);
 		mocks.claimChatContinuation.mockResolvedValue(true);
@@ -369,7 +366,7 @@ describe("chat stream HTTP handlers", () => {
 		mocks.evaluateDecision.mockResolvedValueOnce({
 			answers: {
 				needsKnowledge: { probability: 0.9, type: "boolean" },
-				route: { choice: "links", type: "choice" },
+				route: { choice: "notifications", type: "choice" },
 				tier: { choice: "simple", type: "choice" },
 			},
 		});
@@ -381,7 +378,7 @@ describe("chat stream HTTP handlers", () => {
 			expect.objectContaining({
 				functionId: "dashboard-route",
 				memoize: true,
-				state: { linksEditor: false, request: "Help me", selectedSection: false },
+				state: { request: "Help me" },
 			})
 		);
 		const params = mocks.agentStream.mock.calls[0]?.[1];
@@ -389,8 +386,7 @@ describe("chat stream HTTP handlers", () => {
 			{ content: expect.stringContaining("Routed domain instructions for this turn"), role: "system" },
 		]);
 		expect(params.context[0].content).toContain("retrieveKnowledge");
-		expect(params.requestContext.get("routedSkill")).toBe("links");
-		expect(params.requestContext.get("routedReference")).toBeNull();
+		expect(params.requestContext.get("routedSkill")).toBe("notifications");
 		expect(params.requestContext.get("modelTier")).toBe("simple");
 	});
 
@@ -688,9 +684,9 @@ describe("chat stream HTTP handlers", () => {
 	});
 
 	const approvalTool = {
-		input: { remove: ["surface"], revision: "revision-1", section: "section-1" },
+		input: { content: "# Brief", name: "Brief" },
 		toolCallId: "mutation-call",
-		type: "tool-buildWebsite" as const,
+		type: "tool-createLibraryDocument" as const,
 	};
 
 	const pendingMessage: DashboardChatUIMessage = {

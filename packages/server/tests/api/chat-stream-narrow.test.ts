@@ -27,8 +27,8 @@ describe("narrowMastraUIStream", () => {
 		expect(
 			await collect([
 				{ data: { value: 1 }, type: "data-om-buffering" },
-				{ toolCallId: "read", toolName: "inspectWebsite", type: "tool-input-start" },
-				{ input: {}, toolCallId: "read", toolName: "inspectWebsite", type: "tool-input-available" },
+				{ toolCallId: "read", toolName: "getLibraryAsset", type: "tool-input-start" },
+				{ input: {}, toolCallId: "read", toolName: "getLibraryAsset", type: "tool-input-available" },
 				{ output: {}, toolCallId: "read", type: "tool-output-available" },
 			])
 		).toEqual(["tool-input-start:read", "tool-input-available:read", "tool-output-available:read"]);
@@ -38,13 +38,13 @@ describe("narrowMastraUIStream", () => {
 		expect(
 			await collect([
 				{ type: "start-step" },
-				{ toolCallId: "stale", toolName: "composeWebsiteSection", type: "tool-input-start" },
+				{ toolCallId: "stale", toolName: "createLibraryDocument", type: "tool-input-start" },
 				{ inputTextDelta: "{}", toolCallId: "stale", type: "tool-input-delta" },
-				{ input: {}, toolCallId: "stale", toolName: "composeWebsiteSection", type: "tool-input-available" },
+				{ input: {}, toolCallId: "stale", toolName: "createLibraryDocument", type: "tool-input-available" },
 				{ type: "finish-step" },
 				{ type: "start-step" },
-				{ toolCallId: "live", toolName: "composeWebsiteSection", type: "tool-input-start" },
-				{ input: {}, toolCallId: "live", toolName: "composeWebsiteSection", type: "tool-input-available" },
+				{ toolCallId: "live", toolName: "createLibraryDocument", type: "tool-input-start" },
+				{ input: {}, toolCallId: "live", toolName: "createLibraryDocument", type: "tool-input-available" },
 				{ approvalId: "run::live", toolCallId: "live", type: "tool-approval-request" },
 			])
 		).toEqual([
@@ -75,7 +75,7 @@ describe("narrowMastraUIStream", () => {
 	it("releases a held mutation when it executes without approval", async () => {
 		expect(
 			await collect([
-				{ input: {}, toolCallId: "auto", toolName: "composeWebsiteSection", type: "tool-input-available" },
+				{ input: {}, toolCallId: "auto", toolName: "createLibraryDocument", type: "tool-input-available" },
 				{ output: {}, toolCallId: "auto", type: "tool-output-available" },
 			])
 		).toEqual(["tool-input-available:auto", "tool-output-available:auto"]);

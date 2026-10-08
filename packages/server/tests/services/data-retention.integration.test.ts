@@ -10,26 +10,14 @@ import {
 	oauthAccessTokens,
 	oauthClients,
 	oauthConsents,
-	seoAnswerRuns,
-	seoQuestions,
 	sessions,
 	verifications,
-	websites,
-	websiteVersions,
 } from "@starter/db";
-import { createWebsiteGenerationShell, selectWebsiteGenerationProfile } from "@starter/infinite-website/generation";
 
 vi.mock("workflow/api", () => ({ getRun: vi.fn(), start: vi.fn() }));
 
-import {
-	deleteInBatches,
-	pruneExpiredAuthRecords,
-	pruneSeoAnswerRuns,
-	pruneStaleOAuthClients,
-	pruneWebsiteVersions,
-} from "../../src/services/data-retention";
+import { deleteInBatches, pruneExpiredAuthRecords, pruneStaleOAuthClients } from "../../src/services/data-retention";
 import { runEventRetention } from "../../src/services/events/dispatch";
-import { splitPersistedWebsiteSite } from "../../src/services/websites/persistence";
 import { cleanupTestActors, createTestTeam } from "../helpers/db";
 
 const cleanupIds: Array<string> = [];
@@ -37,38 +25,6 @@ const cleanupIds: Array<string> = [];
 const hoursAgo = (hours: number) => new Date(Date.now() - hours * 3_600_000).toISOString();
 
 const hoursAhead = (hours: number) => hoursAgo(-hours);
-
-const createWebsite = async () => {
-	const { organizationId, owner } = await createTestTeam({ cleanupIds, name: "Retention test" });
-	const websiteId = randomUUID();
-	const brief = { location: "Toronto", name: "Test", schemaVersion: 1 as const, type: "Design" };
-	const profile = selectWebsiteGenerationProfile({ businessType: "Design" });
-
-	const plan = {
-		kind: "plan" as const,
-		pages: (["home", "about", "services", "faq", "contact"] as const).map((pageKey) => ({
-			description: pageKey,
-			pageKey,
-			title: pageKey,
-		})),
-		siteDescription: "Retention",
-	};
-
-	const { brand, document } = createWebsiteGenerationShell({
-		brief,
-		localizations: { byLocale: { en: plan }, defaultLocale: "en" },
-		profile,
-		websiteId,
-	});
-
-	await db.insert(websites).values({ brief, id: websiteId, locale: "en", organizationId });
-
-	const version = splitPersistedWebsiteSite({
-		site: { assetBindings: {}, brand, document, schemaVersion: 1, templateId: profile.templateId },
-	});
-
-	return { organizationId, owner, version, websiteId };
-};
 
 afterEach(async () => {
 	vi.useRealTimers();
@@ -116,8 +72,8 @@ describe("data retention", () => {
 				rootEventId: randomUUID(),
 				source: "system" as const,
 				subjectId: randomUUID(),
-				subjectType: "contact",
-				type: "contact.created",
+				subjectType: "test",
+				type: "test.created",
 			});
 
 			const old = Array.from({ length: 2500 }, () => event(hoursAgo(25)));
@@ -144,83 +100,6 @@ describe("data retention", () => {
 			expect(remaining.map(({ id }) => id).toSorted()).toEqual([recent.id, open.id, pending.id].toSorted());
 		}
 	);
-
-	it("keeps the draft, the published version and the newest 20 versions", async () => {
-		const { version, websiteId } = await createWebsite();
-
-		const inserted = await db
-			.insert(websiteVersions)
-			.values(Array.from({ length: 30 }, (_, index) => ({ ...version, version: index + 1, websiteId })))
-			.returning({ id: websiteVersions.id, version: websiteVersions.version });
-
-		const byVersion = new Map(inserted.map((row) => [row.version, row.id]));
-		await db
-			.update(websites)
-			.set({ draftVersionId: byVersion.get(2), publishedVersionId: byVersion.get(1) })
-			.where(eq(websites.id, websiteId));
-
-		await pruneWebsiteVersions();
-
-		const kept = await db
-			.select({ version: websiteVersions.version })
-			.from(websiteVersions)
-			.where(eq(websiteVersions.websiteId, websiteId));
-
-		expect(kept.map((row) => row.version).toSorted((a, b) => a - b)).toEqual([
-			1,
-			2,
-			...Array.from({ length: 20 }, (_, index) => index + 11),
-		]);
-		expect(await pruneWebsiteVersions()).toEqual({ complete: true, deleted: 0 });
-	});
-
-	it("keeps each question's latest run and runs from the last day up to five", async () => {
-		const { organizationId, websiteId } = await createWebsite();
-
-		const [busy, stale, fresh] = await db
-			.insert(seoQuestions)
-			.values(
-				["Busy", "Stale", "Fresh"].map((question) => ({
-					locale: "en" as const,
-					organizationId,
-					question,
-					source: "custom" as const,
-					websiteId,
-				}))
-			)
-			.returning({ id: seoQuestions.id });
-
-		if (!busy || !stale || !fresh) {
-			throw new Error("Missing questions");
-		}
-
-		const run = (questionId: string, checkedAt: string) => ({
-			checkedAt,
-			mode: "sample" as const,
-			organizationId,
-			questionId,
-			result: { brand: "Test", location: "Toronto", prompt: "Test", results: [] },
-			websiteId,
-		});
-
-		await db
-			.insert(seoAnswerRuns)
-			.values([
-				...Array.from({ length: 8 }, (_, index) => run(busy.id, hoursAgo(index + 1))),
-				...Array.from({ length: 3 }, (_, index) => run(stale.id, hoursAgo(48 + index))),
-				...Array.from({ length: 3 }, (_, index) => run(fresh.id, hoursAgo(index + 1))),
-			]);
-
-		await pruneSeoAnswerRuns();
-
-		const kept = await db
-			.select({ checkedAt: seoAnswerRuns.checkedAt, questionId: seoAnswerRuns.questionId })
-			.from(seoAnswerRuns)
-			.where(eq(seoAnswerRuns.organizationId, organizationId));
-
-		const count = (questionId: string) => kept.filter((row) => row.questionId === questionId).length;
-		expect([count(busy.id), count(stale.id), count(fresh.id)]).toEqual([5, 1, 3]);
-	});
 
 	it("removes only auth records past their cutoff", async () => {
 		const { owner } = await createTestTeam({ cleanupIds, name: "Retention auth" });

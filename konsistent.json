@@ -57,7 +57,7 @@
 		{
 			"name": "packages-never-import-server",
 			"description": "Workspace packages below @starter/server never import it; dependencies flow apps -> server -> packages.",
-			"paths": "packages/{analytics,cache,db,documents,email,genui,infinite-brand,infinite-links,infinite-website,observability,pdf,ui,utils}/src/**/*.{ts,tsx}",
+			"paths": "packages/{cache,db,documents,email,genui,observability,pdf,ui,utils}/src/**/*.{ts,tsx}",
 			"mustNot": {
 				"importValuesFrom": ["@starter/server", "@starter/server/*"],
 				"importTypesFrom": ["@starter/server", "@starter/server/*"]
@@ -66,7 +66,7 @@
 		{
 			"name": "contract-packages-never-import-persistence",
 			"description": "Contract, renderer, file-format and observability packages own no persistence or Redis access; that stays in @starter/server.",
-			"paths": "packages/{analytics,documents,genui,infinite-brand,infinite-links,infinite-website,observability,utils}/src/**/*.{ts,tsx}",
+			"paths": "packages/{documents,genui,observability,utils}/src/**/*.{ts,tsx}",
 			"mustNot": {
 				"importValuesFrom": ["@starter/db", "@starter/db/*", "@starter/cache"]
 			}
@@ -77,20 +77,6 @@
 			"paths": "packages/db/src/**/*.ts",
 			"mustNot": {
 				"importValuesFrom": "@starter/*"
-			}
-		},
-		{
-			"name": "public-renderer-uses-lean-server-entrypoints",
-			"description": "The public websites app imports only narrow server subpaths, never the root, dashboard API, auth, chat or MCP graphs.",
-			"paths": "apps/websites/src/**/*.{ts,tsx}",
-			"mustNot": {
-				"importValuesFrom": [
-					"@starter/server",
-					"@starter/server/api",
-					"@starter/server/auth",
-					"@starter/server/chat",
-					"@starter/server/mcp"
-				]
 			}
 		},
 		{
@@ -265,14 +251,11 @@
 			"name": "package-barrels-are-pure",
 			"description": "These package barrels are pure re-export files; runtime logic must live in the modules they re-export. db and pdf indexes are intentionally impure and are not pinned.",
 			"paths": [
-				"packages/analytics/src/index.ts",
-				"packages/analytics/src/tinybird.ts",
 				"packages/cache/src/index.ts",
 				"packages/documents/src/index.ts",
 				"packages/documents/src/viewer/index.ts",
 				"packages/email/src/index.ts",
 				"packages/genui/src/index.ts",
-				"packages/infinite-website/src/contracts.ts",
 				"packages/observability/src/index.ts",
 				"packages/server/src/index.ts",
 				"packages/utils/src/index.ts"

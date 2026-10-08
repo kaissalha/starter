@@ -1,13 +1,13 @@
 "use client";
 
-import { Archive02Icon, Globe02Icon, Mail01Icon } from "@hugeicons/core-free-icons";
+import { Archive02Icon, Notification01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useFormatter, useNow, useTranslations } from "next-intl";
 
-import { Link } from "@/i18n/navigation";
 import { Button } from "@starter/ui/components/button";
 import { cn } from "@starter/ui/lib/utils";
 
+import { useNotificationTranslator } from "./use-notification-translator";
 import type { NotificationGroup } from "./use-notifications-controller";
 
 type NotificationRowProps = {
@@ -20,34 +20,21 @@ export const NotificationRow = ({ group, onArchive, onOpen }: NotificationRowPro
 	const t = useTranslations("notifications");
 	const format = useFormatter();
 	const now = useNow();
-	const { contact, createdAt, groupKey, params, readAt, subject, type } = group.lead;
-	const name = contact?.name || contact?.email || t("unknownSender");
-	const contactMessage = type === "contact_message_received";
-
-	const title = contactMessage
-		? t("types.contact_message_received.title", { count: group.items.length, name })
-		: t(`types.${type}.title`, {
-				days: Number(params.days ?? 0),
-				domain: String(params.domain ?? ""),
-				hostname: String(params.hostname ?? ""),
-			});
+	const { createdAt, readAt, type } = group.lead;
+	const title = useNotificationTranslator().type({ key: "title", type, values: { count: group.items.length } });
 
 	return (
 		<div className='flex items-center gap-2 px-5 py-3 hover:bg-accent/50'>
-			<Link
+			<button
 				className='flex min-w-0 flex-1 items-center gap-3 rounded-lg text-start outline-none focus-visible:ring-2 focus-visible:ring-ring'
-				href={
-					contactMessage
-						? `/dashboard/contacts?contact=${groupKey}&contactTab=messages&messageId=${subject.id}`
-						: "/dashboard/website?websiteSettings=domains"
-				}
 				onClick={() => onOpen(group)}
+				type='button'
 			>
 				<span className='flex size-9 shrink-0 items-center justify-center rounded-full border border-border'>
 					<HugeiconsIcon
 						aria-hidden
 						className='size-4 scale-110'
-						icon={contactMessage ? Mail01Icon : Globe02Icon}
+						icon={Notification01Icon}
 						strokeWidth={1.75}
 					/>
 				</span>
@@ -57,7 +44,7 @@ export const NotificationRow = ({ group, onArchive, onOpen }: NotificationRowPro
 						{format.relativeTime(new Date(createdAt), now)}
 					</span>
 				</span>
-			</Link>
+			</button>
 			{onArchive && (
 				<Button
 					aria-label={t("archive")}

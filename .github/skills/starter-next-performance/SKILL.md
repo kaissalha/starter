@@ -5,7 +5,7 @@ description: Diagnose or optimize Next.js routing, Cache Components, hydration, 
 
 # Starter Next.js performance
 
-Both apps use Next.js 16, React 19, App Router, and `cacheComponents: true`. Read the relevant app-local
+The webapp uses Next.js 16, React 19, App Router, and `cacheComponents: true`. Read the relevant app-local
 `node_modules/next/dist/docs` guide before changing framework behavior.
 
 ## Workflow

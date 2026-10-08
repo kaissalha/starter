@@ -55,30 +55,6 @@
       "skillPath": "playwright-best-practices/SKILL.md",
       "computedHash": "7eb144f734450fee649dc1d209114775ddda07cbf45be84fe969d3d4f3971dce"
     },
-    "tinybird": {
-      "source": "tinybirdco/tinybird-agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/tinybird-best-practices/SKILL.md",
-      "computedHash": "3f5d961a3953220b77a91137a019c82a857a43b658ee5a417f6dadcd3b6b5fac"
-    },
-    "tinybird-cli-guidelines": {
-      "source": "tinybirdco/tinybird-agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/tinybird-cli-guidelines/SKILL.md",
-      "computedHash": "fdd265aa6a502220b17f5d608b87c30beca0eadb9c88c368f3f3b2cebba2ad8a"
-    },
-    "tinybird-python-sdk-guidelines": {
-      "source": "tinybirdco/tinybird-agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/tinybird-python-sdk-guidelines/SKILL.md",
-      "computedHash": "610ada91b068339d90ea544804fb395518767ae3588d47f29e21b2c6037de2c3"
-    },
-    "tinybird-typescript-sdk-guidelines": {
-      "source": "tinybirdco/tinybird-agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/tinybird-typescript-sdk-guidelines/SKILL.md",
-      "computedHash": "b05e3924ea0f220fea4bb98bc0c3cdb7317384c4e8e40809dcf7e6c999bff351"
-    },
     "turborepo": {
       "source": "vercel/turborepo",
       "sourceType": "github",

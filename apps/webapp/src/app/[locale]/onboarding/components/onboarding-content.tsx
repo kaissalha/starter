@@ -6,16 +6,9 @@ import { CreateOrganizationForm } from "./create-organization-form";
 import { InvitationList } from "./invitation-list";
 import { OnboardingErrorState } from "./onboarding-error-state";
 import { OnboardingLoadingState } from "./onboarding-loading-state";
-import type { OnboardingBusiness } from "./use-create-organization-form";
 import type { OnboardingController } from "./use-onboarding-controller";
 
-export const OnboardingContent = ({
-	controller,
-	initialBusiness,
-}: {
-	controller: OnboardingController;
-	initialBusiness?: OnboardingBusiness;
-}) => {
+export const OnboardingContent = ({ controller }: { controller: OnboardingController }) => {
 	const t = useTranslations("onboarding");
 	const tCommon = useTranslations("common");
 
@@ -45,11 +38,5 @@ export const OnboardingContent = ({
 		);
 	}
 
-	return (
-		<CreateOrganizationForm
-			initialBusiness={initialBusiness}
-			isCreating={controller.isCreating}
-			onCreate={controller.handleCreateOrganization}
-		/>
-	);
+	return <CreateOrganizationForm isCreating={controller.isCreating} onCreate={controller.handleCreateOrganization} />;
 };

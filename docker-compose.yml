@@ -2,7 +2,7 @@ services:
     app-db:
         image: pgvector/pgvector:pg18
         volumes:
-            - app_db_data:/var/lib/postgresql/data
+            - app_db_data:/var/lib/postgresql
         environment:
             POSTGRES_DB: starter
             POSTGRES_USER: starter
@@ -10,5 +10,14 @@ services:
         ports:
             - "127.0.0.1:5432:5432"
 
+    app-redis:
+        image: redis:8-alpine
+        command: ["redis-server", "--appendonly", "yes"]
+        volumes:
+            - app_redis_data:/data
+        ports:
+            - "127.0.0.1:6379:6379"
+
 volumes:
     app_db_data:
+    app_redis_data:

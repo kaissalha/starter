@@ -209,11 +209,10 @@ describe("chat service", () => {
 		expect(memory.listThreads).toHaveBeenCalledWith(expect.objectContaining({ page: 1 }));
 	});
 
-	it("hides Library and website editor chats from the history and skips pages that hold nothing else", async () => {
+	it("hides Library chats from the history and skips pages that hold nothing else", async () => {
 		const libraryThread = { ...thread, id: "library-thread", metadata: { libraryChat: "user-1:library" } };
-		const websiteThread = { ...thread, id: "website-thread", metadata: { websiteChat: "website-1" } };
 		memory.listThreads
-			.mockResolvedValueOnce({ ...threadPage, hasMore: true, threads: [libraryThread, websiteThread] })
+			.mockResolvedValueOnce({ ...threadPage, hasMore: true, threads: [libraryThread] })
 			.mockResolvedValueOnce({ ...threadPage, hasMore: true, page: 1, threads: [libraryThread, thread] });
 
 		await expect(getChats({ organizationId })).resolves.toEqual({ chats: [thread], nextPage: 2 });

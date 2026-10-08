@@ -103,25 +103,13 @@ export default defineConfig({
 			},
 		},
 		{
-			files: ["globalSetup.ts", "redisGlobalSetup.ts", "packages/infinite-website/scripts/**/*.{js,ts}"],
+			files: ["globalSetup.ts", "redisGlobalSetup.ts"],
 			rules: {
 				"no-console": "off",
 			},
 		},
 		{
-			files: [
-				"packages/infinite-website/src/behavior/compile-expression.ts",
-				"packages/infinite-website/src/behavior/contracts.ts",
-			],
-			rules: {
-				"unicorn/no-thenable": "off",
-			},
-		},
-		{
-			files: [
-				"packages/server/src/services/chat.ts",
-				"packages/server/tests/services/website-generation.test.ts",
-			],
+			files: ["packages/server/src/services/chat.ts"],
 			rules: {
 				"unicorn/prefer-structured-clone": "off",
 			},
@@ -194,18 +182,6 @@ export default defineConfig({
 			files: ["**/*.stories.{js,jsx,ts,tsx}", "**/.storybook/**/*.{js,jsx,ts,tsx}"],
 			rules: {
 				"import/no-default-export": "off",
-			},
-		},
-		{
-			files: ["packages/infinite-website/**/*.{js,jsx,ts,tsx}"],
-			rules: {
-				"max-lines": "off",
-			},
-		},
-		{
-			files: ["packages/infinite-website/src/templates/*/index.ts"],
-			rules: {
-				"perfectionist/sort-objects": "off",
 			},
 		},
 		{

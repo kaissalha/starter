@@ -10,11 +10,7 @@ import type { StoreApi } from "zustand/vanilla";
 
 import { useOrganizationPermissions } from "@/hooks/use-organization-permissions";
 import { client } from "@/lib/api-client";
-import type {
-	BaseCustomUIDataTypes,
-	DashboardChatUIMessage as BaseChatUIMessage,
-	WebsiteEditorBinding,
-} from "@starter/server";
+import type { BaseCustomUIDataTypes, DashboardChatUIMessage as BaseChatUIMessage } from "@starter/server";
 
 import { classifyChatError } from "./chat-error-message";
 import type { ChatSessionState } from "./chat-session-store";
@@ -27,11 +23,9 @@ export type ChatSessionRuntimeConfig = {
 	autoResume?: boolean;
 	chatId: string;
 	library?: { assetId?: string };
-	linksEditor?: boolean;
 	onChatCreated?: (chatId: string) => void;
 	onData?: (dataPart: DataUIPart<BaseCustomUIDataTypes>) => void;
 	onDataChange?: Partial<Record<ChatDataDomain, () => void>>;
-	websiteEditor?: WebsiteEditorBinding;
 };
 
 type ChatSessionRuntimeProps = ChatSessionRuntimeConfig & {
@@ -60,12 +54,10 @@ export const ChatSessionRuntime = ({
 	chatId,
 	initialMessages,
 	library,
-	linksEditor,
 	onChatCreated,
 	onData,
 	onDataChange,
 	store,
-	websiteEditor,
 }: ChatSessionRuntimeProps) => {
 	const [resumeDataParts, setResumeDataParts] = useState<Array<DataUIPart<BaseCustomUIDataTypes>>>([]);
 	const pendingSend = useRef<PendingSend | undefined>(undefined);
@@ -112,10 +104,10 @@ export const ChatSessionRuntime = ({
 				prepareReconnectToStreamRequest: ({ id }) => ({ api: `/api/chats/${id}/stream` }),
 				prepareSendMessagesRequest: ({ id, messages }) => ({
 					api: `/api/chats/${id}/stream`,
-					body: { library, linksEditor, message: messages.at(-1), websiteEditor },
+					body: { library, message: messages.at(-1) },
 				}),
 			}),
-		[library, linksEditor, websiteEditor]
+		[library]
 	);
 
 	const {

@@ -1,7 +1,7 @@
-import { and, asc, eq, isNull, sql } from "drizzle-orm";
+import { and, asc, eq, sql } from "drizzle-orm";
+import { z } from "zod";
 
 import {
-	contactMessages,
 	db,
 	members,
 	notificationInboxes,
@@ -13,8 +13,9 @@ import {
 } from "@starter/db";
 
 import { hasOrganizationPermission } from "../../utils/permissions";
-import { eventCatalog } from "../events/catalog";
-import { audiencePermission, notificationTypes, type NotificationType } from "./registry";
+import { audiencePermission, notificationTypeKeys, getNotificationDefinition, type NotificationType } from "./registry";
+
+const groupKeySchema = z.string();
 
 export type ProjectionOutcome = { code: string; state: "skipped" | "succeeded" };
 
@@ -34,7 +35,7 @@ const insertNotifications = ({
 	type: NotificationType;
 }) =>
 	db.transaction(async (transaction): Promise<ProjectionOutcome> => {
-		const definition = notificationTypes[type];
+		const definition = getNotificationDefinition(type);
 
 		const candidates = await transaction
 			.select({ enabled: notificationPreferences.enabled, role: members.role, userId: members.userId })
@@ -101,118 +102,21 @@ const insertNotifications = ({
 		return { code: "projected", state: "succeeded" };
 	});
 
-const projectContactMessage = async ({ event }: { event: EventRecord }): Promise<ProjectionOutcome> => {
-	const data = eventCatalog["contact_message.created"].data.parse(event.data);
+export const projectNotificationEvent = async ({ event }: { event: EventRecord }): Promise<ProjectionOutcome> => {
+	const type = notificationTypeKeys.find((candidate) => getNotificationDefinition(candidate).event === event.type);
 
-	const [message] = await db
-		.select({ spamFlag: contactMessages.spamFlag })
-		.from(contactMessages)
-		.where(eq(contactMessages.id, data.messageId))
-		.limit(1);
-
-	if (!message) {
-		return { code: "subject_deleted", state: "skipped" };
+	if (!type) {
+		return { code: "not_applicable", state: "skipped" };
 	}
 
-	if (message.spamFlag) {
-		return { code: "spam", state: "skipped" };
-	}
-
-	return insertNotifications({
-		event,
-		groupKey: data.contactId,
-		params: { contactId: data.contactId, messageId: data.messageId, websiteId: data.websiteId },
-		subject: { id: data.messageId, type: "contact_message" },
-		type: "contact_message_received",
-	});
-};
-
-const resolveSpamMessage = async ({ event }: { event: EventRecord }): Promise<ProjectionOutcome> => {
-	const data = eventCatalog["contact_message.triaged"].data.parse(event.data);
-
-	if (!data.spam) {
-		return { code: "not_spam", state: "skipped" };
-	}
-
-	await db
-		.update(notifications)
-		.set({
-			archivedAt: sql`coalesce(${notifications.archivedAt}, now())`,
-			resolvedAt: sql`coalesce(${notifications.resolvedAt}, now())`,
-			seenAt: sql`coalesce(${notifications.seenAt}, now())`,
-		})
-		.where(
-			and(
-				eq(notifications.organizationId, event.organizationId),
-				eq(notifications.type, "contact_message_received"),
-				eq(notifications.subjectId, data.messageId),
-				isNull(notifications.readAt)
-			)
-		);
-
-	return { code: "resolved_spam", state: "succeeded" };
-};
-
-const removeContactNotifications = async ({ event }: { event: EventRecord }): Promise<ProjectionOutcome> => {
-	const data = eventCatalog["contact.deleted"].data.parse(event.data);
-	await db
-		.delete(notifications)
-		.where(
-			and(
-				eq(notifications.organizationId, event.organizationId),
-				eq(notifications.type, "contact_message_received"),
-				eq(notifications.groupKey, data.contactId)
-			)
-		);
-
-	return { code: "removed", state: "succeeded" };
-};
-
-const domainNotificationTypes = {
-	"domain_registration.completed": "domain_registered",
-	"domain_registration.expiring": "domain_expiring",
-	"domain_registration.failed": "domain_registration_failed",
-	"website_domain.connected": "domain_connected",
-} as const satisfies Partial<Record<EventRecord["type"], NotificationType>>;
-
-const isDomainNotificationEvent = (type: string): type is keyof typeof domainNotificationTypes =>
-	type in domainNotificationTypes;
-
-const projectDomainEvent = ({
-	event,
-	type,
-}: {
-	event: EventRecord;
-	type: keyof typeof domainNotificationTypes;
-}): Promise<ProjectionOutcome> => {
-	const data = eventCatalog[type].data.parse(event.data);
-	const groupKey = "registrationId" in data ? data.registrationId : data.domainId;
+	const groupKey =
+		groupKeySchema.safeParse(event.data[getNotificationDefinition(type).groupKey]).data ?? event.subjectId;
 
 	return insertNotifications({
 		event,
 		groupKey,
-		params: data,
+		params: event.data,
 		subject: { id: event.subjectId, type: event.subjectType },
-		type: domainNotificationTypes[type],
+		type,
 	});
-};
-
-export const projectNotificationEvent = async ({ event }: { event: EventRecord }): Promise<ProjectionOutcome> => {
-	if (event.type === "contact_message.created") {
-		return projectContactMessage({ event });
-	}
-
-	if (event.type === "contact_message.triaged") {
-		return resolveSpamMessage({ event });
-	}
-
-	if (event.type === "contact.deleted") {
-		return removeContactNotifications({ event });
-	}
-
-	if (isDomainNotificationEvent(event.type)) {
-		return projectDomainEvent({ event, type: event.type });
-	}
-
-	return { code: "not_applicable", state: "skipped" };
 };

@@ -82,7 +82,7 @@ describe("trimContinuationEcho", () => {
 			output: { scope: "page" },
 			state: "output-available",
 			toolCallId: "inspect-call",
-			toolName: "inspectWebsite",
+			toolName: "getLibraryAsset",
 			type: "dynamic-tool",
 		};
 
@@ -91,7 +91,7 @@ describe("trimContinuationEcho", () => {
 			input: {},
 			state: "approval-responded",
 			toolCallId: "compose-call",
-			toolName: "composeWebsiteSection",
+			toolName: "editLibraryDocument",
 			type: "dynamic-tool",
 		};
 
@@ -99,7 +99,7 @@ describe("trimContinuationEcho", () => {
 			input: {},
 			state: "input-available",
 			toolCallId: "retried-call",
-			toolName: "composeWebsiteSection",
+			toolName: "editLibraryDocument",
 			type: "dynamic-tool",
 		};
 
@@ -118,7 +118,7 @@ describe("trimContinuationEcho", () => {
 					output: { added: true },
 					state: "output-available",
 					toolCallId: "compose-call",
-					toolName: "composeWebsiteSection",
+					toolName: "editLibraryDocument",
 					type: "dynamic-tool",
 				},
 				{ state: "done", text: "Added the calculator.", type: "text" },

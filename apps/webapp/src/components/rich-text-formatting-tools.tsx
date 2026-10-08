@@ -18,7 +18,7 @@ import { Button } from "@starter/ui/components/button";
 import { Tooltip, TooltipTrigger, TooltipPopup } from "@starter/ui/components/tooltip";
 
 export const RichTextFormattingTools = ({ disabled, editor }: { disabled: boolean; editor: Editor }) => {
-	const t = useTranslations("blog");
+	const t = useTranslations("richText");
 
 	const active = useEditorState({
 		editor,

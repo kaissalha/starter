@@ -13,17 +13,19 @@ vi.mock("@/lib/server/dashboard-session", () => ({ requireDashboardSession: mock
 
 vi.mock("@starter/server/api", () => ({
 	apiRouter: {
-		linkPages: {
-			get: os.handler(() => {
-				throw new ORPCError("UNAUTHORIZED");
-			}),
-		},
-		websites: {
+		library: {
 			agentChat: os.handler(() => {
 				throw new ORPCError("INTERNAL_SERVER_ERROR");
 			}),
-			get: os.handler(() => {
+		},
+		notifications: {
+			counts: os.handler(() => {
 				throw new ORPCError("BAD_REQUEST", { message: "Organization not found" });
+			}),
+		},
+		notificationSettings: {
+			getAll: os.handler(() => {
+				throw new ORPCError("UNAUTHORIZED");
 			}),
 		},
 	},
@@ -36,8 +38,8 @@ beforeEach(() => {
 });
 
 it.each([
-	["UNAUTHORIZED", () => serverClient.linkPages.get()],
-	["BAD_REQUEST", () => serverClient.websites.get()],
+	["UNAUTHORIZED", () => serverClient.notificationSettings.getAll()],
+	["BAD_REQUEST", () => serverClient.notifications.counts()],
 ])("redirects through the dashboard guard on %s", async (_code, call) => {
 	mocks.requireDashboardSession.mockRejectedValue(new Error("redirect"));
 	await expect(call()).rejects.toThrow("redirect");
@@ -46,10 +48,10 @@ it.each([
 
 it("rethrows the original error when the session and organization are valid", async () => {
 	mocks.requireDashboardSession.mockResolvedValue({});
-	await expect(serverClient.websites.get()).rejects.toMatchObject({ code: "BAD_REQUEST" });
+	await expect(serverClient.notifications.counts()).rejects.toMatchObject({ code: "BAD_REQUEST" });
 });
 
 it("leaves other failures untouched", async () => {
-	await expect(serverClient.websites.agentChat()).rejects.toMatchObject({ code: "INTERNAL_SERVER_ERROR" });
+	await expect(serverClient.library.agentChat({})).rejects.toMatchObject({ code: "INTERNAL_SERVER_ERROR" });
 	expect(mocks.requireDashboardSession).not.toHaveBeenCalled();
 });

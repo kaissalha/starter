@@ -33,7 +33,6 @@ Prefer the default treatment over adding variants for small spacing, size, or ty
 
 Selectable cards respond to their parent control's `aria-pressed` state. Keep the
 semantic control and its keyboard focus treatment when composing these cards.
-Public website rendering uses `@starter/infinite-website` and its brand tokens.
 
 ## Reusable layout and insertion variants
 
@@ -97,9 +96,9 @@ The adapted source uses Starter color tokens, arbitrary validated series, access
 data tables, reduced-motion-aware Recharts animation, dashed grids, compact axes,
 legends, gradient area fills, and tooltips. Charts have transparent surfaces to fit
 inside the existing Frame panels. The sparkline presentation hides axes and legends
-while preserving accessible values for analytics stat cards.
+while preserving accessible values for stat cards.
 
-Analytics and OpenUI share this renderer. Supported kinds are line, area, bar,
+OpenUI chat charts use this renderer. Supported kinds are line, area, bar,
 composed, pie (including donut), radar, and radial. Composed charts draw the first
 series as bars and subsequent series as lines. Funnel stages use horizontal bars.
 Pie and radial charts accept one nonnegative series; radar and stacked bars also

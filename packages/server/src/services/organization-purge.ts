@@ -1,19 +1,9 @@
 import { and, asc, eq, gt, gte, inArray, isNotNull, isNull, lt } from "drizzle-orm";
 
-import {
-	db,
-	domainRegistrations,
-	files,
-	organizationPurges,
-	organizations,
-	websiteDomains,
-	websites,
-} from "@starter/db";
+import { db, files, organizationPurges, organizations } from "@starter/db";
 import { log } from "@starter/observability";
 
 import { deleteBlob } from "../lib/blob-storage";
-import { removeVercelDomain, setVercelAutoRenew } from "./websites/vercel-domains";
-import { invalidateWebsiteHosts } from "./websites/website-host";
 
 const PAGE_SIZE = 1000;
 
@@ -76,23 +66,7 @@ export const snapshotOrganizationPurge = async ({
 	logo: string | null;
 	organizationId: string;
 }) => {
-	const [blobs, hostnames, registrations] = await Promise.all([
-		listUploadBlobs({ organizationId }),
-		db
-			.select({ hostname: websiteDomains.hostname, websiteId: websiteDomains.websiteId })
-			.from(websiteDomains)
-			.innerJoin(websites, eq(websites.id, websiteDomains.websiteId))
-			.where(and(eq(websites.organizationId, organizationId), eq(websiteDomains.ownershipVerified, true))),
-		db
-			.select({ domain: domainRegistrations.domain })
-			.from(domainRegistrations)
-			.where(
-				and(
-					eq(domainRegistrations.organizationId, organizationId),
-					inArray(domainRegistrations.status, ["active", "expired"])
-				)
-			),
-	]);
+	const blobs = await listUploadBlobs({ organizationId });
 
 	const logoBlobs: Array<PurgeBlob> = logo && isBlobUrl(logo) ? [{ access: "public", url: logo }] : [];
 
@@ -100,9 +74,7 @@ export const snapshotOrganizationPurge = async ({
 		attempts: 0,
 		blobs: [...blobs, ...logoBlobs],
 		completedAt: null,
-		hostnames,
 		lastError: null,
-		registrationDomains: registrations.map(({ domain }) => domain),
 		updatedAt: new Date().toISOString(),
 	};
 
@@ -155,60 +127,21 @@ export const runOrganizationPurge = async ({ organizationId }: { organizationId:
 		await updatePurge({ blobs: purge.blobs.filter((_, index) => blobResults[index]?.status !== "fulfilled") });
 	}
 
-	const hostnameResults = await Promise.allSettled(
-		purge.hostnames.map(async ({ hostname, websiteId }) => {
-			const [claimed] = await db
-				.select({ id: websiteDomains.id })
-				.from(websiteDomains)
-				.where(eq(websiteDomains.hostname, hostname))
-				.limit(1);
-
-			if (claimed) {
-				return;
-			}
-
-			await removeVercelDomain(hostname);
-			await invalidateWebsiteHosts({ hostnames: [hostname], websiteId });
-		})
-	);
-
-	const registrationResults = await Promise.allSettled(
-		purge.registrationDomains.map(async (domain) => {
-			const [registration] = await db
-				.update(domainRegistrations)
-				.set({ autoRenew: false, updatedAt: new Date().toISOString() })
-				.where(and(eq(domainRegistrations.domain, domain), isNull(domainRegistrations.organizationId)))
-				.returning({ domain: domainRegistrations.domain });
-
-			if (registration) {
-				await setVercelAutoRenew({ autoRenew: false, domain });
-			}
-		})
-	);
-
 	const rejected = (results: Array<PromiseSettledResult<unknown>>) =>
 		results.flatMap((result) => (result.status === "rejected" ? [result.reason] : []));
 
 	const lastError = summarizeFailures({
 		ai: rejected([aiResult]),
 		blobs: rejected(blobResults),
-		hostnames: rejected(hostnameResults),
-		registrations: rejected(registrationResults),
 	});
 
 	const blobs = purge.blobs.filter((_, index) => blobResults[index]?.status !== "fulfilled");
-	const hostnames = purge.hostnames.filter((_, index) => hostnameResults[index]?.status === "rejected");
-
-	const registrationDomains = purge.registrationDomains.filter(
-		(_, index) => registrationResults[index]?.status === "rejected"
-	);
-
-	const completed = !lastError && !blobs.length && !hostnames.length && !registrationDomains.length;
+	const completed = !lastError && !blobs.length;
 
 	await updatePurge(
 		completed
-			? { blobs, completedAt: new Date().toISOString(), hostnames, lastError: null, registrationDomains }
-			: { attempts: purge.attempts + 1, blobs, hostnames, lastError, registrationDomains }
+			? { blobs, completedAt: new Date().toISOString(), lastError: null }
+			: { attempts: purge.attempts + 1, blobs, lastError }
 	);
 
 	return { completed };

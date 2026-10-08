@@ -17,7 +17,6 @@
 		"**/storybook-static/**",
 		"**/.well-known/workflow/**",
 		"packages/db/src/db/migrations/**",
-		"packages/infinite-website/src/sections/**",
 		"packages/server/src/ai/generated/**",
 		"tools/oxlint/anti-slop/**",
 		"packages/documents/src/viewer/**"

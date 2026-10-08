@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { Accordion, AccordionItem, AccordionPanel, AccordionTrigger } from "@starter/ui/components/accordion";
 import { cn } from "@starter/ui/lib/utils";
 
-const faqIds = ["start", "replace", "ai", "production"] as const;
+const faqIds = ["included", "customize", "deploy", "production"] as const;
 
 export const Faqs = ({ className, ...props }: ComponentProps<"section">) => {
 	const t = useTranslations("site.faqs");

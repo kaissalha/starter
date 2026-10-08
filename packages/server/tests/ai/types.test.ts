@@ -11,10 +11,10 @@ describe("continuation normalization", () => {
 				{ text: "Ready for review.", type: "text" },
 				{
 					approval: { id: "approval" },
-					input: { email: null, name: "Anas", phone: null },
+					input: { content: "# Brief", name: "Brief" },
 					state: "approval-requested",
 					toolCallId: "create",
-					type: "tool-createContact",
+					type: "tool-createLibraryDocument",
 				},
 			],
 			role: "assistant",
@@ -25,11 +25,11 @@ describe("continuation normalization", () => {
 		const changed = structuredClone(streamed);
 		const tool = changed.parts[1];
 
-		if (tool?.type !== "tool-createContact" || tool.state !== "approval-requested") {
+		if (tool?.type !== "tool-createLibraryDocument" || tool.state !== "approval-requested") {
 			throw new Error("Expected approval");
 		}
 
-		tool.input.name = "Someone else";
+		tool.input.name = "Other";
 		expect(withoutTransientToolParts([changed])).not.toEqual(withoutTransientToolParts([message]));
 	});
 });

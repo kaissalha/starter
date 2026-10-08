@@ -18,19 +18,13 @@ export const generateMetadata = async ({ params }: { params: Promise<{ locale: s
 
 const sectionIds = [
 	"acceptance",
-	"service",
 	"accounts",
 	"content",
 	"ai",
-	"domains",
 	"acceptableUse",
-	"reporting",
-	"siteVisitors",
-	"fees",
 	"termination",
 	"disclaimers",
 	"liability",
-	"law",
 	"changes",
 ] as const;
 

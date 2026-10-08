@@ -40,31 +40,6 @@
 			"member": "member"
 		}
 	},
-	"contactMessage": {
-		"preview": "New message from {name}",
-		"subject": "New message from {name}",
-		"title": "New message from your website",
-		"intro": "{name} sent you a message through your website contact form.",
-		"email_label": "Email",
-		"phone_label": "Phone",
-		"message_label": "Message",
-		"cta": "View message"
-	},
-	"domainAlert": {
-		"cta": "Manage domain",
-		"expiring": {
-			"preview": "{domain} expires soon",
-			"subject": "{domain} expires soon",
-			"title": "{domain} expires soon",
-			"body": "Your domain {domain} expires soon. Days left: {days}. Renew it to keep your website online at this address."
-		},
-		"failed": {
-			"preview": "{domain} couldn't be registered",
-			"subject": "{domain} couldn't be registered",
-			"title": "{domain} couldn't be registered",
-			"body": "We couldn't register {domain}. Open your website settings to review the domain and try again."
-		}
-	},
 	"notificationSettings": {
 		"reason": "You get this email because of your notification settings.",
 		"link": "Manage notification settings"

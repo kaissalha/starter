@@ -1,8 +1,6 @@
 import { eq } from "drizzle-orm";
 
-import { blogPosts, contacts, db, files, linkPages, members, users, websiteVersions, websites } from "@starter/db";
-
-import { seedGeneratedWebsite } from "./website";
+import { db, files, members, users } from "@starter/db";
 
 export const workspaceEmail = "playwright@example.com";
 
@@ -18,14 +16,6 @@ export const getWorkspaceOrganizationId = async () => {
 	}
 
 	return member.organizationId;
-};
-
-export const resetWorkspaceWebsite = async () => {
-	const organizationId = await getWorkspaceOrganizationId();
-	await db.delete(linkPages).where(eq(linkPages.organizationId, organizationId));
-	await db.delete(websites).where(eq(websites.organizationId, organizationId));
-
-	return seedGeneratedWebsite();
 };
 
 export const resetWorkspaceLibrary = async () => {
@@ -64,33 +54,4 @@ export const resetWorkspaceLibrary = async () => {
 			},
 		])
 		.returning({ id: files.id, title: files.title });
-};
-
-export const resetWorkspaceRecords = async () => {
-	const organizationId = await getWorkspaceOrganizationId();
-	await db.delete(contacts).where(eq(contacts.organizationId, organizationId));
-	await db.delete(blogPosts).where(eq(blogPosts.organizationId, organizationId));
-};
-
-export const readWorkspaceWebsiteDraft = async () => {
-	const organizationId = await getWorkspaceOrganizationId();
-
-	const [draft] = await db
-		.select({ brand: websiteVersions.brand, content: websiteVersions.content })
-		.from(websites)
-		.innerJoin(websiteVersions, eq(websiteVersions.id, websites.draftVersionId))
-		.where(eq(websites.organizationId, organizationId));
-
-	return draft;
-};
-
-export const readWorkspaceLinkPage = async () => {
-	const organizationId = await getWorkspaceOrganizationId();
-
-	const [page] = await db
-		.select({ document: linkPages.document, publishedAt: linkPages.publishedAt })
-		.from(linkPages)
-		.where(eq(linkPages.organizationId, organizationId));
-
-	return page;
 };

@@ -28,7 +28,6 @@ import { cn } from "@starter/ui/lib/utils";
 
 import { LogoGenerator } from "./logo-generator";
 import { MediaEditButton } from "./media-edit-button";
-import { StockPhotoPicker } from "./stock-photo-picker";
 import { useMediaUpload, type UploadedMedia } from "./use-media-upload";
 
 const MediaDeleteDialog = ({
@@ -307,7 +306,7 @@ const UploadedMediaPickerContent = ({ disabled = false, kind, onSelect, purpose 
 export const MediaPickerContent = (props: MediaPickerContentProps) => {
 	const t = useTranslations("media");
 
-	if (props.kind === "video") {
+	if (!props.purpose) {
 		return <UploadedMediaPickerContent {...props} />;
 	}
 
@@ -315,24 +314,14 @@ export const MediaPickerContent = (props: MediaPickerContentProps) => {
 		<Tabs className='flex min-h-0 flex-1 flex-col' defaultValue='uploads'>
 			<TabsList>
 				<TabsTrigger value='uploads'>{t("uploads")}</TabsTrigger>
-				{props.purpose ? (
-					<TabsTrigger value='generate'>{t("generate")}</TabsTrigger>
-				) : (
-					<TabsTrigger value='stock'>{t("stock")}</TabsTrigger>
-				)}
+				<TabsTrigger value='generate'>{t("generate")}</TabsTrigger>
 			</TabsList>
 			<TabsContent className='flex min-h-0 flex-1 flex-col' value='uploads'>
 				<UploadedMediaPickerContent {...props} />
 			</TabsContent>
-			{props.purpose ? (
-				<TabsContent className='flex min-h-0 flex-1 flex-col' value='generate'>
-					<LogoGenerator disabled={props.disabled} onSelect={props.onSelect} />
-				</TabsContent>
-			) : (
-				<TabsContent className='flex min-h-0 flex-1 flex-col' value='stock'>
-					<StockPhotoPicker disabled={props.disabled} onSelect={props.onSelect} />
-				</TabsContent>
-			)}
+			<TabsContent className='flex min-h-0 flex-1 flex-col' value='generate'>
+				<LogoGenerator disabled={props.disabled} onSelect={props.onSelect} />
+			</TabsContent>
 		</Tabs>
 	);
 };

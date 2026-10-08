@@ -91,11 +91,11 @@ describe("ChatSessionRuntime", () => {
 			id: "historical",
 			parts: [
 				{
-					input: { revision: "1" },
-					output: { revision: "2" },
+					input: { content: "# Notes", name: "Notes" },
+					output: { id: "asset-1" },
 					state: "output-available",
-					toolCallId: "historical-brand",
-					type: "tool-publishBrand",
+					toolCallId: "historical-create",
+					type: "tool-createLibraryDocument",
 				},
 			],
 			role: "assistant",
@@ -104,7 +104,7 @@ describe("ChatSessionRuntime", () => {
 		const initialMessages = [historical];
 		chatMocks.state.messages = initialMessages;
 		const store = createChatStore();
-		const onDataChange = { brand: vi.fn(), links: vi.fn(), website: vi.fn() };
+		const onDataChange = { library: vi.fn() };
 
 		const runtime = render(
 			<ChatSessionRuntime
@@ -116,41 +116,33 @@ describe("ChatSessionRuntime", () => {
 			/>
 		);
 
-		expect(onDataChange.links).not.toHaveBeenCalled();
-		expect(onDataChange.website).not.toHaveBeenCalled();
-
-		const edit: DashboardChatUIMessage = {
-			id: "edit",
-			parts: [
-				{
-					input: {
-						edits: [{ operation: "update-profile", title: { en: "Updated" } }],
-						updatedAt: "2026-09-12T00:00:00.000Z",
-					},
-					output: { hasUnpublishedChanges: true, updatedAt: "2026-09-12T00:00:01.000Z" },
-					state: "output-available",
-					toolCallId: "links-edit",
-					type: "tool-editLinkPage",
-				},
-			],
-			role: "assistant",
-		};
+		expect(onDataChange.library).not.toHaveBeenCalled();
 
 		chatMocks.state.messages = [
 			historical,
-			edit,
 			{
-				...historical,
-				id: "new-brand",
+				id: "edit",
 				parts: [
 					{
-						input: { revision: "2", update: { cornerStyle: "rounded" } },
-						output: { revision: "3" },
+						input: {
+							assetId: "asset-1",
+							edits: [{ find: "Notes", replace: "Updated" }],
+							updatedAt: "2026-09-12T00:00:00.000Z",
+						},
+						output: { id: "asset-1" },
 						state: "output-available",
-						toolCallId: "new-brand",
-						type: "tool-updateBrand",
+						toolCallId: "library-edit",
+						type: "tool-editLibraryDocument",
+					},
+					{
+						input: { content: "# Plan", name: "Plan" },
+						output: { id: "asset-2" },
+						state: "output-available",
+						toolCallId: "library-create",
+						type: "tool-createLibraryDocument",
 					},
 				],
+				role: "assistant",
 			},
 		];
 		runtime.rerender(
@@ -162,9 +154,7 @@ describe("ChatSessionRuntime", () => {
 				store={store}
 			/>
 		);
-		await waitFor(() => expect(onDataChange.links).toHaveBeenCalledOnce());
-		expect(onDataChange.website).toHaveBeenCalledOnce();
-		expect(onDataChange.brand).toHaveBeenCalledOnce();
+		await waitFor(() => expect(onDataChange.library).toHaveBeenCalledOnce());
 
 		chatMocks.state.messages = [...chatMocks.state.messages];
 		runtime.rerender(
@@ -176,37 +166,36 @@ describe("ChatSessionRuntime", () => {
 				store={store}
 			/>
 		);
-		expect(onDataChange.links).toHaveBeenCalledOnce();
-		expect(onDataChange.website).toHaveBeenCalledOnce();
+		expect(onDataChange.library).toHaveBeenCalledOnce();
 	});
 
 	it("ignores reads, failed actions and pending approvals, then notifies when the action completes", async () => {
-		const input = { revision: "1" };
+		const input = { content: "# Notes", name: "Notes" };
 
 		const messages: Array<DashboardChatUIMessage> = [
 			{
 				id: "actions",
 				parts: [
 					{
-						input: {},
-						output: { cornerStyles: [], fontPairings: [] },
+						input: { assetId: "550e8400-e29b-41d4-a716-446655440000" },
+						output: { id: "asset-1" },
 						state: "output-available",
 						toolCallId: "read",
-						type: "tool-listBrandOptions",
+						type: "tool-getLibraryAsset",
 					},
 					{
 						errorText: "Conflict",
 						input,
 						state: "output-error",
 						toolCallId: "failed",
-						type: "tool-publishBrand",
+						type: "tool-createLibraryDocument",
 					},
 					{
 						approval: { id: "approval" },
 						input,
 						state: "approval-requested",
 						toolCallId: "pending",
-						type: "tool-publishBrand",
+						type: "tool-createLibraryDocument",
 					},
 				],
 				role: "assistant",
@@ -215,29 +204,29 @@ describe("ChatSessionRuntime", () => {
 
 		chatMocks.state.messages = messages;
 		const store = createChatStore();
-		const website = vi.fn();
+		const library = vi.fn();
 
 		const runtime = render(
 			<ChatSessionRuntime
 				autoResume={false}
 				chatId='chat-1'
 				initialMessages={[]}
-				onDataChange={{ website }}
+				onDataChange={{ library }}
 				store={store}
 			/>
 		);
 
-		expect(website).not.toHaveBeenCalled();
+		expect(library).not.toHaveBeenCalled();
 		chatMocks.state.messages = [
 			{
 				id: "actions",
 				parts: [
 					{
 						input,
-						output: { revision: "2" },
+						output: { id: "asset-1" },
 						state: "output-available",
 						toolCallId: "pending",
-						type: "tool-publishBrand",
+						type: "tool-createLibraryDocument",
 					},
 				],
 				role: "assistant",
@@ -248,11 +237,11 @@ describe("ChatSessionRuntime", () => {
 				autoResume={false}
 				chatId='chat-1'
 				initialMessages={[]}
-				onDataChange={{ website }}
+				onDataChange={{ library }}
 				store={store}
 			/>
 		);
-		await waitFor(() => expect(website).toHaveBeenCalledOnce());
+		await waitFor(() => expect(library).toHaveBeenCalledOnce());
 	});
 
 	it("rejects a send when the SDK reports a shutdown HTTP error but resolves its raw promise", async () => {
@@ -271,9 +260,9 @@ describe("ChatSessionRuntime", () => {
 
 	it("resyncs to the persisted messages and shows a localized error when an approval continuation fails", async () => {
 		const part = {
-			input: { revision: "1" },
+			input: { content: "# Notes", name: "Notes" },
 			toolCallId: "call-1",
-			type: "tool-publishBrand" as const,
+			type: "tool-createLibraryDocument" as const,
 		};
 
 		const responded: DashboardChatUIMessage = {

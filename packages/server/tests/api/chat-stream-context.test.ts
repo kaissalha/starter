@@ -29,26 +29,23 @@ describe("pre-turn dashboard routing", () => {
 			instructions: null,
 			modelTier: "full",
 			needsKnowledge: false,
-			routedReference: null,
 			routedSkill: null,
 		});
 		expect(loadChatTurnContext({ route, uiMessages: [userMessage] })).toBe("");
 	});
-	it("appends routed website instructions and the selected operation reference once", () => {
-		const website = dashboardSkills.find(({ name }) => name === "website");
-		const route = resolve({ decision: decision({ route: { choice: "website-modify", type: "choice" } }) });
-		expect(route).toMatchObject({ routedReference: "modify", routedSkill: "website" });
+	it("appends routed skill instructions once", () => {
+		const library = dashboardSkills.find(({ name }) => name === "library");
+		const route = resolve({ decision: decision({ route: { choice: "library", type: "choice" } }) });
+		expect(route).toMatchObject({ routedSkill: "library" });
 		expect(route.instructions).toContain("Routed domain instructions for this turn are already loaded");
-		expect(route.instructions).toContain(website?.instructions);
-		expect(route.instructions).toContain("Selected mode: modify");
-		const context = loadChatTurnContext({ editor: { linksEditor: true }, route, uiMessages: [userMessage] });
-		expect(context.indexOf("Activate the links skill")).toBeLessThan(context.indexOf("Routed domain instructions"));
+		expect(route.instructions).toContain(library?.instructions);
+		const context = loadChatTurnContext({ route, uiMessages: [userMessage] });
+		expect(context.match(/Routed domain instructions/gu)).toHaveLength(1);
 		expect(context).not.toContain("retrieveKnowledge before answering");
 	});
 	it("adds nothing for the none route", () => {
 		expect(resolve({ decision: decision({ route: { choice: "none", type: "choice" } }) })).toMatchObject({
 			instructions: null,
-			routedReference: null,
 			routedSkill: null,
 		});
 	});

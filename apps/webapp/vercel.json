@@ -4,8 +4,6 @@
 		{ "path": "/api/events/dispatch", "schedule": "* * * * *" },
 		{ "path": "/api/events/retention", "schedule": "17 * * * *" },
 		{ "path": "/api/maintenance/retention", "schedule": "43 3 * * *" },
-		{ "path": "/api/domains/reconcile", "schedule": "* * * * *" },
-		{ "path": "/api/domains/registrations", "schedule": "41 4 * * *" },
 		{ "path": "/api/organizations/purge", "schedule": "*/15 * * * *" }
 	],
 	"installCommand": "npx -y bun@1.4.2 install --frozen-lockfile"

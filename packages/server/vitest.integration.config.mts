@@ -16,7 +16,7 @@ export default defineProject({
 		fileParallelism: false,
 		globals: true,
 		globalSetup: path.resolve(import.meta.dirname, "../../globalSetup.ts"),
-		include: ["**/*.integration.test.{ts,tsx}", "tests/lib/auth.test.ts", "tests/services/websites.test.ts"],
+		include: ["**/*.integration.test.{ts,tsx}", "tests/lib/auth.test.ts"],
 		name: "server-integration",
 		setupFiles: [path.resolve(import.meta.dirname, "./tests/setup.ts")],
 	},

@@ -12,7 +12,6 @@ import { uploadBufferToBlob } from "../lib/blob-storage";
 import { models } from "../mastra/models";
 import { startFileIngestion } from "./documents";
 import { createFile, deleteFile, getFile } from "./storage";
-import { getWebsiteRecord, getWebsiteVersionRecord } from "./websites/persistence";
 
 export class LibraryError extends Error {
 	code: "CONFLICT" | "NOT_EDITABLE" | "NOT_FOUND" | "RATE_LIMITED";
@@ -537,24 +536,13 @@ const trimLogo = (image: Uint8Array) =>
 		.toBuffer();
 
 const readLogoBusinessContext = async ({ organizationId }: { organizationId: string }) => {
-	const [record, [organization]] = await Promise.all([
-		getWebsiteRecord({ organizationId }),
-		db
-			.select({ name: organizations.name })
-			.from(organizations)
-			.where(eq(organizations.id, organizationId))
-			.limit(1),
-	]);
+	const [organization] = await db
+		.select({ name: organizations.name })
+		.from(organizations)
+		.where(eq(organizations.id, organizationId))
+		.limit(1);
 
-	const version = record
-		? await getWebsiteVersionRecord({ versionId: record.draftVersionId, websiteId: record.id })
-		: null;
-
-	return {
-		businessName: record?.brief.name ?? organization?.name ?? "",
-		businessType: record?.brief.type ?? null,
-		primaryColor: version?.brand.colors.primary ?? null,
-	};
+	return { businessName: organization?.name ?? "" };
 };
 
 export const generateLibraryLogo = async ({

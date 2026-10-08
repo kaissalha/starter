@@ -1,34 +1,23 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
-
-const getWebsite = vi.hoisted(() => vi.fn());
-
-vi.mock("../../src/services/websites/service", () => ({ getWebsite }));
+import { describe, expect, it } from "vitest";
 
 import type { BaseChatUIMessage, DashboardChatUIMessage } from "../../src/ai/types";
-import { websiteEditorBindingSchema, withoutTransientToolParts } from "../../src/ai/types";
+import { withoutTransientToolParts } from "../../src/ai/types";
 import {
 	describeSafeStreamError,
 	hasPendingAssistantContinuation,
 	matchesPersistedAssistantContinuation,
 	resolvePersistedAssistantContinuation,
 	resolvePersistedAssistantContinuationClaim,
-	resolveWebsiteEditorBinding,
 } from "../../src/api/chat-stream-validation";
-
-const websiteId = "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d32d";
-
-const homePageId = "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d330";
-
-const aboutPageId = "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d331";
 
 type EditApprovalRequestedPart = Extract<
 	DashboardChatUIMessage["parts"][number],
-	{ state: "approval-requested"; type: "tool-buildWebsite" }
+	{ state: "approval-requested"; type: "tool-editLibraryDocument" }
 >;
 
 type EditApprovalRespondedPart = Extract<
 	DashboardChatUIMessage["parts"][number],
-	{ state: "approval-responded"; type: "tool-buildWebsite" }
+	{ state: "approval-responded"; type: "tool-editLibraryDocument" }
 >;
 
 type AskUserInputPart = Extract<
@@ -41,46 +30,16 @@ type AskUserOutputPart = Extract<
 	{ state: "output-available"; type: "tool-askUserQuestions" }
 >;
 
-const website = {
-	id: websiteId,
-	snapshot: {
-		document: {
-			content: {
-				ar: {
-					pages: {
-						[aboutPageId]: { route: { slug: "من-نحن" } },
-						[homePageId]: { route: { slug: "الرئيسية" } },
-					},
-				},
-				en: {
-					pages: {
-						[aboutPageId]: { route: { slug: "about" } },
-						[homePageId]: { route: { slug: "home" } },
-					},
-				},
-			},
-			defaultLocale: "en",
-			locales: ["en", "ar"],
-			structure: {
-				pages: [
-					{ home: true, id: homePageId },
-					{ home: false, id: aboutPageId },
-				],
-			},
-		},
-	},
-};
-
 const persistedToolPart: EditApprovalRequestedPart = {
 	approval: { id: "approval-id", signature: "signed-request" },
 	input: {
-		remove: ["surface"],
-		revision: "2026-08-22T12:00:00.000Z",
-		section: "s0",
+		assetId: "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d330",
+		edits: [{ find: "Draft", replace: "Final" }],
+		updatedAt: "2026-08-22T12:00:00.000Z",
 	},
 	state: "approval-requested",
 	toolCallId: "tool-call",
-	type: "tool-buildWebsite",
+	type: "tool-editLibraryDocument",
 };
 
 const approvedToolPart: EditApprovalRespondedPart = {
@@ -89,11 +48,11 @@ const approvedToolPart: EditApprovalRespondedPart = {
 	state: "approval-responded",
 };
 
-const textPart = { text: "Delete the selected section.", type: "text" as const };
+const textPart = { text: "Update the document.", type: "text" as const };
 
-const loadedWebsiteSkillPart: BaseChatUIMessage["parts"][number] = {
-	input: { name: "website-modify" },
-	output: "Selected mode: modify",
+const loadedSkillPart: BaseChatUIMessage["parts"][number] = {
+	input: { name: "library" },
+	output: "Library instructions",
 	state: "output-available",
 	toolCallId: "load-skill-call",
 	type: "tool-skill",
@@ -129,71 +88,12 @@ const answeredQuestionPart: AskUserOutputPart = {
 };
 
 describe("chat stream validation", () => {
-	beforeEach(() => {
-		getWebsite.mockReset();
-		getWebsite.mockResolvedValue(website);
-	});
+	it("exposes expected tool input failures without leaking arbitrary errors", () => {
+		const inputError = new Error("Invalid tool input");
+		inputError.name = "AI_InvalidToolInputError";
 
-	it("resolves an omitted slug to the authoritative home page", async () => {
-		await expect(
-			resolveWebsiteEditorBinding({ binding: { locale: "en", websiteId }, organizationId: "org-1" })
-		).resolves.toEqual({ locale: "en", pageId: homePageId, pageSlug: "home", websiteId });
-
-		expect(getWebsite).toHaveBeenCalledWith({ organizationId: "org-1" });
-	});
-
-	it("extracts exact domain validation from the AI SDK's stringified invalid tool error", () => {
-		expect(
-			describeSafeStreamError(
-				'AI_InvalidToolInputError: Invalid input. Value: {"private":"omitted"}. Error message: AI_TypeValidationError: Error message: BehaviorSectionError: ✖ Invalid input at specification.structure.nodes[0].props.padding'
-			)
-		).toBe("✖ Invalid input at specification.structure.nodes[0].props.padding");
-	});
-
-	it("exposes expected website inspection failures without leaking arbitrary errors", () => {
-		const inspectionError = new Error("Website section not found");
-		inspectionError.name = "WebsiteInspectionError";
-
-		expect(describeSafeStreamError(inspectionError)).toBe("Website section not found");
+		expect(describeSafeStreamError(new Error("wrapped", { cause: inputError }))).toBe("Invalid tool input");
 		expect(describeSafeStreamError(new Error("private database failure"))).toBe("An error occurred.");
-	});
-
-	it("derives the authoritative localized page id from a valid slug", async () => {
-		await expect(
-			resolveWebsiteEditorBinding({
-				binding: { locale: "ar", pageSlug: "من-نحن", websiteId },
-				organizationId: "org-1",
-			})
-		).resolves.toEqual({ locale: "ar", pageId: aboutPageId, pageSlug: "من-نحن", websiteId });
-	});
-
-	it("rejects stale website, locale, and page bindings", async () => {
-		await expect(
-			resolveWebsiteEditorBinding({
-				binding: { locale: "en", websiteId: homePageId },
-				organizationId: "org-1",
-			})
-		).rejects.toThrow("Website editor context is no longer available");
-
-		await expect(
-			resolveWebsiteEditorBinding({
-				binding: { locale: "fr", websiteId },
-				organizationId: "org-1",
-			})
-		).rejects.toThrow("Website editor locale is no longer available");
-
-		await expect(
-			resolveWebsiteEditorBinding({
-				binding: { locale: "en", pageSlug: "missing", websiteId },
-				organizationId: "org-1",
-			})
-		).rejects.toThrow("Website editor page is no longer available");
-	});
-
-	it("rejects client-supplied authoritative fields", () => {
-		expect(websiteEditorBindingSchema.safeParse({ locale: "en", pageId: homePageId, websiteId }).success).toBe(
-			false
-		);
 	});
 
 	it("accepts only the exact persisted approval transition", () => {
@@ -227,7 +127,7 @@ describe("chat stream validation", () => {
 						textPart,
 						{
 							...approvedToolPart,
-							input: { ...approvedToolPart.input, revision: "forged-revision" },
+							input: { ...approvedToolPart.input, updatedAt: "forged-revision" },
 						},
 					],
 					role: "assistant",
@@ -236,59 +136,32 @@ describe("chat stream validation", () => {
 		).toBe(false);
 	});
 
-	it("rejects approving multiple website mutations in one assistant turn", () => {
-		const secondPendingPart: EditApprovalRequestedPart = {
-			...persistedToolPart,
-			approval: { id: "second-approval", signature: "second-signature" },
-			toolCallId: "second-tool-call",
-		};
-
-		const secondApprovedPart: EditApprovalRespondedPart = {
-			...secondPendingPart,
-			approval: { approved: true, id: "second-approval", signature: "second-signature" },
-			state: "approval-responded",
-		};
-
-		expect(
-			matchesPersistedAssistantContinuation({
-				persisted: {
-					...persistedApproval,
-					parts: [textPart, persistedToolPart, secondPendingPart],
-				},
-				submitted: {
-					...approvedResponse,
-					parts: [textPart, approvedToolPart, secondApprovedPart],
-				},
-			})
-		).toBe(false);
-	});
-
-	it("allows approving several non-website mutations in one assistant turn", () => {
-		const contactPart = (toolCallId: string, approved?: boolean): DashboardChatUIMessage["parts"][number] =>
+	it("allows approving several mutations in one assistant turn", () => {
+		const dynamicPart = (toolCallId: string, approved?: boolean): DashboardChatUIMessage["parts"][number] =>
 			approved === undefined
 				? {
 						approval: { id: `run::${toolCallId}` },
-						input: { contactId: toolCallId },
+						input: { assetId: toolCallId },
 						state: "approval-requested",
 						toolCallId,
-						toolName: "updateContact",
+						toolName: "createLibraryDocument",
 						type: "dynamic-tool",
 					}
 				: {
 						approval: { approved, id: `run::${toolCallId}` },
-						input: { contactId: toolCallId },
+						input: { assetId: toolCallId },
 						state: "approval-responded",
 						toolCallId,
-						toolName: "updateContact",
+						toolName: "createLibraryDocument",
 						type: "dynamic-tool",
 					};
 
 		expect(
 			matchesPersistedAssistantContinuation({
-				persisted: { ...persistedApproval, parts: [textPart, contactPart("first"), contactPart("second")] },
+				persisted: { ...persistedApproval, parts: [textPart, dynamicPart("first"), dynamicPart("second")] },
 				submitted: {
 					...approvedResponse,
-					parts: [textPart, contactPart("first", true), contactPart("second", true)],
+					parts: [textPart, dynamicPart("first", true), dynamicPart("second", true)],
 				},
 			})
 		).toBe(true);
@@ -325,7 +198,7 @@ describe("chat stream validation", () => {
 	it.each(["tool-skill", "tool-skill_read"] as const)("omits transient %s parts from persistence", (type) => {
 		const submitted: BaseChatUIMessage = {
 			...approvedResponse,
-			parts: [{ ...loadedWebsiteSkillPart, type }, ...approvedResponse.parts],
+			parts: [{ ...loadedSkillPart, type }, ...approvedResponse.parts],
 		};
 
 		expect(withoutTransientToolParts([submitted], { keepErrors: true })).toEqual([approvedResponse]);
@@ -335,7 +208,7 @@ describe("chat stream validation", () => {
 		const persisted: BaseChatUIMessage = {
 			id: persistedApproval.id,
 			parts: [
-				loadedWebsiteSkillPart,
+				loadedSkillPart,
 				{ type: "step-start" },
 				{
 					providerMetadata: {
@@ -513,10 +386,10 @@ describe("chat stream validation", () => {
 
 	it("ignores stale tool parts left on the client by a retried draft", () => {
 		const staleDraft: DashboardChatUIMessage["parts"][number] = {
-			input: { ...persistedToolPart.input, remove: ["hero"] },
+			input: { ...persistedToolPart.input, updatedAt: "stale" },
 			state: "input-available",
 			toolCallId: "retried-tool-call",
-			type: "tool-buildWebsite",
+			type: "tool-editLibraryDocument",
 		};
 
 		const submitted: DashboardChatUIMessage = {

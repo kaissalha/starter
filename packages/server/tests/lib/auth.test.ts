@@ -2,10 +2,9 @@ import { eq } from "drizzle-orm";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 
-import { apikeys, db, members, organizationPurges, organizations, termsAcceptances } from "@starter/db";
+import { apikeys, db, members, organizationPurges, organizations } from "@starter/db";
 import { OTPEmail } from "@starter/email";
 
-import { legalVersion } from "../../src/contracts";
 import { auth, resolveOAuthSession, resolveSession } from "../../src/lib/auth";
 import { sendEmail } from "../../src/lib/resend";
 import { requireOrganizationPermission } from "../../src/services/permissions";
@@ -84,24 +83,6 @@ describe("Better Auth test helpers", () => {
 		expect(response.status).toBe(200);
 		expect(metadata.registration_endpoint).toBe("http://localhost:3000/api/auth/oauth2/register");
 		expect(metadata.code_challenge_methods_supported).toContain("S256");
-	});
-
-	it("records the accepted legal version when an account is created", async () => {
-		const context = await auth.$context;
-
-		const created = await context.internalAdapter.createUser(
-			{ email: `terms-${crypto.randomUUID()}@example.com`, name: "Terms Test" },
-			{ method: "email-otp" }
-		);
-
-		userIds.push(created.id);
-
-		const stored = await db
-			.select({ version: termsAcceptances.version })
-			.from(termsAcceptances)
-			.where(eq(termsAcceptances.userId, created.id));
-
-		expect(stored).toEqual([{ version: legalVersion }]);
 	});
 
 	it("creates authenticated sessions for persisted test users", async () => {

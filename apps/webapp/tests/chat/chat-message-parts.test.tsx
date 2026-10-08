@@ -35,8 +35,6 @@ vi.mock("@/components/chat/stores/chat-session-store", () => ({
 		}),
 }));
 
-vi.mock("@/components/chat/message/parts/website-draft-preview", () => ({ WebsiteDraftPreview: () => null }));
-
 vi.mock("thinking-orbs", () => ({
 	ThinkingOrb: ({
 		"aria-hidden": ariaHidden,
@@ -82,10 +80,14 @@ describe("ChatMessageParts", () => {
 				parts={[
 					{
 						approval: { id: "delete-approval" },
-						input: { remove: ["section"], revision: "2026-08-22T12:00:00.000Z", section: "s0" },
+						input: {
+							assetId: "550e8400-e29b-41d4-a716-446655440000",
+							edits: [{ find: "Old", replace: "" }],
+							updatedAt: "2026-08-22T12:00:00.000Z",
+						},
 						state: "approval-requested",
 						toolCallId: "delete-call",
-						type: "tool-buildWebsite",
+						type: "tool-editLibraryDocument",
 					},
 				]}
 			/>
@@ -170,36 +172,6 @@ describe("ChatMessageParts", () => {
 		}
 	);
 
-	it("shows contact details for approval without IDs or raw JSON", () => {
-		const { container } = render(
-			<ChatMessageParts
-				isStreaming={false}
-				isUser={false}
-				messageId='contact-approval'
-				parts={[
-					{
-						approval: { id: "approval-contact" },
-						input: {
-							contactId: "internal-record-id",
-							email: "anas@example.com",
-							name: "Anas",
-							phone: null,
-						},
-						state: "approval-requested",
-						toolCallId: "create-contact",
-						type: "tool-updateContact",
-					},
-				]}
-			/>
-		);
-
-		expect(screen.getByText("Anas")).toBeInTheDocument();
-		expect(screen.getByText("anas@example.com")).toBeInTheDocument();
-		expect(container.textContent).not.toContain("internal-record-id");
-		expect(container.querySelector("pre")).not.toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "approve" })).toBeInTheDocument();
-	});
-
 	it("replaces technical tool errors with a useful status", () => {
 		render(
 			<ChatMessageParts
@@ -209,17 +181,10 @@ describe("ChatMessageParts", () => {
 				parts={[
 					{
 						errorText: "SQL connection failed at private-host",
-						input: {
-							cursor: null,
-							filters: {},
-							order: "desc",
-							pageSize: 50,
-							search: "",
-							sort: "createdAt",
-						},
+						input: { assetId: "550e8400-e29b-41d4-a716-446655440000" },
 						state: "output-error",
-						toolCallId: "list-contacts",
-						type: "tool-listContacts",
+						toolCallId: "get-library-asset",
+						type: "tool-getLibraryAsset",
 					},
 				]}
 			/>
@@ -283,16 +248,16 @@ describe("ChatMessageParts", () => {
 						type: "reasoning",
 					},
 					{
-						input: { query: "brand reputation" },
+						input: { query: "market reputation" },
 						state: "input-available",
 						toolCallId: "web-search",
 						type: "tool-webSearch",
 					},
 					{
-						input: {},
+						input: { assetId: "550e8400-e29b-41d4-a716-446655440000" },
 						state: "input-available",
-						toolCallId: "get-brand",
-						type: "tool-getBrand",
+						toolCallId: "get-library-asset",
+						type: "tool-getLibraryAsset",
 					},
 				]}
 			/>
@@ -316,7 +281,7 @@ describe("ChatMessageParts", () => {
 		expect(container.querySelector("[data-thinking-orb-state='working']")).not.toBeInTheDocument();
 	});
 
-	it("requires an explicit approval response before a website mutation", async () => {
+	it("requires an explicit approval response before an action", async () => {
 		const user = userEvent.setup();
 
 		render(
@@ -326,109 +291,42 @@ describe("ChatMessageParts", () => {
 				messageId='assistant-message'
 				parts={[
 					{
-						approval: { id: "approval-edit-website" },
-						input: {
-							remove: ["section-root"],
-							revision: "2026-08-22T12:00:00.000Z",
-							section: "s0",
-						},
+						approval: { id: "approval-create-document" },
+						input: { content: "# Notes", name: "Notes" },
 						state: "approval-requested",
-						toolCallId: "edit-website",
-						type: "tool-buildWebsite",
+						toolCallId: "create-document",
+						type: "tool-createLibraryDocument",
 					},
 				]}
 			/>
 		);
 
-		expect(screen.getByText("summary.modifySection")).toBeInTheDocument();
-		expect(screen.getByText("summary.removed")).toBeInTheDocument();
-		expect(screen.queryByText("details")).not.toBeInTheDocument();
-		expect(screen.queryByText('"remove": [', { exact: false })).not.toBeInTheDocument();
+		expect(screen.getByText("summary.review")).toBeInTheDocument();
+		expect(screen.queryByText('"content":', { exact: false })).not.toBeInTheDocument();
 		await user.click(screen.getByRole("button", { name: "deny" }));
-		expect(addToolApprovalResponse).toHaveBeenCalledWith({ approved: false, id: "approval-edit-website" });
+		expect(addToolApprovalResponse).toHaveBeenCalledWith({ approved: false, id: "approval-create-document" });
 		await user.click(screen.getByRole("button", { name: "approve" }));
-		expect(addToolApprovalResponse).toHaveBeenCalledWith({ approved: true, id: "approval-edit-website" });
+		expect(addToolApprovalResponse).toHaveBeenCalledWith({ approved: true, id: "approval-create-document" });
 	});
 
-	it("summarizes custom composition targets and script presence before approval", () => {
-		render(
-			<ChatMessageParts
-				isStreaming={false}
-				isUser={false}
-				messageId='assistant-message'
-				parts={[
-					{
-						approval: { id: "approval-compose-website" },
-						input: {
-							copy: { heading: { ar: "عنوان", en: "Heading" } },
-							index: 1,
-							links: { primary: { kind: "relative", path: "/contact" } },
-							logic: {
-								fields: [],
-								kind: "script",
-								outputs: ["result"],
-								script: "function calculate() { return { result: 1 }; }",
-							},
-							page: "p0",
-							revision: "2026-08-22T12:00:00.000Z",
-							structure: {
-								nodes: [
-									{
-										children: ["heading"],
-										key: "surface",
-										props: {
-											padding: {
-												blockEnd: "1rem",
-												blockStart: "1rem",
-												inlineEnd: "1rem",
-												inlineStart: "1rem",
-											},
-										},
-										type: "box",
-									},
-									{
-										children: [],
-										key: "heading",
-										props: { content: "heading", element: "h2" },
-										type: "text",
-									},
-								],
-								root: "surface",
-							},
-						},
-						state: "approval-requested",
-						toolCallId: "compose-website",
-						type: "tool-composeWebsiteSection",
-					},
-				]}
-			/>
-		);
-
-		expect(screen.getByText("summary.composeSection")).toBeInTheDocument();
-		expect(screen.getByText("summary.nodes")).toBeInTheDocument();
-		expect(screen.getByText("summary.copy")).toBeInTheDocument();
-		expect(screen.getByText("summary.links")).toBeInTheDocument();
-		expect(screen.getByText("summary.scriptAdded")).toBeInTheDocument();
-		expect(screen.getByRole("button", { name: "approveCount:5" })).toBeInTheDocument();
-	});
-
-	it("never bulk-approves website mutations", async () => {
+	it("responds to every pending approval at once", async () => {
 		const user = userEvent.setup();
+		organizationPermissionState.role = "owner";
 
 		const parts = [
 			{
 				approval: { id: "approval-one" },
-				input: { remove: ["first"], revision: "revision-1", section: "section-1" },
+				input: { content: "# One", name: "One" },
 				state: "approval-requested" as const,
-				toolCallId: "mutation-one",
-				type: "tool-buildWebsite" as const,
+				toolCallId: "create-one",
+				type: "tool-createLibraryDocument" as const,
 			},
 			{
 				approval: { id: "approval-two" },
-				input: { remove: ["second"], revision: "revision-1", section: "section-2" },
+				input: { content: "# Two", name: "Two" },
 				state: "approval-requested" as const,
-				toolCallId: "mutation-two",
-				type: "tool-buildWebsite" as const,
+				toolCallId: "create-two",
+				type: "tool-createLibraryDocument" as const,
 			},
 		];
 
@@ -436,8 +334,7 @@ describe("ChatMessageParts", () => {
 
 		render(<ChatMessageParts isStreaming={false} isUser={false} messageId='assistant-message' parts={parts} />);
 
-		expect(screen.getByRole("button", { name: "denyAll" })).toBeInTheDocument();
-		expect(screen.queryByRole("button", { name: "approveAll:2" })).not.toBeInTheDocument();
+		expect(screen.getByRole("button", { name: "approveAll" })).toBeInTheDocument();
 		await user.click(screen.getByRole("button", { name: "denyAll" }));
 		expect(addToolApprovalResponse).toHaveBeenCalledWith({ approved: false, id: "approval-one" });
 		expect(addToolApprovalResponse).toHaveBeenCalledWith({ approved: false, id: "approval-two" });

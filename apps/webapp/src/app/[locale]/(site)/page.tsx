@@ -6,15 +6,11 @@ import { generateLocalizedMetadata } from "@/i18n/routing";
 import { getBaseURL } from "@starter/utils";
 
 import { CTA } from "./components/sections/cta";
-import { Facts } from "./components/sections/facts";
 import { Faqs } from "./components/sections/faqs";
+import { Features } from "./components/sections/features";
 import { Footer } from "./components/sections/footer";
 import { Hero } from "./components/sections/hero";
-import { HowItWorks } from "./components/sections/how-it-works";
-import { Links } from "./components/sections/links";
 import { Navbar } from "./components/sections/navbar";
-import { Owners } from "./components/sections/owners";
-import { Platform } from "./components/sections/platform";
 
 export const generateMetadata = async ({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> => {
 	const [{ locale }, t] = await Promise.all([params, getTranslations("site.metadata")]);
@@ -51,11 +47,7 @@ export default async function Home() {
 			<Navbar />
 			<main className='max-w-dvw overflow-x-clip'>
 				<Hero />
-				<Owners />
-				<Links />
-				<Platform />
-				<Facts />
-				<HowItWorks />
+				<Features />
 				<Faqs />
 				<CTA />
 			</main>

@@ -26,10 +26,10 @@ const pending: DashboardChatUIMessage = {
 	parts: [
 		{
 			approval: { id: "run::call-1" },
-			input: { revision: "r1" },
+			input: { content: "# Brief", name: "Brief" },
 			state: "approval-requested",
 			toolCallId: "call-1",
-			type: "tool-publishBrand",
+			type: "tool-createLibraryDocument",
 		},
 	],
 	role: "assistant",
@@ -59,10 +59,10 @@ describe("getReconciledChatMessages", () => {
 			parts: [
 				{
 					errorText: "expired",
-					input: { revision: "r1" },
+					input: { content: "# Brief", name: "Brief" },
 					state: "output-error",
 					toolCallId: "call-1",
-					type: "tool-publishBrand",
+					type: "tool-createLibraryDocument",
 				},
 			],
 		};

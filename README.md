@@ -1,6 +1,6 @@
 # starter
 
-A production-grade foundation for building new products. Two Next.js 16 apps and fifteen workspace packages — auth, organizations, an AI assistant with retrieval and memory, a typed API, i18n, emails, PDFs, and the quality gates to keep it all honest — wired together so every new app starts at the interesting part.
+A production-grade foundation for building new products. A Next.js 16 app and eleven workspace packages — auth, organizations, an AI assistant with retrieval and memory, a document library, a typed API, events and notifications, i18n, emails, PDFs, and the quality gates to keep it all honest — wired together so every new app starts at the interesting part.
 
 Built as a Bun workspaces + Turborepo monorepo.
 
@@ -8,12 +8,12 @@ Built as a Bun workspaces + Turborepo monorepo.
 
 - **Auth & organizations** — Passwordless Better Auth with hashed email OTPs and Google sign-in, organizations with invitations and roles, and localized auth errors.
 - **AI assistant** — A Mastra agent embedded in Next.js with organization-scoped request context, approval-gated mutations, web search, human-in-the-loop questions, generative UI charts, automatic vision-model switching, Postgres-backed memory and traces, and Redis-backed resumable delivery.
-- **Knowledge & memory** — A file vault with durable ingestion (Vercel Workflow), Mastra pgvector retrieval and reranking, plus Mastra message history and observational memory.
-- **Typed API** — oRPC procedures where zod validation and the OpenAPI 3.1 document share one definition, exposed three ways: an RPC transport for the webapp (`/api/rpc`, consumed through a typed TanStack Query client), a public REST API with API-key auth and a served spec (`/api/v1`, `/api/v1/openapi.json`), and an MCP server (`/api/mcp`) that surfaces opted-in procedures as tools.
+- **Library & knowledge** — A file and document library with PDF/DOCX/XLSX viewers, AI document and image/logo generation, durable ingestion (Vercel Workflow), Mastra pgvector retrieval and reranking, plus Mastra message history and observational memory.
+- **Typed API** — oRPC procedures where zod validation and the OpenAPI 3.1 document share one definition, exposed three ways: an RPC transport for the webapp (`/api/rpc`, consumed through a typed TanStack Query client), a public REST API with API-key auth and a served spec (`/api/v1`, `/api/v1/openapi.json`), and an OAuth-protected MCP server (`/api/mcp`) whose tools are registered separately (currently notification settings).
 - **Internationalization** — English and Arabic with full RTL support via next-intl, localized metadata, and an Accept-header markdown mode that serves any page as markdown to agents.
-- **Infinite Website** — An owned v1 website document and React renderer built from primitives, recipes, 189 canonical sections, and 21 complete templates. Reusable section/template definitions are content- and ID-free; site creation injects UUIDs and separately supplied ISO 639-1 content, while routes render a loaded, validated document. Layout is container-responsive and RTL-safe, interactions use Base UI and Embla, and Storybook covers every level with English and Arabic variants for every template. See the [package architecture guide](packages/infinite-website/README.md) and [generation and editor guide](docs/website-generation.md).
+- **Events & notifications** — Transactional event log with a cron-recovered dispatcher, durable per-consumer executions, an in-app inbox, per-member preferences, and email delivery. The event catalog and notification registry start empty; see [events and notifications](docs/events-and-notifications.md).
 - **Email & PDF** — React Email templates sent through Resend, and a React PDF design system with tables, charts, and form primitives.
-- **Operations** — [Tinybird customer analytics](docs/analytics.md) for Website, Links and Blog; PostHog product analytics and error capture, structured logging with evlog, and Vercel Blob storage with client uploads.
+- **Operations** — PostHog product analytics and error capture, structured logging with evlog, and Vercel Blob storage with client uploads.
 - **Quality gates** — Mastra runtime scorers and trace storage, Vitest with Testcontainers (real Postgres + Redis), oxlint/oxfmt, konsistent structural conventions, jscpd duplication detection, react-doctor, and deterministic shadscan UI audits.
 
 ## Repo layout
@@ -21,18 +21,13 @@ Built as a Bun workspaces + Turborepo monorepo.
 ```text
 .
 |-- apps/
-|   |-- webapp/              # Authenticated Next.js 16 product app
-|   `-- websites/            # Public Next.js 16 website renderer
+|   `-- webapp/              # Authenticated Next.js 16 product app
 |-- packages/
-|   |-- analytics/           # Tinybird resources, client, and analytics contracts
 |   |-- cache/               # Redis clients, TTL cache, rate-limit utilities
 |   |-- db/                  # Drizzle application schema and migrations
 |   |-- documents/           # File formats, upload rules, extraction, PDF/DOCX/XLSX viewers
 |   |-- email/               # React Email templates + Resend
 |   |-- genui/               # OpenUI Lang contract, parsing, and chat GenUI library
-|   |-- infinite-brand/      # Validated Brand and typography contracts
-|   |-- infinite-links/      # Links page document, themes, renderer
-|   |-- infinite-website/    # Localized website document, sections, renderer
 |   |-- observability/       # evlog drains, sampling, error serialization
 |   |-- pdf/                 # React PDF design system and helpers
 |   |-- server/              # oRPC API, auth, AI agents/tools, services
@@ -46,7 +41,7 @@ Built as a Bun workspaces + Turborepo monorepo.
 
 ## Stack
 
-Next.js 16 · React 19 · TypeScript · Mastra · AI SDK UI · Better Auth · oRPC + OpenAPI · Drizzle ORM · Postgres + pgvector · Upstash Redis · TanStack Query · Tailwind CSS v4 · Base UI · Embla · next-intl · Vercel (Workflow, Blob, AI Gateway) · Bun · Turborepo · Vitest
+Next.js 16 · React 19 · TypeScript · Mastra · AI SDK UI · Better Auth · oRPC + OpenAPI · Drizzle ORM · Postgres + pgvector · Upstash Redis · TanStack Query · Tailwind CSS v4 · Base UI · next-intl · Vercel (Workflow, Blob, AI Gateway) · Bun · Turborepo · Vitest
 
 ## Organization permissions
 
@@ -54,8 +49,7 @@ Better Auth organization access control defines three roles in `packages/server/
 read, modify, and delete; Admin can read and modify; Member can read. Settings → Team manages invitations
 and member access, including pending and expired invitations, resending, role changes, and removal. Invitation links
 return recipients to acceptance after passwordless sign-in and activate the joined organization. Only owners can
-remove members, cancel invitations, revoke API keys, delete content, unpublish posts, or replace existing website
-layouts. Personal account settings remain available to each user.
+remove members, cancel invitations, revoke API keys, or delete content. Personal account settings remain available to each user.
 Owner memberships are fixed: they cannot be edited or removed, and invitations and role changes offer only Admin
 and Member.
 
@@ -91,13 +85,13 @@ tests), and optionally `ngrok` for Blob upload callbacks in development.
 
 ```sh
 bun install
-make env VERCEL_SCOPE=<your-vercel-team-slug>   # pulls apps/webapp/.env.local and apps/websites/.env.local from starter-webapp and starter-websites
-docker compose up -d       # local Postgres (loopback only)
-make migrate               # applies migrations to DATABASE_URL from ENV_FILE (default apps/webapp/.env.local); pass ENV_FILE=<path> to target another database
+make env VERCEL_SCOPE=<your-vercel-team-slug>   # pulls apps/webapp/.env from the starter-webapp project
+docker compose up -d       # local Postgres and Redis (loopback only)
+make migrate               # applies migrations to DATABASE_URL from ENV_FILE (default apps/webapp/.env); pass ENV_FILE=<path> to target another database
 bun dev
 ```
 
-`make migrate` targets the `DATABASE_URL` in `ENV_FILE` (default `apps/webapp/.env.local`, the cloud database after `make env`); pass `ENV_FILE=<path>` to migrate the Docker database. Production requires the variables marked "Required in production" in `apps/webapp/.env.example` and `apps/websites/.env.example`.
+`make migrate` targets the `DATABASE_URL` in `ENV_FILE` (default `apps/webapp/.env`, the cloud database after `make env`); pass `ENV_FILE=<path>` to migrate the Docker database. Production requires the variables marked "Required in production" in `apps/webapp/.env.example`.
 
 `bun dev` also starts the AI SDK DevTools viewer at `http://localhost:4983`. The webapp registers its telemetry
 integration only during Node development and writes captures to `apps/webapp/.devtools` (gitignored). Run the viewer
@@ -108,23 +102,23 @@ The separate `ai-evaluation` alias stays confined to server evaluation features.
 
 ## Commands
 
-| Command                | Description                                        |
-| ---------------------- | -------------------------------------------------- |
-| `bun dev`              | Start both apps and all local development services |
-| `bun run test`         | Run the Vitest suite (Testcontainers-backed)       |
-| `bun typecheck`        | TypeScript check across the workspace              |
-| `bun check`            | Run all quality gates, including duplication       |
-| `bun run jscpd`        | Reject new duplicate blocks against the baseline   |
-| `bun run jscpd:report` | Generate full duplication reports and summary      |
-| `bun run jscpd:mcp`    | Start the duplication MCP server over stdio        |
-| `bun lint`             | Oxlint + Oxfmt + konsistent                        |
-| `bun run lint:fix`     | Apply lint fixes and format                        |
-| `bun react-doctor`     | React health check across the repo                 |
-| `bun shadscan`         | Enforce webapp and shared-UI audit baselines       |
-| `bun evlog:check`      | Enforce the webapp observability baseline          |
-| `make migrate`         | Generate and apply database migrations locally     |
-| `make studio`          | Open Drizzle Studio                                |
-| `make update-deps`     | Update dependencies across the monorepo            |
+| Command                | Description                                      |
+| ---------------------- | ------------------------------------------------ |
+| `bun dev`              | Start the webapp and local development services  |
+| `bun run test`         | Run the Vitest suite (Testcontainers-backed)     |
+| `bun typecheck`        | TypeScript check across the workspace            |
+| `bun check`            | Run all quality gates, including duplication     |
+| `bun run jscpd`        | Reject new duplicate blocks against the baseline |
+| `bun run jscpd:report` | Generate full duplication reports and summary    |
+| `bun run jscpd:mcp`    | Start the duplication MCP server over stdio      |
+| `bun lint`             | Oxlint + Oxfmt + konsistent                      |
+| `bun run lint:fix`     | Apply lint fixes and format                      |
+| `bun react-doctor`     | React health check across the repo               |
+| `bun shadscan`         | Enforce webapp and shared-UI audit baselines     |
+| `bun evlog:check`      | Enforce the webapp observability baseline        |
+| `make migrate`         | Generate and apply database migrations locally   |
+| `make studio`          | Open Drizzle Studio                              |
+| `make update-deps`     | Update dependencies across the monorepo          |
 
 ## Production origin
 
@@ -133,7 +127,7 @@ The separate `ai-evaluation` alias stays confined to server evaluation features.
 - Production builds (`NEXT_PUBLIC_VERCEL_ENV=production`, or a `main`/`master` commit ref) use `NEXT_PUBLIC_BASE_URL` when it is a full `https://` origin, otherwise `NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL`. With neither, or an invalid `NEXT_PUBLIC_BASE_URL`, the build fails.
 - Set `NEXT_PUBLIC_BASE_URL` for the Production environment only and redeploy, since `NEXT_PUBLIC_*` values are inlined at build time. Previews use the branch URL, then the deployment URL; the browser uses `window.location.origin`.
 - Vercel needs "Automatically expose System Environment Variables" enabled.
-- When the production domain changes, add `https://<domain>/api/auth/callback/google` to the Google OAuth redirect URIs, set `WEBAPP_URL` on the websites project, and redirect the old host. MCP/OAuth clients must consent again.
+- When the production domain changes, add `https://<domain>/api/auth/callback/google` to the Google OAuth redirect URIs and redirect the old host. MCP/OAuth clients must consent again.
 
 ## Database migrations
 
@@ -154,7 +148,7 @@ Working agreements, API conventions, and code style live in [AGENTS.md](AGENTS.m
 
 ## Testing and evals
 
-`globalSetup.ts` boots pgvector Postgres through Testcontainers, lets Mastra initialize its own schema, and runs real migrations, so integration tests exercise the actual schema. Deterministic behavior is covered by Vitest; Mastra scorers are attached to agent runs and persisted with traces. `.github/workflows/quality.yml` is reusable: pull requests run it directly, and pushes to `master` run it as the `Gate` job in `.github/workflows/production.yml`. `Prepare production` starts only after the whole gate passes and only while the pushed commit is still the head of `master`: it checks migration drift, deploys Tinybird, runs migrations, then notifies Vercel (`Vercel - starter-webapp: prepare`, `Vercel - starter-websites: prepare`). A `Quality checks` job in `production.yml` reports the gate result. Require `Vercel - starter-webapp: prepare` and `Quality checks` as production Deployment Checks on the webapp project, and `Vercel - starter-websites: prepare` on the websites project (requires: none; blocks: deployment-alias; timeout: 3600 seconds). Preview deployments do not require these checks. When `SLACK_ALERT_WEBHOOK` is set, a failed pipeline on `master` posts to Slack.
+`globalSetup.ts` boots pgvector Postgres through Testcontainers, lets Mastra initialize its own schema, and runs real migrations, so integration tests exercise the actual schema. Deterministic behavior is covered by Vitest; Mastra scorers are attached to agent runs and persisted with traces. `.github/workflows/quality.yml` is reusable: pull requests run it directly, and pushes to `master` run it as the `Gate` job in `.github/workflows/production.yml`. `Prepare production` starts only after the whole gate passes and only while the pushed commit is still the head of `master`: it checks migration drift, runs migrations, then notifies Vercel (`Vercel - starter-webapp: prepare`). A `Quality checks` job in `production.yml` reports the gate result. Require `Vercel - starter-webapp: prepare` and `Quality checks` as production Deployment Checks on the webapp project (requires: none; blocks: deployment-alias; timeout: 3600 seconds). Preview deployments do not require these checks. When `SLACK_ALERT_WEBHOOK` is set, a failed pipeline on `master` posts to Slack.
 
 With Docker running, use `bun run --cwd packages/server test:integration` for the Mastra persistence and server integration suite.
 

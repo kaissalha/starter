@@ -8,7 +8,6 @@ import Image from "next/image";
 import {
 	AiMagicIcon,
 	ArrowLeft01Icon,
-	CheckmarkBadge01Icon,
 	Delete02Icon,
 	Download04Icon,
 	File01Icon,
@@ -20,12 +19,10 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tansta
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 
 import { Header } from "@/app/[locale]/dashboard/components/layout/header/header";
-import { useBusinessLogo } from "@/components/business-logo-field";
 import { useOrganizationPermissions } from "@/hooks/use-organization-permissions";
 import { Link, useRouter } from "@/i18n/navigation";
 import { apiClient, client } from "@/lib/api-client";
 import { getDocumentViewerKind } from "@starter/documents";
-import { brandLogoScale } from "@starter/infinite-brand";
 import { Badge } from "@starter/ui/components/badge";
 import { Button } from "@starter/ui/components/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@starter/ui/components/dialog";
@@ -239,6 +236,8 @@ const LibraryAssetPreview = ({ asset, fileUrl }: { asset: LibraryAssetDetail; fi
 	);
 };
 
+const detailsSidebarStyle: CSSPropertiesWithVariables = { "--sidebar-width-details": "26rem" };
+
 const LibraryAssetView = ({ asset, onConflict }: { asset: LibraryAssetDetail; onConflict: () => void }) => {
 	const { can, organizationId } = useOrganizationPermissions();
 	const t = useTranslations("library");
@@ -257,14 +256,6 @@ const LibraryAssetView = ({ asset, onConflict }: { asset: LibraryAssetDetail; on
 		},
 	});
 
-	const tLogo = useTranslations("businessLogo");
-
-	const businessLogo = useBusinessLogo({
-		onSaved: () => {
-			toast.success(tLogo("saved"));
-		},
-	});
-
 	const mediaUrl =
 		asset.url && asset.access === "private" && organizationId
 			? `/api/media?${new URLSearchParams({ organizationId, url: asset.url })}`
@@ -273,7 +264,6 @@ const LibraryAssetView = ({ asset, onConflict }: { asset: LibraryAssetDetail; on
 	const fileUrl = asset.editable ? `/api/library/${asset.id}/pdf?download` : mediaUrl;
 	const writable = can("workspace.write");
 	const viewerKind = getDocumentViewerKind(asset.contentType);
-	const canUseAsLogo = writable && asset.kind === "image" && asset.access === "public" && Boolean(asset.url);
 
 	const actions = (
 		<>
@@ -283,7 +273,7 @@ const LibraryAssetView = ({ asset, onConflict }: { asset: LibraryAssetDetail; on
 				</span>
 			)}
 			<LibraryAssetDetails asset={asset} />
-			{(fileUrl || canUseAsLogo || can("workspace.delete")) && (
+			{(fileUrl || can("workspace.delete")) && (
 				<DropdownMenu>
 					<DropdownMenuTrigger render={<Button aria-label={t("actions")} size='icon-sm' variant='ghost' />}>
 						<HugeiconsIcon aria-hidden className='scale-110' icon={MoreHorizontalIcon} strokeWidth={1.75} />
@@ -300,22 +290,6 @@ const LibraryAssetView = ({ asset, onConflict }: { asset: LibraryAssetDetail; on
 									strokeWidth={1.75}
 								/>
 								{t(asset.editable ? "downloadPdf" : "download")}
-							</DropdownMenuItem>
-						)}
-						{canUseAsLogo && (
-							<DropdownMenuItem
-								disabled={businessLogo.pending}
-								onClick={() =>
-									asset.url && businessLogo.change({ scale: brandLogoScale.default, src: asset.url })
-								}
-							>
-								<HugeiconsIcon
-									aria-hidden
-									className='scale-110'
-									icon={CheckmarkBadge01Icon}
-									strokeWidth={1.75}
-								/>
-								{t("useAsLogo")}
 							</DropdownMenuItem>
 						)}
 						{can("workspace.delete") && (
@@ -474,7 +448,7 @@ export const LibraryAssetPage = ({ assetId }: { assetId: string }) => {
 			defaultOpen
 			dir={locale === "ar" ? "rtl" : "ltr"}
 			purpose='details'
-			style={{ "--sidebar-width-details": "26rem" } satisfies CSSPropertiesWithVariables}
+			style={detailsSidebarStyle}
 		>
 			<LibraryAssetView
 				asset={query.data}

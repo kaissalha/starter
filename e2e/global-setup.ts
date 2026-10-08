@@ -1,4 +1,4 @@
-import { spawn, spawnSync, type ChildProcess } from "node:child_process";
+import { spawn, type ChildProcess } from "node:child_process";
 import { rm } from "node:fs/promises";
 import { get, type IncomingMessage } from "node:http";
 import { join } from "node:path";
@@ -6,11 +6,7 @@ import { text } from "node:stream/consumers";
 
 const webappURL = "http://localhost:3100/en/login";
 
-const websitesURL = "http://018ff7c2-1f7c-7b28-b6c1-3f2e60b5d339.localhost:3101/";
-
 const distDir = join(process.cwd(), "apps/webapp/.next-e2e");
-
-const websitesDistDir = join(process.cwd(), "apps/websites/.next-e2e");
 
 const stopServer = async (server: ChildProcess) => {
 	if (server.exitCode !== null) {
@@ -68,8 +64,6 @@ export default async function globalSetup() {
 	process.env.AI_GATEWAY_API_KEY = "e2e-ai-gateway-key";
 	const { setup: setupServices, teardown: teardownServices } = await import("../globalSetup");
 	await setupServices();
-	const { seedPublicWebsite } = await import("./fixtures/website");
-	await seedPublicWebsite();
 	const { pool: applicationPool } = await import("@starter/db");
 
 	const teardown = async () => {
@@ -77,24 +71,9 @@ export default async function globalSetup() {
 		await teardownServices();
 	};
 
-	const styles =
-		process.env.E2E_REUSE_STYLES === "1"
-			? null
-			: spawnSync("bun", ["run", "--cwd", "packages/infinite-website", "build"], {
-					cwd: process.cwd(),
-					encoding: "utf8",
-				});
-
-	if (styles && styles.status !== 0) {
-		await teardown();
-		throw new Error(`Website styles failed to build.\n${styles.stderr}`);
-	}
-
 	await rm(distDir, { force: true, recursive: true });
-	await rm(websitesDistDir, { force: true, recursive: true });
 
 	const webappLogs: Array<string> = [];
-	const websitesLogs: Array<string> = [];
 
 	const server = spawn(
 		"node",
@@ -115,21 +94,6 @@ export default async function globalSetup() {
 		}
 	);
 
-	const websites = spawn(
-		"node",
-		["node_modules/next/dist/bin/next", "dev", "--hostname", "0.0.0.0", "--port", "3101"],
-		{
-			cwd: `${process.cwd()}/apps/websites`,
-			env: {
-				...process.env,
-				NODE_ENV: "development",
-				PLAYWRIGHT_TEST: "1",
-				PORT: "3101",
-			},
-			stdio: ["ignore", "pipe", "pipe"],
-		}
-	);
-
 	const capture = (logs: Array<string>) => (chunk: Buffer) => {
 		logs.push(chunk.toString());
 
@@ -140,14 +104,9 @@ export default async function globalSetup() {
 
 	server.stdout?.on("data", capture(webappLogs));
 	server.stderr?.on("data", capture(webappLogs));
-	websites.stdout?.on("data", capture(websitesLogs));
-	websites.stderr?.on("data", capture(websitesLogs));
 
 	try {
-		await Promise.all([
-			waitForServer(server, webappURL, () => webappLogs.join("")),
-			waitForServer(websites, websitesURL, () => websitesLogs.join("")),
-		]);
+		await waitForServer(server, webappURL, () => webappLogs.join(""));
 		await Promise.all(
 			["/en/onboarding", "/en/dashboard", "/api/auth/get-session"].map((pathname) =>
 				fetch(new URL(pathname, webappURL), {
@@ -157,17 +116,15 @@ export default async function globalSetup() {
 			)
 		);
 	} catch (error) {
-		await Promise.all([stopServer(server), stopServer(websites)]);
+		await stopServer(server);
 		await rm(distDir, { force: true, recursive: true });
-		await rm(websitesDistDir, { force: true, recursive: true });
 		await teardown();
 		throw error;
 	}
 
 	return async () => {
-		await Promise.all([stopServer(server), stopServer(websites)]);
+		await stopServer(server);
 		await rm(distDir, { force: true, recursive: true });
-		await rm(websitesDistDir, { force: true, recursive: true });
 		await teardown();
 	};
 }

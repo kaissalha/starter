@@ -8,10 +8,8 @@ import { getLocale } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";
 import { getTranslations } from "@/lib/i18n";
 import { PostHogIdentify } from "@/lib/posthog";
-import { serverClient } from "@/lib/server/api-client";
 import { getServerSession } from "@/lib/server/auth";
 import { auth } from "@starter/server/auth";
-import { hasOrganizationPermission } from "@starter/server/permissions";
 
 import { OnboardingClient } from "./components/onboarding-client";
 import { getOnboardingRedirectPath } from "./components/onboarding-utils";
@@ -54,33 +52,15 @@ const OnboardingPageContent = async ({ searchParams }: OnboardingPageProps) => {
 
 	const redirectPath = getOnboardingRedirectPath({ redirectUrl });
 
-	const [organization, website] = session.session.activeOrganizationId
-		? await Promise.all([auth.api.getFullOrganization({ headers: requestHeaders }), serverClient.websites.get()])
-		: [null, null];
-
-	if (
-		organization &&
-		!hasOrganizationPermission({
-			permission: "write",
-			role: organization.members.find((member) => member.userId === session.user.id)?.role,
-		})
-	) {
+	if (session.session.activeOrganizationId) {
 		redirect({ href: redirectPath, locale });
-	}
-
-	if (website?.snapshot || (website?.workflow && website.workflow.state !== "failed")) {
-		redirect({ href: "/dashboard/website", locale });
 	}
 
 	return (
 		<>
 			<PostHogIdentify />
 			<OnboardingClient
-				initialBusiness={
-					website?.brief ?? (organization ? { location: "", name: organization.name, type: "" } : undefined)
-				}
-				initialInvitations={organization ? [] : initialInvitations}
-				initialOrganization={organization ? { id: organization.id, name: organization.name } : undefined}
+				initialInvitations={initialInvitations}
 				redirectPath={redirectPath}
 				userEmail={session.user.email}
 			/>

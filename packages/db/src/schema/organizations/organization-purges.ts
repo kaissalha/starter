@@ -9,10 +9,8 @@ export const organizationPurges = pgTable(
 		attempts: integer("attempts").notNull().default(0),
 		blobs: jsonb("blobs").$type<Array<{ access: "private" | "public"; url: string }>>().notNull().default([]),
 		completedAt: timestamp("completed_at", { mode: "string", withTimezone: true }),
-		hostnames: jsonb("hostnames").$type<Array<{ hostname: string; websiteId: string }>>().notNull().default([]),
 		lastError: text("last_error"),
 		organizationId: text("organization_id").primaryKey(),
-		registrationDomains: jsonb("registration_domains").$type<Array<string>>().notNull().default([]),
 		...timeFields,
 	},
 	(table) => [

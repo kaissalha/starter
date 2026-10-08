@@ -1,22 +1,11 @@
 import { expect, test } from "@playwright/test";
 
 import { expectNoHorizontalOverflow, openNavigation } from "../fixtures/mobile";
-import { resetWorkspaceWebsite } from "../fixtures/workspace";
 
 const sections = [
-	{ name: "Website", path: /\/dashboard\/website$/u },
-	{ name: "Links", path: /\/dashboard\/links$/u },
-	{ name: "SEO & GEO", path: /\/dashboard\/seo-geo$/u },
-	{ name: "Contacts", path: /\/dashboard\/contacts$/u },
-	{ name: "Blog", path: /\/dashboard\/blog$/u },
 	{ name: "Library", path: /\/dashboard\/library$/u },
-	{ name: "Analytics", path: /\/dashboard\/analytics$/u },
 	{ name: "Home", path: /\/dashboard$/u },
 ];
-
-test.beforeAll(async () => {
-	await resetWorkspaceWebsite();
-});
 
 test("reaches every dashboard section from the navigation drawer without horizontal overflow", async ({ page }) => {
 	await page.goto("/dashboard");
@@ -32,7 +21,7 @@ test("reaches every dashboard section from the navigation drawer without horizon
 });
 
 test("shows the logo and a close button in the navigation drawer", async ({ page }) => {
-	await page.goto("/dashboard/contacts");
+	await page.goto("/dashboard/library");
 	const navigation = await openNavigation(page);
 	await expect(navigation.getByRole("button", { exact: true, name: "Close" })).toBeVisible();
 	await navigation.getByRole("button", { exact: true, name: "Close" }).tap();
@@ -40,19 +29,19 @@ test("shows the logo and a close button in the navigation drawer", async ({ page
 });
 
 test("switches the dashboard language and theme from the drawer", async ({ page }) => {
-	await page.goto("/dashboard/contacts");
+	await page.goto("/dashboard/library");
 	const english = await openNavigation(page);
 	await english.getByRole("button", { name: "Language: English" }).tap();
 	await page.getByRole("menuitemradio", { name: "Arabic" }).tap();
 	await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-	await expect(page).toHaveURL(/\/ar\/dashboard\/contacts$/u);
+	await expect(page).toHaveURL(/\/ar\/dashboard\/library$/u);
 	await expectNoHorizontalOverflow(page);
 	await expect(page.getByRole("dialog")).toHaveCount(0);
 	await page.getByRole("banner").getByRole("button", { name: "فتح قائمة التنقل أو إغلاقها" }).tap();
 	const arabic = page.getByRole("dialog", { name: "التنقل" });
 	await arabic.getByRole("button", { name: "اللغة: العربية" }).tap();
 	await page.getByRole("menuitemradio", { name: "الإنجليزية" }).tap();
-	await expect(page).toHaveURL(/localhost:3100\/dashboard\/contacts$/u);
+	await expect(page).toHaveURL(/localhost:3100\/dashboard\/library$/u);
 	await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
 	await expect(page.getByRole("dialog")).toHaveCount(0);
 

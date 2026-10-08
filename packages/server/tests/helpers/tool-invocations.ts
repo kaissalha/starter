@@ -12,7 +12,7 @@ export const createTestToolInvocationParts = (calls: Array<Partial<TestToolInvoc
 			result: {},
 			state: "result" as const,
 			toolCallId: `call-${index}`,
-			toolName: "inspectWebsite",
+			toolName: "getLibraryAsset",
 			...call,
 		},
 		type: "tool-invocation" as const,

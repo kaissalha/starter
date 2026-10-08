@@ -15,9 +15,7 @@ import type { ChatSessionState } from "@/components/chat/stores/chat-session-sto
 
 import { mockOrganizationPermissions } from "../mocks/organization-permissions";
 
-vi.mock("@/app/[locale]/dashboard/(home)/components/dashboard-overview", () => ({ DashboardOverview: () => null }));
-
-vi.mock("@/app/[locale]/dashboard/(home)/components/dashboard-weather", () => ({ DashboardWeather: () => null }));
+vi.mock("@/app/[locale]/dashboard/(home)/components/dashboard-history", () => ({ DashboardHistory: () => null }));
 
 const navigation = vi.hoisted(() => ({ push: vi.fn(), replace: vi.fn() }));
 

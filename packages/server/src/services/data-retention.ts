@@ -1,4 +1,4 @@
-import { and, eq, gt, gte, inArray, isNull, lt, notExists, or, sql, type SQL } from "drizzle-orm";
+import { and, eq, gte, inArray, isNull, lt, notExists, sql, type SQL } from "drizzle-orm";
 
 import {
 	db,
@@ -7,11 +7,8 @@ import {
 	oauthClients,
 	oauthConsents,
 	oauthRefreshTokens,
-	seoAnswerRuns,
 	sessions,
 	verifications,
-	websites,
-	websiteVersions,
 } from "@starter/db";
 
 import { mastraStorage } from "../mastra/memory";
@@ -43,81 +40,6 @@ export const deleteInBatches = async ({
 		? { complete: true, deleted: total + deleted }
 		: deleteInBatches({ batchSize, deadline, deleteBatch, total: total + deleted });
 };
-
-export const pruneWebsiteVersions = () =>
-	deleteInBatches({
-		batchSize: pruneBatchSize,
-		budgetMs: pruneBudgetMs,
-		deleteBatch: async () => {
-			const ranked = db
-				.select({
-					id: websiteVersions.id,
-					rank: sql<number>`row_number() over (partition by ${websiteVersions.websiteId} order by ${websiteVersions.version} desc)`.as(
-						"rank"
-					),
-				})
-				.from(websiteVersions)
-				.where(
-					notExists(
-						db
-							.select({ id: websites.id })
-							.from(websites)
-							.where(
-								and(
-									eq(websites.id, websiteVersions.websiteId),
-									or(
-										eq(websites.draftVersionId, websiteVersions.id),
-										eq(websites.publishedVersionId, websiteVersions.id)
-									)
-								)
-							)
-					)
-				)
-				.as("ranked_versions");
-
-			const stale = db.select({ id: ranked.id }).from(ranked).where(gt(ranked.rank, 20)).limit(pruneBatchSize);
-
-			const deleted = await db
-				.delete(websiteVersions)
-				.where(inArray(websiteVersions.id, stale))
-				.returning({ id: websiteVersions.id });
-
-			return deleted.length;
-		},
-	});
-
-export const pruneSeoAnswerRuns = () =>
-	deleteInBatches({
-		batchSize: pruneBatchSize,
-		budgetMs: pruneBudgetMs,
-		deleteBatch: async () => {
-			const ranked = db
-				.select({
-					checkedAt: seoAnswerRuns.checkedAt,
-					id: seoAnswerRuns.id,
-					rank: sql<number>`row_number() over (partition by ${seoAnswerRuns.questionId} order by ${seoAnswerRuns.checkedAt} desc)`.as(
-						"rank"
-					),
-				})
-				.from(seoAnswerRuns)
-				.as("ranked_runs");
-
-			const stale = db
-				.select({ id: ranked.id })
-				.from(ranked)
-				.where(
-					and(gt(ranked.rank, 1), or(gt(ranked.rank, 5), lt(ranked.checkedAt, sql`now() - interval '1 day'`)))
-				)
-				.limit(pruneBatchSize);
-
-			const deleted = await db
-				.delete(seoAnswerRuns)
-				.where(inArray(seoAnswerRuns.id, stale))
-				.returning({ id: seoAnswerRuns.id });
-
-			return deleted.length;
-		},
-	});
 
 const pruneExpired = ({
 	table,

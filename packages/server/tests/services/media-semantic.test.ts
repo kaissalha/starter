@@ -44,8 +44,6 @@ vi.mock("@starter/db", () => {
 
 vi.mock("../../src/ai/relevance", () => ({ rankRelevantCandidates: mocks.rankRelevantCandidates }));
 
-vi.mock("../../src/lib/stock-images", () => ({}));
-
 vi.mock("../../src/services/permissions", () => ({}));
 
 vi.mock("../../src/services/storage", () => ({}));

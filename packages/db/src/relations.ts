@@ -58,13 +58,6 @@ export const relations = defineRelations(schema, (r) => ({
 		}),
 	},
 
-	linkPages: {
-		organization: r.one.organizations({
-			from: r.linkPages.organizationId,
-			to: r.organizations.id,
-		}),
-	},
-
 	members: {
 		organization: r.one.organizations({
 			from: r.members.organizationId,
@@ -121,17 +114,6 @@ export const relations = defineRelations(schema, (r) => ({
 		}),
 	},
 
-	oauthConnections: {
-		organization: r.one.organizations({
-			from: r.oauthConnections.organizationId,
-			to: r.organizations.id,
-		}),
-		user: r.one.users({
-			from: r.oauthConnections.userId,
-			to: r.users.id,
-		}),
-	},
-
 	oauthConsents: {
 		client: r.one.oauthClients({
 			from: r.oauthConsents.clientId,
@@ -169,10 +151,8 @@ export const relations = defineRelations(schema, (r) => ({
 		files: r.many.files(),
 		fileTags: r.many.fileTags(),
 		invitations: r.many.invitations(),
-		linkPages: r.many.linkPages(),
 		members: r.many.members(),
 		sessions: r.many.sessions(),
-		websites: r.many.websites(),
 	},
 
 	sessions: {
@@ -206,32 +186,5 @@ export const relations = defineRelations(schema, (r) => ({
 		oauthRefreshTokens: r.many.oauthRefreshTokens(),
 		sessions: r.many.sessions(),
 		twoFactors: r.many.twoFactors(),
-	},
-
-	websites: {
-		draftVersion: r.one.websiteVersions({
-			alias: "draftVersion",
-			from: r.websites.draftVersionId,
-			optional: true,
-			to: r.websiteVersions.id,
-		}),
-		organization: r.one.organizations({
-			from: r.websites.organizationId,
-			to: r.organizations.id,
-		}),
-		publishedVersion: r.one.websiteVersions({
-			alias: "publishedVersion",
-			from: r.websites.publishedVersionId,
-			optional: true,
-			to: r.websiteVersions.id,
-		}),
-		versions: r.many.websiteVersions(),
-	},
-
-	websiteVersions: {
-		website: r.one.websites({
-			from: r.websiteVersions.websiteId,
-			to: r.websites.id,
-		}),
 	},
 }));

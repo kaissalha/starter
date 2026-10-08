@@ -3,16 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mocks = vi.hoisted(() => ({
 	dispatchEvents: vi.fn(async (_input?: { eventIds: Array<string> }) => ({ expanded: 0 })),
-	reconcilePendingDomains: vi.fn(async () => ({ reconciled: 1 })),
 	runEventRetention: vi.fn(async () => ({ deleted: 0 })),
 	sweepOrganizationPurges: vi.fn(async () => ({ cancelled: 0, completed: 1, failed: 0 })),
-	syncDomainRegistrations: vi.fn(async () => ({ synced: 1 })),
-}));
-
-vi.mock("../../src/services/websites/domains", () => ({ reconcilePendingDomains: mocks.reconcilePendingDomains }));
-
-vi.mock("../../src/services/websites/domain-registrations", () => ({
-	syncDomainRegistrations: mocks.syncDomainRegistrations,
 }));
 
 vi.mock("../../src/services/organization-purge", () => ({
@@ -24,13 +16,13 @@ vi.mock("../../src/services/events/dispatch", () => ({
 	runEventRetention: mocks.runEventRetention,
 }));
 
-import { handleDomainCron, handleOrganizationPurgeCron, isCronAuthorized } from "../../src/api/cron";
+import { handleOrganizationPurgeCron, isCronAuthorized } from "../../src/api/cron";
 import { handleEventDispatch, handleEventRetention } from "../../src/api/events";
 
 const secret = "test-secret";
 
-const cronRequest = ({ authorization, path = "reconcile" }: { authorization?: string; path?: string }) =>
-	new Request(`https://example.test/api/domains/${path}`, {
+const cronRequest = ({ authorization }: { authorization?: string }) =>
+	new Request("https://example.test/api/cron", {
 		headers: authorization === undefined ? {} : { authorization },
 	});
 
@@ -75,45 +67,6 @@ describe("isCronAuthorized", () => {
 
 	it("accepts the exact bearer secret", () => {
 		expect(isCronAuthorized(cronRequest({ authorization: `Bearer ${secret}` }))).toBe(true);
-	});
-});
-
-describe("handleDomainCron", () => {
-	it.each([undefined, "Bearer wrong-secret"])("rejects %j before running any job", async (authorization) => {
-		const response = await handleDomainCron(cronRequest({ authorization }));
-
-		expect(response.status).toBe(401);
-		expect(await response.json()).toEqual({ error: { message: "Unauthorized" } });
-		expect(mocks.reconcilePendingDomains).not.toHaveBeenCalled();
-		expect(mocks.syncDomainRegistrations).not.toHaveBeenCalled();
-	});
-
-	it("runs only the reconcile job", async () => {
-		const response = await handleDomainCron(cronRequest({ authorization: `Bearer ${secret}` }));
-
-		expect(response.status).toBe(200);
-		expect(mocks.reconcilePendingDomains).toHaveBeenCalledTimes(1);
-		expect(mocks.syncDomainRegistrations).not.toHaveBeenCalled();
-	});
-
-	it("runs only the registrations job", async () => {
-		const response = await handleDomainCron(
-			cronRequest({ authorization: `Bearer ${secret}`, path: "registrations" })
-		);
-
-		expect(response.status).toBe(200);
-		expect(mocks.syncDomainRegistrations).toHaveBeenCalledTimes(1);
-		expect(mocks.reconcilePendingDomains).not.toHaveBeenCalled();
-	});
-
-	it("returns 404 for an unknown job without running any job", async () => {
-		const response = await handleDomainCron(
-			cronRequest({ authorization: `Bearer ${secret}`, path: "anything-else" })
-		);
-
-		expect(response.status).toBe(404);
-		expect(mocks.reconcilePendingDomains).not.toHaveBeenCalled();
-		expect(mocks.syncDomainRegistrations).not.toHaveBeenCalled();
 	});
 });
 

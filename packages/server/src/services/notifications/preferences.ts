@@ -6,11 +6,16 @@ import { db, members, notificationChannels, notificationPreferences } from "@sta
 
 import { hasOrganizationPermission } from "../../utils/permissions";
 import type { NotificationActor } from "./inbox";
-import { audiencePermission, notificationTypeKeys, notificationTypes } from "./registry";
+import {
+	audiencePermission,
+	getNotificationDefinition,
+	notificationCategories,
+	notificationTypeKeys,
+} from "./registry";
 
 export const notificationSettingSchema = z
 	.strictObject({
-		category: z.enum(["leads", "website"]),
+		category: z.enum(notificationCategories),
 		channels: z.array(
 			z.strictObject({ channel: z.enum(notificationChannels), enabled: z.boolean(), locked: z.boolean() })
 		),
@@ -47,9 +52,9 @@ export const getNotificationSettings = async ({ actor }: { actor: NotificationAc
 		.limit(1);
 
 	return notificationTypeKeys
-		.filter((type) => notificationTypes[type].showInSettings)
+		.filter((type) => getNotificationDefinition(type).showInSettings)
 		.map((type) => {
-			const definition = notificationTypes[type];
+			const definition = getNotificationDefinition(type);
 
 			return {
 				category: definition.category,
@@ -93,7 +98,9 @@ export const updateNotificationSetting = async ({
 	input: z.input<typeof notificationSettingUpdateSchema>;
 }) => {
 	const { channel, enabled, type } = notificationSettingUpdateSchema.parse(input);
-	const definition = channel === "email" ? notificationTypes[type].email : notificationTypes[type].inApp;
+
+	const definition =
+		channel === "email" ? getNotificationDefinition(type).email : getNotificationDefinition(type).inApp;
 
 	if (!definition) {
 		throw new ORPCError("BAD_REQUEST", { message: "This notification is not available on that channel." });

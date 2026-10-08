@@ -63,7 +63,7 @@ export const libraryTools = {
 	}),
 	generateLibraryLogo: createTool({
 		description:
-			"Generate a transparent business logo into the Library from the business name, type and brand color, with optional style direction. It is not applied anywhere until setBrandLogo is approved. Requires approval.",
+			"Generate a transparent business logo into the Library from the business name, with optional style direction. Requires approval.",
 		execute: async (input, { abortSignal, requestContext }) => {
 			await requireOrganizationPermission({ ...requestContext.all, permission: "write" });
 

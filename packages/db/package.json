@@ -28,9 +28,6 @@
 	"dependencies": {
 		"@mastra/core": "^1.74.0",
 		"@mastra/pg": "^1.29.0",
-		"@starter/infinite-brand": "workspace:*",
-		"@starter/infinite-links": "workspace:*",
-		"@starter/infinite-website": "workspace:*",
 		"@vercel/functions": "^3.9.11",
 		"drizzle-orm": "^1.0.0-rc.5",
 		"pg": "^8.23.1",

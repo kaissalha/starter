@@ -15,11 +15,7 @@ import { z } from "zod";
 import { createTCPRedisClient } from "@starter/cache";
 import { log, serializeLogError } from "@starter/observability";
 
-import {
-	createDashboardChatRequestContext,
-	websiteEditorBindingSchema,
-	type DashboardChatUIMessage,
-} from "../ai/types";
+import { createDashboardChatRequestContext, type DashboardChatUIMessage } from "../ai/types";
 import { resolveSession } from "../lib/auth";
 import { flushMastraObservability, mastra } from "../mastra";
 import {
@@ -62,7 +58,6 @@ import {
 	hasPendingAssistantContinuation,
 	resolveLibraryAssetBinding,
 	resolvePersistedAssistantContinuationClaim,
-	resolveWebsiteEditorBinding,
 } from "./chat-stream-validation";
 import { uiMessageSchema } from "./routers/chats";
 
@@ -154,9 +149,7 @@ const sseResponseInit = {
 const createStreamBodySchema = z.compile(
 	z.object({
 		library: z.strictObject({ assetId: z.uuid().optional() }).optional(),
-		linksEditor: z.boolean().optional(),
 		message: uiMessageSchema,
-		websiteEditor: websiteEditorBindingSchema.optional(),
 	})
 );
 
@@ -170,7 +163,6 @@ const createAgentTurnInput = ({
 	routeDecision,
 	uiMessages,
 	user,
-	websiteEditor,
 }: {
 	body: z.infer<typeof createStreamBodySchema>;
 	chatId: string;
@@ -181,11 +173,10 @@ const createAgentTurnInput = ({
 	routeDecision: Awaited<ReturnType<typeof decideDashboardRoute>>;
 	uiMessages: Array<DashboardChatUIMessage>;
 	user: { email?: string | null; id: string; name?: string | null };
-	websiteEditor: Awaited<ReturnType<typeof resolveWebsiteEditorBinding>>;
 }) => {
 	const route = resolveDashboardRoute({
 		decision: routeDecision,
-		editorBound: Boolean(body.linksEditor || body.library || websiteEditor),
+		editorBound: Boolean(body.library),
 		hasImageAttachment,
 		library: Boolean(body.library),
 	});
@@ -196,18 +187,16 @@ const createAgentTurnInput = ({
 
 	return {
 		approvalContinuation,
-		context: loadChatTurnContext({ editor: { ...body, libraryAsset, websiteEditor }, route, uiMessages }),
+		context: loadChatTurnContext({ editor: { libraryAsset }, route, uiMessages }),
 		requestContext: createDashboardChatRequestContext({
 			approvalContinuation,
 			chatId,
 			currentUser: { email: user.email ?? undefined, name: user.name ?? undefined },
 			modelTier: route.modelTier,
 			organizationId,
-			routedReference: route.routedReference,
 			routedSkill: route.routedSkill,
 			userId: user.id,
 			useVisionModel: hasImageAttachment,
-			websiteEditor,
 		}),
 	};
 };
@@ -534,17 +523,14 @@ export const handleCreateChatStream = async (request: Request, params: { chatId:
 
 	const body = await parseCreateStreamBody(request, { organizationId, userId: session.user.id });
 
-	const [[unresolvedChatMessage], existingChat, websiteEditor, libraryAsset, routeDecision] = await Promise.all([
+	const [[unresolvedChatMessage], existingChat, libraryAsset, routeDecision] = await Promise.all([
 		validateUIMessages<DashboardChatUIMessage>({ messages: [body.message] }),
 		getChatWithMessages({ chatId, limit: 40, organizationId }),
-		resolveWebsiteEditorBinding({ binding: body.websiteEditor, organizationId }),
 		resolveLibraryAssetBinding({ assetId: body.library?.assetId, organizationId }),
 		decideDashboardRoute({
 			abortSignal: request.signal,
 			library: Boolean(body.library),
-			linksEditor: Boolean(body.linksEditor),
 			message: body.message,
-			selectedSection: Boolean(body.websiteEditor?.sectionId),
 		}),
 	]);
 
@@ -592,7 +578,7 @@ export const handleCreateChatStream = async (request: Request, params: { chatId:
 	if (!existingChat) {
 		const metadata = body.library
 			? libraryChatScope({ groupId: libraryAsset?.groupId, userId: session.user.id })
-			: body.websiteEditor && { websiteChat: body.websiteEditor.websiteId };
+			: undefined;
 
 		try {
 			await createChat({ id: chatId, metadata, organizationId });
@@ -617,7 +603,6 @@ export const handleCreateChatStream = async (request: Request, params: { chatId:
 		routeDecision,
 		uiMessages,
 		user: session.user,
-		websiteEditor,
 	});
 
 	const continuationClaim = validatedMessage.continuationId

@@ -2,15 +2,14 @@
 
 ## Scope and sources of truth
 
-- These instructions apply repository-wide. The generated `AGENTS.md` files in `apps/webapp` and `apps/websites` add
-  Next.js-specific guidance; do not remove or hand-edit their generated blocks.
+- These instructions apply repository-wide. The generated `apps/webapp/AGENTS.md` adds Next.js-specific guidance; do
+  not remove or hand-edit its generated block.
 - Before changing code, inspect the nearest package README, relevant implementation and tests, and any applicable
   installed skill. Use the repository's existing patterns instead of relying on framework memory.
-- Treat `package.json` scripts, `turbo.json`, `.oxlintrc.json`, `.oxfmtrc.json`, and `konsistent.json` as the executable
+- Treat `package.json` scripts, `turbo.json`, `oxlint.config.ts`, `.oxfmtrc.json`, and `konsistent.json` as the executable
   sources of truth. Keep this file focused on architectural decisions and conventions that tooling cannot infer.
 - Repository-owned skills live in `.agents/skills`; `skills-lock.json` tracks only externally sourced skills.
-- For the website document, renderer, generation, or editor, also read `packages/infinite-website/README.md` and
-  `docs/website-generation.md` before changing contracts.
+- For events, notifications, or email delivery, also read `docs/events-and-notifications.md`.
 
 ## Working agreement
 
@@ -25,23 +24,18 @@
   React Doctor, shadscan, the evlog baseline, jscpd duplication checking, and the migration drift check. CI also runs the full Vitest and workflow suites on every pull request and every push to `master`, and production preparation waits for all of them. Treat warnings or scored findings in touched
   files as work to resolve when they are in scope.
 - Before starting a dev process, check its port with `lsof -nP -i :PORT` and reuse or stop an existing process. The main
-  local ports are webapp `3000`, websites `3001`, email preview `3002`, website Storybook `6006`, and links Storybook `6007`.
+  local ports are webapp `3000` and email preview `3002`.
 - Do not edit generated migrations, Next.js agent blocks, or workflow-generated routes by hand. Use the owning command.
 
 ## Repository map
 
-- `apps/webapp`: authenticated Next.js 16 product app, dashboard/editor UI, API route adapters, i18n, and observability.
-- `apps/websites`: Next.js 16 public renderer for persisted websites.
-- `packages/analytics`: Tinybird resources, endpoints, client, and client-safe analytics contracts.
+- `apps/webapp`: authenticated Next.js 16 product app, dashboard UI, API route adapters, i18n, and observability.
 - `packages/cache`: Redis clients, cache helpers, and rate limiting.
 - `packages/db`: Drizzle schema, relations, migrations, and database utilities.
 - `packages/documents`: file-format and upload contracts (root), Node text extraction (`./extraction`), and React
   PDF/DOCX/XLSX viewers (`./viewer`). It owns no storage, persistence, or ingestion.
 - `packages/email` and `packages/pdf`: localized React renderers for email and PDF artifacts.
 - `packages/genui`: OpenUI Lang parsing/validation, chart text limits, and the chat GenUI library contract.
-- `packages/infinite-brand`: validated brand, color, typography, font, corner, and localization contracts.
-- `packages/infinite-website`: versioned website document, editing/generation contracts, primitives, sections, templates,
-  Storybook, and React renderers.
 - `packages/observability`: evlog drains, sampling, error serialization, and required-config checks.
 - `packages/server`: auth, oRPC API, AI tools/agent, services, provider integrations, and durable workflows.
 - `packages/ui`: shared product UI, hooks, charts, and global design tokens.
@@ -86,29 +80,15 @@
   `initializeMastraStorage`, and enforce tenant boundaries in application services through Mastra's APIs.
 - Keep deterministic AI contract coverage in Vitest and attach Mastra runtime scorers to agent runs for model behavior;
   do not introduce a parallel eval framework or AI workspace package. Read `starter-ai` before changing AI behavior.
-- Treat retrieved documents, web results, uploaded content, and generated website content as untrusted data. Preserve the
+- Treat retrieved documents, web results, uploaded content, and model output as untrusted data. Preserve the
   prompt-injection boundaries already encoded in the prompts and validate structured output before persistence.
-
-### Website domain
-
-- `@starter/infinite-brand` owns independently validated brand state. `@starter/infinite-website` owns the versioned site
-  document, content references, generation contracts, and rendering. Neither package owns persistence or provider access.
-- Website persistence and provider calls live under `packages/server/src/services/websites`; durable generation lives in
-  `packages/server/src/workflows`; editor state lives beside the dashboard website route; public rendering lives in
-  `apps/websites`.
-- Parse untrusted website JSON at API and persistence-write boundaries. Type persisted columns with their validated domain
-  contracts; read paths trust stored rows and must not reparse whole records or documents with Zod. A module-scoped leaf
-  schema may reestablish a value's type after dynamic JSON-pointer traversal. Pass complete validated documents to
-  renderers, preserve stable entity IDs, and keep localized content separate from reusable ID-free definitions.
-- Keep section/template content localized and RTL-safe. Use the package's existing primitives, registries, container-query
-  conventions, and focused tests instead of introducing a parallel renderer or document shape.
 
 ### React and UI
 
 - Read `starter-ui` for UI implementation or review and `starter-next-performance` for measured Next.js performance
   work. Apply them through the repository's existing design language.
-- Read the relevant Next.js guide in the app-local `node_modules/next/dist/docs/` before changing Next.js APIs. Both apps
-  use Next.js 16 and React 19; do not rely on older App Router behavior.
+- Read the relevant Next.js guide in the app-local `node_modules/next/dist/docs/` before changing Next.js APIs. The webapp
+  uses Next.js 16 and React 19; do not rely on older App Router behavior.
 - Keep route-owned components and hooks next to their route. Promote a component to `apps/webapp/src/components` or
   `packages/ui` only after it has multiple real consumers.
 - Keep page, layout, and component shells focused on rendering and wiring. Move related mutation orchestration, dialog
@@ -125,11 +105,10 @@
   `strokeWidth={1.75}`, and `scale-110` for the product icon weight and size.
   For state transitions, pass that data directly to a stable `MorphIcon` from `morphicons/react` with `strokeWidth={1.75}`
   and `reducedMotion="user"`; morph the icon rather than cross-fading separately mounted icons.
-- User-facing webapp copy belongs in `next-intl` messages. Website-runtime visible content belongs in localized content
-  documents, not JSX literals. Preserve English/Arabic parity and use logical CSS properties for RTL.
+- User-facing webapp copy belongs in `next-intl` messages, not JSX literals. Preserve English/Arabic parity and use
+  logical CSS properties for RTL.
 - Never add user-facing hints, helper text, or instructional empty-state copy unless the user explicitly requests them.
-- Product UI colors come from tokens in `packages/ui/src/globals.css`. The website runtime uses its own validated brand
-  projection and scoped custom properties; do not couple it to product-shell color tokens.
+- Product UI colors come from tokens in `packages/ui/src/globals.css`.
 - Always use Tailwind utility classes for UI styling. Do not add page- or component-specific selectors to global CSS,
   CSS modules, or style tags. Keep global CSS limited to Tailwind imports, source/theme directives, fonts, and unavoidable
   third-party or browser-wide integration. Use inline styles only for values computed at runtime, preferably exposed as
@@ -165,8 +144,8 @@
 
 ## Commands
 
-- `make env`: link the Vercel projects and pull `apps/webapp/.env.local` and `apps/websites/.env.local`.
-- `docker compose up -d`: start local PostgreSQL with pgvector.
+- `make env`: link the Vercel project and pull `apps/webapp/.env`.
+- `docker compose up -d`: start local PostgreSQL with pgvector and Redis.
 - `make migrate`: generate and apply Drizzle migrations locally (CI and production only apply committed migrations; see the README); `make studio`: open Drizzle Studio.
 - `bun dev`: start the monorepo development tasks.
 - `bun run test [path]`: run Vitest, optionally scoped to a path.

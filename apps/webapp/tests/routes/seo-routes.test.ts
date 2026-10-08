@@ -3,13 +3,8 @@
  */
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { pilotTemplateIds } from "@/app/[locale]/(site)/templates/pilot-templates";
 import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
-import ar from "@/i18n/messages/ar.json";
-import en from "@/i18n/messages/en.json";
-import { templateDefinitions } from "@starter/infinite-website/catalog";
-import { getTemplateBrand, templatePreviews } from "@starter/infinite-website/template-previews";
 
 vi.mock("@starter/utils", () => ({ getBaseURL: () => new URL("https://example.com") }));
 
@@ -61,12 +56,6 @@ describe("sitemap", () => {
 				"https://example.com/ar/privacy",
 				"https://example.com/terms",
 				"https://example.com/ar/terms",
-				"https://example.com/templates",
-				"https://example.com/ar/templates",
-				...pilotTemplateIds.flatMap((id) => [
-					`https://example.com/templates/${id}`,
-					`https://example.com/ar/templates/${id}`,
-				]),
 			])
 		);
 	});
@@ -81,23 +70,5 @@ describe("sitemap", () => {
 				en: `https://example.com${path}`,
 			});
 		});
-	});
-});
-
-describe("pilot templates", () => {
-	it.each(pilotTemplateIds)("should ship a definition, preview and brand for %s", (templateId) => {
-		expect(templateDefinitions.some(({ id }) => id === templateId)).toBe(true);
-		expect(templatePreviews.some(({ id }) => id === templateId)).toBe(true);
-		expect(() => getTemplateBrand({ templateId })).not.toThrow();
-	});
-
-	it.each([
-		["en", en],
-		["ar", ar],
-	])("should give every pilot complete %s copy", (_, catalog) => {
-		expect(Object.keys(catalog.templates.items).sort()).toEqual([...pilotTemplateIds].sort());
-		Object.values(catalog.templates.items).forEach((item) =>
-			Object.values(item).forEach((value) => expect(value.trim()).not.toBe(""))
-		);
 	});
 });

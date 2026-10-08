@@ -51,7 +51,6 @@ export type FileMetadata = {
 
 	pageCount?: number;
 	sourceUrl?: string;
-	stockImage?: { id: string; provider: string };
 	thumbnailUrl?: string;
 
 	width?: number;

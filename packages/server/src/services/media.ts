@@ -5,16 +5,7 @@ import { db, files } from "@starter/db";
 import { mediaContentTypes, uploadPolicies } from "@starter/documents";
 
 import { rankRelevantCandidates } from "../ai/relevance";
-import { bindStockImageCandidate, getStockImage } from "../lib/stock-images";
-import { requireOrganizationPermission } from "./permissions";
-import { createFile, deleteFile } from "./storage";
-
-export {
-	searchStockImages,
-	stockImageSearchInputSchema,
-	stockImageSearchResultSchema,
-	stockImageSelectInputSchema,
-} from "../lib/stock-images";
+import { deleteFile } from "./storage";
 
 export const mediaListInputSchema = z.compile(
 	z.object({
@@ -134,12 +125,7 @@ export const getUploadedMedia = async ({ fileId, organizationId }: { fileId: str
 
 	const parsed = uploadedMediaSchema.safeParse(row);
 
-	if (
-		!parsed.success ||
-		!row ||
-		!mediaContentTypes.includes(row.contentType) ||
-		(row.sourceType !== "upload" && !(row.sourceType === "url" && row.metadata.stockImage))
-	) {
+	if (!parsed.success || !row || !mediaContentTypes.includes(row.contentType) || row.sourceType !== "upload") {
 		throw new Error("Uploaded media not found");
 	}
 
@@ -162,51 +148,6 @@ export const deleteUploadedMedia = async ({
 	}
 
 	return deleteFile({ deletedBy: userId, fileId, organizationId });
-};
-
-export const selectStockImage = async ({
-	id,
-	organizationId,
-	userId,
-}: {
-	id: string;
-	organizationId: string;
-	userId: string;
-}) => {
-	await requireOrganizationPermission({ organizationId, permission: "write", userId });
-	const candidate = await getStockImage({ id });
-	const asset = await bindStockImageCandidate({ candidate });
-
-	const existing = await db.query.files.findFirst({
-		where: { access: "public", deletedAt: { isNull: true }, organizationId, sourceType: "url", url: asset.src },
-	});
-
-	if (existing?.metadata.stockImage?.id === candidate.id) {
-		return uploadedMediaSchema.parse(existing);
-	}
-
-	const { file } = await createFile({
-		access: "public",
-		contentType: "image/jpeg",
-		kind: "image",
-		metadata: {
-			altText: candidate.alt,
-			height: asset.height,
-			stockImage: {
-				id: candidate.id,
-				provider: candidate.provider,
-			},
-			thumbnailUrl: candidate.thumbnailUrl,
-			width: asset.width,
-		},
-		name: candidate.alt || candidate.id,
-		organizationId,
-		sourceType: "url",
-		uploadedBy: userId,
-		url: asset.src,
-	});
-
-	return uploadedMediaSchema.parse(file);
 };
 
 export const findUnownedMediaUrls = async ({

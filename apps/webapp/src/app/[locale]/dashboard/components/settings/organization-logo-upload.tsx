@@ -1,40 +1,102 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-import { BusinessLogoField, useBusinessLogo } from "@/components/business-logo-field";
-import { apiClient } from "@/lib/api-client";
+import Image from "next/image";
+
+import { useTranslations } from "next-intl";
+
+import { MediaPickerContent } from "@/components/media/media-picker";
 import { authClient } from "@/lib/auth-client";
-import { brandLogoScale } from "@starter/infinite-brand";
+import { Button } from "@starter/ui/components/button";
+import { Dialog, DialogPopup, DialogTitle } from "@starter/ui/components/dialog";
+import { toast } from "@starter/ui/components/toaster";
 
 type OrganizationLogoUploadProps = {
 	canEdit: boolean;
 	organization: {
+		id: string;
 		logo?: string | null;
 		name: string;
 	};
 };
 
 export const OrganizationLogoUpload = ({ canEdit, organization }: OrganizationLogoUploadProps) => {
+	const t = useTranslations("businessLogo");
+	const tCommon = useTranslations("common");
 	const { refetch } = authClient.useActiveOrganization();
-	const brand = useQuery(apiClient.brands.get.queryOptions({ retry: false }));
+	const [picking, setPicking] = useState(false);
+	const [pending, setPending] = useState(false);
 
-	const businessLogo = useBusinessLogo({
-		onSaved: async () => {
+	const save = async (logo: string) => {
+		setPending(true);
+
+		try {
+			const result = await authClient.organization.update({ data: { logo }, organizationId: organization.id });
+
+			if (result.error) {
+				toast.error(t("failed"));
+
+				return;
+			}
+
 			await refetch();
-		},
-	});
-
-	const logo =
-		brand.data?.brand.logo ??
-		(organization.logo && !brand.data ? { scale: brandLogoScale.default, src: organization.logo } : undefined);
+			toast.success(t("saved"));
+		} catch {
+			toast.error(t("failed"));
+		} finally {
+			setPending(false);
+		}
+	};
 
 	return (
-		<BusinessLogoField
-			disabled={!canEdit || businessLogo.pending}
-			logo={logo}
-			name={organization.name}
-			onChange={businessLogo.change}
-		/>
+		<div className='space-y-4'>
+			<div className='flex h-32 items-center justify-center overflow-hidden rounded-xl bg-muted p-4'>
+				{organization.logo ? (
+					<Image
+						alt={organization.name}
+						className='h-10 w-auto max-w-full object-contain'
+						height={80}
+						src={organization.logo}
+						unoptimized
+						width={240}
+					/>
+				) : (
+					<span className='truncate text-2xl font-semibold'>{organization.name}</span>
+				)}
+			</div>
+			<div className='flex gap-2'>
+				<Button
+					className='flex-1'
+					disabled={!canEdit || pending}
+					onClick={() => setPicking(true)}
+					type='button'
+					variant='outline'
+				>
+					{t("replace")}
+				</Button>
+				{organization.logo && (
+					<Button disabled={!canEdit || pending} onClick={() => save("")} type='button' variant='ghost'>
+						{tCommon("delete")}
+					</Button>
+				)}
+			</div>
+			<Dialog onOpenChange={setPicking} open={picking}>
+				<DialogPopup className='flex max-h-[90dvh] flex-col' closeLabel={tCommon("close")} size='lg'>
+					<DialogTitle>{t("title")}</DialogTitle>
+					{picking && (
+						<MediaPickerContent
+							disabled={pending}
+							kind='image'
+							onSelect={async (media) => {
+								await save(media.url);
+								setPicking(false);
+							}}
+							purpose='logo'
+						/>
+					)}
+				</DialogPopup>
+			</Dialog>
+		</div>
 	);
 };

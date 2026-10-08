@@ -9,7 +9,7 @@ vi.mock("evlog", async (importOriginal) => ({
 	log: { error: vi.fn(), warn: vi.fn() },
 }));
 
-const requiredNames = ["BETTER_AUTH_SECRET", "CRON_SECRET", "DATABASE_URL", "REDIS_URL", "WEBSITES_PLATFORM_DOMAIN"];
+const requiredNames = ["BETTER_AUTH_SECRET", "CRON_SECRET", "DATABASE_URL", "REDIS_URL"];
 
 afterEach(() => {
 	vi.unstubAllEnvs();

@@ -4,7 +4,7 @@ import { parseEnv } from "node:util";
 
 import globalSetup from "./global-setup";
 
-const envFile = "apps/webapp/.env.local";
+const envFile = "apps/webapp/.env";
 
 const localEnv = existsSync(envFile) ? parseEnv(readFileSync(envFile, "utf8")) : {};
 

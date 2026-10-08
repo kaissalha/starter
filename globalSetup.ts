@@ -14,9 +14,7 @@ const poolReference: MutableReference<Pool | undefined> = { value: undefined };
 
 const dbReference: MutableReference<Database | undefined> = { value: undefined };
 
-const postgresImage =
-	process.env.TEST_POSTGRES_IMAGE ??
-	"pgvector/pgvector@sha256:212765b63c1462883de295c4c415edcd22191b8d8d46853e86ad05d4b577a4cb";
+const postgresImage = "pgvector/pgvector";
 
 const migrationsFolder = fileURLToPath(new URL("./packages/db/src/db/migrations", import.meta.url));
 

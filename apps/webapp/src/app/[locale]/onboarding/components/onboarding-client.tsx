@@ -9,30 +9,20 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@starter/ui/components/button";
 
 import { OnboardingContent } from "./onboarding-content";
-import type { OnboardingBusiness } from "./use-create-organization-form";
 import { useOnboardingController, type OnboardingInvitation } from "./use-onboarding-controller";
 
 type OnboardingClientProps = {
-	initialBusiness?: OnboardingBusiness;
 	initialInvitations: Array<OnboardingInvitation> | null;
-	initialOrganization?: { id: string; name: string };
 	redirectPath: string;
 	userEmail: string;
 };
 
-export const OnboardingClient = ({
-	initialBusiness,
-	initialInvitations,
-	initialOrganization,
-	redirectPath,
-	userEmail,
-}: OnboardingClientProps) => {
+export const OnboardingClient = ({ initialInvitations, redirectPath, userEmail }: OnboardingClientProps) => {
 	const t = useTranslations("onboarding");
 	const tCommon = useTranslations("common");
 
 	const controller = useOnboardingController({
 		initialInvitations,
-		initialOrganization,
 		redirectPath,
 	});
 
@@ -61,7 +51,7 @@ export const OnboardingClient = ({
 						</div>
 					)}
 					<LazyMotion features={domAnimation} strict>
-						<OnboardingContent controller={controller} initialBusiness={initialBusiness} />
+						<OnboardingContent controller={controller} />
 					</LazyMotion>
 				</div>
 			</section>

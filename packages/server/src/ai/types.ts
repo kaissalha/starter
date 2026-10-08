@@ -3,21 +3,7 @@ import type { Tool as MastraTool } from "@mastra/core/tools";
 import { isToolUIPart, type UIMessage } from "ai";
 import { z } from "zod";
 
-import { iso6391LanguageCodes } from "@starter/infinite-website/contracts";
-import { pageSlugSchema } from "@starter/infinite-website/editing";
-
 import type { dashboardChatTools } from "./tools";
-
-export const websiteEditorBindingSchema = z.compile(
-	z.strictObject({
-		locale: z.enum(iso6391LanguageCodes),
-		pageSlug: pageSlugSchema.optional(),
-		sectionId: z.uuid().optional(),
-		websiteId: z.uuid(),
-	})
-);
-
-export type WebsiteEditorBinding = z.infer<typeof websiteEditorBindingSchema>;
 
 export const appContextSchema = z.compile(
 	z.looseObject({
@@ -32,34 +18,16 @@ export const appContextSchema = z.compile(
 		locale: z.string().optional(),
 		modelTier: z.enum(["full", "simple"]).optional(),
 		organizationId: z.string().min(1),
-		routedReference: z.enum(["catalog", "compose", "edit", "modify"]).nullable().optional(),
-		routedSkill: z
-			.enum([
-				"analytics",
-				"blog",
-				"contacts",
-				"domains",
-				"library",
-				"links",
-				"notifications",
-				"seo",
-				"website",
-				"visualization",
-			])
-			.nullable()
-			.optional(),
+		routedSkill: z.enum(["library", "notifications", "visualization"]).nullable().optional(),
 		timezone: z.string().optional(),
 		userId: z.string().min(1),
 		useVisionModel: z.boolean().optional(),
-		websiteEditor: websiteEditorBindingSchema.extend({ pageId: z.uuid(), pageSlug: pageSlugSchema }).optional(),
 	})
 );
 
 export type AppContext = z.infer<typeof appContextSchema>;
 
 export const toolInput = <Schema extends z.ZodType>(schema: Schema) => z.compile(schema.meta({}));
-
-export type WebsiteEditorContext = NonNullable<AppContext["websiteEditor"]>;
 
 export const createDashboardChatRequestContext = (values: AppContext) =>
 	new RequestContext<AppContext>([
@@ -69,12 +37,10 @@ export const createDashboardChatRequestContext = (values: AppContext) =>
 		["locale", values.locale],
 		["modelTier", values.modelTier],
 		["organizationId", values.organizationId],
-		["routedReference", values.routedReference],
 		["routedSkill", values.routedSkill],
 		["timezone", values.timezone],
 		["userId", values.userId],
 		["useVisionModel", values.useVisionModel],
-		["websiteEditor", values.websiteEditor],
 	]);
 
 export type BaseCustomUIDataTypes = {
