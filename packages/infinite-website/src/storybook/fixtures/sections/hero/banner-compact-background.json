@@ -1,0 +1,44 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Guided hikes\nworth every step",
+			"description": "Local trail guides leading small-group adventures through wildflower meadows, mountain valleys, and scenic ridgelines."
+		},
+		"media": [
+			{
+				"assetId": "3af8d968-87f6-58df-9599-de950f1e8abf",
+				"alt": "Friends and dogs relaxing in a private jet"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"label": "Book a hike"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "رحلات مشي بمرافقة مرشدين\nتستحق كل خطوة",
+			"description": "مرشدو مسارات محليون يقودون مغامرات لمجموعات صغيرة عبر مروج الزهور البرية والوديان الجبلية والتلال الخلابة."
+		},
+		"media": [
+			{
+				"assetId": "3af8d968-87f6-58df-9599-de950f1e8abf",
+				"alt": "أصدقاء وكلاب يسترخون في طائرة خاصة"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"label": "احجز رحلة مشي"
+			}
+		]
+	}
+}

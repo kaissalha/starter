@@ -1,0 +1,1 @@
+export { default } from "@starter/ui/postcss.config";

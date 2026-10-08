@@ -1,0 +1,1064 @@
+{
+	"en": {
+		"site": {
+			"name": "Clay Cool"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Clay Cool navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Clay Cool"
+					},
+					"navigation": [
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Portfolio",
+							"link": {
+								"kind": "relative",
+								"path": "/portfolio"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": []
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"brand": "Clay Cool"
+					},
+					"navGroups": [
+						{
+							"label": "Main",
+							"navItems": [
+								{
+									"label": "Home",
+									"link": {
+										"kind": "relative",
+										"path": "/"
+									}
+								},
+								{
+									"label": "About",
+									"link": {
+										"kind": "relative",
+										"path": "/about"
+									}
+								},
+								{
+									"label": "Services",
+									"link": {
+										"kind": "relative",
+										"path": "/services"
+									}
+								},
+								{
+									"label": "Portfolio",
+									"link": {
+										"kind": "relative",
+										"path": "/portfolio"
+									}
+								},
+								{
+									"label": "Contact",
+									"link": {
+										"kind": "relative",
+										"path": "/contact"
+									}
+								}
+							]
+						}
+					],
+					"socialLinks": []
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Clay Cool"
+					}
+				},
+				"sections": {
+					"banner-full-image": {
+						"copy": {
+							"heading": "Custom made ceramics"
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "gallery-center-stage"
+								},
+								"label": "View our work"
+							}
+						],
+						"media": [
+							{
+								"assetId": "5f969d9f-9abf-5b04-b184-91ca7eb86f60",
+								"alt": "Handmade ceramic mugs, bowls, and a large textured vase on a rustic wooden shelf."
+							}
+						]
+					},
+					"feature-menu-grid": {
+						"copy": {
+							"kicker": "What we create",
+							"heading": "Handmade pottery\ntailored to you",
+							"description": "From custom mugs to pink ceramic pieces, Clay Cool brings your vision to life with thoughtful craftsmanship and attention to detail."
+						},
+						"items": [
+							{
+								"assetId": "a5b87bc6-421c-5ac7-9a1a-e5094dcddc1b",
+								"alt": "Speckled ceramic mug with a rustic glaze on a wooden table in natural light.",
+								"title": "Mugs",
+								"description": "Functional ceramic mugs designed and thrown to your specifications. Perfect for daily use or as meaningful gifts.",
+								"price": "Starts at $30"
+							},
+							{
+								"assetId": "b4e79659-5323-52e8-84e1-269e371e865c",
+								"alt": "Handmade ceramic bowls with blue patterned bands stacked in soft light.",
+								"title": "Matcha bowls",
+								"description": "Our signature pink ceramic collection featuring bowls, vases, and decorative pieces. Each piece is unique and hand-finished.",
+								"price": "Starts at $40"
+							},
+							{
+								"assetId": "417d55ee-ccb7-59c3-93d2-1cf9db69a1cf",
+								"alt": "Handmade speckled ceramic vase and bowls in natural light.",
+								"title": "Functional ware",
+								"description": "Durable everyday pieces including plates, bowls, and serving dishes. Designed for practical use and lasting beauty.",
+								"price": "Starts at $60"
+							}
+						]
+					},
+					"cta-background-image": {
+						"media": [
+							{
+								"assetId": "6ed6ee38-3517-5a91-b02a-281f33ac51b5",
+								"alt": "Minimalist speckled ceramic cups arranged on a light shelf in soft natural light."
+							}
+						],
+						"copy": {
+							"heading": "Order your custom piece today",
+							"description": "Every mug, vase, and ceramic piece is shaped by local Vancouver artists - each one made by hand."
+						},
+						"actions": [
+							{
+								"label": "Order Now",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						]
+					},
+					"feature-three-card": {
+						"copy": {
+							"kicker": "Why Clay Cool",
+							"heading": "Handcrafted pottery\nthat tells a story",
+							"description": "Every piece we create reflects our commitment to quality craftsmanship and thoughtful design. We pour passion into each mug and ceramic work."
+						},
+						"media": [
+							{
+								"assetId": "9895c516-7bb1-579b-b24d-db6df9c9204f",
+								"alt": "Blue-rimmed ceramic plates and bowls stacked on a rustic wooden shelf."
+							}
+						],
+						"items": [
+							{
+								"title": "Handmade in Vancouver",
+								"description": "Each piece is crafted by hand at our studio. We work with quality clay and traditional techniques to create functional art you'll love using every day."
+							},
+							{
+								"title": "Unique and Personal",
+								"description": "No two pieces are identical. Our pink ceramic designs and custom mugs celebrate individuality and bring warmth to your kitchen or collection."
+							}
+						]
+					},
+					"cta-background-image-2": {
+						"media": [
+							{
+								"assetId": "1453071a-0efa-5867-a8f5-b451eb82a46b",
+								"alt": "Speckled ceramic bottle vases against a dark studio backdrop."
+							}
+						],
+						"copy": {
+							"heading": "Find your perfect handmade piece",
+							"description": "Browse our collection of unique mugs and pink ceramics crafted by Isabella Wright. Each piece is one-of-a-kind and made to order for you."
+						},
+						"actions": [
+							{
+								"label": "View our collection",
+								"link": {
+									"kind": "relative",
+									"path": "/portfolio"
+								}
+							}
+						]
+					},
+					"testimonial-single-carousel": {
+						"copy": {
+							"kicker": "We love feedback",
+							"heading": "Customers who love their ceramics"
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "Customer testimonials",
+							"carousel-testimonialspreviousLabel": "Customer testimonials: previous",
+							"carousel-testimonialsnextLabel": "Customer testimonials: next"
+						},
+						"testimonials": [
+							{
+								"quote": "The quality is exceptional. Every piece feels like it was made with intention. I've already ordered a second collection for gifts.",
+								"name": "Maya Chen",
+								"title": "Collector",
+								"assetId": "89f2ff1c-5458-5bcc-9819-845f4925b8e8",
+								"alt": "Maya Chen"
+							},
+							{
+								"quote": "My custom mug is beautiful, comfortable to hold, and now part of every morning. Clay Cool made the whole process feel personal.",
+								"name": "Olivia Grant",
+								"title": "Vancouver customer",
+								"assetId": "1099675c-94ea-5a77-ad65-11fcab39e93d",
+								"alt": "Olivia Grant"
+							}
+						]
+					},
+					"location-card": {
+						"copy": {
+							"emailLabel": "Email",
+							"phoneLabel": "Phone",
+							"addressLabel": "Address",
+							"address": "Vancouver, BC, Canada"
+						},
+						"actions": [
+							{
+								"label": "hello@claycool.com",
+								"link": {
+									"kind": "email",
+									"address": "hello@claycool.com"
+								}
+							},
+							{
+								"label": "+1 (234) 567-8900",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								}
+							},
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com/?q=Vancouver+BC+Canada"
+								}
+							}
+						],
+						"location": {
+							"address": "Vancouver, BC, Canada"
+						},
+						"accessibility": {
+							"mapLabel": "Map of Vancouver, BC, Canada"
+						}
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "00",
+							"heading": "FAQ",
+							"description": "Feel free to message us if you have anymore questions."
+						},
+						"actions": [
+							{
+								"label": "Contact us",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"items": [
+							{
+								"question": "Do you make custom mugs?",
+								"answer": "Yes. Clay Cool creates custom mugs with hand-thrown forms, unique finishes, and glazes chosen with your preferences in mind."
+							},
+							{
+								"question": "Where is the studio located?",
+								"answer": "Clay Cool is based in Vancouver, Canada. Reach out to schedule a studio visit or pickup."
+							}
+						]
+					},
+					"gallery-center-stage": {
+						"copy": {
+							"kicker": "Our work",
+							"heading": "Always handcrafted",
+							"description": "Each mug and ceramic design is made by hand in our Vancouver studio. See the range of styles we create for collectors and everyday use."
+						},
+						"actions": [
+							{
+								"label": "View our collection",
+								"link": {
+									"kind": "relative",
+									"path": "/portfolio"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "Ceramics gallery"
+						},
+						"media": [
+							{
+								"assetId": "a5b87bc6-421c-5ac7-9a1a-e5094dcddc1b",
+								"alt": "Speckled ceramic mug on a wooden table."
+							},
+							{
+								"assetId": "b4e79659-5323-52e8-84e1-269e371e865c",
+								"alt": "Stacked ceramic bowls with blue patterned bands."
+							},
+							{
+								"assetId": "417d55ee-ccb7-59c3-93d2-1cf9db69a1cf",
+								"alt": "Handmade speckled ceramic vase and bowls."
+							},
+							{
+								"assetId": "9895c516-7bb1-579b-b24d-db6df9c9204f",
+								"alt": "Handmade ceramic vessels in warm studio light."
+							},
+							{
+								"assetId": "9583d7b3-9c0f-5242-951a-2d5841719d66",
+								"alt": "Potter finishing a ceramic piece on a workbench."
+							},
+							{
+								"assetId": "1453071a-0efa-5867-a8f5-b451eb82a46b",
+								"alt": "Speckled ceramic bottle vases against a dark studio backdrop."
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "Handcrafted in Vancouver",
+							"heading": "Every piece tells a story",
+							"description": "Clay Cool creates pottery that's made to be used and loved. From morning coffee in a handmade mug to soft pink ceramics that catch the light, each piece carries the care of our studio's craft."
+						}
+					},
+					"showcase-list": {
+						"copy": {
+							"kicker": "Featured in",
+							"heading": "Trusted",
+							"description": "Clay Cool's handmade pieces are featured in local galleries, curated collections, and homes across British Columbia."
+						},
+						"items": [
+							{
+								"name": "Vancouver Makers"
+							},
+							{
+								"name": "Ceramic Monthly"
+							},
+							{
+								"name": "BC Craft Collective"
+							}
+						]
+					},
+					"metrics-numbers": {
+						"copy": {
+							"kicker": "By the numbers",
+							"heading": "Handcrafted ceramics\ntrusted by collectors",
+							"description": "Clay Cool has built a loyal following of pottery enthusiasts and collectors across Vancouver who return for unique, one-of-a-kind pieces."
+						},
+						"items": [
+							{
+								"metric": "$15K+",
+								"label": "Monthly revenue"
+							},
+							{
+								"metric": "100%",
+								"label": "Handmade pieces"
+							},
+							{
+								"metric": "Vancouver",
+								"label": "Studio based"
+							}
+						]
+					},
+					"pricing-table-2": {
+						"copy": {
+							"heading": "Choose your clay cool experience",
+							"description": "Select the perfect pottery plan for your creative journey. Each option includes hands-on instruction and access to our Vancouver studio."
+						},
+						"items": [
+							{
+								"title": "Custom mug",
+								"price": "$30",
+								"period": "starting at",
+								"features-label": "Includes:",
+								"description": "A functional everyday mug made by hand for your home or gift list.",
+								"label": "Order a mug",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "Hand-thrown form"
+									},
+									{
+										"title": "Custom glaze consultation"
+									}
+								],
+								"badge-label": ""
+							},
+							{
+								"title": "Studio session",
+								"price": "$85",
+								"period": "per person",
+								"features-label": "Includes:",
+								"description": "Create your own piece with guidance from Isabella at the Clay Cool studio.",
+								"label": "Book a session",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "Guided pottery session"
+									},
+									{
+										"title": "Materials and firing"
+									}
+								],
+								"badge-label": "Popular"
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "Let's create together",
+							"heading": "Ready to bring your\nceramics vision to life?",
+							"description": "Tell us about your project. Whether you're commissioning custom mugs, pink ceramic pieces, or exploring workshops at Clay Cool, we're here to help."
+						},
+						"media": [
+							{
+								"assetId": "9583d7b3-9c0f-5242-951a-2d5841719d66",
+								"alt": "Handmade speckled ceramic cups on a light shelf."
+							}
+						],
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "Tell us about your pottery project",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Message received! We'll respond within one business day.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"team-grid-columns": {
+						"copy": {
+							"kicker": "Our team",
+							"heading": "Meet the potters\nbehind Clay Cool",
+							"description": "Two dedicated artisans crafting handmade pottery and pink ceramics with care and precision."
+						},
+						"members": [
+							{
+								"name": "Isabella Wright",
+								"role": "Founder and ceramic artist",
+								"description": "Isabella shapes every collection with a focus on function, color, and craft.",
+								"assetId": "89f2ff1c-5458-5bcc-9819-845f4925b8e8",
+								"alt": "Ceramic artist in a pottery studio.",
+								"socialLinks": []
+							},
+							{
+								"name": "Avery Morgan",
+								"role": "Studio assistant",
+								"description": "Avery helps with studio sessions, finishing, and customer commissions.",
+								"assetId": "1099675c-94ea-5a77-ad65-11fcab39e93d",
+								"alt": "Pottery studio assistant.",
+								"socialLinks": []
+							}
+						]
+					},
+					"get-started": {
+						"copy": {
+							"heading": "Create your dream ceramic collection"
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"label": "Get Started"
+							}
+						],
+						"media": [
+							{
+								"assetId": "8d12f6f8-5bc9-5959-93e3-238b677c3cc5",
+								"alt": "Potter's hands molding a clay vessel on a spinning pottery wheel."
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "كلاي كول"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "قائمة كلاي كول",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "كلاي كول"
+					},
+					"navigation": [
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الأعمال",
+							"link": {
+								"kind": "relative",
+								"path": "/portfolio"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": []
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"brand": "كلاي كول"
+					},
+					"navGroups": [
+						{
+							"label": "الرئيسية",
+							"navItems": [
+								{
+									"label": "الرئيسية",
+									"link": {
+										"kind": "relative",
+										"path": "/"
+									}
+								},
+								{
+									"label": "من نحن",
+									"link": {
+										"kind": "relative",
+										"path": "/about"
+									}
+								},
+								{
+									"label": "الخدمات",
+									"link": {
+										"kind": "relative",
+										"path": "/services"
+									}
+								},
+								{
+									"label": "الأعمال",
+									"link": {
+										"kind": "relative",
+										"path": "/portfolio"
+									}
+								},
+								{
+									"label": "اتصل بنا",
+									"link": {
+										"kind": "relative",
+										"path": "/contact"
+									}
+								}
+							]
+						}
+					],
+					"socialLinks": []
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "كلاي كول"
+					}
+				},
+				"sections": {
+					"banner-full-image": {
+						"copy": {
+							"heading": "فخار مصنوع حسب الطلب"
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "gallery-center-stage"
+								},
+								"label": "شاهد أعمالنا"
+							}
+						],
+						"media": [
+							{
+								"assetId": "5f969d9f-9abf-5b04-b184-91ca7eb86f60",
+								"alt": "أكواب وأوعية فخارية مصنوعة يدويًا وإناء كبير بملمس خشن على رف خشبي ريفي."
+							}
+						]
+					},
+					"feature-menu-grid": {
+						"copy": {
+							"kicker": "ما نصنعه",
+							"heading": "فخار مصنوع يدويًا\nعلى مقاسك",
+							"description": "من الأكواب المخصصة إلى القطع الخزفية الوردية، تحوّل كلاي كول رؤيتك إلى واقع بحرفية متقنة واهتمام بالتفاصيل."
+						},
+						"items": [
+							{
+								"assetId": "a5b87bc6-421c-5ac7-9a1a-e5094dcddc1b",
+								"alt": "كوب خزفي منقط بطلاء ريفي على طاولة خشبية في ضوء طبيعي.",
+								"title": "الأكواب",
+								"description": "أكواب خزفية عملية مصممة ومشكّلة وفق مواصفاتك. مثالية للاستخدام اليومي أو كهدايا ذات معنى.",
+								"price": "تبدأ من $30"
+							},
+							{
+								"assetId": "b4e79659-5323-52e8-84e1-269e371e865c",
+								"alt": "أوعية خزفية مصنوعة يدويًا بأشرطة زرقاء مزخرفة مكدسة تحت ضوء ناعم.",
+								"title": "أوعية الماتشا",
+								"description": "مجموعتنا الخزفية الوردية المميزة من أوعية وأواني وقطع زخرفية. كل قطعة فريدة ومنجزة يدويًا.",
+								"price": "تبدأ من $40"
+							},
+							{
+								"assetId": "417d55ee-ccb7-59c3-93d2-1cf9db69a1cf",
+								"alt": "إناء وأوعية خزفية منقطة مصنوعة يدويًا في ضوء طبيعي.",
+								"title": "أدوات عملية",
+								"description": "قطع يومية متينة تشمل الصحون والأوعية وأطباق التقديم. مصممة للاستخدام العملي وجمال يدوم.",
+								"price": "تبدأ من $60"
+							}
+						]
+					},
+					"cta-background-image": {
+						"media": [
+							{
+								"assetId": "6ed6ee38-3517-5a91-b02a-281f33ac51b5",
+								"alt": "أكواب خزفية منقطة بسيطة مرتبة على رف فاتح تحت ضوء طبيعي ناعم."
+							}
+						],
+						"copy": {
+							"heading": "اطلب قطعتك المخصصة اليوم",
+							"description": "كل كوب وإناء وقطعة خزفية يشكّلها فنانون محليون من فانكوفر، وكل قطعة مصنوعة يدويًا."
+						},
+						"actions": [
+							{
+								"label": "اطلب الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						]
+					},
+					"feature-three-card": {
+						"copy": {
+							"kicker": "لماذا كلاي كول",
+							"heading": "فخار مصنوع يدويًا\nيروي حكاية",
+							"description": "تعكس كل قطعة نصنعها التزامنا بالحرفية العالية والتصميم المدروس. نضع شغفنا في كل كوب وعمل خزفي."
+						},
+						"media": [
+							{
+								"assetId": "9895c516-7bb1-579b-b24d-db6df9c9204f",
+								"alt": "صحون وأوعية خزفية بحواف زرقاء مكدسة على رف خشبي ريفي."
+							}
+						],
+						"items": [
+							{
+								"title": "مصنوع يدويًا في فانكوفر",
+								"description": "تُصنع كل قطعة يدويًا في استوديونا. نعمل بطين عالي الجودة وتقنيات تقليدية لنصنع فنًا عمليًا ستحب استخدامه كل يوم."
+							},
+							{
+								"title": "فريد وشخصي",
+								"description": "لا توجد قطعتان متطابقتان. تحتفي تصاميمنا الخزفية الوردية وأكوابنا المخصصة بالتفرد وتضفي الدفء على مطبخك أو مجموعتك."
+							}
+						]
+					},
+					"cta-background-image-2": {
+						"media": [
+							{
+								"assetId": "1453071a-0efa-5867-a8f5-b451eb82a46b",
+								"alt": "قوارير خزفية منقطة على خلفية استوديو داكنة."
+							}
+						],
+						"copy": {
+							"heading": "اعثر على قطعتك اليدوية المثالية",
+							"description": "تصفح مجموعتنا من الأكواب الفريدة والخزف الوردي من صنع إيزابيلا رايت. كل قطعة فريدة ومصنوعة حسب طلبك."
+						},
+						"actions": [
+							{
+								"label": "شاهد مجموعتنا",
+								"link": {
+									"kind": "relative",
+									"path": "/portfolio"
+								}
+							}
+						]
+					},
+					"testimonial-single-carousel": {
+						"copy": {
+							"kicker": "نحب ملاحظاتكم",
+							"heading": "عملاء يحبون خزفهم"
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "آراء العملاء",
+							"carousel-testimonialspreviousLabel": "آراء العملاء: السابق",
+							"carousel-testimonialsnextLabel": "آراء العملاء: التالي"
+						},
+						"testimonials": [
+							{
+								"quote": "الجودة استثنائية. تبدو كل قطعة وكأنها صُنعت بقصد. لقد طلبت بالفعل مجموعة ثانية للهدايا.",
+								"name": "مايا تشن",
+								"title": "هاوية اقتناء",
+								"assetId": "89f2ff1c-5458-5bcc-9819-845f4925b8e8",
+								"alt": "مايا تشن"
+							},
+							{
+								"quote": "كوبي المخصص جميل ومريح في اليد وأصبح جزءًا من كل صباح. جعلت كلاي كول التجربة كلها شخصية.",
+								"name": "أوليفيا غرانت",
+								"title": "عميلة من فانكوفر",
+								"assetId": "1099675c-94ea-5a77-ad65-11fcab39e93d",
+								"alt": "أوليفيا غرانت"
+							}
+						]
+					},
+					"location-card": {
+						"copy": {
+							"emailLabel": "البريد الإلكتروني",
+							"phoneLabel": "الهاتف",
+							"addressLabel": "العنوان",
+							"address": "فانكوفر، كولومبيا البريطانية، كندا"
+						},
+						"actions": [
+							{
+								"label": "hello@claycool.com",
+								"link": {
+									"kind": "email",
+									"address": "hello@claycool.com"
+								}
+							},
+							{
+								"label": "+1 (234) 567-8900",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								}
+							},
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com/?q=Vancouver+BC+Canada"
+								}
+							}
+						],
+						"location": {
+							"address": "فانكوفر، كولومبيا البريطانية، كندا"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة فانكوفر، كولومبيا البريطانية، كندا"
+						}
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "00",
+							"heading": "الأسئلة الشائعة",
+							"description": "لا تتردد في مراسلتنا إن كانت لديك أسئلة أخرى."
+						},
+						"actions": [
+							{
+								"label": "اتصل بنا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"items": [
+							{
+								"question": "هل تصنعون أكوابًا مخصصة؟",
+								"answer": "نعم. تصنع كلاي كول أكوابًا مخصصة بأشكال مشكّلة يدويًا وتشطيبات فريدة وطلاءات تُختار وفق تفضيلاتك."
+							},
+							{
+								"question": "أين يقع الاستوديو؟",
+								"answer": "يقع استوديو كلاي كول في فانكوفر بكندا. تواصل معنا لتحديد موعد لزيارة الاستوديو أو الاستلام."
+							}
+						]
+					},
+					"gallery-center-stage": {
+						"copy": {
+							"kicker": "أعمالنا",
+							"heading": "مصنوعة يدويًا دائمًا",
+							"description": "يُصنع كل كوب وتصميم خزفي يدويًا في استوديو فانكوفر. تعرّف على أنماطنا المتنوعة للهواة والاستخدام اليومي."
+						},
+						"actions": [
+							{
+								"label": "شاهد مجموعتنا",
+								"link": {
+									"kind": "relative",
+									"path": "/portfolio"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "معرض الخزف"
+						},
+						"media": [
+							{
+								"assetId": "a5b87bc6-421c-5ac7-9a1a-e5094dcddc1b",
+								"alt": "كوب خزفي منقط على طاولة خشبية."
+							},
+							{
+								"assetId": "b4e79659-5323-52e8-84e1-269e371e865c",
+								"alt": "أوعية خزفية مكدسة بأشرطة زرقاء مزخرفة."
+							},
+							{
+								"assetId": "417d55ee-ccb7-59c3-93d2-1cf9db69a1cf",
+								"alt": "إناء وأوعية خزفية منقطة مصنوعة يدويًا."
+							},
+							{
+								"assetId": "9895c516-7bb1-579b-b24d-db6df9c9204f",
+								"alt": "أوانٍ خزفية مصنوعة يدويًا في ضوء استوديو دافئ."
+							},
+							{
+								"assetId": "9583d7b3-9c0f-5242-951a-2d5841719d66",
+								"alt": "خزّاف ينهي قطعة خزفية على طاولة العمل."
+							},
+							{
+								"assetId": "1453071a-0efa-5867-a8f5-b451eb82a46b",
+								"alt": "قوارير خزفية منقطة على خلفية استوديو داكنة."
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "صناعة يدوية في فانكوفر",
+							"heading": "كل قطعة تروي حكاية",
+							"description": "تصنع كلاي كول فخارًا خُلق ليُستخدم ويُحَب. من قهوة الصباح في كوب مصنوع يدويًا إلى الخزف الوردي الناعم الذي يلتقط الضوء، تحمل كل قطعة عناية حرفة استوديونا."
+						}
+					},
+					"showcase-list": {
+						"copy": {
+							"kicker": "ظهرنا في",
+							"heading": "موضع ثقة",
+							"description": "تُعرض قطع كلاي كول اليدوية في المعارض المحلية والمجموعات المنتقاة والمنازل في أنحاء كولومبيا البريطانية."
+						},
+						"items": [
+							{
+								"name": "صنّاع فانكوفر"
+							},
+							{
+								"name": "سيراميك الشهرية"
+							},
+							{
+								"name": "تجمع حرفيي كولومبيا البريطانية"
+							}
+						]
+					},
+					"metrics-numbers": {
+						"copy": {
+							"kicker": "بالأرقام",
+							"heading": "خزف مصنوع يدويًا\nيثق به الهواة",
+							"description": "بنت كلاي كول جمهورًا وفيًا من عشاق الفخار والهواة في فانكوفر يعودون من أجل قطع فريدة من نوعها."
+						},
+						"items": [
+							{
+								"metric": "$15K+",
+								"label": "إيرادات شهرية"
+							},
+							{
+								"metric": "100%",
+								"label": "قطع يدوية"
+							},
+							{
+								"metric": "فانكوفر",
+								"label": "مقر الاستوديو"
+							}
+						]
+					},
+					"pricing-table-2": {
+						"copy": {
+							"heading": "اختر تجربتك مع كلاي كول",
+							"description": "اختر خطة الفخار المثالية لرحلتك الإبداعية. يتضمن كل خيار إرشادًا عمليًا ودخولًا إلى استوديو فانكوفر."
+						},
+						"items": [
+							{
+								"title": "كوب مخصص",
+								"price": "$30",
+								"period": "ابتداءً من",
+								"features-label": "يشمل:",
+								"description": "كوب يومي عملي مصنوع يدويًا لمنزلك أو قائمة هداياك.",
+								"label": "اطلب كوبًا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "شكل مصنوع يدويًا"
+									},
+									{
+										"title": "استشارة طلاء مخصصة"
+									}
+								],
+								"badge-label": ""
+							},
+							{
+								"title": "جلسة في الاستوديو",
+								"price": "$85",
+								"period": "للشخص",
+								"features-label": "يشمل:",
+								"description": "اصنع قطعتك بنفسك بإرشاد إيزابيلا في استوديو كلاي كول.",
+								"label": "احجز جلسة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "جلسة فخار بإرشاد"
+									},
+									{
+										"title": "المواد والحرق"
+									}
+								],
+								"badge-label": "الأكثر طلبًا"
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "لنبدع معًا",
+							"heading": "مستعد لتحويل\nرؤيتك الخزفية إلى واقع؟",
+							"description": "حدثنا عن مشروعك. سواء كنت تطلب أكوابًا مخصصة أو قطعًا خزفية وردية أو تستكشف ورش كلاي كول، نحن هنا لمساعدتك."
+						},
+						"media": [
+							{
+								"assetId": "9583d7b3-9c0f-5242-951a-2d5841719d66",
+								"alt": "أكواب خزفية منقطة مصنوعة يدويًا على رف فاتح."
+							}
+						],
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "البريد الإلكتروني",
+							"messageLabel": "حدثنا عن مشروعك الفخاري",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "تم استلام رسالتك! سنرد خلال يوم عمل واحد.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"team-grid-columns": {
+						"copy": {
+							"kicker": "فريقنا",
+							"heading": "تعرّف على الخزّافين\nخلف كلاي كول",
+							"description": "حرفيان متفانيان يصنعان الفخار اليدوي والخزف الوردي بعناية ودقة."
+						},
+						"members": [
+							{
+								"name": "إيزابيلا رايت",
+								"role": "المؤسسة وفنانة الخزف",
+								"description": "تشكّل إيزابيلا كل مجموعة بتركيز على الوظيفة واللون والحرفة.",
+								"alt": "فنانة خزف في استوديو فخار.",
+								"assetId": "89f2ff1c-5458-5bcc-9819-845f4925b8e8",
+								"socialLinks": []
+							},
+							{
+								"name": "إيفري مورغان",
+								"role": "مساعدة الاستوديو",
+								"description": "تساعد إيفري في جلسات الاستوديو والتشطيب وطلبات العملاء.",
+								"alt": "مساعدة استوديو فخار.",
+								"assetId": "1099675c-94ea-5a77-ad65-11fcab39e93d",
+								"socialLinks": []
+							}
+						]
+					},
+					"get-started": {
+						"copy": {
+							"heading": "أنشئ مجموعتك الخزفية التي تحلم بها"
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"label": "ابدأ الآن"
+							}
+						],
+						"media": [
+							{
+								"assetId": "8d12f6f8-5bc9-5959-93e3-238b677c3cc5",
+								"alt": "يدا خزّاف تشكلان إناءً طينيًا على دولاب الفخار الدوّار."
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

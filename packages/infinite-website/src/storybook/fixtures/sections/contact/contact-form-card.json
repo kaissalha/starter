@@ -1,0 +1,66 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Contact us",
+			"heading": "Get a free quote"
+		},
+		"contactGroups": [
+			{
+				"title": "Email",
+				"value": "hello@meridianbuild.co"
+			},
+			{
+				"title": "Office",
+				"value": "420 Industrial Way\nAustin, TX 78702"
+			}
+		],
+		"media": [
+			{
+				"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+				"alt": "IT professionals collaborating on technical solutions"
+			}
+		],
+		"form": {
+			"nameLabel": "Name",
+			"emailLabel": "Email",
+			"messageLabel": "Message",
+			"submitLabel": "Send message",
+			"pendingLabel": "Sending…",
+			"success": "Thank you! We will be in touch within two business days.",
+			"error": "We couldn't send your message. Please try again.",
+			"anotherLabel": "Send another message"
+		}
+	},
+	"ar": {
+		"copy": {
+			"kicker": "تواصل معنا",
+			"heading": "احصل على عرض سعر مجاني"
+		},
+		"contactGroups": [
+			{
+				"title": "البريد الإلكتروني",
+				"value": "hello@meridianbuild.co"
+			},
+			{
+				"title": "المكتب",
+				"value": "420 إندستريال واي\nأوستن، تكساس 78702"
+			}
+		],
+		"media": [
+			{
+				"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+				"alt": "متخصصو تقنية المعلومات يتعاونون على حلول تقنية"
+			}
+		],
+		"form": {
+			"nameLabel": "الاسم",
+			"emailLabel": "البريد الإلكتروني",
+			"messageLabel": "الرسالة",
+			"submitLabel": "إرسال الرسالة",
+			"pendingLabel": "جارٍ الإرسال…",
+			"success": "شكرًا لك! سنتواصل معك خلال يومي عمل.",
+			"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+			"anotherLabel": "إرسال رسالة أخرى"
+		}
+	}
+}

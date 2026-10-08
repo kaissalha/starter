@@ -1,0 +1,8 @@
+{
+	"extends": "@starter/tsconfig/react-lib.json",
+	"compilerOptions": {
+		"types": ["node"]
+	},
+	"include": ["src", ".storybook"],
+	"exclude": ["node_modules"]
+}

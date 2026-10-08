@@ -1,0 +1,16 @@
+{
+	"name": "@starter/tsconfig",
+	"version": "0.0.0",
+	"private": true,
+	"license": "MIT",
+	"type": "module",
+	"exports": {
+		"./base.json": "./base.json",
+		"./react-lib.json": "./react-lib.json",
+		"./web.json": "./web.json",
+		"./node.json": "./node.json"
+	},
+	"devDependencies": {
+		"typescript": "^7.0.2"
+	}
+}

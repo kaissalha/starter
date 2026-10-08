@@ -1,0 +1,66 @@
+{
+	"en": {
+		"accessibility": {
+			"carousel-testimonialsLabel": "Customer stories",
+			"carousel-testimonialsindicatorsLabel": "Customer stories pagination"
+		},
+		"testimonials": [
+			{
+				"quote": "Neofin transformed my mindset on how to think about investment.",
+				"name": "Marcus Chen",
+				"title": "Project Manager, Homeowner",
+				"complement": "Everything is in one place, so I'm no longer the middleman. My life is less stressful, and my wealth is growing sustainably!",
+				"assetId": "aea7b32a-6b80-5278-866e-55be03d9ece5",
+				"alt": "Marcus Chen smiling outdoors by the coast"
+			},
+			{
+				"quote": "The attention to detail and professionalism was outstanding.",
+				"name": "Sarah Mitchell",
+				"title": "Marketing Director",
+				"complement": "They transformed our vision into reality beyond our expectations. Every aspect was handled with care and precision.",
+				"assetId": "61f1a930-b55d-57f1-ae3f-624f077f19ad",
+				"alt": "Sarah Mitchell in a navy blazer in a modern office"
+			},
+			{
+				"quote": "Exceptional service from start to finish!",
+				"name": "Emily Rodriguez",
+				"title": "Restaurant Owner",
+				"complement": "The results exceeded what we hoped for, and the process was smooth and stress-free. Highly recommend to anyone looking for quality.",
+				"assetId": "b2c626c3-3472-5483-b64d-3b19acf73475",
+				"alt": "Emily Rodriguez in a charcoal blazer by a bookshelf"
+			}
+		]
+	},
+	"ar": {
+		"accessibility": {
+			"carousel-testimonialsLabel": "قصص العملاء",
+			"carousel-testimonialsindicatorsLabel": "ترقيم صفحات قصص العملاء"
+		},
+		"testimonials": [
+			{
+				"quote": "غيّرت «نيوفين» طريقة تفكيري في الاستثمار.",
+				"name": "ماركوس تشن",
+				"title": "مدير مشاريع، مالك منزل",
+				"complement": "كل شيء في مكان واحد، فلم أعد الوسيط. حياتي أقل توترًا وثروتي تنمو بشكل مستدام!",
+				"assetId": "aea7b32a-6b80-5278-866e-55be03d9ece5",
+				"alt": "ماركوس تشن يبتسم في الهواء الطلق قرب الساحل"
+			},
+			{
+				"quote": "كان الاهتمام بالتفاصيل والاحترافية رائعًا.",
+				"name": "سارة ميتشل",
+				"title": "مديرة التسويق",
+				"complement": "حوّلوا رؤيتنا إلى واقع يتجاوز توقعاتنا. جرى التعامل مع كل جانب بعناية ودقة.",
+				"assetId": "61f1a930-b55d-57f1-ae3f-624f077f19ad",
+				"alt": "سارة ميتشل ترتدي سترة كحلية في مكتب عصري"
+			},
+			{
+				"quote": "خدمة استثنائية من البداية إلى النهاية!",
+				"name": "إيميلي رودريغيز",
+				"title": "صاحبة مطعم",
+				"complement": "تجاوزت النتائج ما كنا نأمله، وكانت العملية سلسة وخالية من التوتر. أنصح بهم كل من يبحث عن الجودة.",
+				"assetId": "b2c626c3-3472-5483-b64d-3b19acf73475",
+				"alt": "إيميلي رودريغيز ترتدي سترة فحمية بجانب مكتبة"
+			}
+		]
+	}
+}

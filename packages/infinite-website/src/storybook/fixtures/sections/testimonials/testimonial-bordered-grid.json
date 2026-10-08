@@ -1,0 +1,48 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Clients perspective",
+			"description": "What our beloved clients say about our work."
+		},
+		"testimonials": [
+			{
+				"quote": "\"An unparalleled level of professionalism. They operate with a precision typically reserved for corporate environments, applied directly to our residence.\"",
+				"name": "Sarah M.",
+				"title": "Homeowner"
+			},
+			{
+				"quote": "\"An unparalleled level of professionalism. They operate with a precision typically reserved for corporate environments, applied directly to our residence.\"",
+				"name": "Sarah M.",
+				"title": "Homeowner"
+			},
+			{
+				"quote": "\"An unparalleled level of professionalism. They operate with a precision typically reserved for corporate environments, applied directly to our residence.\"",
+				"name": "Sarah M.",
+				"title": "Homeowner"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "منظور العملاء",
+			"description": "ما يقوله عملاؤنا الأعزاء عن عملنا."
+		},
+		"testimonials": [
+			{
+				"quote": "«مستوى من الاحترافية لا مثيل له. يعملون بدقة تُخصَّص عادةً لبيئات الشركات، ويطبّقونها مباشرةً على منزلنا.»",
+				"name": "سارة م.",
+				"title": "مالكة منزل"
+			},
+			{
+				"quote": "«مستوى من الاحترافية لا مثيل له. يعملون بدقة تُخصَّص عادةً لبيئات الشركات، ويطبّقونها مباشرةً على منزلنا.»",
+				"name": "سارة م.",
+				"title": "مالكة منزل"
+			},
+			{
+				"quote": "«مستوى من الاحترافية لا مثيل له. يعملون بدقة تُخصَّص عادةً لبيئات الشركات، ويطبّقونها مباشرةً على منزلنا.»",
+				"name": "سارة م.",
+				"title": "مالكة منزل"
+			}
+		]
+	}
+}

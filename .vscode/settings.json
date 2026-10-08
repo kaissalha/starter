@@ -1,0 +1,98 @@
+{
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
+	"typescript.experimental.useTsgo": true,
+	"editor.formatOnPaste": true,
+	"editor.formatOnSave": true,
+	"editor.formatOnSaveMode": "file",
+	"editor.formatOnType": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.oxc": "always",
+    	"source.format.oxc": "always"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[javascriptreact]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "oxc.oxc-vscode"
+	},
+	"tailwindCSS.experimental.configFile": {
+		"packages/ui/src/globals.css": ["apps/**", "packages/ui/**"]
+	},
+	"tailwindCSS.includeLanguages": {
+		"typescript": "javascript",
+		"typescriptreact": "javascript"
+	},
+	"editor.quickSuggestions": {
+		"strings": "on"
+	},
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"tailwindCSS.experimental.classRegex": [
+		["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["styled\\(.+,([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["clsx\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["twMerge\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["tw\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		["classNames\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+		"class:\\s*[\"'`]([^\"'`]*).*?[\"'`]",
+		"className:\\s*[\"'`]([^\"'`]*).*?[\"'`]",
+		"[\"'`]([^\"'`]*(?:hover:|focus:|active:|disabled:|group-hover:|dark:|sm:|md:|lg:|xl:|2xl:)[^\"'`]*)[\"'`]"
+	],
+	"svg.preview.background": "transparent",
+	"workbench.editor.customLabels.patterns": {
+		"**/app/**/{page,layout,index,route}.{ts,tsx}": "(${dirname})/${filename}.${extname}",
+		"**/index.{ts,tsx}": "${dirname}/index.${extname}"
+	},
+	"tailwindCSS.classAttributes": [
+        "class",
+        "className",
+        "headerClassName",
+        "contentContainerClassName",
+        "columnWrapperClassName",
+        "endFillColorClassName",
+        "imageClassName",
+        "tintColorClassName",
+        "ios_backgroundColorClassName",
+        "thumbColorClassName",
+        "trackColorOnClassName",
+        "trackColorOffClassName",
+        "selectionColorClassName",
+        "cursorColorClassName",
+        "underlineColorAndroidClassName",
+        "placeholderTextColorClassName",
+        "selectionHandleColorClassName",
+        "colorsClassName",
+        "progressBackgroundColorClassName",
+        "titleColorClassName",
+        "underlayColorClassName",
+        "colorClassName",
+        "drawerBackgroundColorClassName",
+        "statusBarBackgroundColorClassName",
+        "backdropColorClassName",
+        "backgroundColorClassName",
+        "ListFooterComponentClassName",
+        "ListHeaderComponentClassName"
+    ],
+    "tailwindCSS.classFunctions": [
+        "useResolveClassNames"
+    ],
+	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"oxc.enable": true,
+	"typescript.native-preview.tsdk": "/Users/kaissalha/dev/starter/node_modules/typescript",
+}

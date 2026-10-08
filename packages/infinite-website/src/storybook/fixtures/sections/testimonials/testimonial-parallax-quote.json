@@ -1,0 +1,88 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Trusted by homeowners"
+		},
+		"accessibility": {
+			"carousel-testimonialsLabel": "Homeowner testimonials",
+			"carousel-testimonialspreviousLabel": "Homeowner testimonials: previous",
+			"carousel-testimonialsnextLabel": "Homeowner testimonials: next"
+		},
+		"media": [
+			{
+				"assetId": "baf61d77-050d-5e1a-b80a-c2147b003fc4",
+				"alt": "Navy and white kitchen remodel with waterfall island"
+			}
+		],
+		"testimonials": [
+			{
+				"quote": "Our kitchen gut remodel finished on schedule and looks better than the renderings. The crew was respectful of our home, and the project manager kept us informed every week.",
+				"name": "Elena Rodriguez",
+				"title": "Austin — Kitchen Remodel"
+			},
+			{
+				"quote": "They turned our dated primary bath into a real spa retreat — custom vanity, walk-in shower, the works. Every tile line is straight and the brass fixtures feel intentional.",
+				"name": "Sarah Lin",
+				"title": "Portland — Bathroom Renovation"
+			},
+			{
+				"quote": "We hired Meridian Build for an outdoor kitchen and patio. From the pergola to the stone fireplace, the craftsmanship is obvious. We use the space every weekend now.",
+				"name": "Olivia Brooks",
+				"title": "Chicago — Outdoor Living"
+			},
+			{
+				"quote": "From the first site visit to the final walkthrough, everything felt organized. They replaced our rotting fence and rebuilt the front entry — both look brand new.",
+				"name": "Diana Cho",
+				"title": "Seattle — Exterior Work"
+			},
+			{
+				"quote": "Communication was excellent and the finish quality is unmatched. Our open-concept kitchen and sliding doors completely changed how we live in the house.",
+				"name": "Taryn M.",
+				"title": "Dallas — Whole-Home Remodel"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "موثوق به من أصحاب المنازل"
+		},
+		"accessibility": {
+			"carousel-testimonialsLabel": "شهادات أصحاب المنازل",
+			"carousel-testimonialspreviousLabel": "شهادات أصحاب المنازل: السابق",
+			"carousel-testimonialsnextLabel": "شهادات أصحاب المنازل: التالي"
+		},
+		"media": [
+			{
+				"alt": "تجديد مطبخ بألوان كحلية وبيضاء مع جزيرة شلالية",
+				"assetId": "baf61d77-050d-5e1a-b80a-c2147b003fc4"
+			}
+		],
+		"testimonials": [
+			{
+				"quote": "انتهى تجديد مطبخنا بالكامل في الموعد المحدد وبدا أجمل من التصاميم. احترم الفريق منزلنا، وأبقانا مدير المشروع على اطلاع كل أسبوع.",
+				"name": "إيلينا رودريغيز",
+				"title": "أوستن — تجديد مطبخ"
+			},
+			{
+				"quote": "حوّلوا حمامنا الرئيسي القديم إلى منتجع صحي حقيقي — خزانة مخصصة ودوش واسع وكل شيء. كل خط من البلاط مستقيم وتبدو التركيبات النحاسية مقصودة.",
+				"name": "سارة لين",
+				"title": "بورتلاند — تجديد حمام"
+			},
+			{
+				"quote": "استعنّا بـ«ميريديان بيلد» لمطبخ خارجي وباحة. من البرغولا إلى المدفأة الحجرية، الإتقان واضح. نستخدم المكان كل عطلة أسبوع الآن.",
+				"name": "أوليفيا بروكس",
+				"title": "شيكاغو — معيشة خارجية"
+			},
+			{
+				"quote": "من أول زيارة للموقع حتى الجولة الأخيرة، بدا كل شيء منظمًا. استبدلوا سياجنا المتآكل وأعادوا بناء المدخل الأمامي — وكلاهما يبدو جديدًا تمامًا.",
+				"name": "ديانا تشو",
+				"title": "سياتل — أعمال خارجية"
+			},
+			{
+				"quote": "كان التواصل ممتازًا وجودة التشطيب لا مثيل لها. غيّر مطبخنا المفتوح والأبواب المنزلقة طريقة عيشنا في المنزل تمامًا.",
+				"name": "تارين م.",
+				"title": "دالاس — تجديد المنزل بالكامل"
+			}
+		]
+	}
+}

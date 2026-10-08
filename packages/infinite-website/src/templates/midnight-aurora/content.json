@@ -1,0 +1,1312 @@
+{
+	"en": {
+		"site": {
+			"name": "Midnight Aurora"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Meridian Wealth navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Meridian Wealth"
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": [
+								{
+									"label": "Investment Management",
+									"link": {
+										"kind": "relative",
+										"path": "/services/investment-management"
+									}
+								},
+								{
+									"label": "Retirement Planning",
+									"link": {
+										"kind": "relative",
+										"path": "/services/retirement-planning"
+									}
+								}
+							]
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Resources",
+							"link": {
+								"kind": "relative",
+								"path": "/resources"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "Schedule Consultation",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 Meridian Wealth Advisors. All rights reserved. SEC Registered Investment Advisor.",
+						"brand": "Meridian Wealth"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "Resources",
+							"link": {
+								"kind": "relative",
+								"path": "/resources"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "Privacy Policy",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "Disclosures",
+							"link": {
+								"kind": "relative",
+								"path": "/disclosures"
+							}
+						},
+						{
+							"label": "Form ADV",
+							"link": {
+								"kind": "relative",
+								"path": "/form-adv"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Midnight Aurora"
+					}
+				},
+				"sections": {
+					"banner-bento-grid": {
+						"copy": {
+							"heading": "Your Financial\nFuture, Secured.",
+							"description": "We're a trusted wealth management firm helping individuals and families build, protect, and grow their wealth through personalized financial strategies and expert guidance."
+						},
+						"media": [
+							{
+								"assetId": "77557ff1-7747-56b4-9d0a-d5d0ad3c6520",
+								"alt": "Financial advisor reviewing portfolio with client"
+							},
+							{
+								"assetId": "7b1ee036-2b59-5487-a5f3-8b3fbd9505ae",
+								"alt": "Investment performance charts and analytics"
+							}
+						],
+						"actions": [
+							{
+								"label": "Start Planning",
+								"link": {
+									"kind": "anchor",
+									"anchor": "feature-centered-carousel"
+								}
+							}
+						]
+					},
+					"feature-centered-carousel": {
+						"copy": {
+							"kicker": "Our Services",
+							"heading": "Comprehensive Wealth Management",
+							"description": "From retirement planning to investment management, we partner with you to create a financial strategy tailored to your goals and life stage."
+						},
+						"actions": [
+							{
+								"label": "Explore Services",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "Our Services",
+							"indicatorsLabel": "Choose item"
+						},
+						"features": [
+							{
+								"title": "Investment Management",
+								"description": "Professionally managed portfolios tailored to your risk tolerance, time horizon, and financial objectives. We monitor and adjust your investments to optimize returns.",
+								"assetId": "864b57bc-8aab-509a-9892-eca11842e995",
+								"alt": "Advisor analyzing investment portfolio"
+							},
+							{
+								"title": "Retirement Planning",
+								"description": "Comprehensive retirement strategies including 401(k) optimization, IRA management, Social Security planning, and income distribution strategies.",
+								"assetId": "5899f3df-d38b-5e5c-8140-b36efc3b24bc",
+								"alt": "Couple planning their retirement"
+							},
+							{
+								"title": "Tax Planning & Optimization",
+								"description": "Strategic tax planning to minimize your tax burden and maximize wealth accumulation. We coordinate with your CPA for seamless execution.",
+								"assetId": "b8c99d01-47d1-5c53-a81a-3db7e4613f7b",
+								"alt": "Tax planning documents and calculations"
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "Our Approach",
+							"heading": "A Partnership\nBuilt on Trust",
+							"description": "We believe in building lasting relationships with our clients, providing guidance through every stage of their financial journey."
+						},
+						"media": [
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "Financial advisory team meeting"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "Financial advisory team meeting"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "Financial advisory team meeting"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "Financial advisory team meeting"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "Financial advisory team meeting"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "Financial advisory team meeting"
+							}
+						]
+					},
+					"metrics-basic": {
+						"copy": {
+							"kicker": "Our Track Record",
+							"heading": "Results that\nbuild confidence.",
+							"description": "We measure our success by the financial security and peace of mind we create for our clients."
+						},
+						"actions": [
+							{
+								"label": "Schedule Consultation",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "15+",
+								"title": "Certified Advisors",
+								"description": "CFP® and CFA professionals"
+							},
+							{
+								"metric": "25+",
+								"title": "Years of Experience",
+								"description": "Navigating markets and building wealth"
+							},
+							{
+								"metric": "98%",
+								"title": "Client Retention Rate",
+								"description": "Long-term relationships built on trust"
+							},
+							{
+								"metric": "500+",
+								"title": "Families Served",
+								"description": "Across generations of financial planning"
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "Our Team",
+							"heading": "Advisors who\ncare deeply.",
+							"description": "Our team of certified financial planners and investment professionals brings decades of experience and a genuine commitment to your success."
+						},
+						"actions": [
+							{
+								"label": "Schedule Consultation",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "Michael Thornton, CFP®",
+								"role": "Founder & Senior Wealth Advisor",
+								"description": "With 30 years in wealth management, Michael founded Meridian to provide the personalized, conflict-free advice that every family deserves.",
+								"assetId": "90e97f1d-e2c9-5d24-b6dd-f7629d8c6666",
+								"alt": "Michael Thornton"
+							},
+							{
+								"name": "Jennifer Park, CFA",
+								"role": "Chief Investment Officer",
+								"description": "Former portfolio manager at a top-tier investment firm. Jennifer leads our investment strategy with a focus on risk-adjusted returns.",
+								"assetId": "a9cb0e17-60e6-55b8-9beb-4f46fd3b0353",
+								"alt": "Jennifer Park"
+							}
+						]
+					},
+					"testimonial-grid": {
+						"copy": {
+							"kicker": "Client Stories",
+							"heading": "Trusted by Families\nAcross the Country"
+						},
+						"actions": [
+							{
+								"label": "Read More Stories",
+								"link": {
+									"kind": "relative",
+									"path": "/about"
+								}
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "Meridian Wealth helped us navigate a complex financial situation after selling our business. Their guidance on tax optimization alone saved us over $200,000. We finally feel confident about our retirement.",
+								"name": "Robert & Linda Chen",
+								"title": "Retired Business Owners",
+								"assetId": "6a34fd90-a43d-5330-95c6-397a572e4670",
+								"alt": "Robert & Linda Chen"
+							},
+							{
+								"quote": "As a physician with a demanding schedule, I needed someone I could trust completely with my finances. The team at Meridian has been exceptional—proactive, transparent, and always available when I have questions.",
+								"name": "Dr. James Mitchell",
+								"title": "Orthopedic Surgeon",
+								"assetId": "9dc4d303-79cf-5901-bc5e-f697e27bca81",
+								"alt": "Dr. James Mitchell"
+							},
+							{
+								"quote": "After my divorce, I was overwhelmed trying to understand my financial situation. Meridian created a clear plan that gave me peace of mind and set me on a path to financial independence.",
+								"name": "Sarah Williams",
+								"title": "Marketing Executive",
+								"assetId": "29c5ae49-4920-599e-b344-b8aee6998702",
+								"alt": "Sarah Williams"
+							}
+						]
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "Credentials & Affiliations",
+							"heading": "Trusted by Clients, Recognized by Industry",
+							"description": "Our team holds the highest professional certifications and maintains partnerships with leading financial institutions."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "Logo 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "Logo 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "Logo 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "Logo 4"
+							},
+							{
+								"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+								"alt": "Logo 5"
+							},
+							{
+								"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+								"alt": "Logo 6"
+							},
+							{
+								"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+								"alt": "Logo 7"
+							},
+							{
+								"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+								"alt": "Logo 8"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "Our Philosophy",
+							"heading": "Your goals come first.",
+							"description": "We believe financial planning isn't just about numbers—it's about understanding your life goals, protecting what matters most, and creating a roadmap to get you there with confidence."
+						}
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "Service Tiers",
+							"heading": "Transparent fee\nstructure.",
+							"description": "We believe in clear, straightforward pricing. Our fees are based on assets under management, aligning our success with yours."
+						},
+						"items": [
+							{
+								"title": "Foundation",
+								"price": "0.95%",
+								"description": "For individuals and families starting their wealth journey.",
+								"label": "Get Started",
+								"badge-label": "Most popular",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Comprehensive financial plan"
+									},
+									{
+										"title": "Investment management"
+									},
+									{
+										"title": "Quarterly portfolio reviews"
+									},
+									{
+										"title": "Annual planning meeting"
+									}
+								]
+							},
+							{
+								"title": "Growth",
+								"price": "0.75%",
+								"description": "For established families with complex financial needs.",
+								"label": "Schedule Call",
+								"badge-label": "Most Popular",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Everything in Foundation"
+									},
+									{
+										"title": "Tax optimization strategies"
+									},
+									{
+										"title": "Estate planning coordination"
+									},
+									{
+										"title": "Monthly check-ins"
+									},
+									{
+										"title": "Dedicated advisor access"
+									}
+								]
+							},
+							{
+								"title": "Legacy",
+								"price": "0.50%",
+								"description": "For high-net-worth families and multi-generational wealth.",
+								"label": "Let's Talk",
+								"badge-label": "Most popular",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Everything in Growth"
+									},
+									{
+										"title": "Family governance planning"
+									},
+									{
+										"title": "Philanthropic strategy"
+									},
+									{
+										"title": "Private investment access"
+									},
+									{
+										"title": "Concierge service"
+									}
+								]
+							}
+						]
+					},
+					"faq-card": {
+						"copy": {
+							"kicker": "Questions",
+							"heading": "Frequently asked questions",
+							"description": "Everything you need to know about working with Meridian Wealth.",
+							"bottomTitle": "Still have questions?",
+							"bottomDescription": "Our team is here to help. Reach out anytime and we'll get back to you promptly."
+						},
+						"actions": [
+							{
+								"label": "Contact us",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"items": [
+							{
+								"question": "What is a fiduciary, and why does it matter?",
+								"answer": "A fiduciary is legally obligated to act in your best interest at all times. Unlike many advisors who only need to recommend 'suitable' investments, we are held to the highest standard of care. This means no hidden fees, no conflicts of interest, and advice that's always focused on what's best for you."
+							},
+							{
+								"question": "What's the minimum investment to work with you?",
+								"answer": "Our Foundation tier is designed for clients with investable assets of $250,000 or more. However, we also offer financial planning services for those building toward this threshold. We're happy to discuss your specific situation during a complimentary consultation."
+							},
+							{
+								"question": "How do you get paid?",
+								"answer": "We charge a transparent fee based on assets under management, typically ranging from 0.50% to 0.95% annually depending on your service tier. We don't earn commissions on products, which means our advice is never influenced by what pays us more."
+							},
+							{
+								"question": "How often will we meet?",
+								"answer": "Meeting frequency depends on your service tier and personal preferences. At minimum, we conduct quarterly portfolio reviews and annual comprehensive planning meetings. Many clients appreciate monthly check-ins, especially during significant life transitions."
+							},
+							{
+								"question": "Can you coordinate with my accountant and attorney?",
+								"answer": "Absolutely. Comprehensive wealth management requires collaboration across your professional team. We regularly work with CPAs on tax optimization, estate attorneys on wealth transfer strategies, and insurance professionals on risk management."
+							},
+							{
+								"question": "Is my information secure with Meridian?",
+								"answer": "Security is paramount. We use bank-level encryption, multi-factor authentication, and work exclusively with SEC-regulated custodians. Your assets are held at independent custodians like Schwab or Fidelity, never with us directly."
+							}
+						]
+					},
+					"contact-form-text": {
+						"copy": {
+							"kicker": "Get in Touch",
+							"heading": "Let's start the conversation.",
+							"description": "Tell us about your financial goals and we'll schedule a complimentary consultation within 24 hours.",
+							"email": "info@meridianwealth.com",
+							"phone": "+1 (555) 892-4500",
+							"address": "100 Financial Plaza, Suite 3200, New York, NY 10005"
+						},
+						"form": {
+							"nameLabel": "Name",
+							"emailLabel": "Email",
+							"messageLabel": "Message",
+							"submitLabel": "Request Consultation",
+							"pendingLabel": "Sending…",
+							"success": "Thank you for reaching out! A member of our team will contact you within 24 hours.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "Get in Touch",
+							"heading": "Let's plan your financial future",
+							"description": "Send us a message and we'll follow up within 24 hours."
+						},
+						"location": {
+							"address": "88 Northern Lights Blvd, Seattle, WA 98101"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 88 Northern Lights Blvd, Seattle, WA 98101"
+						},
+						"form": {
+							"nameLabel": "Name",
+							"emailLabel": "Email",
+							"messageLabel": "Message",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Thank you for reaching out! A member of our team will contact you within 24 hours.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "Visit us",
+							"heading": "Find us nearby \n and stop by today.",
+							"description": "Use the map to get directions and visit our location."
+						},
+						"actions": [
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com/?q=88%20Northern%20Lights%20Blvd%2C%20Seattle%2C%20WA%2098101"
+								}
+							}
+						],
+						"location": {
+							"address": "88 Northern Lights Blvd, Seattle, WA 98101"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 88 Northern Lights Blvd, Seattle, WA 98101"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "88 Northern Lights Blvd, Seattle, WA 98101"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 88 Northern Lights Blvd, Seattle, WA 98101"
+						}
+					},
+					"cta-background-image": {
+						"media": [
+							{
+								"assetId": "f01040df-d9b1-5990-9c9e-034d792d3e77",
+								"alt": "Modern office with city skyline view"
+							}
+						],
+						"copy": {
+							"heading": "Ready to take control of your financial future?",
+							"description": "Schedule a complimentary consultation to discuss your goals and discover how we can help you achieve them."
+						},
+						"actions": [
+							{
+								"label": "Schedule Consultation",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								}
+							},
+							{
+								"label": "Download Our Guide",
+								"link": {
+									"kind": "relative",
+									"path": "/resources"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "منتصف الليل أورورا"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "ميريديان ويلث التنقل",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "ميريديان ويلث"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": [
+								{
+									"label": "إدارة الاستثمار",
+									"link": {
+										"kind": "relative",
+										"path": "/services/investment-management"
+									}
+								},
+								{
+									"label": "التخطيط للتقاعد",
+									"link": {
+										"kind": "relative",
+										"path": "/services/retirement-planning"
+									}
+								}
+							]
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الموارد",
+							"link": {
+								"kind": "relative",
+								"path": "/resources"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "احجز استشارة",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 ميريديان ويلث للاستشارات. جميع الحقوق محفوظة. مستشار استثمار مسجل لدى هيئة الأوراق المالية والبورصات.",
+						"brand": "ميريديان ويلث"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "الموارد",
+							"link": {
+								"kind": "relative",
+								"path": "/resources"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "سياسة الخصوصية",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "الإفصاحات",
+							"link": {
+								"kind": "relative",
+								"path": "/disclosures"
+							}
+						},
+						{
+							"label": "نموذج ADV",
+							"link": {
+								"kind": "relative",
+								"path": "/form-adv"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "منتصف الليل أورورا"
+					}
+				},
+				"sections": {
+					"banner-bento-grid": {
+						"copy": {
+							"heading": "مستقبلك المالي\nفي أمان.",
+							"description": "نحن شركة موثوقة لإدارة الثروات نساعد الأفراد والعائلات على بناء ثرواتهم وحمايتها وتنميتها عبر استراتيجيات مالية مخصصة وإرشاد خبير."
+						},
+						"media": [
+							{
+								"assetId": "77557ff1-7747-56b4-9d0a-d5d0ad3c6520",
+								"alt": "مستشار مالي يراجع المحفظة مع عميل"
+							},
+							{
+								"assetId": "7b1ee036-2b59-5487-a5f3-8b3fbd9505ae",
+								"alt": "مخططات وتحليلات أداء الاستثمار"
+							}
+						],
+						"actions": [
+							{
+								"label": "ابدأ التخطيط",
+								"link": {
+									"kind": "anchor",
+									"anchor": "feature-centered-carousel"
+								}
+							}
+						]
+					},
+					"feature-centered-carousel": {
+						"copy": {
+							"kicker": "خدماتنا",
+							"heading": "إدارة ثروات شاملة",
+							"description": "من التخطيط للتقاعد إلى إدارة الاستثمار، نشاركك في بناء استراتيجية مالية تناسب أهدافك ومرحلة حياتك."
+						},
+						"actions": [
+							{
+								"label": "استكشف الخدمات",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "خدماتنا",
+							"indicatorsLabel": "اختر عنصراً"
+						},
+						"features": [
+							{
+								"title": "إدارة الاستثمار",
+								"description": "محافظ تُدار باحترافية بما يناسب قدرتك على تحمل المخاطر وأفقك الزمني وأهدافك المالية. نتابع استثماراتك ونعدّلها لتحسين العوائد.",
+								"assetId": "864b57bc-8aab-509a-9892-eca11842e995",
+								"alt": "مستشار يحلل محفظة استثمارية"
+							},
+							{
+								"title": "التخطيط للتقاعد",
+								"description": "استراتيجيات تقاعد شاملة تشمل تحسين خطط 401(k) وإدارة حسابات IRA والتخطيط للضمان الاجتماعي واستراتيجيات توزيع الدخل.",
+								"assetId": "5899f3df-d38b-5e5c-8140-b36efc3b24bc",
+								"alt": "زوجان يخططان لتقاعدهما"
+							},
+							{
+								"title": "التخطيط الضريبي وتحسينه",
+								"description": "تخطيط ضريبي استراتيجي لتقليل عبئك الضريبي وزيادة تراكم الثروة. ننسق مع محاسبك القانوني لتنفيذ سلس.",
+								"assetId": "b8c99d01-47d1-5c53-a81a-3db7e4613f7b",
+								"alt": "مستندات وحسابات التخطيط الضريبي"
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "نهجنا",
+							"heading": "شراكة\nقائمة على الثقة",
+							"description": "نؤمن ببناء علاقات دائمة مع عملائنا وتقديم الإرشاد في كل مرحلة من رحلتهم المالية."
+						},
+						"media": [
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "اجتماع فريق الاستشارات المالية"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "اجتماع فريق الاستشارات المالية"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "اجتماع فريق الاستشارات المالية"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "اجتماع فريق الاستشارات المالية"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "اجتماع فريق الاستشارات المالية"
+							},
+							{
+								"assetId": "d33ef555-cb5b-573f-ae0c-29abe5af9321",
+								"alt": "اجتماع فريق الاستشارات المالية"
+							}
+						]
+					},
+					"metrics-basic": {
+						"copy": {
+							"kicker": "سجلنا",
+							"heading": "نتائج\nتبني الثقة.",
+							"description": "نقيس نجاحنا بالأمان المالي وراحة البال التي نصنعها لعملائنا."
+						},
+						"actions": [
+							{
+								"label": "احجز استشارة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "15+",
+								"title": "مستشارون معتمدون",
+								"description": "محترفون حاصلون على CFP® وCFA"
+							},
+							{
+								"metric": "25+",
+								"title": "سنوات من الخبرة",
+								"description": "نتنقل في الأسواق ونبني الثروات"
+							},
+							{
+								"metric": "98%",
+								"title": "نسبة الاحتفاظ بالعملاء",
+								"description": "علاقات طويلة الأمد قائمة على الثقة"
+							},
+							{
+								"metric": "500+",
+								"title": "عائلات خدمناها",
+								"description": "عبر أجيال من التخطيط المالي"
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "فريقنا",
+							"heading": "مستشارون\nيهتمون بصدق.",
+							"description": "يقدم فريقنا من المخططين الماليين المعتمدين ومحترفي الاستثمار عقوداً من الخبرة والتزاماً حقيقياً بنجاحك."
+						},
+						"actions": [
+							{
+								"label": "احجز استشارة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "مايكل ثورنتون، CFP®",
+								"role": "المؤسس وكبير مستشاري الثروات",
+								"description": "بخبرة 30 عاماً في إدارة الثروات، أسس مايكل ميريديان ليقدم النصح المخصص الخالي من تضارب المصالح الذي تستحقه كل عائلة.",
+								"assetId": "90e97f1d-e2c9-5d24-b6dd-f7629d8c6666",
+								"alt": "مايكل ثورنتون"
+							},
+							{
+								"name": "جينيفر بارك، CFA",
+								"role": "رئيسة الاستثمار",
+								"description": "مديرة محافظ سابقة في شركة استثمار رائدة. تقود جينيفر استراتيجيتنا الاستثمارية مع التركيز على العوائد المعدّلة بالمخاطر.",
+								"assetId": "a9cb0e17-60e6-55b8-9beb-4f46fd3b0353",
+								"alt": "جينيفر بارك"
+							}
+						]
+					},
+					"testimonial-grid": {
+						"copy": {
+							"kicker": "قصص العملاء",
+							"heading": "موثوقون لدى العائلات\nفي أنحاء البلاد"
+						},
+						"actions": [
+							{
+								"label": "اقرأ المزيد من القصص",
+								"link": {
+									"kind": "relative",
+									"path": "/about"
+								}
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "ساعدتنا ميريديان ويلث في تجاوز وضع مالي معقد بعد بيع شركتنا. وفّر إرشادهم الضريبي وحده أكثر من 200,000 دولار. أصبحنا أخيراً واثقين من تقاعدنا.",
+								"name": "روبرت ولندا تشن",
+								"title": "أصحاب أعمال متقاعدون",
+								"assetId": "6a34fd90-a43d-5330-95c6-397a572e4670",
+								"alt": "روبرت ولندا تشن"
+							},
+							{
+								"quote": "بصفتي طبيباً بجدول مزدحم، احتجت إلى من أثق به تماماً في شؤوني المالية. كان فريق ميريديان استثنائياً — مبادراً وشفافاً ومتاحاً دائماً عند أسئلتي.",
+								"name": "د. جيمس ميتشل",
+								"title": "جراح عظام",
+								"assetId": "9dc4d303-79cf-5901-bc5e-f697e27bca81",
+								"alt": "د. جيمس ميتشل"
+							},
+							{
+								"quote": "بعد طلاقي، شعرت بالضياع وأنا أحاول فهم وضعي المالي. وضعت ميريديان خطة واضحة منحتني راحة البال وفتحت لي طريق الاستقلال المالي.",
+								"name": "سارة ويليامز",
+								"title": "مديرة تسويق",
+								"assetId": "29c5ae49-4920-599e-b344-b8aee6998702",
+								"alt": "سارة ويليامز"
+							}
+						]
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "الاعتمادات والانتماءات",
+							"heading": "موثوقون لدى العملاء ومعترف بنا في القطاع",
+							"description": "يحمل فريقنا أعلى الشهادات المهنية ونقيم شراكات مع مؤسسات مالية رائدة."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "الشعار 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "الشعار 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "الشعار 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "الشعار 4"
+							},
+							{
+								"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+								"alt": "الشعار 5"
+							},
+							{
+								"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+								"alt": "الشعار 6"
+							},
+							{
+								"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+								"alt": "الشعار 7"
+							},
+							{
+								"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+								"alt": "الشعار 8"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "فلسفتنا",
+							"heading": "أهدافك أولاً.",
+							"description": "نؤمن بأن التخطيط المالي ليس مجرد أرقام — بل فهم أهداف حياتك وحماية ما يهمك أكثر ورسم خريطة طريق للوصول إليها بثقة."
+						}
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "مستويات الخدمة",
+							"heading": "هيكل رسوم\nشفاف.",
+							"description": "نؤمن بالتسعير الواضح والمباشر. تعتمد رسومنا على الأصول المُدارة، فيرتبط نجاحنا بنجاحك."
+						},
+						"items": [
+							{
+								"title": "الأساس",
+								"price": "0.95%",
+								"description": "للأفراد والعائلات في بداية رحلتهم نحو الثروة.",
+								"label": "ابدأ الآن",
+								"badge-label": "الأكثر طلباً",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "خطة مالية شاملة"
+									},
+									{
+										"title": "إدارة الاستثمار"
+									},
+									{
+										"title": "مراجعات ربع سنوية للمحفظة"
+									},
+									{
+										"title": "اجتماع تخطيط سنوي"
+									}
+								]
+							},
+							{
+								"title": "النمو",
+								"price": "0.75%",
+								"description": "للعائلات الراسخة ذات الاحتياجات المالية المعقدة.",
+								"label": "احجز مكالمة",
+								"badge-label": "الأكثر طلباً",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "كل ما في باقة الأساس"
+									},
+									{
+										"title": "استراتيجيات تحسين الضرائب"
+									},
+									{
+										"title": "تنسيق تخطيط التركات"
+									},
+									{
+										"title": "متابعات شهرية"
+									},
+									{
+										"title": "وصول مباشر إلى مستشار مخصص"
+									}
+								]
+							},
+							{
+								"title": "الإرث",
+								"price": "0.50%",
+								"description": "للعائلات ذات الثروات الكبيرة وثروات الأجيال المتعاقبة.",
+								"label": "لنتحدث",
+								"badge-label": "الأكثر طلباً",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "كل ما في باقة النمو"
+									},
+									{
+										"title": "تخطيط حوكمة العائلة"
+									},
+									{
+										"title": "استراتيجية العمل الخيري"
+									},
+									{
+										"title": "الوصول إلى الاستثمارات الخاصة"
+									},
+									{
+										"title": "خدمة كونسيرج"
+									}
+								]
+							}
+						]
+					},
+					"faq-card": {
+						"copy": {
+							"kicker": "أسئلة",
+							"heading": "الأسئلة المتكررة",
+							"description": "كل ما تحتاج معرفته عن العمل مع ميريديان ويلث.",
+							"bottomTitle": "ما زالت لديك أسئلة؟",
+							"bottomDescription": "فريقنا هنا للمساعدة. تواصل في أي وقت وسنرد عليك سريعاً."
+						},
+						"actions": [
+							{
+								"label": "تواصل معنا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"items": [
+							{
+								"question": "ما المقصود بالمستشار الائتماني ولماذا هو مهم؟",
+								"answer": "المستشار الائتماني ملزم قانوناً بالتصرف لمصلحتك في جميع الأوقات. وعلى عكس كثير من المستشارين الذين يكفيهم التوصية باستثمارات «مناسبة»، نلتزم بأعلى معايير العناية. أي لا رسوم خفية ولا تضارب مصالح، ونصيحة تركز دائماً على ما هو الأفضل لك."
+							},
+							{
+								"question": "ما الحد الأدنى للاستثمار للعمل معكم؟",
+								"answer": "صُممت باقة الأساس للعملاء الذين يملكون أصولاً قابلة للاستثمار بقيمة 250,000 دولار أو أكثر. ونقدم أيضاً خدمات تخطيط مالي لمن يسعون للوصول إلى هذا الحد. يسعدنا مناقشة وضعك في استشارة مجانية."
+							},
+							{
+								"question": "كيف تتقاضون أتعابكم؟",
+								"answer": "نتقاضى رسماً شفافاً بحسب الأصول المُدارة، يتراوح عادةً بين 0.50% و0.95% سنوياً حسب مستوى الخدمة. لا نحصل على عمولات من المنتجات، ما يعني أن نصيحتنا لا تتأثر بما يدرّ علينا أكثر."
+							},
+							{
+								"question": "كم مرة سنلتقي؟",
+								"answer": "يعتمد تكرار الاجتماعات على مستوى الخدمة وتفضيلاتك. كحد أدنى نجري مراجعات ربع سنوية للمحفظة واجتماعات تخطيط شاملة سنوية. ويفضل كثير من العملاء متابعات شهرية، خاصة في التحولات الكبرى في الحياة."
+							},
+							{
+								"question": "هل يمكنكم التنسيق مع محاسبي ومحاميّ؟",
+								"answer": "بالتأكيد. تتطلب إدارة الثروات الشاملة التعاون مع فريقك المهني. نعمل باستمرار مع المحاسبين في تحسين الضرائب ومع محامي التركات في استراتيجيات نقل الثروة ومع مختصي التأمين في إدارة المخاطر."
+							},
+							{
+								"question": "هل معلوماتي آمنة لدى ميريديان؟",
+								"answer": "الأمان أولوية قصوى. نستخدم تشفيراً بمستوى البنوك ومصادقة متعددة العوامل ونعمل حصراً مع أمناء حفظ خاضعين لرقابة هيئة الأوراق المالية. تُحفظ أصولك لدى أمناء مستقلين مثل شواب أو فيديليتي، وليس لدينا مباشرة."
+							}
+						]
+					},
+					"contact-form-text": {
+						"copy": {
+							"kicker": "تواصل معنا",
+							"heading": "لنبدأ الحوار.",
+							"description": "أخبرنا عن أهدافك المالية وسنحدد لك استشارة مجانية خلال 24 ساعة.",
+							"email": "info@meridianwealth.com",
+							"phone": "+1 (555) 892-4500",
+							"address": "100 فاينانشال بلازا، جناح 3200، نيويورك، نيويورك 10005"
+						},
+						"form": {
+							"nameLabel": "الاسم",
+							"emailLabel": "البريد الإلكتروني",
+							"messageLabel": "الرسالة",
+							"submitLabel": "اطلب استشارة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكراً لتواصلك! سيتصل بك أحد أعضاء فريقنا خلال 24 ساعة.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "تواصل معنا",
+							"heading": "لنخطط لمستقبلك المالي",
+							"description": "أرسل لنا رسالة وسنتابع معك خلال 24 ساعة."
+						},
+						"location": {
+							"address": "88 Northern Lights Blvd, Seattle, WA 98101"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 88 Northern Lights Blvd, Seattle, WA 98101"
+						},
+						"form": {
+							"nameLabel": "الاسم",
+							"emailLabel": "البريد الإلكتروني",
+							"messageLabel": "الرسالة",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكراً لتواصلك! سيتصل بك أحد أعضاء فريقنا خلال 24 ساعة.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "زرنا",
+							"heading": "تجدنا قريباً منك \n مرّ بنا اليوم.",
+							"description": "استخدم الخريطة للحصول على الاتجاهات وزيارة موقعنا."
+						},
+						"actions": [
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com/?q=88%20Northern%20Lights%20Blvd%2C%20Seattle%2C%20WA%2098101"
+								}
+							}
+						],
+						"location": {
+							"address": "88 Northern Lights Blvd, Seattle, WA 98101"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 88 Northern Lights Blvd, Seattle, WA 98101"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "88 Northern Lights Blvd, Seattle, WA 98101"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 88 Northern Lights Blvd, Seattle, WA 98101"
+						}
+					},
+					"cta-background-image": {
+						"media": [
+							{
+								"assetId": "f01040df-d9b1-5990-9c9e-034d792d3e77",
+								"alt": "مكتب حديث بإطلالة على أفق المدينة"
+							}
+						],
+						"copy": {
+							"heading": "هل أنت مستعد للتحكم بمستقبلك المالي؟",
+							"description": "احجز استشارة مجانية لمناقشة أهدافك واكتشاف كيف نساعدك على تحقيقها."
+						},
+						"actions": [
+							{
+								"label": "احجز استشارة",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								}
+							},
+							{
+								"label": "حمّل دليلنا",
+								"link": {
+									"kind": "relative",
+									"path": "/resources"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

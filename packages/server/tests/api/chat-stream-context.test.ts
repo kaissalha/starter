@@ -1,0 +1,92 @@
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("../../src/ai/decisions", () => ({ evaluateDecision: vi.fn() }));
+
+import { dashboardSkills } from "../../src/ai/skills";
+import type { DashboardChatUIMessage } from "../../src/ai/types";
+import { loadChatTurnContext, resolveDashboardRoute } from "../../src/api/chat-stream-context";
+
+type Decision = NonNullable<Parameters<typeof resolveDashboardRoute>[0]["decision"]>;
+
+const decision = (answers: Partial<Decision["answers"]> = {}): Decision => ({
+	answers: {
+		needsKnowledge: { probability: 0.2, type: "boolean" },
+		route: { choice: "none", type: "choice" },
+		tier: { choice: "full", type: "choice" },
+		...answers,
+	},
+});
+
+const resolve = (input: Partial<Parameters<typeof resolveDashboardRoute>[0]> = {}) =>
+	resolveDashboardRoute({ decision: null, editorBound: false, hasImageAttachment: false, ...input });
+
+const userMessage: DashboardChatUIMessage = { id: "user", parts: [{ text: "Hello", type: "text" }], role: "user" };
+
+describe("pre-turn dashboard routing", () => {
+	it("keeps today's behaviour when the decision is unavailable", () => {
+		const route = resolve();
+		expect(route).toEqual({
+			instructions: null,
+			modelTier: "full",
+			needsKnowledge: false,
+			routedReference: null,
+			routedSkill: null,
+		});
+		expect(loadChatTurnContext({ route, uiMessages: [userMessage] })).toBe("");
+	});
+	it("appends routed website instructions and the selected operation reference once", () => {
+		const website = dashboardSkills.find(({ name }) => name === "website");
+		const route = resolve({ decision: decision({ route: { choice: "website-modify", type: "choice" } }) });
+		expect(route).toMatchObject({ routedReference: "modify", routedSkill: "website" });
+		expect(route.instructions).toContain("Routed domain instructions for this turn are already loaded");
+		expect(route.instructions).toContain(website?.instructions);
+		expect(route.instructions).toContain("Selected mode: modify");
+		const context = loadChatTurnContext({ editor: { linksEditor: true }, route, uiMessages: [userMessage] });
+		expect(context.indexOf("Activate the links skill")).toBeLessThan(context.indexOf("Routed domain instructions"));
+		expect(context).not.toContain("retrieveKnowledge before answering");
+	});
+	it("adds nothing for the none route", () => {
+		expect(resolve({ decision: decision({ route: { choice: "none", type: "choice" } }) })).toMatchObject({
+			instructions: null,
+			routedReference: null,
+			routedSkill: null,
+		});
+	});
+	it("downgrades only simple requests without editor bindings or images", () => {
+		const simple = decision({ tier: { choice: "simple", type: "choice" } });
+		expect(resolve({ decision: simple }).modelTier).toBe("simple");
+		expect(resolve({ decision: simple, editorBound: true }).modelTier).toBe("full");
+		expect(resolve({ decision: simple, hasImageAttachment: true }).modelTier).toBe("full");
+		expect(resolve({ decision: decision() }).modelTier).toBe("full");
+	});
+	it("hints at indexed knowledge from the threshold only when no documents are attached", () => {
+		expect(
+			resolve({ decision: decision({ needsKnowledge: { probability: 0.69, type: "boolean" } }) })
+		).toMatchObject({ needsKnowledge: false });
+		const route = resolve({ decision: decision({ needsKnowledge: { probability: 0.7, type: "boolean" } }) });
+		expect(route.needsKnowledge).toBe(true);
+		expect(loadChatTurnContext({ route, uiMessages: [userMessage] })).toContain("retrieveKnowledge");
+
+		const attached = loadChatTurnContext({
+			route,
+			uiMessages: [
+				{
+					...userMessage,
+					parts: [
+						{
+							data: {
+								fileId: "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d330",
+								filename: "brief.pdf",
+								mediaType: "application/pdf",
+							},
+							type: "data-attachment",
+						},
+					],
+				},
+			],
+		});
+
+		expect(attached).toContain("attached indexed document IDs");
+		expect(attached).not.toContain("likely depends on the organization's indexed documents");
+	});
+});

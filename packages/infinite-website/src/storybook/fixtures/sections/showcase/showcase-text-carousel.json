@@ -1,0 +1,52 @@
+{
+	"en": {
+		"accessibility": {
+			"carouselLabel": "Brand and partner names"
+		},
+		"items": [
+			{
+				"name": "Silver Lake"
+			},
+			{
+				"name": "Los Feliz"
+			},
+			{
+				"name": "Santa Monica"
+			},
+			{
+				"name": "Pasadena"
+			},
+			{
+				"name": "Echo Park"
+			},
+			{
+				"name": "Culver City"
+			}
+		]
+	},
+	"ar": {
+		"accessibility": {
+			"carouselLabel": "أسماء العلامات التجارية والشركاء"
+		},
+		"items": [
+			{
+				"name": "سيلفر ليك"
+			},
+			{
+				"name": "لوس فيليز"
+			},
+			{
+				"name": "سانتا مونيكا"
+			},
+			{
+				"name": "باسادينا"
+			},
+			{
+				"name": "إيكو بارك"
+			},
+			{
+				"name": "كولفر سيتي"
+			}
+		]
+	}
+}

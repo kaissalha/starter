@@ -1,0 +1,60 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Welcome",
+			"heading": "Keep your pet\nlooking their\nbest today",
+			"description": "Premium grooming services with love and care. Because your pup deserves to feel their absolute best every single visit."
+		},
+		"media": [
+			{
+				"assetId": "3fa3ca2f-293b-549e-bafe-865651d4e218",
+				"alt": "Calm dog in a pet travel crate"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "book"
+				},
+				"label": "Book now"
+			},
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "learn-more"
+				},
+				"label": "Learn more"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "أهلًا بك",
+			"heading": "اجعل حيوانك الأليف\nيبدو في أفضل حالاته\nاليوم",
+			"description": "خدمات عناية فاخرة بحب واهتمام. لأن كلبك يستحق أن يشعر بأفضل حال في كل زيارة."
+		},
+		"media": [
+			{
+				"assetId": "3fa3ca2f-293b-549e-bafe-865651d4e218",
+				"alt": "كلب هادئ في قفص سفر"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "book"
+				},
+				"label": "احجز الآن"
+			},
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "learn-more"
+				},
+				"label": "اعرف المزيد"
+			}
+		]
+	}
+}

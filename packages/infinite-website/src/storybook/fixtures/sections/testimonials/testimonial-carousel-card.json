@@ -1,0 +1,84 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Testimonials",
+			"heading": "Hear from Those\nWho Practice with Us"
+		},
+		"accessibility": {
+			"carousel-testimonialsLabel": "Member testimonials",
+			"carousel-testimonialspreviousLabel": "Member testimonials: previous",
+			"carousel-testimonialsnextLabel": "Member testimonials: next"
+		},
+		"testimonials": [
+			{
+				"quote": "Joining this studio completely changed how I start my mornings. The classes are calm, structured, and welcoming — I’ve learned to move with intention and breathe with awareness, finding a steady rhythm in my daily routine.",
+				"name": "Olivia Brooks",
+				"title": "Pilates Member",
+				"assetId": "bd2350c8-e9f3-5451-8a27-94f1eae8aa24",
+				"alt": "Olivia Brooks meditating on a yoga mat in a warm studio"
+			},
+			{
+				"quote": "Practicing here has transformed the way I approach my wellness. Every session feels supportive, mindful, and grounding — helping me reconnect with my body, focus my breath, and move through each day with a calmer sense of presence.",
+				"name": "Sarah Lin",
+				"title": "Yoga Practitioner",
+				"assetId": "d132efad-60de-5b8b-a9f2-65e5bb0818a6",
+				"alt": "Sarah Lin smiling outdoors in warm golden light"
+			},
+			{
+				"quote": "This studio has become my second home. The instructors guide you with such care and expertise, helping me to grow consistent habits that I carry into my everyday life. It is truly a transformative experience.",
+				"name": "Marcus Reed",
+				"title": "Meditation Student",
+				"assetId": "aea7b32a-6b80-5278-866e-55be03d9ece5",
+				"alt": "Marcus Reed smiling in a warm studio setting"
+			},
+			{
+				"quote": "I found a sense of peace here that I couldn't find anywhere else. The environment is perfectly curated to help you let go of the outside world and focus entirely on your inner self.",
+				"name": "James Ortega",
+				"title": "Member since 2021",
+				"assetId": "6466aca8-f2aa-57df-b9d0-b8a46286bda8",
+				"alt": "James Ortega practicing a seated twist with instructor guidance"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "الشهادات",
+			"heading": "اسمع من الذين\nيمارسون معنا"
+		},
+		"accessibility": {
+			"carousel-testimonialsLabel": "شهادات الأعضاء",
+			"carousel-testimonialspreviousLabel": "شهادات الأعضاء: السابق",
+			"carousel-testimonialsnextLabel": "شهادات الأعضاء: التالي"
+		},
+		"testimonials": [
+			{
+				"quote": "غيّر الانضمام إلى هذا الاستوديو طريقة بدء صباحاتي تمامًا. الحصص هادئة ومنظمة ومرحّبة، وتعلمت أن أتحرك بنيّة وأتنفس بوعي وأجد إيقاعًا ثابتًا في روتيني اليومي.",
+				"name": "أوليفيا بروكس",
+				"title": "عضوة بيلاتس",
+				"assetId": "bd2350c8-e9f3-5451-8a27-94f1eae8aa24",
+				"alt": "أوليفيا بروكس تتأمل على سجادة يوغا في استوديو دافئ"
+			},
+			{
+				"quote": "غيّرت الممارسة هنا طريقة تعاملي مع عافيتي. كل حصة داعمة وواعية ومُرسِّخة، وتساعدني على إعادة التواصل مع جسدي وتركيز أنفاسي وقضاء يومي بحضور أكثر هدوءًا.",
+				"name": "سارة لين",
+				"title": "ممارسة يوغا",
+				"assetId": "d132efad-60de-5b8b-a9f2-65e5bb0818a6",
+				"alt": "سارة لين تبتسم في الهواء الطلق تحت ضوء ذهبي دافئ"
+			},
+			{
+				"quote": "أصبح هذا الاستوديو بيتي الثاني. يرشدك المدرّبون بعناية وخبرة، ويساعدونني على بناء عادات ثابتة أحملها إلى حياتي اليومية. إنها تجربة تحوّلية حقًا.",
+				"name": "ماركوس ريد",
+				"title": "طالب تأمل",
+				"assetId": "aea7b32a-6b80-5278-866e-55be03d9ece5",
+				"alt": "ماركوس ريد يبتسم في أجواء استوديو دافئة"
+			},
+			{
+				"quote": "وجدت هنا سلامًا لم أجده في أي مكان آخر. البيئة مهيّأة بإتقان لتساعدك على ترك العالم الخارجي والتركيز كليًا على ذاتك الداخلية.",
+				"name": "جيمس أورتيغا",
+				"title": "عضو منذ 2021",
+				"assetId": "6466aca8-f2aa-57df-b9d0-b8a46286bda8",
+				"alt": "جيمس أورتيغا يؤدي التفافة جلوس بإرشاد المدرّب"
+			}
+		]
+	}
+}

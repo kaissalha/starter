@@ -1,0 +1,34 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Professional\nhome cleaning\nyou can trust",
+			"description": "Reliable residential cleaning that leaves every room fresh, tidy, and ready to enjoy—so you can spend less time scrubbing and more time living."
+		},
+		"actions": [
+			{ "link": { "kind": "anchor", "anchor": "quote" }, "label": "Request a quote" },
+			{ "link": { "kind": "anchor", "anchor": "contact" }, "label": "Book now" }
+		],
+		"media": [
+			{
+				"assetId": "2d4af180-f624-5e8b-b4fc-f1fa8e5922f6",
+				"alt": "Bright modern interior with warm wood and tall windows"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "تنظيف منزلي\nاحترافي\nتثق به",
+			"description": "خدمة تنظيف منزلي موثوقة تترك كل غرفة منعشة ومرتبة وجاهزة للاستمتاع — لتقضي وقتاً أقل في التنظيف ووقتاً أكثر في الحياة."
+		},
+		"actions": [
+			{ "link": { "kind": "anchor", "anchor": "quote" }, "label": "اطلب عرض سعر" },
+			{ "link": { "kind": "anchor", "anchor": "contact" }, "label": "احجز الآن" }
+		],
+		"media": [
+			{
+				"assetId": "2d4af180-f624-5e8b-b4fc-f1fa8e5922f6",
+				"alt": "مساحة داخلية عصرية مشرقة بخشب دافئ ونوافذ عالية"
+			}
+		]
+	}
+}

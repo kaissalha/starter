@@ -1,0 +1,68 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Kind\nWords"
+		},
+		"accessibility": {
+			"carousel-testimonialsLabel": "Kind words",
+			"carousel-testimonialspreviousLabel": "Kind words: previous",
+			"carousel-testimonialsnextLabel": "Kind words: next",
+			"carousel-testimonialsindicatorsLabel": "Kind words pagination"
+		},
+		"testimonials": [
+			{
+				"quote": "Wilde Flower Studio transformed our venue into something out of a dream. Every arrangement was deeply personal and breathtakingly beautiful.",
+				"name": "Amanda & James",
+				"title": "Wedding, May 2025"
+			},
+			{
+				"quote": "They understood our brand instantly and brought it to life with florals that felt wild, intentional, and unforgettable.",
+				"name": "Lena Marsh",
+				"title": "Brand Activation, March 2025"
+			},
+			{
+				"quote": "From the first consultation to the final stem, the team was thoughtful, calm, and endlessly creative. We couldn't have asked for more.",
+				"name": "Priya & Sam",
+				"title": "Private Event, August 2025"
+			},
+			{
+				"quote": "Every space they touch becomes more alive. Our office reception has never felt so welcoming.",
+				"name": "Northbank Studio",
+				"title": "Corporate Subscription"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "كلمات\nطيبة"
+		},
+		"accessibility": {
+			"carousel-testimonialsLabel": "كلمات طيبة",
+			"carousel-testimonialspreviousLabel": "كلمات طيبة: السابق",
+			"carousel-testimonialsnextLabel": "كلمات طيبة: التالي",
+			"carousel-testimonialsindicatorsLabel": "ترقيم صفحات كلمات طيبة"
+		},
+		"testimonials": [
+			{
+				"quote": "حوّل «وايلد فلاور ستوديو» قاعتنا إلى شيء من الأحلام. كانت كل باقة شخصية للغاية وجميلة بشكل يخطف الأنفاس.",
+				"name": "أماندا وجيمس",
+				"title": "حفل زفاف، مايو 2025"
+			},
+			{
+				"quote": "فهموا علامتنا التجارية على الفور وأحيوها بزهور بدت برّية ومقصودة ولا تُنسى.",
+				"name": "لينا مارش",
+				"title": "فعالية علامة تجارية، مارس 2025"
+			},
+			{
+				"quote": "من الاستشارة الأولى حتى آخر ساق زهر، كان الفريق مراعيًا وهادئًا ومبدعًا بلا حدود. لم يكن بوسعنا أن نطلب أكثر.",
+				"name": "بريا وسام",
+				"title": "فعالية خاصة، أغسطس 2025"
+			},
+			{
+				"quote": "كل مساحة يلمسونها تصبح أكثر حيوية. لم يكن استقبال مكتبنا بهذا الترحيب من قبل.",
+				"name": "نورثبانك ستوديو",
+				"title": "اشتراك للشركات"
+			}
+		]
+	}
+}

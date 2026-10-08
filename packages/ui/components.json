@@ -1,0 +1,28 @@
+{
+	"$schema": "https://ui.shadcn.com/schema.json",
+	"style": "default",
+	"rsc": true,
+	"tsx": true,
+	"tailwind": {
+		"config": "",
+		"css": "src/globals.css",
+		"baseColor": "zinc",
+		"cssVariables": true
+	},
+	"iconLibrary": "hugeicons",
+	"registries": {
+		"@useplanes": {
+			"url": "https://useplanes.com/api/registry/{name}",
+			"headers": {
+				"Authorization": "Bearer ${PLANES_LICENSE_KEY}"
+			}
+		}
+	},
+	"aliases": {
+		"components": "@starter/ui/components",
+		"utils": "@starter/ui/lib/utils",
+		"hooks": "@starter/ui/hooks",
+		"lib": "@starter/ui/lib",
+		"ui": "@starter/ui/components"
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Get the Yard You Want Today!",
+			"description": "Transform your outdoor space into a vibrant sanctuary. From lush blooms to timeless layouts, we'll bring beauty and balance to your garden."
+		},
+		"actions": [
+			{ "label": "Talk to an Expert", "link": { "kind": "anchor", "anchor": "contact" } },
+			{ "label": "Get a Free Quote", "link": { "kind": "anchor", "anchor": "contact" } }
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "احصل على الحديقة التي تريدها اليوم!",
+			"description": "حوّل مساحتك الخارجية إلى ملاذ نابض بالحياة. من الأزهار المتفتحة إلى التصاميم الخالدة، سنمنح حديقتك الجمال والتوازن."
+		},
+		"actions": [
+			{ "label": "تحدث مع خبير", "link": { "kind": "anchor", "anchor": "contact" } },
+			{ "label": "احصل على عرض سعر مجاني", "link": { "kind": "anchor", "anchor": "contact" } }
+		]
+	}
+}

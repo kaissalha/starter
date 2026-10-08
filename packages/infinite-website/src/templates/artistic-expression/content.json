@@ -1,0 +1,902 @@
+{
+	"en": {
+		"site": {
+			"name": "Artistic Expression"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Meridian Build navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Meridian Build"
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "anchor",
+								"anchor": "services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Gallery",
+							"link": {
+								"kind": "anchor",
+								"anchor": "gallery"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "anchor",
+								"anchor": "about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "anchor",
+								"anchor": "contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "Get a quote",
+							"link": {
+								"kind": "anchor",
+								"anchor": "contact"
+							}
+						}
+					],
+					"socialLinks": []
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"description": "A general contracting company rooted in careful craftsmanship. We remodel kitchens, bathrooms, and outdoor spaces with clear communication and finishes built to last.",
+						"copyright": "© 2026 Meridian Build. All rights reserved.",
+						"navTitle": "Navigate",
+						"addressTitle": "Get in touch",
+						"address": "420 Industrial Way\nAustin, TX 78702\nhello@meridianbuild.co",
+						"socialTitle": "Follow us",
+						"brand": "Meridian Build"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "anchor",
+								"anchor": "services"
+							}
+						},
+						{
+							"label": "Gallery",
+							"link": {
+								"kind": "anchor",
+								"anchor": "gallery"
+							}
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "anchor",
+								"anchor": "about"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "anchor",
+								"anchor": "contact"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://instagram.com/meridianbuild"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://facebook.com/meridianbuild"
+							}
+						},
+						{
+							"label": "LinkedIn",
+							"link": {
+								"kind": "external",
+								"url": "https://linkedin.com/company/meridianbuild"
+							}
+						}
+					],
+					"media": [
+						{
+							"assetId": "a5a81384-9752-527f-907e-76418b2de6fb",
+							"alt": "Newly installed wooden privacy fence"
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Artistic Expression"
+					}
+				},
+				"sections": {
+					"banner-editorial-split": {
+						"copy": {
+							"heading": "Built to last",
+							"description": "Meridian Build is a full-service general contractor specializing in kitchen remodels, bathroom renovations, and outdoor living spaces. We manage every detail — from design through final walkthrough — so your home feels finished, not just fixed."
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"label": "Get a quote"
+							}
+						],
+						"media": [
+							{
+								"assetId": "4a752cb3-7f87-52ec-8a5e-6afe814003f0",
+								"alt": "Modern white kitchen remodel with island, gold pendants, and black range hood"
+							}
+						]
+					},
+					"services": {
+						"items": [
+							{
+								"title": "Kitchen Remodels",
+								"description": "Custom cabinetry, stone countertops, lighting, and open-concept layouts. From white shaker islands to walnut waterfall designs, we rebuild kitchens that work as well as they look.",
+								"images": [
+									{
+										"assetId": "4a752cb3-7f87-52ec-8a5e-6afe814003f0",
+										"alt": "Bright white kitchen with island seating and brass pendant lights"
+									},
+									{
+										"assetId": "707f92b8-bca8-5423-bf00-e76588ac75bf",
+										"alt": "Walnut cabinetry kitchen with marble waterfall island"
+									},
+									{
+										"assetId": "6fb6b03f-b177-5bb8-a7fc-3032b53cf564",
+										"alt": "Two-tone navy and white kitchen with herringbone backsplash"
+									}
+								]
+							},
+							{
+								"title": "Bathroom Renovations",
+								"description": "Spa-like primary baths with custom vanities, walk-in showers, freestanding tubs, and premium fixtures. Tile, plumbing, and millwork handled under one roof.",
+								"images": [
+									{
+										"assetId": "e59ae5e0-ee81-52ff-b490-2185b2fa49d3",
+										"alt": "Luxury white bathroom with double vanity and freestanding tub"
+									},
+									{
+										"assetId": "2fc49c1a-ead8-582d-a3da-ed8f35ffc811",
+										"alt": "Marble walk-in shower and soaking tub with brass fixtures"
+									},
+									{
+										"assetId": "1de8a71b-1f20-5b84-ac05-30b2567ef570",
+										"alt": "Modern bathroom vanity with gold fixtures and glass shower"
+									}
+								]
+							},
+							{
+								"title": "Outdoor Living",
+								"description": "Patios, outdoor kitchens, entryways, and privacy fencing that extend your living space. Hardscaping, carpentry, and finish work built for year-round use.",
+								"images": [
+									{
+										"assetId": "e617cd25-6853-527a-9b1f-c9d4aede200e",
+										"alt": "Covered outdoor kitchen with island, dining area, and stone fireplace"
+									},
+									{
+										"assetId": "7e9d134c-d419-5427-868b-a4490eea2f5b",
+										"alt": "Weathered wooden garden shed in need of restoration"
+									},
+									{
+										"assetId": "a5a81384-9752-527f-907e-76418b2de6fb",
+										"alt": "Newly installed wooden privacy fence"
+									}
+								]
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "Services"
+						}
+					},
+					"about": {
+						"copy": {
+							"heading": "Our Process",
+							"description": "Every remodel starts with a clear plan. Here is how we take your project from first walkthrough to final punch list."
+						},
+						"items": [
+							{
+								"assetId": "fda43acd-2793-523a-9057-742885b1629e",
+								"alt": "Finished front entry with wooden steps and gold hardware",
+								"title": "Consult",
+								"description": "We walk your space, listen to your goals, and map scope, budget, and timeline. No guesswork — just a clear picture of what is possible before anything is demolished."
+							},
+							{
+								"assetId": "707f92b8-bca8-5423-bf00-e76588ac75bf",
+								"alt": "Walnut and marble kitchen design with waterfall island",
+								"title": "Design",
+								"description": "Layouts, materials, and fixtures are selected together so cabinetry, stone, tile, and lighting all read as one intentional space — not a patchwork of decisions."
+							},
+							{
+								"assetId": "f49726c8-f07b-5cc7-a921-84ad873d9323",
+								"alt": "Crew installing cabinetry and cutting trim during a kitchen remodel",
+								"title": "Build",
+								"description": "Our crew handles framing, electrical, plumbing, and finish carpentry with a dedicated project lead on site. You get weekly updates and a clean job site every day."
+							},
+							{
+								"assetId": "2fc49c1a-ead8-582d-a3da-ed8f35ffc811",
+								"alt": "Finished spa bathroom with marble shower and freestanding tub",
+								"title": "Finish",
+								"description": "We stay through the last fixture, caulk line, and walkthrough. Your remodel is done when every surface is ready to live in — not when the calendar says so."
+							}
+						]
+					},
+					"gallery": {
+						"media": [
+							{
+								"assetId": "4a752cb3-7f87-52ec-8a5e-6afe814003f0",
+								"alt": "Modern white kitchen remodel with island"
+							},
+							{
+								"assetId": "e59ae5e0-ee81-52ff-b490-2185b2fa49d3",
+								"alt": "Primary bathroom with double vanity and soaking tub"
+							},
+							{
+								"assetId": "707f92b8-bca8-5423-bf00-e76588ac75bf",
+								"alt": "Walnut kitchen with marble waterfall counters"
+							},
+							{
+								"assetId": "e617cd25-6853-527a-9b1f-c9d4aede200e",
+								"alt": "Outdoor kitchen and covered patio living space"
+							},
+							{
+								"assetId": "2fc49c1a-ead8-582d-a3da-ed8f35ffc811",
+								"alt": "Marble bathroom renovation with walk-in shower"
+							},
+							{
+								"assetId": "fda43acd-2793-523a-9057-742885b1629e",
+								"alt": "Custom wood entry steps and recessed porch"
+							},
+							{
+								"assetId": "25f6dcd7-49e2-53a0-b493-b9d295757ca4",
+								"alt": "Open kitchen with indoor-outdoor living through sliding doors"
+							}
+						]
+					},
+					"testimonial-parallax-quote": {
+						"copy": {
+							"heading": "Trusted by homeowners"
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "Homeowner testimonials",
+							"carousel-testimonialspreviousLabel": "Homeowner testimonials: previous",
+							"carousel-testimonialsnextLabel": "Homeowner testimonials: next"
+						},
+						"media": [
+							{
+								"assetId": "6fb6b03f-b177-5bb8-a7fc-3032b53cf564",
+								"alt": "Navy and white kitchen remodel with waterfall island"
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "Our kitchen gut remodel finished on schedule and looks better than the renderings. The crew was respectful of our home, and the project manager kept us informed every week.",
+								"name": "Elena Rodriguez",
+								"title": "Austin — Kitchen Remodel"
+							},
+							{
+								"quote": "They turned our dated primary bath into a real spa retreat — custom vanity, walk-in shower, the works. Every tile line is straight and the brass fixtures feel intentional.",
+								"name": "Sarah Lin",
+								"title": "Portland — Bathroom Renovation"
+							},
+							{
+								"quote": "We hired Meridian Build for an outdoor kitchen and patio. From the pergola to the stone fireplace, the craftsmanship is obvious. We use the space every weekend now.",
+								"name": "Olivia Brooks",
+								"title": "Chicago — Outdoor Living"
+							},
+							{
+								"quote": "From the first site visit to the final walkthrough, everything felt organized. They replaced our rotting fence and rebuilt the front entry — both look brand new.",
+								"name": "Diana Cho",
+								"title": "Seattle — Exterior Work"
+							},
+							{
+								"quote": "Communication was excellent and the finish quality is unmatched. Our open-concept kitchen and sliding doors completely changed how we live in the house.",
+								"name": "Taryn M.",
+								"title": "Dallas — Whole-Home Remodel"
+							}
+						]
+					},
+					"showcase-carousel": {
+						"copy": {
+							"heading": "Trusted partners"
+						},
+						"accessibility": {
+							"carouselLabel": "Partner logos"
+						},
+						"items": [
+							{
+								"assetId": "bf4c8d5b-b610-5e5e-9ff7-2b14b2fe9db2",
+								"alt": "Publication logo 1"
+							},
+							{
+								"assetId": "5ee6a566-739c-5813-9755-3195f33d43d7",
+								"alt": "Publication logo 2"
+							},
+							{
+								"assetId": "961b9c91-f83e-5248-b699-ee2af2b3bb9c",
+								"alt": "Publication logo 3"
+							},
+							{
+								"assetId": "09253f94-72a8-5e6d-961e-78db8272a079",
+								"alt": "Publication logo 4"
+							},
+							{
+								"assetId": "06e63fef-51eb-5802-9c6f-18b05502680e",
+								"alt": "Publication logo 5"
+							},
+							{
+								"assetId": "5fc802aa-91d1-55e7-aced-88112b81be83",
+								"alt": "Publication logo 6"
+							}
+						]
+					},
+					"faq-numbered-accordion": {
+						"copy": {
+							"heading": "Frequently asked."
+						},
+						"items": [
+							{
+								"question": "How long does a typical remodel take?",
+								"answer": "Most kitchen remodels take eight to twelve weeks once materials are on site. Primary bathroom renovations usually run four to eight weeks. Outdoor projects depend on weather and scope — we share a detailed schedule before work begins.",
+								"number-label": "1."
+							},
+							{
+								"question": "Do you handle permits and inspections?",
+								"answer": "Yes. We pull required permits, coordinate inspections, and keep your project code-compliant from framing through final. You should not have to chase paperwork or wonder what is next.",
+								"number-label": "2."
+							},
+							{
+								"question": "Can we live in the house during construction?",
+								"answer": "In most cases, yes. We set up dust barriers, protect finished floors, and keep a clean site. For full gut kitchens we plan temporary cooking setups so daily life stays workable.",
+								"number-label": "3."
+							},
+							{
+								"question": "How do you price projects?",
+								"answer": "After the initial consult we provide a written estimate with line-item scope. Larger remodels may start with a design retainer, then move to a fixed contract once materials and selections are locked.",
+								"number-label": "4."
+							},
+							{
+								"question": "What areas do you serve?",
+								"answer": "We work throughout the metro area and nearby suburbs. Travel fees may apply beyond a 40-mile radius — tell us your address and we will confirm availability and any additional costs upfront.",
+								"number-label": "5."
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "Contact us",
+							"heading": "Get a free quote"
+						},
+						"contactGroups": [
+							{
+								"title": "Email",
+								"value": "hello@meridianbuild.co"
+							},
+							{
+								"title": "Office",
+								"value": "420 Industrial Way\nAustin, TX 78702"
+							}
+						],
+						"media": [
+							{
+								"assetId": "1de8a71b-1f20-5b84-ac05-30b2567ef570",
+								"alt": "Finished bathroom remodel with gold fixtures"
+							}
+						],
+						"form": {
+							"nameLabel": "Name",
+							"emailLabel": "Email",
+							"messageLabel": "Message",
+							"submitLabel": "Send message",
+							"pendingLabel": "Sending…",
+							"success": "Thank you! We will be in touch within two business days.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "التعبير الفني"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "قائمة ميريديان بيلد",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "ميريديان بيلد"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "anchor",
+								"anchor": "services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "المعرض",
+							"link": {
+								"kind": "anchor",
+								"anchor": "gallery"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "anchor",
+								"anchor": "about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "anchor",
+								"anchor": "contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "احصل على عرض سعر",
+							"link": {
+								"kind": "anchor",
+								"anchor": "contact"
+							}
+						}
+					],
+					"socialLinks": []
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"description": "شركة مقاولات عامة متجذرة في الحرفية المتقنة. نجدد المطابخ والحمامات والمساحات الخارجية بتواصل واضح وتشطيبات تدوم.",
+						"copyright": "© 2026 ميريديان بيلد. جميع الحقوق محفوظة.",
+						"navTitle": "التنقل",
+						"addressTitle": "تواصل معنا",
+						"address": "420 طريق الصناعة\nأوستن، تكساس 78702\nhello@meridianbuild.co",
+						"socialTitle": "تابعنا",
+						"brand": "ميريديان بيلد"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "anchor",
+								"anchor": "services"
+							}
+						},
+						{
+							"label": "المعرض",
+							"link": {
+								"kind": "anchor",
+								"anchor": "gallery"
+							}
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "anchor",
+								"anchor": "about"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "anchor",
+								"anchor": "contact"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://instagram.com/meridianbuild"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://facebook.com/meridianbuild"
+							}
+						},
+						{
+							"label": "LinkedIn",
+							"link": {
+								"kind": "external",
+								"url": "https://linkedin.com/company/meridianbuild"
+							}
+						}
+					],
+					"media": [
+						{
+							"assetId": "a5a81384-9752-527f-907e-76418b2de6fb",
+							"alt": "سور خصوصية خشبي جديد التركيب"
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "التعبير الفني"
+					}
+				},
+				"sections": {
+					"banner-editorial-split": {
+						"copy": {
+							"heading": "مبني ليدوم",
+							"description": "ميريديان بيلد مقاول عام متكامل الخدمات متخصص في تجديد المطابخ والحمامات والمساحات المعيشية الخارجية. ندير كل التفاصيل، من التصميم حتى الجولة النهائية، ليبدو منزلك مكتملًا لا مصلحًا فقط."
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"label": "احصل على عرض سعر"
+							}
+						],
+						"media": [
+							{
+								"assetId": "4a752cb3-7f87-52ec-8a5e-6afe814003f0",
+								"alt": "مطبخ أبيض عصري مجدد بجزيرة ومصابيح ذهبية معلقة وشفاط أسود"
+							}
+						]
+					},
+					"services": {
+						"items": [
+							{
+								"title": "تجديد المطابخ",
+								"description": "خزائن مخصصة وأسطح حجرية وإضاءة وتصاميم مفتوحة. من الجزر البيضاء بطراز شيكر إلى تصاميم الجوز المائية، نعيد بناء مطابخ تعمل بقدر ما تبدو جميلة.",
+								"images": [
+									{
+										"assetId": "4a752cb3-7f87-52ec-8a5e-6afe814003f0",
+										"alt": "مطبخ أبيض مشرق بجزيرة جلوس ومصابيح نحاسية معلقة"
+									},
+									{
+										"assetId": "707f92b8-bca8-5423-bf00-e76588ac75bf",
+										"alt": "مطبخ بخزائن من خشب الجوز وجزيرة رخامية مائية"
+									},
+									{
+										"assetId": "6fb6b03f-b177-5bb8-a7fc-3032b53cf564",
+										"alt": "مطبخ بلونين كحلي وأبيض مع حاجز خلفي بنمط السمكة"
+									}
+								]
+							},
+							{
+								"title": "تجديد الحمامات",
+								"description": "حمامات رئيسية بأجواء السبا مع خزائن مخصصة ودشات واسعة وأحواض مستقلة وتجهيزات فاخرة. البلاط والسباكة والنجارة تحت سقف واحد.",
+								"images": [
+									{
+										"assetId": "e59ae5e0-ee81-52ff-b490-2185b2fa49d3",
+										"alt": "حمام أبيض فاخر بمغسلتين وحوض مستقل"
+									},
+									{
+										"assetId": "2fc49c1a-ead8-582d-a3da-ed8f35ffc811",
+										"alt": "دش رخامي واسع وحوض استحمام بتجهيزات نحاسية"
+									},
+									{
+										"assetId": "1de8a71b-1f20-5b84-ac05-30b2567ef570",
+										"alt": "خزانة حمام عصرية بتجهيزات ذهبية ودش زجاجي"
+									}
+								]
+							},
+							{
+								"title": "المعيشة الخارجية",
+								"description": "شرفات ومطابخ خارجية ومداخل وأسوار خصوصية توسع مساحة معيشتك. أعمال حجرية ونجارة وتشطيبات مصممة للاستخدام طوال العام.",
+								"images": [
+									{
+										"assetId": "e617cd25-6853-527a-9b1f-c9d4aede200e",
+										"alt": "مطبخ خارجي مسقوف بجزيرة ومنطقة طعام ومدفأة حجرية"
+									},
+									{
+										"assetId": "7e9d134c-d419-5427-868b-a4490eea2f5b",
+										"alt": "مخزن حديقة خشبي متآكل يحتاج إلى ترميم"
+									},
+									{
+										"assetId": "a5a81384-9752-527f-907e-76418b2de6fb",
+										"alt": "سور خصوصية خشبي جديد التركيب"
+									}
+								]
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "الخدمات"
+						}
+					},
+					"about": {
+						"copy": {
+							"heading": "طريقة عملنا",
+							"description": "يبدأ كل تجديد بخطة واضحة. هكذا ننقل مشروعك من الجولة الأولى حتى قائمة التشطيبات النهائية."
+						},
+						"items": [
+							{
+								"assetId": "fda43acd-2793-523a-9057-742885b1629e",
+								"alt": "مدخل أمامي مكتمل بدرجات خشبية وإكسسوارات ذهبية",
+								"title": "الاستشارة",
+								"description": "نتجول في مساحتك ونستمع إلى أهدافك ونحدد النطاق والميزانية والجدول الزمني. لا تخمين، بل صورة واضحة لما هو ممكن قبل هدم أي شيء."
+							},
+							{
+								"assetId": "707f92b8-bca8-5423-bf00-e76588ac75bf",
+								"alt": "تصميم مطبخ من الجوز والرخام بجزيرة مائية",
+								"title": "التصميم",
+								"description": "تُختار التخطيطات والمواد والتجهيزات معًا لتظهر الخزائن والحجر والبلاط والإضاءة كمساحة واحدة مقصودة، لا كقرارات متفرقة."
+							},
+							{
+								"assetId": "f49726c8-f07b-5cc7-a921-84ad873d9323",
+								"alt": "فريق يركّب الخزائن ويقص الحواف أثناء تجديد مطبخ",
+								"title": "التنفيذ",
+								"description": "يتولى فريقنا الهيكلة والكهرباء والسباكة ونجارة التشطيب بقيادة مسؤول مشروع متفرغ في الموقع. تصلك تحديثات أسبوعية وموقع عمل نظيف كل يوم."
+							},
+							{
+								"assetId": "2fc49c1a-ead8-582d-a3da-ed8f35ffc811",
+								"alt": "حمام سبا مكتمل بدش رخامي وحوض مستقل",
+								"title": "اللمسات الأخيرة",
+								"description": "نبقى حتى آخر تجهيز وخط سد وجولة نهائية. ينتهي تجديدك حين تصبح كل سطح جاهزًا للسكن، لا حين يقول التقويم ذلك."
+							}
+						]
+					},
+					"gallery": {
+						"media": [
+							{
+								"assetId": "4a752cb3-7f87-52ec-8a5e-6afe814003f0",
+								"alt": "تجديد مطبخ أبيض عصري بجزيرة"
+							},
+							{
+								"assetId": "e59ae5e0-ee81-52ff-b490-2185b2fa49d3",
+								"alt": "حمام رئيسي بمغسلتين وحوض استحمام"
+							},
+							{
+								"assetId": "707f92b8-bca8-5423-bf00-e76588ac75bf",
+								"alt": "مطبخ من الجوز بأسطح رخامية مائية"
+							},
+							{
+								"assetId": "e617cd25-6853-527a-9b1f-c9d4aede200e",
+								"alt": "مطبخ خارجي ومساحة معيشة مسقوفة"
+							},
+							{
+								"assetId": "2fc49c1a-ead8-582d-a3da-ed8f35ffc811",
+								"alt": "تجديد حمام رخامي بدش واسع"
+							},
+							{
+								"assetId": "fda43acd-2793-523a-9057-742885b1629e",
+								"alt": "درجات مدخل خشبية مخصصة وشرفة غائرة"
+							},
+							{
+								"assetId": "25f6dcd7-49e2-53a0-b493-b9d295757ca4",
+								"alt": "مطبخ مفتوح بمعيشة داخلية وخارجية عبر أبواب منزلقة"
+							}
+						]
+					},
+					"testimonial-parallax-quote": {
+						"copy": {
+							"heading": "موضع ثقة أصحاب المنازل"
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "شهادات أصحاب المنازل",
+							"carousel-testimonialspreviousLabel": "شهادات أصحاب المنازل: السابق",
+							"carousel-testimonialsnextLabel": "شهادات أصحاب المنازل: التالي"
+						},
+						"media": [
+							{
+								"alt": "تجديد مطبخ كحلي وأبيض بجزيرة مائية",
+								"assetId": "6fb6b03f-b177-5bb8-a7fc-3032b53cf564"
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "انتهى تجديد مطبخنا بالكامل في موعده وبدا أفضل من التصاميم. احترم الفريق منزلنا وأبقانا مدير المشروع على اطلاع كل أسبوع.",
+								"name": "إيلينا رودريغيز",
+								"title": "أوستن — تجديد مطبخ"
+							},
+							{
+								"quote": "حوّلوا حمامنا الرئيسي القديم إلى ملاذ سبا حقيقي: خزانة مخصصة ودش واسع وكل شيء. كل خط بلاط مستقيم والتجهيزات النحاسية تبدو مقصودة.",
+								"name": "سارة لين",
+								"title": "بورتلاند — تجديد حمام"
+							},
+							{
+								"quote": "استأجرنا ميريديان بيلد لمطبخ خارجي وشرفة. من البرغولا إلى المدفأة الحجرية، الحرفية واضحة. نستخدم المساحة كل عطلة أسبوع الآن.",
+								"name": "أوليفيا بروكس",
+								"title": "شيكاغو — معيشة خارجية"
+							},
+							{
+								"quote": "من الزيارة الأولى إلى الجولة النهائية، بدا كل شيء منظمًا. استبدلوا سورنا المتعفن وأعادوا بناء المدخل الأمامي وكلاهما يبدو جديدًا تمامًا.",
+								"name": "ديانا تشو",
+								"title": "سياتل — أعمال خارجية"
+							},
+							{
+								"quote": "كان التواصل ممتازًا وجودة التشطيب لا مثيل لها. غيّر مطبخنا المفتوح والأبواب المنزلقة طريقة عيشنا في المنزل كليًا.",
+								"name": "تارين م.",
+								"title": "دالاس — تجديد منزل كامل"
+							}
+						]
+					},
+					"showcase-carousel": {
+						"copy": {
+							"heading": "شركاء موثوقون"
+						},
+						"accessibility": {
+							"carouselLabel": "شعارات الشركاء"
+						},
+						"items": [
+							{
+								"assetId": "bf4c8d5b-b610-5e5e-9ff7-2b14b2fe9db2",
+								"alt": "شعار منشور 1"
+							},
+							{
+								"assetId": "5ee6a566-739c-5813-9755-3195f33d43d7",
+								"alt": "شعار منشور 2"
+							},
+							{
+								"assetId": "961b9c91-f83e-5248-b699-ee2af2b3bb9c",
+								"alt": "شعار منشور 3"
+							},
+							{
+								"assetId": "09253f94-72a8-5e6d-961e-78db8272a079",
+								"alt": "شعار منشور 4"
+							},
+							{
+								"assetId": "06e63fef-51eb-5802-9c6f-18b05502680e",
+								"alt": "شعار منشور 5"
+							},
+							{
+								"assetId": "5fc802aa-91d1-55e7-aced-88112b81be83",
+								"alt": "شعار منشور 6"
+							}
+						]
+					},
+					"faq-numbered-accordion": {
+						"copy": {
+							"heading": "الأسئلة المتكررة."
+						},
+						"items": [
+							{
+								"question": "كم يستغرق التجديد المعتاد؟",
+								"answer": "تستغرق معظم تجديدات المطابخ من ثمانية إلى اثني عشر أسبوعًا بعد وصول المواد إلى الموقع. وتستغرق تجديدات الحمامات الرئيسية عادة من أربعة إلى ثمانية أسابيع. تعتمد المشاريع الخارجية على الطقس والنطاق، ونشارك جدولًا مفصلًا قبل بدء العمل.",
+								"number-label": "1."
+							},
+							{
+								"question": "هل تتولون التصاريح والفحوصات؟",
+								"answer": "نعم. نستخرج التصاريح المطلوبة وننسق الفحوصات ونبقي مشروعك مطابقًا للاشتراطات من الهيكلة حتى النهاية. لا ينبغي أن تلاحق الأوراق أو تتساءل عما سيأتي.",
+								"number-label": "2."
+							},
+							{
+								"question": "هل يمكننا السكن في المنزل أثناء البناء؟",
+								"answer": "في معظم الحالات نعم. نقيم حواجز للغبار ونحمي الأرضيات المنجزة ونحافظ على نظافة الموقع. وللمطابخ التي تُهدم بالكامل نخطط لتجهيزات طهي مؤقتة لتبقى الحياة اليومية ممكنة.",
+								"number-label": "3."
+							},
+							{
+								"question": "كيف تسعّرون المشاريع؟",
+								"answer": "بعد الاستشارة الأولى نقدم تقديرًا مكتوبًا بنطاق مفصل بنودًا. قد تبدأ التجديدات الأكبر بدفعة تصميم مقدمة ثم تنتقل إلى عقد ثابت حين تُحسم المواد والاختيارات.",
+								"number-label": "4."
+							},
+							{
+								"question": "ما المناطق التي تخدمونها؟",
+								"answer": "نعمل في أنحاء المنطقة الحضرية والضواحي القريبة. قد تُطبق رسوم تنقل خارج نطاق 40 ميلًا، أخبرنا بعنوانك وسنؤكد التوفر وأي تكاليف إضافية مسبقًا.",
+								"number-label": "5."
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "اتصل بنا",
+							"heading": "احصل على عرض سعر مجاني"
+						},
+						"contactGroups": [
+							{
+								"title": "البريد الإلكتروني",
+								"value": "hello@meridianbuild.co"
+							},
+							{
+								"title": "المكتب",
+								"value": "420 طريق الصناعة\nأوستن، تكساس 78702"
+							}
+						],
+						"media": [
+							{
+								"assetId": "1de8a71b-1f20-5b84-ac05-30b2567ef570",
+								"alt": "تجديد حمام مكتمل بتجهيزات ذهبية"
+							}
+						],
+						"form": {
+							"nameLabel": "الاسم",
+							"emailLabel": "البريد الإلكتروني",
+							"messageLabel": "الرسالة",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكرًا لك! سنتواصل معك خلال يومي عمل.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					}
+				}
+			}
+		}
+	}
+}

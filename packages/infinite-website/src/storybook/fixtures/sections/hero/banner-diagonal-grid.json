@@ -1,0 +1,52 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Marketing that moves your business forward",
+			"description": "We combine strategic planning, targeted ads, and engaging content to reach ideal customers. Our focus is on clarity and relevance, ensuring our message resonates."
+		},
+		"media": [
+			{
+				"assetId": "724b0f97-dde6-54aa-8938-f8da08b1dd6a",
+				"alt": "Smiling woman in sunglasses holding a fluffy brown dog"
+			},
+			{
+				"assetId": "5edfe123-ec41-531d-a822-58bd85360c01",
+				"alt": "Friends and their dogs boarding a white private jet"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"label": "Book a Call"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "تسويق يدفع عملك إلى الأمام",
+			"description": "نجمع بين التخطيط الاستراتيجي والإعلانات الموجهة والمحتوى الجذاب للوصول إلى العملاء المثاليين. نركز على الوضوح والملاءمة لضمان وصول رسالتنا."
+		},
+		"media": [
+			{
+				"assetId": "724b0f97-dde6-54aa-8938-f8da08b1dd6a",
+				"alt": "امرأة مبتسمة ترتدي نظارة شمسية تحمل كلبا بنيا رقيقا الفراء"
+			},
+			{
+				"assetId": "5edfe123-ec41-531d-a822-58bd85360c01",
+				"alt": "أصدقاء وكلابهم يصعدون إلى طائرة خاصة بيضاء"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"label": "احجز مكالمة"
+			}
+		]
+	}
+}

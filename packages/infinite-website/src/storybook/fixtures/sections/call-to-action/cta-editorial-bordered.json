@@ -1,0 +1,16 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Ready to transform your outdoor space?",
+			"description": "From seasonal plantings to full landscape redesigns, our team brings clarity, craft, and lasting beauty to every project."
+		},
+		"actions": [{ "label": "Book a consultation", "link": { "kind": "anchor", "anchor": "contact" } }]
+	},
+	"ar": {
+		"copy": {
+			"heading": "هل أنت مستعد لتحويل مساحتك الخارجية؟",
+			"description": "من الزراعة الموسمية إلى إعادة تصميم المناظر الطبيعية بالكامل، يقدم فريقنا الوضوح والحرفية والجمال الدائم في كل مشروع."
+		},
+		"actions": [{ "label": "احجز استشارة", "link": { "kind": "anchor", "anchor": "contact" } }]
+	}
+}

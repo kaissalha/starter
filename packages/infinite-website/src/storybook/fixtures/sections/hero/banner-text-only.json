@@ -1,0 +1,24 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Gardening",
+			"heading": "We make real gardens for real people",
+			"description": "From lush blooms to timeless layouts, we'll bring beauty and balance to your outdoor space."
+		},
+		"actions": [
+			{ "link": { "kind": "anchor", "anchor": "schedule" }, "label": "Schedule a call" },
+			{ "link": { "kind": "anchor", "anchor": "work" }, "label": "View our work" }
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "البستنة",
+			"heading": "نصنع حدائق حقيقية لأشخاص حقيقيين",
+			"description": "من الأزهار المورقة إلى التصاميم الخالدة، سنضفي الجمال والتوازن على مساحتك الخارجية."
+		},
+		"actions": [
+			{ "link": { "kind": "anchor", "anchor": "schedule" }, "label": "احجز مكالمة" },
+			{ "link": { "kind": "anchor", "anchor": "work" }, "label": "شاهد أعمالنا" }
+		]
+	}
+}

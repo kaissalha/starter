@@ -1,0 +1,52 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "By the numbers",
+			"heading": "Proven Track Record",
+			"description": "Delivering exceptional results for clients across the country"
+		},
+		"items": [
+			{
+				"metric": "15+",
+				"title": "Years of Experience"
+			},
+			{
+				"metric": "12K+",
+				"title": "Tax Returns Filed"
+			},
+			{
+				"metric": "800+",
+				"title": "Happy Clients"
+			},
+			{
+				"metric": "98%",
+				"title": "Client Satisfaction"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "بالأرقام",
+			"heading": "سجل حافل بالإنجازات",
+			"description": "نحقق نتائج استثنائية للعملاء في جميع أنحاء البلاد"
+		},
+		"items": [
+			{
+				"metric": "+15",
+				"title": "سنة من الخبرة"
+			},
+			{
+				"metric": "+12 ألف",
+				"title": "إقرار ضريبي تم تقديمه"
+			},
+			{
+				"metric": "+800",
+				"title": "عميل سعيد"
+			},
+			{
+				"metric": "98%",
+				"title": "رضا العملاء"
+			}
+		]
+	}
+}

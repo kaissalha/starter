@@ -1,0 +1,16 @@
+{
+	"en": {
+		"copy": {
+			"heading": "We make real garden for real people",
+			"description": "From lush blooms to timeless layouts, we'll bring beauty and balance to your garden."
+		},
+		"actions": [{ "link": { "kind": "anchor", "anchor": "contact" }, "label": "Schedule a call" }]
+	},
+	"ar": {
+		"copy": {
+			"heading": "نصنع حدائق حقيقية لأناس حقيقيين",
+			"description": "من الأزهار المتفتحة إلى التصاميم الخالدة، سنمنح حديقتك الجمال والتوازن."
+		},
+		"actions": [{ "link": { "kind": "anchor", "anchor": "contact" }, "label": "احجز مكالمة" }]
+	}
+}

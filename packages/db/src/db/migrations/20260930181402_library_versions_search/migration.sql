@@ -1,0 +1,5 @@
+ALTER TABLE "files" ADD COLUMN "version_group_id" uuid;--> statement-breakpoint
+ALTER TABLE "files" DROP COLUMN "fts";--> statement-breakpoint
+ALTER TABLE "files" ADD COLUMN "fts" tsvector GENERATED ALWAYS AS (to_tsvector('english'::regconfig, COALESCE("files"."title", '') || ' ' || COALESCE("files"."name", '') || ' ' || COALESCE("files"."summary", '') || ' ' || COALESCE("files"."language", '') || ' ' || COALESCE("files"."content_type", '') || ' ' || COALESCE("files"."metadata"->>'altText', '') || ' ' || COALESCE("files"."metadata"->>'ocrText', '') || ' ' || COALESCE("files"."metadata"->>'documentCategory', '') || ' ' || COALESCE("files"."metadata"#>>'{generation,prompt}', '') || ' ' || COALESCE("files"."metadata"->>'originalFilename', '') || ' ' || COALESCE("files"."content", ''))) STORED;--> statement-breakpoint
+CREATE INDEX "files_org_version_group_idx" ON "files" ("organization_id","version_group_id");--> statement-breakpoint
+CREATE INDEX "files_fts_idx" ON "files" USING gin ("fts" tsvector_ops);

@@ -1,0 +1,1498 @@
+{
+	"ar": {
+		"site": {
+			"name": "سيرينيتي"
+		},
+		"layout": {
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 سيرينيتي ويلنس. ابحث عن سلامك.",
+						"addressLabel": "العنوان:",
+						"address": "123 Peaceful Lane, Harmony Valley, CA 94559",
+						"contactLabel": "للتواصل:",
+						"contact": "(555) 456-7890\nhello@serenitywellness.com",
+						"brand": "الصفاء"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "الطبقات",
+							"link": {
+								"kind": "relative",
+								"path": "/classes"
+							}
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "احجز الآن",
+							"link": {
+								"kind": "relative",
+								"path": "/book"
+							}
+						},
+						{
+							"label": "بطاقات الهدايا",
+							"link": {
+								"kind": "relative",
+								"path": "/gift-cards"
+							}
+						},
+						{
+							"label": "المدونة",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							}
+						},
+						{
+							"label": "الوظائف",
+							"link": {
+								"kind": "relative",
+								"path": "/careers"
+							}
+						},
+						{
+							"label": "الأسئلة الشائعة",
+							"link": {
+								"kind": "relative",
+								"path": "/faq"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "يوتيوب",
+							"link": {
+								"kind": "external",
+								"url": "https://www.youtube.com"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "سياسة الخصوصية",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "شروط الخدمة",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						},
+						{
+							"label": "سياسة الإلغاء",
+							"link": {
+								"kind": "relative",
+								"path": "/cancellation"
+							}
+						}
+					]
+				}
+			},
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "الملاحة الصفاء",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "الصفاء"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": [
+								{
+									"label": "العلاج بالتدليك",
+									"link": {
+										"kind": "relative",
+										"path": "/services/massage-therapy"
+									}
+								},
+								{
+									"label": "التأمل الموجه",
+									"link": {
+										"kind": "relative",
+										"path": "/services/guided-meditation"
+									}
+								}
+							]
+						},
+						{
+							"label": "الطبقات",
+							"link": {
+								"kind": "relative",
+								"path": "/classes"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "يوتيوب",
+							"link": {
+								"kind": "external",
+								"url": "https://www.youtube.com"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "سيرينيتي"
+					}
+				},
+				"sections": {
+					"hero": {
+						"copy": {
+							"heading": "احصل على توهجك",
+							"description": "يرشدك نهجنا الشامل خلال الممارسات التحويلية التي تستعيد التوازن."
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "services"
+								},
+								"label": "ابدأ رحلتك إعادة تعيين"
+							}
+						],
+						"media": [
+							{
+								"assetId": "859283ad-62d3-5718-9fbd-05debe57a3ec",
+								"alt": "فصل تأمل جماعي في استوديو هادئ"
+							},
+							{
+								"assetId": "e2a51707-d2cd-59e6-bcf3-5cbc75ba59aa",
+								"alt": "مسبح سبا هادئ مع إطلالة على الجبل"
+							},
+							{
+								"assetId": "7994f830-220b-5965-bd87-3f73d33ede39",
+								"alt": "حمام سبا للقدمين بالأعشاب والزهور"
+							}
+						],
+						"keywords": [
+							{
+								"text": "الرصيد"
+							},
+							{
+								"text": "الصفاء"
+							},
+							{
+								"text": "إعادة الضبط"
+							}
+						]
+					},
+					"gallery": {
+						"copy": {
+							"kicker": "مساحتنا",
+							"heading": "ملاذ\nالهدوء",
+							"description": "ادخل إلى مقدسنا واترك العالم الخارجي خلفك. تم تصميم كل زاوية من أجل السلام والاستعادة."
+						},
+						"media": [
+							{
+								"assetId": "35e38582-f1bb-587b-91c5-39b1d122d67f",
+								"alt": "معالج تدليك في غرفة العلاج"
+							},
+							{
+								"assetId": "3fb800e5-8edd-520e-acdb-8cdc4705180a",
+								"alt": "مسبح سبا هادئ مع إطلالة على الجبل"
+							},
+							{
+								"assetId": "859283ad-62d3-5718-9fbd-05debe57a3ec",
+								"alt": "فصل تأمل جماعي في استوديو هادئ"
+							},
+							{
+								"assetId": "7994f830-220b-5965-bd87-3f73d33ede39",
+								"alt": "حمام سبا للقدمين بالأعشاب والزهور"
+							},
+							{
+								"assetId": "e2a51707-d2cd-59e6-bcf3-5cbc75ba59aa",
+								"alt": "مسبح سبا يطل على الجبال"
+							},
+							{
+								"assetId": "2c140e1d-8e8c-5f98-a490-a176f146b68c",
+								"alt": "غرفة علاج سبا للاسترخاء"
+							}
+						]
+					},
+					"services": {
+						"copy": {
+							"kicker": "نهجنا",
+							"heading": "علاجات رعاية للعافية الكاملة",
+							"description": "من التدليك العلاجي إلى التأمل الواعي، تم تصميم كل خدمة بعناية لتلبية احتياجاتك الفريدة وإرشادك نحو السلام الداخلي."
+						},
+						"actions": [
+							{
+								"label": "عرض كافة الخدمات",
+								"link": {
+									"kind": "anchor",
+									"anchor": "services"
+								}
+							},
+							{
+								"label": "استشارة حول الكتاب",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "خدماتنا",
+							"indicatorsLabel": "اختر خدمة"
+						},
+						"features": [
+							{
+								"tag": "01",
+								"title": "التدليك العلاجي",
+								"description": "تعمل علاجات الأنسجة العميقة والسويدية والحجر الساخن على التخلص من التوتر واستعادة الدورة الدموية. يتم تخصيص كل جلسة وفقًا لاحتياجات جسمك الفريدة."
+							},
+							{
+								"tag": "02",
+								"title": "التأمل الموجه",
+								"description": "جلسات يومية لجميع المستويات. من تمارين التنفس اللطيفة إلى ممارسات التخيّل العميق. اعثر على توازنك وازرع هدوءًا دائمًا."
+							},
+							{
+								"tag": "03",
+								"title": "الشفاء بالطاقة",
+								"description": "الريكي والعلاج الصوتي والشاكرا يوازنان العوائق النشطة ويستعيدان التدفق الطبيعي للحيوية والرفاهية."
+							},
+							{
+								"tag": "04",
+								"title": "ممارسة اليوغا",
+								"description": "من الجلسات الاستشفائية اللطيفة إلى تدفقات الفينياسا الديناميكية. يرشدك مدربون خبراء عبر ممارسات تناسب مستوى خبرتك."
+							}
+						]
+					},
+					"metrics": {
+						"copy": {
+							"kicker": "تأثيرنا",
+							"heading": "تحويل الحياة\nمن خلال العافية.",
+							"description": "لقد أثر التزامنا بالرعاية الشاملة على حياة آلاف الأشخاص."
+						},
+						"actions": [
+							{
+								"label": "استشارة حول الكتاب",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "15K+",
+								"title": "تم تسليم العلاجات",
+								"description": "جلسات التدليك وعمل الطاقة والشفاء"
+							},
+							{
+								"metric": "98%",
+								"title": "رضا العملاء",
+								"description": "بناءً على استطلاعات ما بعد الجلسة"
+							},
+							{
+								"metric": "12",
+								"title": "سنوات من الخدمة",
+								"description": "خدمة مجتمعنا منذ عام 2014"
+							},
+							{
+								"metric": "25+",
+								"title": "ممارسون معتمدون",
+								"description": "خبراء في مختلف أساليب العلاج"
+							}
+						]
+					},
+					"testimonials": {
+						"copy": {
+							"kicker": "تجارب الضيوف",
+							"heading": "قصص التحول"
+						},
+						"actions": [
+							{
+								"label": "اقرأ المزيد من التقييمات",
+								"link": {
+									"kind": "anchor",
+									"anchor": "testimonials"
+								}
+							}
+						],
+						"accessibility": {
+							"carousel-testimonialsLabel": "شهادات العملاء",
+							"carousel-testimonialspreviousLabel": "شهادات العملاء: السابق",
+							"carousel-testimonialsnextLabel": "شهادات العملاء: التالي",
+							"carousel-testimonialsindicatorsLabel": "ترقيم صفحات شهادات العملاء"
+						},
+						"testimonials": [
+							{
+								"quote": "بعد جلسة واحدة فقط، شعرت وكأنني شخص مختلف. أخيرًا تم التخلص من التوتر المزمن الذي كنت أحمله لسنوات. هذا المكان هو الشفاء حقا.",
+								"name": "ريبيكا مور",
+								"title": "عضو شهري",
+								"assetId": "0ab526e0-5a8e-5361-be87-5dbb0564566d",
+								"alt": "ريبيكا مور"
+							},
+							{
+								"quote": "غيرت دروس التأمل علاقتي بالتوتر. لقد تعلمت الأدوات التي تساعدني على البقاء مركزًا حتى خلال أيامي الأكثر ازدحامًا.",
+								"name": "جوناثان لي",
+								"title": "ضيف منتجع العافية",
+								"assetId": "e9019e46-62b1-5469-8b6e-faaf1485d98d",
+								"alt": "جوناثان لي"
+							},
+							{
+								"quote": "كل معالج رأيته كان استثنائيًا. إنهم يستمعون حقًا ويخصصون كل علاج. لن أذهب إلى أي مكان آخر.",
+								"name": "عمارة أوكافور",
+								"title": "العميل العادي",
+								"assetId": "8b3b0e61-8025-52e8-8451-b12e2abac8dc",
+								"alt": "عمارة أوكافور"
+							}
+						]
+					},
+					"team": {
+						"copy": {
+							"kicker": "الممارسين لدينا",
+							"heading": "المعالجون المخصصون\nلرفاهيتك.",
+							"description": "يجمع فريقنا من الممارسين المعتمدين خبرات متنوعة في التدليك والتأمل واليوغا والشفاء بالطاقة."
+						},
+						"actions": [
+							{
+								"label": "احجز جلسة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "مايا شروق الشمس",
+								"role": "المؤسس والممارس الرئيسي",
+								"description": "مدرب يوغا معتمد وخبير في الريكي يتمتع بخبرة تزيد عن 20 عامًا. أسست مايا شركة Serenity لإنشاء ملاذ للشفاء الشامل.",
+								"assetId": "9326150f-8ed2-5150-8def-120e0bbd1c3c",
+								"alt": "مايا شروق الشمس"
+							},
+							{
+								"name": "جيمس ستيلووتر",
+								"role": "معالج بالتدليك",
+								"description": "متخصص في تدليك الأنسجة العميقة والتدليك العلاجي. يجمع جيمس بين التقنيات الشرقية والغربية من أجل إطلاق سراح جسدي عميق.",
+								"assetId": "dbfc69d9-abd3-5594-9139-ebfe40ebd220",
+								"alt": "جيمس ستيلووتر"
+							},
+							{
+								"name": "ديفيد تشين",
+								"role": "أخصائي الوخز بالإبر",
+								"description": "أخصائي الوخز بالإبر مرخص مع تدريب في الطب الصيني التقليدي. ديفيد متخصص في تخفيف التوتر وإدارة الألم.",
+								"assetId": "b1f8cd9f-6d37-534e-a74d-269cc2fd8882",
+								"alt": "ديفيد تشين"
+							},
+							{
+								"name": "اريا مون",
+								"role": "مرشدة التأمل",
+								"description": "مدرّبة على تقاليد الفيباسانا واليقظة الذهنية. تقود آريا حصص التأمل اليومية وجلسات الشفاء بالصوت.",
+								"assetId": "09b52ff6-18b8-51cd-b70e-2c3fe3e5b9f1",
+								"alt": "اريا مون"
+							},
+							{
+								"name": "ايلينا ريفرز",
+								"role": "مدرّبة يوغا",
+								"description": "معتمدة في الهاثا والفينياسا واليوغا الاستشفائية. تقدّم إيلينا حصصًا مناسبة لجميع المستويات.",
+								"assetId": "15ae310c-6df4-541d-8f57-4d13c9e0cde9",
+								"alt": "ايلينا ريفرز"
+							},
+							{
+								"name": "سارة بلوم",
+								"role": "معالج الصوت",
+								"description": "ماجستير في أوعية الغناء الكريستالية والتأمل على الجرس. جلسات الاستحمام الصوتية التي تقدمها سارة تخلق استرخاءً عميقًا وسلامًا داخليًا.",
+								"assetId": "cb8b3a6e-3ab6-56cf-a12d-5309ab98852b",
+								"alt": "سارة بلوم"
+							}
+						]
+					},
+					"about": {
+						"copy": {
+							"kicker": "فلسفتنا",
+							"heading": "العافية هي رحلة وليست وجهة.",
+							"description": "في Serenity، نؤمن بأن العافية الحقيقية تشمل العقل والجسد والروح. يجمع نهجنا الشامل بين الحكمة القديمة والتقنيات الحديثة لمساعدتك في العثور على التوازن والسلام الدائمين."
+						}
+					},
+					"press": {
+						"copy": {
+							"kicker": "موثوق بنا",
+							"heading": "ظهرت في المنشورات الرائدة",
+							"description": "يشرفنا أن تحظى أعمالنا بتقدير منشورات الصحة ونمط الحياة."
+						},
+						"media": [
+							{
+								"assetId": "47adabf3-9494-5562-a668-5d28f0add4ce",
+								"alt": "شعار 1"
+							},
+							{
+								"assetId": "48adad86-9394-53cf-a968-61e1efadd33b",
+								"alt": "شعار 2"
+							},
+							{
+								"assetId": "49adaf19-9294-523c-a868-604eeeadd1a8",
+								"alt": "الشعار 3"
+							},
+							{
+								"assetId": "4aadb0ac-9194-50a9-ab68-6507f5addcad",
+								"alt": "الشعار 4"
+							},
+							{
+								"assetId": "4badb23f-9094-5f16-aa68-6374f4addb1a",
+								"alt": "شعار 5"
+							},
+							{
+								"assetId": "4cadb3d2-8f94-5d83-ad68-682df3add987",
+								"alt": "الشعار 6"
+							},
+							{
+								"assetId": "4dadb565-8e94-5bf0-ac68-669af2add7f4",
+								"alt": "شعار 7"
+							},
+							{
+								"assetId": "4eadb6f8-9d94-538d-9f68-5223e9adc9c9",
+								"alt": "الشعار 8"
+							}
+						]
+					},
+					"cta": {
+						"copy": {
+							"heading": "ابدأ رحلتك الصحية اليوم",
+							"description": "احجز استشارة لمناقشة أهدافك وإنشاء طريقك الشخصي لتحقيق التوازن والتجديد والسلام الدائم."
+						},
+						"actions": [
+							{
+								"label": "استشارة حول الكتاب",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							},
+							{
+								"label": "عرض الحزم",
+								"link": {
+									"kind": "anchor",
+									"anchor": "pricing"
+								}
+							}
+						]
+					},
+					"faq": {
+						"media": [
+							{
+								"assetId": "2c140e1d-8e8c-5f98-a490-a176f146b68c",
+								"alt": "غرفة علاج سبا للاسترخاء"
+							}
+						],
+						"copy": {
+							"heading": "الأسئلة المتداولة"
+						},
+						"items": [
+							{
+								"question": "ماذا يجب أن أتوقع خلال زيارتي الأولى؟",
+								"answer": "تبدأ زيارتك الأولى بمشاورة قصيرة حيث نناقش أهدافك وأي اعتبارات صحية. سنقوم بعد ذلك بإرشادك خلال العلاج الذي اخترته في غرفة خاصة وهادئة."
+							},
+							{
+								"question": "كيف يجب أن أستعد للجلسة؟",
+								"answer": "نوصي بالوصول مبكرًا بـ 10-15 دقيقة للاستقرار. تجنب الوجبات الثقيلة والكافيين مسبقًا. ارتداء ملابس مريحة لدروس اليوغا والتأمل."
+							},
+							{
+								"question": "ما هي سياسة الإلغاء الخاصة بك؟",
+								"answer": "نطلب إشعارًا قبل 24 ساعة للإلغاء أو إعادة الجدولة. قد يؤدي الإلغاء المتأخر إلى فرض رسوم بنسبة 50%. نحن نتفهم حدوث حالات الطوارئ وسنعمل معك عندما يكون ذلك ممكنًا."
+							},
+							{
+								"question": "هل علاجاتك مناسبة للمبتدئين؟",
+								"answer": "على الاطلاق! جميع خدماتنا ترحب بالمبتدئين. سيرشدك الممارسون لدينا خلال كل خطوة وسيقومون بتعديل نهجهم وفقًا لمستوى راحتك وخبرتك."
+							},
+							{
+								"question": "هل تقدمون شهادات هدايا؟",
+								"answer": "نعم! شهادات الهدايا متاحة بأي مبلغ أو لخدمات محددة. هي هدية رائعة ولا تنتهي صلاحيتها. اشترِها عبر الإنترنت أو في الاستوديو."
+							}
+						]
+					},
+					"pricing": {
+						"copy": {
+							"heading": "استثمر في رفاهيتك.",
+							"description": "اختر من بين باقاتنا المنسقة أو احجز جلسات فردية. بطاقات الهدايا متاحة."
+						},
+						"items": [
+							{
+								"title": "جلسة واحدة",
+								"price": "$120",
+								"period": "/session",
+								"features-label": "يشمل:",
+								"description": "مثالي للزائرين لأول مرة أو للرعاية الذاتية العرضية.",
+								"label": "احجز الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "جلسة علاج لمدة 60 دقيقة"
+									},
+									{
+										"title": "اختيار نوع العلاج"
+									},
+									{
+										"title": "العلاج بالروائح مشمول"
+									},
+									{
+										"title": "خدمة شاي الأعشاب"
+									}
+								],
+								"badge-label": ""
+							},
+							{
+								"title": "رحلة العافية",
+								"price": "$499",
+								"period": "/package",
+								"features-label": "يشمل:",
+								"description": "حزمة تحويلية للشفاء العميق والتجديد.",
+								"label": "ابدأ الرحلة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "5 جلسات (وفّر 101$)"
+									},
+									{
+										"title": "خطة مخصصة"
+									},
+									{
+										"title": "أولوية الحجز"
+									},
+									{
+										"title": "استشارة عافية"
+									},
+									{
+										"title": "منتجات علاج بالروائح للمنزل"
+									}
+								],
+								"badge-label": "أفضل قيمة حزمة فئة"
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "تواصل معنا",
+							"heading": "نحن نحب أن نسمع منك.",
+							"description": "هل لديك أسئلة حول خدماتنا أو هل أنت مستعد للحجز؟ تواصل معنا وسنرد عليك خلال 24 ساعة.",
+							"email": "hello@serenitywellness.com",
+							"phone": "(555) 456-7890",
+							"address": "123 Peaceful Lane, Harmony Valley, CA 94559"
+						},
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "عنوان البريد الإلكتروني",
+							"messageLabel": "كيف يمكننا مساعدتك في إيجاد التوازن؟",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "تم استلام رسالتك! سنتواصل معك قريبًا. تنفّس بعمق.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"contact-map": {
+						"copy": {
+							"kicker": "تواصل معنا",
+							"heading": "نحن نحب أن نسمع منك.",
+							"description": "تواصل معنا في أي وقت وسنرد خلال 24 ساعة."
+						},
+						"location": {
+							"address": "New York, NY 10001"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة نيويورك، NY 10001"
+						},
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "عنوان البريد الإلكتروني",
+							"messageLabel": "كيف يمكننا مساعدتك؟",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "تم استلام رسالتك! سنتواصل معك قريبًا.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"visit": {
+						"copy": {
+							"kicker": "قم بزيارتنا",
+							"heading": "تجدنا بالقرب منك\nوتوقف اليوم.",
+							"description": "استخدم الخريطة للحصول على الاتجاهات وزيارة موقعنا."
+						},
+						"actions": [
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "New York, NY 10001"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة نيويورك، NY 10001"
+						}
+					},
+					"map": {
+						"location": {
+							"address": "New York, NY 10001"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة نيويورك، NY 10001"
+						}
+					}
+				}
+			}
+		}
+	},
+	"en": {
+		"site": {
+			"name": "Serenity"
+		},
+		"layout": {
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 Serenity Wellness. Find your peace.",
+						"addressLabel": "Address:",
+						"address": "123 Peaceful Lane, Harmony Valley, CA 94559",
+						"contactLabel": "Contact:",
+						"contact": "(555) 456-7890\nhello@serenitywellness.com",
+						"brand": "Serenity"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "Classes",
+							"link": {
+								"kind": "relative",
+								"path": "/classes"
+							}
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "Book Now",
+							"link": {
+								"kind": "relative",
+								"path": "/book"
+							}
+						},
+						{
+							"label": "Gift Cards",
+							"link": {
+								"kind": "relative",
+								"path": "/gift-cards"
+							}
+						},
+						{
+							"label": "Blog",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							}
+						},
+						{
+							"label": "Careers",
+							"link": {
+								"kind": "relative",
+								"path": "/careers"
+							}
+						},
+						{
+							"label": "FAQ",
+							"link": {
+								"kind": "relative",
+								"path": "/faq"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "YouTube",
+							"link": {
+								"kind": "external",
+								"url": "https://www.youtube.com"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "Privacy Policy",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "Terms of Service",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						},
+						{
+							"label": "Cancellation Policy",
+							"link": {
+								"kind": "relative",
+								"path": "/cancellation"
+							}
+						}
+					]
+				}
+			},
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Serenity navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Serenity"
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": [
+								{
+									"label": "Massage Therapy",
+									"link": {
+										"kind": "relative",
+										"path": "/services/massage-therapy"
+									}
+								},
+								{
+									"label": "Guided Meditation",
+									"link": {
+										"kind": "relative",
+										"path": "/services/guided-meditation"
+									}
+								}
+							]
+						},
+						{
+							"label": "Classes",
+							"link": {
+								"kind": "relative",
+								"path": "/classes"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "YouTube",
+							"link": {
+								"kind": "external",
+								"url": "https://www.youtube.com"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Serenity"
+					}
+				},
+				"sections": {
+					"hero": {
+						"copy": {
+							"heading": "Get Your Glow",
+							"description": "Our holistic approach guides you through transformative practices that restore balance."
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "services"
+								},
+								"label": "Begin Your Journey"
+							}
+						],
+						"media": [
+							{
+								"assetId": "859283ad-62d3-5718-9fbd-05debe57a3ec",
+								"alt": "Group meditation class in peaceful studio"
+							},
+							{
+								"assetId": "e2a51707-d2cd-59e6-bcf3-5cbc75ba59aa",
+								"alt": "Serene spa pool with mountain view"
+							},
+							{
+								"assetId": "7994f830-220b-5965-bd87-3f73d33ede39",
+								"alt": "Spa foot bath with herbs and flowers"
+							}
+						],
+						"keywords": [
+							{
+								"text": "Balance"
+							},
+							{
+								"text": "Serenity"
+							},
+							{
+								"text": "Reset"
+							}
+						]
+					},
+					"gallery": {
+						"copy": {
+							"kicker": "Our Space",
+							"heading": "A haven of\ntranquility",
+							"description": "Step inside our sanctuary and leave the outside world behind. Every corner is designed for peace and restoration."
+						},
+						"media": [
+							{
+								"assetId": "35e38582-f1bb-587b-91c5-39b1d122d67f",
+								"alt": "Massage therapist in treatment room"
+							},
+							{
+								"assetId": "3fb800e5-8edd-520e-acdb-8cdc4705180a",
+								"alt": "Serene spa pool with mountain view"
+							},
+							{
+								"assetId": "859283ad-62d3-5718-9fbd-05debe57a3ec",
+								"alt": "Group meditation class in peaceful studio"
+							},
+							{
+								"assetId": "7994f830-220b-5965-bd87-3f73d33ede39",
+								"alt": "Spa foot bath with herbs and flowers"
+							},
+							{
+								"assetId": "e2a51707-d2cd-59e6-bcf3-5cbc75ba59aa",
+								"alt": "Spa pool overlooking the mountains"
+							},
+							{
+								"assetId": "2c140e1d-8e8c-5f98-a490-a176f146b68c",
+								"alt": "Relaxing spa treatment room"
+							}
+						]
+					},
+					"services": {
+						"copy": {
+							"kicker": "Our Approach",
+							"heading": "Nurturing treatments for complete wellness",
+							"description": "From therapeutic massage to mindful meditation, each service is thoughtfully crafted to address your unique needs and guide you toward inner peace."
+						},
+						"actions": [
+							{
+								"label": "View All Services",
+								"link": {
+									"kind": "anchor",
+									"anchor": "services"
+								}
+							},
+							{
+								"label": "Book Consultation",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "Our services",
+							"indicatorsLabel": "Choose service"
+						},
+						"features": [
+							{
+								"tag": "01",
+								"title": "Therapeutic Massage",
+								"description": "Deep tissue, Swedish, and hot stone therapies release tension and restore circulation. Each session is customized to your body's unique needs."
+							},
+							{
+								"tag": "02",
+								"title": "Guided Meditation",
+								"description": "Daily sessions for all levels. From gentle breathing exercises to deep visualization practices. Find your center and cultivate lasting calm."
+							},
+							{
+								"tag": "03",
+								"title": "Energy Healing",
+								"description": "Reiki, sound therapy, and chakra balancing clear energetic blockages and restore your natural flow of vitality and well-being."
+							},
+							{
+								"tag": "04",
+								"title": "Yoga Practice",
+								"description": "From gentle restorative sessions to dynamic vinyasa flows. Expert instructors guide you through practices suited to your experience level."
+							}
+						]
+					},
+					"metrics": {
+						"copy": {
+							"kicker": "Our Impact",
+							"heading": "Transforming lives\nthrough wellness.",
+							"description": "Our commitment to holistic care has touched thousands of lives."
+						},
+						"actions": [
+							{
+								"label": "Book Consultation",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "15K+",
+								"title": "Treatments Delivered",
+								"description": "Massages, energy work, and healing sessions"
+							},
+							{
+								"metric": "98%",
+								"title": "Client Satisfaction",
+								"description": "Based on post-session surveys"
+							},
+							{
+								"metric": "12",
+								"title": "Years of Service",
+								"description": "Serving our community since 2014"
+							},
+							{
+								"metric": "25+",
+								"title": "Certified Practitioners",
+								"description": "Experts in various healing modalities"
+							}
+						]
+					},
+					"testimonials": {
+						"copy": {
+							"kicker": "Guest Experiences",
+							"heading": "Stories of\ntransformation"
+						},
+						"actions": [
+							{
+								"label": "Read More Reviews",
+								"link": {
+									"kind": "anchor",
+									"anchor": "testimonials"
+								}
+							}
+						],
+						"accessibility": {
+							"carousel-testimonialsLabel": "Customer testimonials",
+							"carousel-testimonialspreviousLabel": "Customer testimonials: previous",
+							"carousel-testimonialsnextLabel": "Customer testimonials: next",
+							"carousel-testimonialsindicatorsLabel": "Customer testimonials pagination"
+						},
+						"testimonials": [
+							{
+								"quote": "After just one session, I felt like a different person. The chronic tension I'd carried for years finally released. This place is truly healing.",
+								"name": "Rebecca Moore",
+								"title": "Monthly Member",
+								"assetId": "0ab526e0-5a8e-5361-be87-5dbb0564566d",
+								"alt": "Rebecca Moore"
+							},
+							{
+								"quote": "The meditation classes changed my relationship with stress. I've learned tools that help me stay centered even during my busiest days.",
+								"name": "Jonathan Lee",
+								"title": "Wellness Retreat Guest",
+								"assetId": "e9019e46-62b1-5469-8b6e-faaf1485d98d",
+								"alt": "Jonathan Lee"
+							},
+							{
+								"quote": "Every therapist I've seen has been exceptional. They truly listen and customize each treatment. I won't go anywhere else.",
+								"name": "Amara Okafor",
+								"title": "Regular Client",
+								"assetId": "8b3b0e61-8025-52e8-8451-b12e2abac8dc",
+								"alt": "Amara Okafor"
+							}
+						]
+					},
+					"team": {
+						"copy": {
+							"kicker": "Our Practitioners",
+							"heading": "Healers dedicated\nto your wellbeing.",
+							"description": "Our team of certified practitioners brings together diverse expertise in massage, meditation, yoga, and energy healing."
+						},
+						"actions": [
+							{
+								"label": "Book a Session",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "Maya Sunrise",
+								"role": "Founder & Lead Practitioner",
+								"description": "A certified yoga instructor and Reiki master with over 20 years of experience. Maya founded Serenity to create a sanctuary for holistic healing.",
+								"assetId": "9326150f-8ed2-5150-8def-120e0bbd1c3c",
+								"alt": "Maya Sunrise"
+							},
+							{
+								"name": "James Stillwater",
+								"role": "Massage Therapist",
+								"description": "Specializing in deep tissue and therapeutic massage. James combines Eastern and Western techniques for profound physical release.",
+								"assetId": "dbfc69d9-abd3-5594-9139-ebfe40ebd220",
+								"alt": "James Stillwater"
+							},
+							{
+								"name": "David Chen",
+								"role": "Acupuncturist",
+								"description": "Licensed acupuncturist with training in Traditional Chinese Medicine. David specializes in stress relief and pain management.",
+								"assetId": "b1f8cd9f-6d37-534e-a74d-269cc2fd8882",
+								"alt": "David Chen"
+							},
+							{
+								"name": "Aria Moon",
+								"role": "Meditation Guide",
+								"description": "Trained in Vipassana and mindfulness traditions. Aria leads our daily meditation classes and sound healing sessions.",
+								"assetId": "09b52ff6-18b8-51cd-b70e-2c3fe3e5b9f1",
+								"alt": "Aria Moon"
+							},
+							{
+								"name": "Elena Rivers",
+								"role": "Yoga Instructor",
+								"description": "Certified in Hatha, Vinyasa, and Restorative yoga. Elena creates accessible classes for all experience levels.",
+								"assetId": "15ae310c-6df4-541d-8f57-4d13c9e0cde9",
+								"alt": "Elena Rivers"
+							},
+							{
+								"name": "Sarah Bloom",
+								"role": "Sound Healer",
+								"description": "Master of crystal singing bowls and gong meditation. Sarah's sound bath sessions create profound relaxation and inner peace.",
+								"assetId": "cb8b3a6e-3ab6-56cf-a12d-5309ab98852b",
+								"alt": "Sarah Bloom"
+							}
+						]
+					},
+					"about": {
+						"copy": {
+							"kicker": "Our Philosophy",
+							"heading": "Wellness is a journey, not a destination.",
+							"description": "At Serenity, we believe true wellness encompasses mind, body, and spirit. Our holistic approach combines ancient wisdom with modern techniques to help you find lasting balance and peace."
+						}
+					},
+					"press": {
+						"copy": {
+							"kicker": "Trusted By",
+							"heading": "Featured in leading publications",
+							"description": "We're honored to be recognized by wellness and lifestyle publications."
+						},
+						"media": [
+							{
+								"assetId": "47adabf3-9494-5562-a668-5d28f0add4ce",
+								"alt": "Logo 1"
+							},
+							{
+								"assetId": "48adad86-9394-53cf-a968-61e1efadd33b",
+								"alt": "Logo 2"
+							},
+							{
+								"assetId": "49adaf19-9294-523c-a868-604eeeadd1a8",
+								"alt": "Logo 3"
+							},
+							{
+								"assetId": "4aadb0ac-9194-50a9-ab68-6507f5addcad",
+								"alt": "Logo 4"
+							},
+							{
+								"assetId": "4badb23f-9094-5f16-aa68-6374f4addb1a",
+								"alt": "Logo 5"
+							},
+							{
+								"assetId": "4cadb3d2-8f94-5d83-ad68-682df3add987",
+								"alt": "Logo 6"
+							},
+							{
+								"assetId": "4dadb565-8e94-5bf0-ac68-669af2add7f4",
+								"alt": "Logo 7"
+							},
+							{
+								"assetId": "4eadb6f8-9d94-538d-9f68-5223e9adc9c9",
+								"alt": "Logo 8"
+							}
+						]
+					},
+					"cta": {
+						"copy": {
+							"heading": "Begin your wellness journey today",
+							"description": "Book a consultation to discuss your goals and create your personalized path to balance, renewal, and lasting peace."
+						},
+						"actions": [
+							{
+								"label": "Book Consultation",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							},
+							{
+								"label": "View Packages",
+								"link": {
+									"kind": "anchor",
+									"anchor": "pricing"
+								}
+							}
+						]
+					},
+					"faq": {
+						"media": [
+							{
+								"assetId": "2c140e1d-8e8c-5f98-a490-a176f146b68c",
+								"alt": "Relaxing spa treatment room"
+							}
+						],
+						"copy": {
+							"heading": "Frequently asked questions"
+						},
+						"items": [
+							{
+								"question": "What should I expect during my first visit?",
+								"answer": "Your first visit begins with a brief consultation where we discuss your goals and any health considerations. We'll then guide you through your chosen treatment in a peaceful, private room."
+							},
+							{
+								"question": "How should I prepare for a session?",
+								"answer": "We recommend arriving 10-15 minutes early to settle in. Avoid heavy meals and caffeine beforehand. Wear comfortable clothing for yoga and meditation classes."
+							},
+							{
+								"question": "What is your cancellation policy?",
+								"answer": "We request 24 hours notice for cancellations or rescheduling. Late cancellations may incur a 50% fee. We understand emergencies happen and will work with you when possible."
+							},
+							{
+								"question": "Are your treatments suitable for beginners?",
+								"answer": "Absolutely! All our services welcome beginners. Our practitioners will guide you through every step and adjust their approach to your comfort level and experience."
+							},
+							{
+								"question": "Do you offer gift certificates?",
+								"answer": "Yes! Gift certificates are available for any amount or specific services. They make wonderful gifts and never expire. Purchase online or in our studio."
+							}
+						]
+					},
+					"pricing": {
+						"copy": {
+							"heading": "Invest in your wellbeing.",
+							"description": "Choose from our curated packages or book individual sessions. Gift cards available."
+						},
+						"items": [
+							{
+								"title": "Single Session",
+								"price": "$120",
+								"period": "/session",
+								"features-label": "Includes:",
+								"description": "Perfect for first-time visitors or occasional self-care.",
+								"label": "Book Now",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "60-minute treatment"
+									},
+									{
+										"title": "Choice of modality"
+									},
+									{
+										"title": "Aromatherapy included"
+									},
+									{
+										"title": "Herbal tea service"
+									}
+								],
+								"badge-label": ""
+							},
+							{
+								"title": "Wellness Journey",
+								"price": "$499",
+								"period": "/package",
+								"features-label": "Includes:",
+								"description": "A transformative package for deep healing and renewal.",
+								"label": "Begin Journey",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "5 sessions (save $101)"
+									},
+									{
+										"title": "Personalized plan"
+									},
+									{
+										"title": "Priority booking"
+									},
+									{
+										"title": "Wellness consultation"
+									},
+									{
+										"title": "Take-home aromatherapy"
+									}
+								],
+								"badge-label": "Best Value"
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "Connect With Us",
+							"heading": "We'd love to hear from you.",
+							"description": "Have questions about our services or ready to book? Reach out and we'll respond within 24 hours.",
+							"email": "hello@serenitywellness.com",
+							"phone": "(555) 456-7890",
+							"address": "123 Peaceful Lane, Harmony Valley, CA 94559"
+						},
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "How can we help you find balance?",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Message received! We'll be in touch soon. Breathe deeply.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"contact-map": {
+						"copy": {
+							"kicker": "Connect With Us",
+							"heading": "We'd love to hear from you.",
+							"description": "Reach out any time and we'll respond within 24 hours."
+						},
+						"location": {
+							"address": "New York, NY 10001"
+						},
+						"accessibility": {
+							"mapLabel": "Map of New York, NY 10001"
+						},
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "How can we help?",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Message received! We'll be in touch soon.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"visit": {
+						"copy": {
+							"kicker": "Visit us",
+							"heading": "Find us nearby\nand stop by today.",
+							"description": "Use the map to get directions and visit our location."
+						},
+						"actions": [
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "New York, NY 10001"
+						},
+						"accessibility": {
+							"mapLabel": "Map of New York, NY 10001"
+						}
+					},
+					"map": {
+						"location": {
+							"address": "New York, NY 10001"
+						},
+						"accessibility": {
+							"mapLabel": "Map of New York, NY 10001"
+						}
+					}
+				}
+			}
+		}
+	}
+}

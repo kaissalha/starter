@@ -1,0 +1,17 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"display": "Web",
+	"extends": "./base.json",
+	"compilerOptions": {
+		"sourceMap": true,
+		"allowImportingTsExtensions": true,
+		"moduleResolution": "bundler",
+		"target": "ES2022",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"incremental": true,
+		"jsx": "preserve",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	}
+}

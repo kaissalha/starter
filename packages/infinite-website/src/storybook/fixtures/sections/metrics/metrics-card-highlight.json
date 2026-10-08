@@ -1,0 +1,70 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Garden",
+			"heading": "Transform Your Outdoor Space with Our Expert Care",
+			"description": "We bring years of expertise, a love for nature, and a commitment to quality to every project. Whether it's a small garden or a full landscape transformation, we ensure exceptional results."
+		},
+		"actions": [
+			{
+				"label": "Talk to an expert",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				}
+			}
+		],
+		"items": [
+			{
+				"metric": "+100K",
+				"title": "Positive Reviews"
+			},
+			{
+				"metric": "95%",
+				"title": "Repeat Customers"
+			},
+			{
+				"metric": "+10",
+				"title": "Years of Service"
+			},
+			{
+				"metric": "+200",
+				"title": "Projects Completed"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "الحديقة",
+			"heading": "حوّل مساحتك الخارجية مع عنايتنا الخبيرة",
+			"description": "نقدّم سنوات من الخبرة وحبًا للطبيعة والتزامًا بالجودة في كل مشروع. سواء كانت حديقة صغيرة أو تحويلًا كاملًا للمساحة، نضمن نتائج استثنائية."
+		},
+		"actions": [
+			{
+				"label": "تحدث إلى خبير",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				}
+			}
+		],
+		"items": [
+			{
+				"metric": "+100 ألف",
+				"title": "تقييم إيجابي"
+			},
+			{
+				"metric": "95%",
+				"title": "عملاء متكررون"
+			},
+			{
+				"metric": "+10",
+				"title": "سنوات من الخدمة"
+			},
+			{
+				"metric": "+200",
+				"title": "مشروع منجز"
+			}
+		]
+	}
+}

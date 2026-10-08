@@ -1,0 +1,62 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "00",
+			"heading": "Brands I've Worked With",
+			"description": "Organizations partner with me to simplify their marketing, strengthen their message, and unlock sustainable growth."
+		},
+		"items": [
+			{
+				"name": "Stellaris"
+			},
+			{
+				"name": "NovaTech"
+			},
+			{
+				"name": "Zenith Corp"
+			},
+			{
+				"name": "Apex Media"
+			},
+			{
+				"name": "Quantum Dynamics"
+			},
+			{
+				"name": "Synergy Group"
+			},
+			{
+				"name": "OmniVerse"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "00",
+			"heading": "علامات تجارية عملت معها",
+			"description": "تتعاون معي المؤسسات لتبسيط تسويقها وتقوية رسالتها وتحقيق نمو مستدام."
+		},
+		"items": [
+			{
+				"name": "ستيلاريس"
+			},
+			{
+				"name": "نوفاتك"
+			},
+			{
+				"name": "زينيث كورب"
+			},
+			{
+				"name": "أبكس ميديا"
+			},
+			{
+				"name": "كوانتوم ديناميكس"
+			},
+			{
+				"name": "سينرجي غروب"
+			},
+			{
+				"name": "أومنيفيرس"
+			}
+		]
+	}
+}

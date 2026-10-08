@@ -1,0 +1,80 @@
+name: Quality checks
+
+on:
+    pull_request:
+        types:
+            - opened
+            - synchronize
+            - reopened
+            - ready_for_review
+    workflow_call:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: quality-${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+    quality:
+        name: Quality checks
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+            - name: Setup
+              uses: ./.github/actions/setup
+
+            - name: Cache corrected jscpd binary
+              uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+              with:
+                  path: node_modules/.cache/jscpd
+                  key: jscpd-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('tools/jscpd.sh')
+                      }}
+
+            - name: Run quality checks
+              run: bun check
+              env:
+                  POSTHOG_PERSONAL_API_KEY: ci-typegen
+                  POSTHOG_PROJECT_ID: ci-typegen
+
+            - name: Upload duplication reports
+              if: always()
+              uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+              with:
+                  name: jscpd-${{ github.run_id }}
+                  path: reports/jscpd
+                  if-no-files-found: warn
+
+    vitest:
+        name: Vitest and workflow tests
+        runs-on: ubuntu-latest
+        timeout-minutes: 45
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+            - name: Setup
+              uses: ./.github/actions/setup
+
+            - name: Install Chromium
+              run: bunx playwright install --with-deps chromium
+
+            - name: Run Vitest with coverage
+              run: bun run test:coverage
+
+            - name: Run workflow integration tests
+              run: bun run test:workflow
+
+            - name: Upload coverage report
+              if: always()
+              uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+              with:
+                  name: vitest-coverage-${{ github.run_id }}
+                  path: coverage
+                  if-no-files-found: error

@@ -1,0 +1,104 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Available after 5pm",
+			"heading": "Dessert Menu",
+			"description": "Always fresh, always in season, always tasty"
+		},
+		"items": [
+			{
+				"assetId": "eb9f274f-ef34-5ee6-9437-03ad740bd13b",
+				"alt": "Berry Crumble with Oat Topping",
+				"title": "Berry Crumble with Oat Topping",
+				"description": "Seasonal berries baked with a golden oat crumble, served warm with vanilla bean ice cream.",
+				"price": "$10"
+			},
+			{
+				"assetId": "acb74bfa-89e7-5642-946e-ec3ded5aea73",
+				"alt": "Tiramisu",
+				"title": "Tiramisu",
+				"description": "Classic Italian dessert with espresso-soaked ladyfingers, mascarpone cream, and cocoa dusting.",
+				"price": "$12"
+			},
+			{
+				"assetId": "ec99f05f-7bc9-5edb-a6d0-be76878a5797",
+				"alt": "Apple Pie",
+				"title": "Apple Pie",
+				"description": "Warm spiced apple filling in a buttery, flaky crust, served with a scoop of cream.",
+				"price": "$9"
+			},
+			{
+				"assetId": "a2e6f210-1c16-59c7-9a29-51b63462d429",
+				"alt": "Strawberry Rhubarb Compote",
+				"title": "Strawberry Rhubarb Compote",
+				"description": "Tart rhubarb and sweet strawberries slow-cooked into a vibrant, glossy compote.",
+				"price": "$8"
+			},
+			{
+				"assetId": "a3376636-4e07-5974-b11b-7b17a1d9bf4a",
+				"alt": "Ginger Ice Cream",
+				"title": "Ginger Ice Cream",
+				"description": "Hand-churned ice cream infused with fresh ginger root, served in a chilled bowl.",
+				"price": "$8"
+			},
+			{
+				"assetId": "b47b0fa9-bee5-5a15-bac5-2b14152233de",
+				"alt": "Deluxe Brownie",
+				"title": "Deluxe Brownie",
+				"description": "Rich dark chocolate brownie with a fudgy centre, topped with toasted pecans and sea salt.",
+				"price": "$9"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "متاح بعد الخامسة مساءً",
+			"heading": "قائمة الحلويات",
+			"description": "طازجة دائمًا، موسمية دائمًا، لذيذة دائمًا"
+		},
+		"items": [
+			{
+				"assetId": "eb9f274f-ef34-5ee6-9437-03ad740bd13b",
+				"alt": "كرامبل التوت بغطاء الشوفان",
+				"title": "كرامبل التوت بغطاء الشوفان",
+				"description": "توت موسمي مخبوز مع كرامبل الشوفان الذهبي، يُقدَّم دافئًا مع آيس كريم الفانيلا.",
+				"price": "10$"
+			},
+			{
+				"assetId": "acb74bfa-89e7-5642-946e-ec3ded5aea73",
+				"alt": "تيراميسو",
+				"title": "تيراميسو",
+				"description": "حلوى إيطالية كلاسيكية بأصابع السيدة المنقوعة بالإسبريسو وكريمة الماسكاربوني ورشة من الكاكاو.",
+				"price": "12$"
+			},
+			{
+				"assetId": "ec99f05f-7bc9-5edb-a6d0-be76878a5797",
+				"alt": "فطيرة التفاح",
+				"title": "فطيرة التفاح",
+				"description": "حشوة تفاح دافئة متبّلة في عجينة هشّة بالزبدة، تُقدَّم مع ملعقة من الكريمة.",
+				"price": "9$"
+			},
+			{
+				"assetId": "a2e6f210-1c16-59c7-9a29-51b63462d429",
+				"alt": "كومبوت الفراولة والراوند",
+				"title": "كومبوت الفراولة والراوند",
+				"description": "راوند حامض وفراولة حلوة مطهوان ببطء في كومبوت لامع بألوان زاهية.",
+				"price": "8$"
+			},
+			{
+				"assetId": "a3376636-4e07-5974-b11b-7b17a1d9bf4a",
+				"alt": "آيس كريم الزنجبيل",
+				"title": "آيس كريم الزنجبيل",
+				"description": "آيس كريم مخفوق يدويًا بجذر الزنجبيل الطازج، يُقدَّم في وعاء مثلّج.",
+				"price": "8$"
+			},
+			{
+				"assetId": "b47b0fa9-bee5-5a15-bac5-2b14152233de",
+				"alt": "براوني فاخر",
+				"title": "براوني فاخر",
+				"description": "براوني بالشوكولاتة الداكنة الغنية بقلب طري، مزيّن بالبيكان المحمّص وملح البحر.",
+				"price": "9$"
+			}
+		]
+	}
+}

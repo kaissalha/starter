@@ -1,0 +1,46 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Visit us",
+			"heading": "Find us nearby\nand stop by today.",
+			"description": "We are conveniently located and easy to reach. Use the map to get directions and plan your visit in minutes."
+		},
+		"actions": [
+			{
+				"label": "Get directions",
+				"link": {
+					"kind": "external",
+					"url": "https://maps.google.com"
+				}
+			}
+		],
+		"location": {
+			"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+		},
+		"accessibility": {
+			"mapLabel": "Map of 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+		}
+	},
+	"ar": {
+		"copy": {
+			"kicker": "زورونا",
+			"heading": "تجدنا بالقرب منك\nوتوقف عندنا اليوم.",
+			"description": "موقعنا مناسب وسهل الوصول. استخدم الخريطة للحصول على الاتجاهات وخطط لزيارتك في دقائق."
+		},
+		"actions": [
+			{
+				"label": "احصل على الاتجاهات",
+				"link": {
+					"kind": "external",
+					"url": "https://maps.google.com"
+				}
+			}
+		],
+		"location": {
+			"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+		},
+		"accessibility": {
+			"mapLabel": "خريطة 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+		}
+	}
+}

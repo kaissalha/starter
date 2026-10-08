@@ -1,0 +1,112 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Let's bloom\ntogether",
+			"socialTitle": "SOCIALS",
+			"copyright": "© 2026 WILDE FLOWER STUDIO SG. ALL RIGHTS RESERVED."
+		},
+		"actions": [
+			{
+				"label": "hello@wildeflowerstudiosg.com",
+				"link": {
+					"kind": "email",
+					"address": "hello@wildeflowerstudiosg.com"
+				}
+			}
+		],
+		"socialLinks": [
+			{
+				"label": "Instagram",
+				"link": {
+					"kind": "external",
+					"url": "https://www.instagram.com"
+				}
+			},
+			{
+				"label": "Pinterest",
+				"link": {
+					"kind": "external",
+					"url": "https://www.pinterest.com"
+				}
+			},
+			{
+				"label": "TikTok",
+				"link": {
+					"kind": "external",
+					"url": "https://www.tiktok.com"
+				}
+			}
+		],
+		"legalLinks": [
+			{
+				"label": "PRIVACY POLICY",
+				"link": {
+					"kind": "relative",
+					"path": "/privacy"
+				}
+			},
+			{
+				"label": "TERMS OF SERVICE",
+				"link": {
+					"kind": "relative",
+					"path": "/terms"
+				}
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "لنُزهر\nمعًا",
+			"socialTitle": "التواصل الاجتماعي",
+			"copyright": "© 2026 استوديو وايلد فلاور. جميع الحقوق محفوظة."
+		},
+		"actions": [
+			{
+				"label": "hello@wildeflowerstudiosg.com",
+				"link": {
+					"kind": "email",
+					"address": "hello@wildeflowerstudiosg.com"
+				}
+			}
+		],
+		"socialLinks": [
+			{
+				"label": "إنستغرام",
+				"link": {
+					"kind": "external",
+					"url": "https://www.instagram.com"
+				}
+			},
+			{
+				"label": "بينترست",
+				"link": {
+					"kind": "external",
+					"url": "https://www.pinterest.com"
+				}
+			},
+			{
+				"label": "تيك توك",
+				"link": {
+					"kind": "external",
+					"url": "https://www.tiktok.com"
+				}
+			}
+		],
+		"legalLinks": [
+			{
+				"label": "سياسة الخصوصية",
+				"link": {
+					"kind": "relative",
+					"path": "/privacy"
+				}
+			},
+			{
+				"label": "شروط الخدمة",
+				"link": {
+					"kind": "relative",
+					"path": "/terms"
+				}
+			}
+		]
+	}
+}

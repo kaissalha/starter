@@ -1,0 +1,48 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Our Philosophy",
+			"heading": "A modern studio\nrooted in tradition",
+			"description": "We believe yoga is for everyone. Our practice goes beyond the mat, fostering a lifestyle of mindfulness, connection, and growth."
+		},
+		"media": [
+			{
+				"assetId": "bccedfaf-58db-50e9-ab29-b6f50549b9d9",
+				"alt": "Modern yoga studio with ocean view"
+			}
+		],
+		"items": [
+			{
+				"title": "Vision",
+				"description": "To inspire balance and mindfulness through every movement, creating a sanctuary where stillness meets strength."
+			},
+			{
+				"title": "Mission",
+				"description": "To empower our community to find inner peace and physical vitality through accessible, authentic yoga practices."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "فلسفتنا",
+			"heading": "استوديو عصري\nمتجذّر في التقاليد",
+			"description": "نؤمن بأن اليوغا للجميع. تتجاوز ممارستنا حدود السجادة لتعزّز نمط حياة قائمًا على الوعي والتواصل والنمو."
+		},
+		"media": [
+			{
+				"assetId": "bccedfaf-58db-50e9-ab29-b6f50549b9d9",
+				"alt": "استوديو يوغا عصري بإطلالة على المحيط"
+			}
+		],
+		"items": [
+			{
+				"title": "الرؤية",
+				"description": "إلهام التوازن والوعي الذهني في كل حركة، وخلق ملاذ يلتقي فيه السكون بالقوة."
+			},
+			{
+				"title": "المهمة",
+				"description": "تمكين مجتمعنا من إيجاد السلام الداخلي والحيوية البدنية عبر ممارسات يوغا أصيلة ومتاحة للجميع."
+			}
+		]
+	}
+}

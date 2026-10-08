@@ -1,0 +1,68 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Our\nServices"
+		},
+		"media": [
+			{
+				"assetId": "8f6c6c8e-7566-53fb-b4a0-1751d5f379de",
+				"alt": "Bride outdoors under a flowing white veil holding a green and white bouquet"
+			}
+		],
+		"items": [
+			{
+				"number": "1",
+				"title": "Wedding Floristry",
+				"description": "Bespoke bridal bouquets, breathtaking arches, and tablescapes tailored to tell your unique love story."
+			},
+			{
+				"number": "2",
+				"title": "Event Styling",
+				"description": "Transforming venues with immersive, structural floral installations that leave a lasting impression on your guests."
+			},
+			{
+				"number": "3",
+				"title": "Corporate Subscriptions",
+				"description": "Weekly curated floral arrangements that breathe life, elegance, and creativity into offices and retail spaces."
+			},
+			{
+				"number": "4",
+				"title": "Editorial & Workshops",
+				"description": "Botanical styling for photoshoots, brand campaigns, and intimate masterclasses for aspiring florists."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "خدماتنا"
+		},
+		"media": [
+			{
+				"assetId": "8f6c6c8e-7566-53fb-b4a0-1751d5f379de",
+				"alt": "عروس في الهواء الطلق تحت حجاب أبيض منسدل تحمل باقة خضراء وبيضاء"
+			}
+		],
+		"items": [
+			{
+				"number": "1",
+				"title": "تنسيق أزهار الأعراس",
+				"description": "باقات عرائس مصمّمة خصيصًا وأقواس مذهلة وتنسيقات طاولات تروي قصة حبك الفريدة."
+			},
+			{
+				"number": "2",
+				"title": "تنسيق الفعاليات",
+				"description": "تحويل القاعات بتركيبات زهرية غامرة ومتينة تترك انطباعًا دائمًا لدى ضيوفك."
+			},
+			{
+				"number": "3",
+				"title": "اشتراكات الشركات",
+				"description": "تنسيقات زهرية أسبوعية منتقاة تضفي الحياة والأناقة والإبداع على المكاتب والمساحات التجارية."
+			},
+			{
+				"number": "4",
+				"title": "تحرير وورش عمل",
+				"description": "تنسيق نباتي لجلسات التصوير والحملات التجارية وورش متخصصة لهواة تنسيق الأزهار."
+			}
+		]
+	}
+}

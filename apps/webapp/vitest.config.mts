@@ -1,0 +1,26 @@
+/// <reference types="vitest" />
+
+import react from "@vitejs/plugin-react";
+import path from "node:path";
+import { defineProject } from "vitest/config";
+
+export default defineProject({
+	plugins: [react()],
+	resolve: {
+		alias: {
+			"@": path.resolve(import.meta.dirname, "./src"),
+		},
+	},
+	test: {
+		environment: "jsdom",
+		globals: true,
+		include: ["**/*.test.{ts,tsx}"],
+		server: {
+			deps: {
+				inline: ["next-intl", "@exodus/bytes", "html-encoding-sniffer"],
+			},
+		},
+		setupFiles: ["./tests/setup.ts"],
+		testTimeout: process.env.CI === "true" ? 30_000 : 5000,
+	},
+});

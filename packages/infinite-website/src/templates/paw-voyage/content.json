@@ -1,0 +1,1286 @@
+{
+	"en": {
+		"site": {
+			"name": "Paw Voyage"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "PawVoyage navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "PawVoyage"
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "Book a call",
+							"link": {
+								"kind": "anchor",
+								"anchor": "contact-form-links"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "",
+						"address": "Vancouver, British Columbia",
+						"brand": "PawVoyage"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://facebook.com/pawvoyage"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://instagram.com/pawvoyage"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Paw Voyage"
+					}
+				},
+				"sections": {
+					"banner-text-and-background-image": {
+						"copy": {
+							"kicker": "",
+							"heading": "Sun awaits you and your furry friend",
+							"description": "PawVoyage handles the move from Vancouver to anywhere in Canada. One person, one plan, no surprises."
+						},
+						"actions": [
+							{
+								"label": "Book a call",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-links"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "People and their dogs disembark from a private jet on a tarmac near mountains."
+							}
+						]
+					},
+					"feature-bento-grid": {
+						"copy": {
+							"kicker": "How we work",
+							"heading": "Flying your pet isn't complicated. We keep it that way.",
+							"description": "Most pet travel services bury you in forms and fees. We do the opposite — one person, one plan, one straightforward price."
+						},
+						"actions": [
+							{
+								"label": "Book a call",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-links"
+								}
+							}
+						],
+						"features": [
+							{
+								"number": "01",
+								"title": "Taken care of",
+								"description": "Kyle manages your pet's move from start to finish. "
+							},
+							{
+								"number": "02",
+								"title": "Travel comfort",
+								"description": "We charter private planes and schedule you and other pet owners."
+							},
+							{
+								"number": "03",
+								"title": "Taken care of",
+								"description": "Kyle manages your pet's move from start to finish. "
+							},
+							{
+								"number": "04",
+								"title": "Travel comfort",
+								"description": "We charter private planes and schedule you and other pet owners."
+							},
+							{
+								"number": "05",
+								"title": "Taken care of",
+								"description": "Kyle manages your pet's move from start to finish. "
+							},
+							{
+								"number": "06",
+								"title": "Travel comfort",
+								"description": "We charter private planes and schedule you and other pet owners."
+							}
+						],
+						"media": [
+							{
+								"assetId": "a0ce3d3a-3d70-5864-b38f-41bbae51764d",
+								"alt": "Passengers and golden retrievers relax in the spacious, luxury cabin of a private jet."
+							},
+							{
+								"assetId": "724b0f97-dde6-54aa-8938-f8da08b1dd6a",
+								"alt": "Smiling woman in sunglasses holds a fluffy brown dog while traveling on a private jet."
+							},
+							{
+								"assetId": "a0ce3d3a-3d70-5864-b38f-41bbae51764d",
+								"alt": "Passengers and golden retrievers relax in the spacious, luxury cabin of a private jet."
+							}
+						]
+					},
+					"gallery-flat-bento": {
+						"copy": {
+							"heading": "Affordable travel for you and your pet",
+							"description": "Each trip is managed start to finish by Kyle. Travel with your pet in comfort."
+						},
+						"actions": [
+							{
+								"label": "See how it works",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "724b0f97-dde6-54aa-8938-f8da08b1dd6a",
+								"alt": "Smiling woman in sunglasses holds a fluffy brown dog while traveling on a private jet."
+							},
+							{
+								"assetId": "6cc3367b-f45e-5a69-81b2-dfbce1bec7c1",
+								"alt": "Dog resting in an airline crate"
+							},
+							{
+								"assetId": "3af8d968-87f6-58df-9599-de950f1e8abf",
+								"alt": "Friends and dogs relax in a private jet; man offering water to a golden retriever."
+							},
+							{
+								"assetId": "ebdc7fcc-7343-5364-92af-0f92bfcead79",
+								"alt": "Smiling man in sunglasses sits with his golden retriever inside a luxury private jet."
+							},
+							{
+								"assetId": "5edfe123-ec41-531d-a822-58bd85360c01",
+								"alt": "Group of friends and their dogs boarding a white private jet on a sunny tarmac."
+							}
+						]
+					},
+					"feature-portrait-carousel": {
+						"copy": {
+							"kicker": "How we do it",
+							"heading": "We don't do kennels. We do one-on-one relocation."
+						},
+						"accessibility": {
+							"carouselLabel": "How we do it",
+							"previousLabel": "Previous slide",
+							"nextLabel": "Next slide"
+						},
+						"items": [
+							{
+								"assetId": "67ae17f5-5cc6-5b36-8d38-50d54a396870",
+								"alt": "One person handling pet relocation",
+								"title": "One person, your move",
+								"description": "Kyle handles the whole relocation from Vancouver to wherever your pet needs to be."
+							},
+							{
+								"assetId": "8020d3df-bdb3-5b64-9ede-1730113bd713",
+								"alt": "Proper crate sizing for pet travel",
+								"title": "Crate fit, not crate guess",
+								"description": "We measure your pet and pick the right crate. No one-size-fits-all here."
+							},
+							{
+								"assetId": "3fa3ca2f-293b-549e-bafe-865651d4e218",
+								"alt": "Calm dog in a pet travel crate",
+								"title": "Route planned, stress dropped",
+								"description": "Direct routes with minimal transfers. Your pet stays calm and on schedule."
+							},
+							{
+								"assetId": "3f381ad9-4a17-5318-834b-5c82bf6c409c",
+								"alt": "Pet travel paperwork and health certificates",
+								"title": "Paperwork packed, not puzzling",
+								"description": "Health certificates, customs forms, airline checks — we handle them all."
+							},
+							{
+								"assetId": "0f7cc906-3363-5155-9274-18c85eac953c",
+								"alt": "Direct pet travel without layovers",
+								"title": "No layover, no worry",
+								"description": "We book direct flights or ground routes that keep your pet moving without long waits."
+							}
+						]
+					},
+					"gallery-bento": {
+						"copy": {
+							"kicker": "Real travel",
+							"heading": "One person handles every step from Vancouver out",
+							"description": "From the first crate setup to the final handoff at the airport, Kyle handles each relocation personally. No handoffs, no surprises."
+						},
+						"actions": [
+							{
+								"label": "See how it works",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "0bb91644-1d7b-5761-94df-42386a274039",
+								"alt": "Pet crate ready for travel with bedding and water bowl"
+							},
+							{
+								"assetId": "52556f37-89e2-5721-b329-068de9453e88",
+								"alt": "Dog waiting beside travel crate at home"
+							},
+							{
+								"assetId": "6abc7ede-ca43-5d5d-9156-31b50c32c7ee",
+								"alt": "Cat carrier with airline tag and paperwork attached"
+							},
+							{
+								"assetId": "d3c11fc2-7041-5147-8037-bb77b2a06c5e",
+								"alt": "Pet travel documents and health certificate on table"
+							},
+							{
+								"assetId": "558463d6-ee3b-5506-bde9-beac1d80e321",
+								"alt": "Small dog handed to airline staff at cargo counter"
+							}
+						]
+					},
+					"showcase-list": {
+						"copy": {
+							"kicker": "Partners & clients",
+							"heading": "Who we work with across Canada",
+							"description": "We partner directly with airlines, vet clinics, and relocation services to move pets from Vancouver to anywhere in the country."
+						},
+						"items": [
+							{
+								"name": "WestJet Cargo"
+							},
+							{
+								"name": "Air Canada Pet"
+							},
+							{
+								"name": "VCA Canada"
+							},
+							{
+								"name": "PetRelocation"
+							},
+							{
+								"name": "Global Pet Movers"
+							},
+							{
+								"name": "Canadian Pet Transport"
+							}
+						]
+					},
+					"metrics-numbers": {
+						"copy": {
+							"kicker": "The numbers",
+							"heading": "See what a dedicated pet move looks like",
+							"description": "We don't cut corners. Every relocation is handled by one person who knows your pet's route and timeline."
+						},
+						"items": [
+							{
+								"metric": "1",
+								"label": "Person handling your move"
+							},
+							{
+								"metric": "5+",
+								"label": "Years of focused work"
+							}
+						]
+					},
+					"testimonial-fullscreen-slider": {
+						"accessibility": {
+							"carousel-testimonialsLabel": "Customer stories",
+							"carousel-testimonialsindicatorsLabel": "Customer stories pagination"
+						},
+						"testimonials": [
+							{
+								"quote": "Kyle made the cross-country move easy for me and my cat.",
+								"name": "Jessica M.",
+								"title": "Cat owner, Vancouver to Toronto",
+								"complement": "He handled all the paperwork and made sure her crate was comfortable for the flight. I didn't have to worry about a thing.",
+								"assetId": "ee4f2431-a541-54ed-80ad-143b5a884afe",
+								"alt": "Jessica M."
+							},
+							{
+								"quote": "The crate setup was solid. My dog traveled calm and safe.",
+								"name": "Mark R.",
+								"title": "Dog owner, Vancouver to Halifax",
+								"complement": "I was nervous about the paperwork, but Kyle walked me through every step. No surprises, just a smooth relocation.",
+								"assetId": "e46b67eb-416b-5926-bc8f-16fd9809018a",
+								"alt": "Mark R."
+							},
+							{
+								"quote": "Straightforward pricing and a stress-free experience for my two dogs.",
+								"name": "Priya K.",
+								"title": "Pet parent, Vancouver to Calgary",
+								"complement": "Kyle answered all my questions before I even asked them. The timeline was clear and everything happened exactly when he said it would.",
+								"assetId": "5bdb830c-228e-5321-9a32-528e3a432b1d",
+								"alt": "Priya K."
+							}
+						]
+					},
+					"team-grid-columns": {
+						"copy": {
+							"kicker": "People behind it",
+							"heading": "One person handles the whole move. That's the point.",
+							"description": "Most companies hand your pet off between a dozen people. We don't. One person sees it through from crate to destination."
+						},
+						"members": [
+							{
+								"name": "Kyle Thacker",
+								"role": "Pet travel specialist",
+								"description": "Every relocation in Canada is built, booked, and flown by this one person.",
+								"assetId": "a8669de2-64a7-5aa2-af6a-04f4cb2b7308",
+								"alt": "Kyle Thacker",
+								"socialLinks": [
+									{
+										"label": "LinkedIn",
+										"link": {
+											"kind": "external",
+											"url": "https://linkedin.com/in/kylethacker"
+										}
+									}
+								]
+							}
+						]
+					},
+					"pricing-table-3": {
+						"copy": {
+							"heading": "One price for a straight move",
+							"description": "No tiers. No add-ons. Just one flat rate for a full pet relocation from Vancouver to anywhere in Canada."
+						},
+						"items": [
+							{
+								"title": "Airport transfer",
+								"description": "Airport-to-airport transport when you handle pickup and drop-off yourself.",
+								"price": "Contact us",
+								"original-price": "",
+								"period": "",
+								"features-label": "WHAT'S INCLUDED",
+								"label": "Call for a quote",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								},
+								"features": [
+									{
+										"title": "Airline-approved booking"
+									},
+									{
+										"title": "Custom crate setup"
+									},
+									{
+										"title": "All health certificates"
+									},
+									{
+										"title": "Real-time travel updates"
+									}
+								]
+							},
+							{
+								"title": "Full relocation",
+								"description": "Covers door-to-door transport, crate, permits, and vet checks.",
+								"price": "Contact us",
+								"original-price": "",
+								"period": "",
+								"features-label": "WHAT'S INCLUDED",
+								"label": "Call for a quote",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								},
+								"features": [
+									{
+										"title": "Custom crate setup"
+									},
+									{
+										"title": "All health certificates"
+									},
+									{
+										"title": "Airline-approved booking"
+									},
+									{
+										"title": "Door-to-door pickup and drop-off"
+									},
+									{
+										"title": "Real-time travel updates"
+									},
+									{
+										"title": "One person handles your pet's move"
+									}
+								]
+							}
+						]
+					},
+					"faq-accordion-image": {
+						"media": [
+							{
+								"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+								"alt": "Dog nose peeking out from travel crate with soft lighting"
+							}
+						],
+						"copy": {
+							"heading": "Vancouver pet owners ask"
+						},
+						"items": [
+							{
+								"question": "What does the pet travel process look like?",
+								"answer": "We start with a free consult to figure out the route, timing, and paperwork. Then we set up the crate, handle the bookings, and get your pet to the airport. One person manages the whole thing from Vancouver."
+							},
+							{
+								"question": "How far in advance should I book a pet move?",
+								"answer": "For domestic moves, two to four weeks is plenty. International relocations need more time — a month or two for permits and vet checks. Best to call and see where things stand."
+							},
+							{
+								"question": "Do you help with international pet travel?",
+								"answer": "Yes. We handle Canada to anywhere and inbound moves too. That includes country-specific paperwork, microchip rules, and quarantine requirements when they apply."
+							},
+							{
+								"question": "What kind of crates do you use?",
+								"answer": "Only IATA-approved crates suited to your pet's size and breed. We'll make sure the crate fits the airline requirements and your pet has ventilation, space, and a leak-proof floor."
+							},
+							{
+								"question": "Is my pet sedated during the flight?",
+								"answer": "No. Most airlines forbid sedatives because they affect altitude tolerance. We prep your pet to travel calm and alert using familiar bedding and a pre-flight schedule."
+							},
+							{
+								"question": "What health papers are needed for travel?",
+								"answer": "A health certificate from a licensed vet within ten days of departure, plus up-to-date rabies and other vaccines depending on the destination. We'll tell you exactly what your vet needs to fill out."
+							},
+							{
+								"question": "Can you pick up my pet from my home in Vancouver?",
+								"answer": "Yes, we offer door-to-door service. We pick up your pet, handle the airport drop-off, and coordinate the arrival-side pickup so you don't have to chase down logistics."
+							},
+							{
+								"question": "How do I know my pet is safe during the trip?",
+								"answer": "You get direct updates and a dedicated contact at every leg. The same crate setup, same handler oversight from start to finish. Nothing is subcontracted."
+							}
+						]
+					},
+					"location-card": {
+						"copy": {
+							"emailLabel": "Email",
+							"phoneLabel": "Phone",
+							"addressLabel": "Address",
+							"address": "Vancouver, British Columbia"
+						},
+						"actions": [
+							{
+								"label": "email@mybusiness.com",
+								"link": {
+									"kind": "email",
+									"address": "email@mybusiness.com"
+								}
+							},
+							{
+								"label": "+12345678900",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								}
+							},
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com/?q=Vancouver+British+Columbia"
+								}
+							}
+						],
+						"location": {
+							"address": "Vancouver, British Columbia"
+						},
+						"accessibility": {
+							"mapLabel": "Map of Vancouver, British Columbia"
+						}
+					},
+					"contact-form-links": {
+						"copy": {
+							"kicker": "Contact",
+							"heading": "Moving a pet and not sure where to start?",
+							"description": "Tell us what you need. We'll lay out the route, the cost, and the timeline — no guesswork, no fine print.",
+							"emailLabel": "Email",
+							"phoneLabel": "Phone",
+							"addressLabel": "Address",
+							"address": "Vancouver, British Columbia"
+						},
+						"actions": [
+							{
+								"label": "email@mybusiness.com",
+								"link": {
+									"kind": "email",
+									"address": "email@mybusiness.com"
+								}
+							},
+							{
+								"label": "+12345678900",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								}
+							},
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"form": {
+							"nameLabel": "Name",
+							"emailLabel": "Email",
+							"messageLabel": "Message",
+							"submitLabel": "Send details",
+							"pendingLabel": "Sending…",
+							"success": "Thanks for reaching out We'll be in touch within one business day with a clear next step.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"cta-card-2": {
+						"copy": {
+							"heading": "Get a straight answer on your pet's relocation.",
+							"description": "Tell us where your pet needs to go. We'll tell you the cost, the timeline, and what's required. No layers, no surprises."
+						},
+						"actions": [
+							{
+								"label": "Email your travel details",
+								"link": {
+									"kind": "email",
+									"address": "email@mybusiness.com"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "رحلة باو"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "باو فوياج التنقل",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "باو فوياج"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "احجز مكالمة",
+							"link": {
+								"kind": "anchor",
+								"anchor": "contact-form-links"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "",
+						"address": "فانكوفر، كولومبيا البريطانية",
+						"brand": "باو فوياج"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://facebook.com/pawvoyage"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://instagram.com/pawvoyage"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "رحلة باو"
+					}
+				},
+				"sections": {
+					"banner-text-and-background-image": {
+						"copy": {
+							"kicker": "",
+							"heading": "الشمس بانتظارك أنت وصديقك الفروي",
+							"description": "تتولى باو فوياج نقل حيوانك من فانكوفر إلى أي مكان في كندا. شخص واحد، خطة واحدة، بلا مفاجآت."
+						},
+						"actions": [
+							{
+								"label": "احجز مكالمة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-links"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "أشخاص وكلابهم ينزلون من طائرة خاصة على مدرج قرب الجبال."
+							}
+						]
+					},
+					"feature-bento-grid": {
+						"copy": {
+							"kicker": "كيف نعمل",
+							"heading": "سفر حيوانك ليس معقداً. ونحن نبقيه كذلك.",
+							"description": "تغرقك معظم خدمات سفر الحيوانات بالنماذج والرسوم. نحن نفعل العكس — شخص واحد، خطة واحدة، سعر واحد واضح."
+						},
+						"actions": [
+							{
+								"label": "احجز مكالمة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-links"
+								}
+							}
+						],
+						"features": [
+							{
+								"number": "01",
+								"title": "اهتمام كامل",
+								"description": "يتولى كايل نقل حيوانك من البداية إلى النهاية."
+							},
+							{
+								"number": "02",
+								"title": "راحة السفر",
+								"description": "نستأجر طائرات خاصة وننسق الرحلات لك ولأصحاب الحيوانات الآخرين."
+							},
+							{
+								"number": "03",
+								"title": "اهتمام كامل",
+								"description": "يتولى كايل نقل حيوانك من البداية إلى النهاية."
+							},
+							{
+								"number": "04",
+								"title": "راحة السفر",
+								"description": "نستأجر طائرات خاصة وننسق الرحلات لك ولأصحاب الحيوانات الآخرين."
+							},
+							{
+								"number": "05",
+								"title": "اهتمام كامل",
+								"description": "يتولى كايل نقل حيوانك من البداية إلى النهاية."
+							},
+							{
+								"number": "06",
+								"title": "راحة السفر",
+								"description": "نستأجر طائرات خاصة وننسق الرحلات لك ولأصحاب الحيوانات الآخرين."
+							}
+						],
+						"media": [
+							{
+								"assetId": "a0ce3d3a-3d70-5864-b38f-41bbae51764d",
+								"alt": "ركاب وكلاب غولدن ريتريفر يسترخون في مقصورة طائرة خاصة فسيحة وفاخرة."
+							},
+							{
+								"assetId": "724b0f97-dde6-54aa-8938-f8da08b1dd6a",
+								"alt": "امرأة مبتسمة بنظارة شمسية تحمل كلباً بنياً منفوشاً أثناء السفر على متن طائرة خاصة."
+							},
+							{
+								"assetId": "a0ce3d3a-3d70-5864-b38f-41bbae51764d",
+								"alt": "ركاب وكلاب غولدن ريتريفر يسترخون في مقصورة طائرة خاصة فسيحة وفاخرة."
+							}
+						]
+					},
+					"gallery-flat-bento": {
+						"copy": {
+							"heading": "سفر بتكلفة معقولة لك ولحيوانك",
+							"description": "يدير كايل كل رحلة من البداية إلى النهاية. سافر مع حيوانك براحة."
+						},
+						"actions": [
+							{
+								"label": "اطلع على طريقة العمل",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "724b0f97-dde6-54aa-8938-f8da08b1dd6a",
+								"alt": "امرأة مبتسمة بنظارة شمسية تحمل كلباً بنياً منفوشاً أثناء السفر على متن طائرة خاصة."
+							},
+							{
+								"assetId": "6cc3367b-f45e-5a69-81b2-dfbce1bec7c1",
+								"alt": "كلب يستريح في قفص سفر جوي"
+							},
+							{
+								"assetId": "3af8d968-87f6-58df-9599-de950f1e8abf",
+								"alt": "أصدقاء وكلاب يسترخون في طائرة خاصة؛ رجل يقدم الماء لكلب غولدن ريتريفر."
+							},
+							{
+								"assetId": "ebdc7fcc-7343-5364-92af-0f92bfcead79",
+								"alt": "رجل مبتسم بنظارة شمسية يجلس مع كلبه الغولدن ريتريفر داخل طائرة خاصة فاخرة."
+							},
+							{
+								"assetId": "5edfe123-ec41-531d-a822-58bd85360c01",
+								"alt": "مجموعة أصدقاء وكلابهم يصعدون إلى طائرة خاصة بيضاء على مدرج مشمس."
+							}
+						]
+					},
+					"feature-portrait-carousel": {
+						"copy": {
+							"kicker": "كيف ننجز ذلك",
+							"heading": "لا نعتمد على الحظائر. نقدّم نقلاً فردياً خاصاً."
+						},
+						"accessibility": {
+							"carouselLabel": "كيف ننجز ذلك",
+							"previousLabel": "الشريحة السابقة",
+							"nextLabel": "الشريحة التالية"
+						},
+						"items": [
+							{
+								"assetId": "67ae17f5-5cc6-5b36-8d38-50d54a396870",
+								"alt": "شخص واحد يتولى نقل الحيوان",
+								"title": "شخص واحد، ونقلك بين يديه",
+								"description": "يتولى كايل عملية النقل كاملة من فانكوفر إلى أي مكان يحتاج حيوانك الوصول إليه."
+							},
+							{
+								"assetId": "8020d3df-bdb3-5b64-9ede-1730113bd713",
+								"alt": "قياس القفص المناسب لسفر الحيوان",
+								"title": "قفص مقاس لا مُخمَّن",
+								"description": "نقيس حيوانك ونختار القفص المناسب. لا مقاس واحد يناسب الجميع هنا."
+							},
+							{
+								"assetId": "3fa3ca2f-293b-549e-bafe-865651d4e218",
+								"alt": "كلب هادئ في قفص سفر",
+								"title": "مسار مخطط وتوتر أقل",
+								"description": "مسارات مباشرة بأقل عدد من التحويلات. يبقى حيوانك هادئاً وفي موعده."
+							},
+							{
+								"assetId": "3f381ad9-4a17-5318-834b-5c82bf6c409c",
+								"alt": "أوراق سفر الحيوان والشهادات الصحية",
+								"title": "أوراق جاهزة بلا تعقيد",
+								"description": "الشهادات الصحية ونماذج الجمارك وفحوصات شركات الطيران — نتولى كل ذلك."
+							},
+							{
+								"assetId": "0f7cc906-3363-5155-9274-18c85eac953c",
+								"alt": "سفر مباشر للحيوان بلا توقف",
+								"title": "بلا توقف، بلا قلق",
+								"description": "نحجز رحلات مباشرة أو مسارات برية تبقي حيوانك متحركاً دون انتظار طويل."
+							}
+						]
+					},
+					"gallery-bento": {
+						"copy": {
+							"kicker": "رحلات حقيقية",
+							"heading": "شخص واحد يتولى كل خطوة من فانكوفر",
+							"description": "من تجهيز القفص الأول إلى التسليم الأخير في المطار، يتولى كايل كل عملية نقل بنفسه. بلا تسليم بين أشخاص وبلا مفاجآت."
+						},
+						"actions": [
+							{
+								"label": "اطلع على طريقة العمل",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "0bb91644-1d7b-5761-94df-42386a274039",
+								"alt": "قفص حيوان جاهز للسفر مع فراش ووعاء ماء"
+							},
+							{
+								"assetId": "52556f37-89e2-5721-b329-068de9453e88",
+								"alt": "كلب ينتظر بجانب قفص السفر في المنزل"
+							},
+							{
+								"assetId": "6abc7ede-ca43-5d5d-9156-31b50c32c7ee",
+								"alt": "حاملة قطط عليها بطاقة شركة الطيران وأوراق مرفقة"
+							},
+							{
+								"assetId": "d3c11fc2-7041-5147-8037-bb77b2a06c5e",
+								"alt": "مستندات سفر الحيوان والشهادة الصحية على الطاولة"
+							},
+							{
+								"assetId": "558463d6-ee3b-5506-bde9-beac1d80e321",
+								"alt": "كلب صغير يُسلَّم لموظف شركة الطيران عند مكتب الشحن"
+							}
+						]
+					},
+					"showcase-list": {
+						"copy": {
+							"kicker": "الشركاء والعملاء",
+							"heading": "من نعمل معهم في أنحاء كندا",
+							"description": "نتعاون مباشرة مع شركات الطيران والعيادات البيطرية وخدمات النقل لنقل الحيوانات من فانكوفر إلى أي مكان في البلاد."
+						},
+						"items": [
+							{
+								"name": "ويست جيت كارغو"
+							},
+							{
+								"name": "إير كندا للحيوانات"
+							},
+							{
+								"name": "في سي إيه كندا"
+							},
+							{
+								"name": "بت ريلوكيشن"
+							},
+							{
+								"name": "غلوبال بت موفرز"
+							},
+							{
+								"name": "النقل الكندي للحيوانات"
+							}
+						]
+					},
+					"metrics-numbers": {
+						"copy": {
+							"kicker": "الأرقام",
+							"heading": "اكتشف شكل النقل المخصص للحيوانات",
+							"description": "لا نتهاون في شيء. يتولى كل عملية نقل شخص واحد يعرف مسار حيوانك وجدوله الزمني."
+						},
+						"items": [
+							{
+								"metric": "1",
+								"label": "شخص يتولى نقلك"
+							},
+							{
+								"metric": "5+",
+								"label": "سنوات من العمل المتخصص"
+							}
+						]
+					},
+					"testimonial-fullscreen-slider": {
+						"accessibility": {
+							"carousel-testimonialsLabel": "قصص العملاء",
+							"carousel-testimonialsindicatorsLabel": "ترقيم قصص العملاء"
+						},
+						"testimonials": [
+							{
+								"quote": "سهّل كايل النقل عبر البلاد لي ولقطتي.",
+								"name": "جيسيكا م.",
+								"title": "صاحبة قطة، من فانكوفر إلى تورنتو",
+								"complement": "تولى كل الأوراق وتأكد من راحة قفصها للرحلة. لم أضطر للقلق بشأن أي شيء.",
+								"assetId": "ee4f2431-a541-54ed-80ad-143b5a884afe",
+								"alt": "جيسيكا م."
+							},
+							{
+								"quote": "كان تجهيز القفص متيناً. سافر كلبي هادئاً وآمناً.",
+								"name": "مارك ر.",
+								"title": "صاحب كلب، من فانكوفر إلى هاليفاكس",
+								"complement": "كنت قلقاً من الأوراق، لكن كايل رافقني في كل خطوة. بلا مفاجآت، فقط نقل سلس.",
+								"assetId": "e46b67eb-416b-5926-bc8f-16fd9809018a",
+								"alt": "مارك ر."
+							},
+							{
+								"quote": "تسعير واضح وتجربة خالية من التوتر لكلبيّ.",
+								"name": "بريا ك.",
+								"title": "صاحبة حيوانات، من فانكوفر إلى كالغاري",
+								"complement": "أجاب كايل عن كل أسئلتي قبل أن أطرحها. كان الجدول الزمني واضحاً وحدث كل شيء في موعده تماماً.",
+								"assetId": "5bdb830c-228e-5321-9a32-528e3a432b1d",
+								"alt": "بريا ك."
+							}
+						]
+					},
+					"team-grid-columns": {
+						"copy": {
+							"kicker": "الأشخاص وراءها",
+							"heading": "شخص واحد يتولى النقل كاملاً. وهذا هو المقصود.",
+							"description": "تمرّر معظم الشركات حيوانك بين عشرات الأشخاص. أما نحن فلا. شخص واحد يرافقه من القفص حتى الوجهة."
+						},
+						"members": [
+							{
+								"name": "كايل ثاكر",
+								"role": "متخصص في سفر الحيوانات",
+								"description": "كل عملية نقل في كندا يخطط لها هذا الشخص ويحجزها ويسافر بها.",
+								"assetId": "a8669de2-64a7-5aa2-af6a-04f4cb2b7308",
+								"alt": "كايل ثاكر",
+								"socialLinks": [
+									{
+										"label": "لينكدإن",
+										"link": {
+											"kind": "external",
+											"url": "https://linkedin.com/in/kylethacker"
+										}
+									}
+								]
+							}
+						]
+					},
+					"pricing-table-3": {
+						"copy": {
+							"heading": "سعر واحد لنقل مباشر",
+							"description": "بلا فئات ولا إضافات. سعر ثابت واحد لنقل كامل للحيوان من فانكوفر إلى أي مكان في كندا."
+						},
+						"items": [
+							{
+								"title": "النقل بين المطارات",
+								"description": "نقل من مطار إلى مطار عندما تتولى الاستلام والتسليم بنفسك.",
+								"price": "تواصل معنا",
+								"original-price": "",
+								"period": "",
+								"features-label": "ما هو مشمول",
+								"label": "اتصل للحصول على عرض سعر",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								},
+								"features": [
+									{
+										"title": "حجز معتمد من شركة الطيران"
+									},
+									{
+										"title": "تجهيز قفص مخصص"
+									},
+									{
+										"title": "جميع الشهادات الصحية"
+									},
+									{
+										"title": "تحديثات فورية عن الرحلة"
+									}
+								]
+							},
+							{
+								"title": "نقل كامل",
+								"description": "يشمل النقل من الباب إلى الباب والقفص والتصاريح والفحوصات البيطرية.",
+								"price": "تواصل معنا",
+								"original-price": "",
+								"period": "",
+								"features-label": "ما هو مشمول",
+								"label": "اتصل للحصول على عرض سعر",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								},
+								"features": [
+									{
+										"title": "تجهيز قفص مخصص"
+									},
+									{
+										"title": "جميع الشهادات الصحية"
+									},
+									{
+										"title": "حجز معتمد من شركة الطيران"
+									},
+									{
+										"title": "استلام وتسليم من الباب إلى الباب"
+									},
+									{
+										"title": "تحديثات فورية عن الرحلة"
+									},
+									{
+										"title": "شخص واحد يتولى نقل حيوانك"
+									}
+								]
+							}
+						]
+					},
+					"faq-accordion-image": {
+						"media": [
+							{
+								"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+								"alt": "أنف كلب يطل من قفص السفر بإضاءة ناعمة"
+							}
+						],
+						"copy": {
+							"heading": "أسئلة أصحاب الحيوانات في فانكوفر"
+						},
+						"items": [
+							{
+								"question": "كيف تبدو عملية سفر الحيوان؟",
+								"answer": "نبدأ باستشارة مجانية لتحديد المسار والتوقيت والأوراق. ثم نجهز القفص ونتولى الحجوزات ونوصل حيوانك إلى المطار. شخص واحد يدير كل ذلك من فانكوفر."
+							},
+							{
+								"question": "قبل كم من الوقت يجب أن أحجز نقل حيواني؟",
+								"answer": "للنقل الداخلي تكفي مدة من أسبوعين إلى أربعة. أما النقل الدولي فيحتاج وقتاً أطول — شهراً أو شهرين للتصاريح والفحوصات البيطرية. الأفضل أن تتصل لنعرف الوضع."
+							},
+							{
+								"question": "هل تساعدون في سفر الحيوانات دولياً؟",
+								"answer": "نعم. نتولى النقل من كندا إلى أي مكان والنقل القادم إليها أيضاً. ويشمل ذلك أوراق كل بلد وقواعد الشريحة الإلكترونية ومتطلبات الحجر عند الحاجة."
+							},
+							{
+								"question": "ما نوع الأقفاص التي تستخدمونها؟",
+								"answer": "أقفاصاً معتمدة من إياتا فقط ومناسبة لحجم حيوانك وسلالته. نتأكد من مطابقتها لمتطلبات شركة الطيران ومن توفر التهوية والمساحة وأرضية مانعة للتسرب."
+							},
+							{
+								"question": "هل يُخدَّر حيواني أثناء الرحلة؟",
+								"answer": "لا. تمنع معظم شركات الطيران المهدئات لأنها تؤثر على تحمل الارتفاع. نهيئ حيوانك ليسافر هادئاً ومنتبهاً باستخدام فراش مألوف وجدول ما قبل الرحلة."
+							},
+							{
+								"question": "ما الأوراق الصحية المطلوبة للسفر؟",
+								"answer": "شهادة صحية من طبيب بيطري مرخص قبل المغادرة بعشرة أيام، إضافة إلى لقاح داء الكلب وغيره من اللقاحات المحدثة بحسب الوجهة. سنخبرك بما يجب أن يعبئه طبيبك البيطري بالضبط."
+							},
+							{
+								"question": "هل يمكنكم استلام حيواني من منزلي في فانكوفر؟",
+								"answer": "نعم، نقدم خدمة من الباب إلى الباب. نستلم حيوانك ونوصله إلى المطار وننسق الاستلام عند الوصول كي لا تضطر لملاحقة التفاصيل اللوجستية."
+							},
+							{
+								"question": "كيف أعرف أن حيواني بخير أثناء الرحلة؟",
+								"answer": "تصلك تحديثات مباشرة وجهة اتصال مخصصة في كل مرحلة. القفص نفسه والمشرف نفسه من البداية إلى النهاية. لا شيء يُسنَد لمتعاقدين من الباطن."
+							}
+						]
+					},
+					"location-card": {
+						"copy": {
+							"emailLabel": "البريد الإلكتروني",
+							"phoneLabel": "الهاتف",
+							"addressLabel": "العنوان",
+							"address": "فانكوفر، كولومبيا البريطانية"
+						},
+						"actions": [
+							{
+								"label": "email@mybusiness.com",
+								"link": {
+									"kind": "email",
+									"address": "email@mybusiness.com"
+								}
+							},
+							{
+								"label": "+12345678900",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								}
+							},
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com/?q=Vancouver+British+Columbia"
+								}
+							}
+						],
+						"location": {
+							"address": "Vancouver, British Columbia"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة Vancouver, British Columbia"
+						}
+					},
+					"contact-form-links": {
+						"copy": {
+							"kicker": "اتصل بنا",
+							"heading": "تنقل حيواناً ولا تعرف من أين تبدأ؟",
+							"description": "أخبرنا بما تحتاجه. سنوضح المسار والتكلفة والجدول الزمني — بلا تخمين وبلا بنود خفية.",
+							"emailLabel": "البريد الإلكتروني",
+							"phoneLabel": "الهاتف",
+							"addressLabel": "العنوان",
+							"address": "فانكوفر، كولومبيا البريطانية"
+						},
+						"actions": [
+							{
+								"label": "email@mybusiness.com",
+								"link": {
+									"kind": "email",
+									"address": "email@mybusiness.com"
+								}
+							},
+							{
+								"label": "+12345678900",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678900"
+								}
+							},
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"form": {
+							"nameLabel": "الاسم",
+							"emailLabel": "البريد الإلكتروني",
+							"messageLabel": "الرسالة",
+							"submitLabel": "إرسال التفاصيل",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكراً لتواصلك. سنعاود التواصل خلال يوم عمل واحد بخطوة تالية واضحة.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"cta-card-2": {
+						"copy": {
+							"heading": "احصل على إجابة واضحة بشأن نقل حيوانك.",
+							"description": "أخبرنا إلى أين يحتاج حيوانك الذهاب. سنخبرك بالتكلفة والجدول الزمني والمطلوب. بلا تعقيد وبلا مفاجآت."
+						},
+						"actions": [
+							{
+								"label": "أرسل تفاصيل سفرك بالبريد",
+								"link": {
+									"kind": "email",
+									"address": "email@mybusiness.com"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

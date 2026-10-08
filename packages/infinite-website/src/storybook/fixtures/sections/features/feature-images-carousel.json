@@ -1,0 +1,74 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Care",
+			"heading": "Support for every chapter",
+			"description": "Warm, grounded therapy for individuals, parents, and families—helping you build healthier patterns and feel more present in everyday life."
+		},
+		"accessibility": {
+			"carouselLabel": "Care services"
+		},
+		"features": [
+			{
+				"title": "Family therapy.",
+				"description": "Strengthen communication and connection so home feels safer and more supportive.",
+				"assetId": "f63448af-cd70-57b6-8109-a282550fbe78",
+				"alt": "Spacious studio hall with a timber ceiling and exercise mats"
+			},
+			{
+				"title": "Individual therapy.",
+				"description": "One-on-one sessions to process stress, rebuild confidence, and find steadier ground.",
+				"assetId": "ac3e8ac0-7399-58f4-9215-084cf62f0205",
+				"alt": "Group meditating in a circle in a bright room overlooking a lake"
+			},
+			{
+				"title": "Parenting support.",
+				"description": "Tools for calmer routines, clearer boundaries, and more ease in daily family life.",
+				"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+				"alt": "Massage therapist working on a client's back in a plant-filled treatment room"
+			},
+			{
+				"title": "Child & teen therapy.",
+				"description": "A safe space for kids and teens to share feelings and build emotional resilience.",
+				"assetId": "f896f529-8712-5525-a4b2-24e053afffc3",
+				"alt": "Foot soak in a wooden basin with flower petals and lavender"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "الرعاية",
+			"heading": "دعم لكل مرحلة",
+			"description": "علاج دافئ ومتزن للأفراد والآباء والعائلات—يساعدك على بناء أنماط أكثر صحة والشعور بحضور أكبر في الحياة اليومية."
+		},
+		"accessibility": {
+			"carouselLabel": "خدمات الرعاية"
+		},
+		"features": [
+			{
+				"title": "العلاج الأسري.",
+				"description": "عزز التواصل والترابط ليصبح البيت أكثر أمانًا ودعمًا.",
+				"assetId": "f63448af-cd70-57b6-8109-a282550fbe78",
+				"alt": "قاعة استوديو واسعة بسقف خشبي وحصائر تمارين"
+			},
+			{
+				"title": "العلاج الفردي.",
+				"description": "جلسات فردية لمعالجة التوتر وإعادة بناء الثقة وإيجاد أرض أكثر ثباتًا.",
+				"assetId": "ac3e8ac0-7399-58f4-9215-084cf62f0205",
+				"alt": "مجموعة تتأمل في حلقة داخل قاعة مضيئة تطل على بحيرة"
+			},
+			{
+				"title": "دعم الأبوة والأمومة.",
+				"description": "أدوات لروتين أكثر هدوءًا وحدود أوضح وسهولة أكبر في الحياة الأسرية اليومية.",
+				"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+				"alt": "معالج يقوم بتدليك ظهر عميل في غرفة علاج مليئة بالنباتات"
+			},
+			{
+				"title": "علاج الأطفال والمراهقين.",
+				"description": "مساحة آمنة للأطفال والمراهقين لمشاركة مشاعرهم وبناء المرونة العاطفية.",
+				"assetId": "f896f529-8712-5525-a4b2-24e053afffc3",
+				"alt": "نقع للقدمين في حوض خشبي مع بتلات الزهور والخزامى"
+			}
+		]
+	}
+}

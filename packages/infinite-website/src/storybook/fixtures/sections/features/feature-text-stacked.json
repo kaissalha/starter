@@ -1,0 +1,52 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "00",
+			"heading": "Services",
+			"description": "We combine strategic planning, targeted ads, and engaging content to reach ideal customers. Our focus is on clarity and relevance, ensuring our message resonates."
+		},
+		"items": [
+			{
+				"title": "Strategy",
+				"description": "Positioning, messaging, audience clarity, and a roadmap you can act on."
+			},
+			{
+				"title": "Ads",
+				"description": "Paid campaigns that convert, supported by optimized targeting and landing pages."
+			},
+			{
+				"title": "Content",
+				"description": "Messaging and storytelling designed to build trust and drive demand."
+			},
+			{
+				"title": "Automation",
+				"description": "Email flows and systems that scale your marketing without extra work."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "00",
+			"heading": "الخدمات",
+			"description": "نجمع بين التخطيط الاستراتيجي والإعلانات المستهدفة والمحتوى الجذاب للوصول إلى العملاء المثاليين. نركّز على الوضوح والملاءمة لضمان أن تلقى رسالتنا صدى."
+		},
+		"items": [
+			{
+				"title": "الاستراتيجية",
+				"description": "تموضع ورسائل ووضوح في فهم الجمهور وخارطة طريق قابلة للتنفيذ."
+			},
+			{
+				"title": "الإعلانات",
+				"description": "حملات مدفوعة تحقق التحويل، مدعومة باستهداف محسّن وصفحات هبوط فعّالة."
+			},
+			{
+				"title": "المحتوى",
+				"description": "رسائل وسرد قصصي مصمّمان لبناء الثقة وتحفيز الطلب."
+			},
+			{
+				"title": "الأتمتة",
+				"description": "تدفقات بريد إلكتروني وأنظمة توسّع تسويقك دون جهد إضافي."
+			}
+		]
+	}
+}

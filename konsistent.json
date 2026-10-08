@@ -1,0 +1,394 @@
+{
+	"$schema": "node_modules/konsistent/konsistent.schema.json",
+	"version": "v1",
+	"kebabToCamelMap": {
+		"get-base-url": "getBaseURL"
+	},
+	"kebabToPascalMap": {
+		"base-layout-posthog-provider": "BaseLayoutPostHogProvider",
+		"cta": "CTA",
+		"input-otp": "InputOTP",
+		"openui-block": "OpenUIBlock",
+		"otp": "OTP",
+		"qrcode": "QRCode",
+		"otp-verification-form": "OTPVerificationForm"
+	},
+	"conventions": [
+		{
+			"name": "packages-have-src-barrel",
+			"description": "Workspace packages are consumed as source through src/index.ts, except config-only (tsconfig) and glob-exported (ui) packages.",
+			"paths": ["packages/{pkg}", "!packages/tsconfig", "!packages/ui"],
+			"must": {
+				"haveType": "directory",
+				"haveFiles": ["src/index.ts", "package.json", "tsconfig.json"]
+			}
+		},
+		{
+			"name": "api-router-modules",
+			"description": "Each oRPC router module exports a procedure map named after its (plural) filename and builds procedures from the shared authed/authedWithOrganization builders in ../base, with zod-validated inputs.",
+			"paths": "packages/server/src/api/routers/{resource}.ts",
+			"must": {
+				"exportConstants": ["${resource.toCamelCase()}"],
+				"importValuesFrom": ["../base", "zod"]
+			},
+			"mustNot": {
+				"importValuesFrom": "@starter/db",
+				"importTypesFrom": "@starter/db"
+			}
+		},
+		{
+			"name": "services-and-workflows-never-import-api-layer",
+			"description": "Services and workflows, at any nesting depth, must not depend on the API layer; dependencies flow routers -> services -> db, never backwards.",
+			"paths": ["packages/server/src/services/**/*.ts", "packages/server/src/workflows/**/*.ts"],
+			"mustNot": {
+				"importValuesFrom": ["../api/*", "../../api/*", "../../../api/*"],
+				"importTypesFrom": ["../api/*", "../../api/*", "../../../api/*"]
+			}
+		},
+		{
+			"name": "ai-and-api-never-import-database",
+			"description": "AI tools and API adapters reach persistence only through services.",
+			"paths": ["packages/server/src/ai/**/*.ts", "packages/server/src/api/**/*.ts"],
+			"mustNot": {
+				"importValuesFrom": "@starter/db",
+				"importTypesFrom": "@starter/db"
+			}
+		},
+		{
+			"name": "packages-never-import-server",
+			"description": "Workspace packages below @starter/server never import it; dependencies flow apps -> server -> packages.",
+			"paths": "packages/{analytics,cache,db,documents,email,genui,infinite-brand,infinite-links,infinite-website,observability,pdf,ui,utils}/src/**/*.{ts,tsx}",
+			"mustNot": {
+				"importValuesFrom": ["@starter/server", "@starter/server/*"],
+				"importTypesFrom": ["@starter/server", "@starter/server/*"]
+			}
+		},
+		{
+			"name": "contract-packages-never-import-persistence",
+			"description": "Contract, renderer, file-format and observability packages own no persistence or Redis access; that stays in @starter/server.",
+			"paths": "packages/{analytics,documents,genui,infinite-brand,infinite-links,infinite-website,observability,utils}/src/**/*.{ts,tsx}",
+			"mustNot": {
+				"importValuesFrom": ["@starter/db", "@starter/db/*", "@starter/cache"]
+			}
+		},
+		{
+			"name": "db-imports-workspace-contracts-as-types-only",
+			"description": "The database package value-imports no workspace package; jsonb columns reference contract types only.",
+			"paths": "packages/db/src/**/*.ts",
+			"mustNot": {
+				"importValuesFrom": "@starter/*"
+			}
+		},
+		{
+			"name": "public-renderer-uses-lean-server-entrypoints",
+			"description": "The public websites app imports only narrow server subpaths, never the root, dashboard API, auth, chat or MCP graphs.",
+			"paths": "apps/websites/src/**/*.{ts,tsx}",
+			"mustNot": {
+				"importValuesFrom": [
+					"@starter/server",
+					"@starter/server/api",
+					"@starter/server/auth",
+					"@starter/server/chat",
+					"@starter/server/mcp"
+				]
+			}
+		},
+		{
+			"name": "packages-never-import-app-sources",
+			"description": "Package sources and tests never reach into app directories by relative path; apps depend on packages, not the reverse.",
+			"paths": ["packages/*/src/**/*.{ts,tsx}", "packages/*/tests/**/*.{ts,tsx}"],
+			"mustNot": {
+				"importValuesFrom": [
+					"../../apps/*",
+					"../../../apps/*",
+					"../../../../apps/*",
+					"../../../../../apps/*",
+					"../../../../../../apps/*"
+				],
+				"importTypesFrom": [
+					"../../apps/*",
+					"../../../apps/*",
+					"../../../../apps/*",
+					"../../../../../apps/*",
+					"../../../../../../apps/*"
+				]
+			}
+		},
+		{
+			"name": "ai-tools-export-tool",
+			"description": "Each AI tool domain module exports a {domain}Tools map of createTool() definitions from Mastra with Zod-validated schemas.",
+			"paths": ["packages/server/src/ai/tools/{domain}.ts", "!packages/server/src/ai/tools/index.ts"],
+			"must": [
+				{
+					"must": {
+						"exportConstants": ["${domain.toCamelCase()}Tools"],
+						"importValues": [
+							{
+								"name": "createTool",
+								"from": "@mastra/core/tools"
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "ai-tools-registry",
+			"description": "The tools index aggregates every tool into the dashboardChatTools registry consumed by agents.",
+			"paths": "packages/server/src/ai/tools/index.ts",
+			"must": {
+				"exportConstants": ["dashboardChatTools"]
+			}
+		},
+		{
+			"name": "ai-agent-module",
+			"description": "The single dashboard agent module exports dashboardChatAgent built on Agent from Mastra.",
+			"paths": "packages/server/src/ai/agent.ts",
+			"must": {
+				"exportConstants": ["dashboardChatAgent"],
+				"importValues": [
+					{
+						"name": "Agent",
+						"from": "@mastra/core/agent"
+					}
+				]
+			}
+		},
+		{
+			"name": "email-templates",
+			"description": "Each email template declares a {Name}Email component, exports it as default for react-email previews, and renders with components from the consolidated react-email package.",
+			"paths": "packages/email/src/emails/{template}.tsx",
+			"must": {
+				"exportConstants": ["${template.toPascalCase()}Email"],
+				"exportValues": ["default"],
+				"importValuesFrom": "react-email"
+			}
+		},
+		{
+			"name": "renderer-packages-shared-structure",
+			"description": "The document-rendering packages (email, pdf) share one structure: an i18n locales module exposing getI18n/translations with an en.json catalog, plus shared Footer and Logo components.",
+			"paths": ["packages/email", "packages/pdf"],
+			"must": [
+				{
+					"must": {
+						"haveType": "directory",
+						"haveFiles": [
+							"src/locales/index.ts",
+							"src/locales/translations.ts",
+							"src/locales/messages/en.json",
+							"src/components/footer.tsx",
+							"src/components/logo.tsx"
+						]
+					}
+				},
+				{
+					"name": "locales-entry-exports-i18n",
+					"for": {
+						"files": "src/locales/index.ts"
+					},
+					"must": {
+						"exportConstants": ["getI18n"],
+						"exportTypes": ["Locale"]
+					}
+				},
+				{
+					"name": "locales-translations-export",
+					"for": {
+						"files": "src/locales/translations.ts"
+					},
+					"must": {
+						"exportConstants": ["translations"]
+					}
+				},
+				{
+					"name": "shared-footer-component",
+					"for": {
+						"files": "src/components/footer.tsx"
+					},
+					"must": {
+						"exportConstants": ["Footer"]
+					}
+				},
+				{
+					"name": "shared-logo-component",
+					"for": {
+						"files": "src/components/logo.tsx"
+					},
+					"must": {
+						"exportConstants": ["Logo"]
+					}
+				}
+			]
+		},
+		{
+			"name": "shared-utils-export-functions-directly",
+			"description": "Each @starter/utils domain module exports its functions directly instead of wrapping them in a file-named namespace object.",
+			"paths": ["packages/utils/src/{util}.ts", "!packages/utils/src/index.ts"],
+			"mustNot": {
+				"exportConstants": ["${util.toCamelCase()}"]
+			}
+		},
+		{
+			"name": "db-schema-tables-use-pg-core",
+			"description": "Each Drizzle schema module defines its tables with builders from drizzle-orm/pg-core.",
+			"paths": ["packages/db/src/schema/{domain}/{table}.ts", "!packages/db/src/schema/helpers/**"],
+			"must": {
+				"importValuesFrom": "drizzle-orm/pg-core"
+			}
+		},
+		{
+			"name": "db-schema-helpers-export-fields",
+			"description": "Each schema helper exports a reusable column group named {helper}Fields. tsvector.ts is excluded: it defines a custom column type, not a column group.",
+			"paths": ["packages/db/src/schema/helpers/{helper}.ts", "!packages/db/src/schema/helpers/tsvector.ts"],
+			"must": {
+				"exportConstants": ["${helper.toCamelCase()}Fields"]
+			}
+		},
+		{
+			"name": "hook-files-export-matching-hook",
+			"description": "Files named use-{name}.ts(x) export a hook named use{Name} after the file.",
+			"paths": [
+				"apps/webapp/src/*/use-{hook}.ts",
+				"apps/webapp/src/*/*/use-{hook}.ts",
+				"apps/webapp/src/*/*/*/use-{hook}.ts",
+				"apps/webapp/src/*/*/*/*/use-{hook}.ts",
+				"apps/webapp/src/*/*/*/*/*/use-{hook}.ts",
+				"apps/webapp/src/*/*/*/*/*/*/use-{hook}.ts",
+				"apps/webapp/src/*/*/*/*/*/*/*/use-{hook}.ts",
+				"packages/ui/src/hooks/use-{hook}.ts"
+			],
+			"must": {
+				"exportValues": ["use${hook.toPascalCase()}"]
+			}
+		},
+		{
+			"name": "package-barrels-are-pure",
+			"description": "These package barrels are pure re-export files; runtime logic must live in the modules they re-export. db and pdf indexes are intentionally impure and are not pinned.",
+			"paths": [
+				"packages/analytics/src/index.ts",
+				"packages/analytics/src/tinybird.ts",
+				"packages/cache/src/index.ts",
+				"packages/documents/src/index.ts",
+				"packages/documents/src/viewer/index.ts",
+				"packages/email/src/index.ts",
+				"packages/genui/src/index.ts",
+				"packages/infinite-website/src/contracts.ts",
+				"packages/observability/src/index.ts",
+				"packages/server/src/index.ts",
+				"packages/utils/src/index.ts"
+			],
+			"must": {
+				"areBarrelFiles": true
+			}
+		},
+		{
+			"name": "tests-use-test-naming",
+			"description": "Test files use the *.test.ts(x) suffix; *.spec files are not allowed.",
+			"paths": [
+				"packages/*/src/**/*.spec.ts",
+				"packages/*/src/**/*.spec.tsx",
+				"packages/*/tests/**/*.spec.ts",
+				"packages/*/tests/**/*.spec.tsx",
+				"apps/*/src/**/*.spec.ts",
+				"apps/*/src/**/*.spec.tsx",
+				"apps/*/tests/**/*.spec.ts",
+				"apps/*/tests/**/*.spec.tsx"
+			],
+			"mustNot": {
+				"haveType": "file"
+			}
+		},
+		{
+			"name": "pdf-ui-components-named-after-file",
+			"description": "Each @starter/pdf ui component exports a component matching its kebab-case filename in PascalCase; name collisions with external libraries are resolved by prefixing the file too (pdf-image.tsx -> PdfImage).",
+			"paths": "packages/pdf/src/components/ui/{component}.tsx",
+			"must": {
+				"exportValues": ["${component.toPascalCase()}"]
+			}
+		},
+		{
+			"name": "ui-chart-components-named-after-directory",
+			"description": "Each chart directory's index exports the base chart named after the directory; GenUI-specific wrappers live in genui-charts.tsx.",
+			"paths": "packages/ui/src/components/charts/{chart}/index.tsx",
+			"must": {
+				"exportValues": ["${chart.toPascalCase()}"]
+			}
+		},
+		{
+			"name": "ui-components-named-after-file",
+			"description": "Each @starter/ui component file exports a component matching its kebab-case filename in PascalCase (shadcn-style extra exports are allowed alongside it).",
+			"paths": "packages/ui/src/components/{component}.tsx",
+			"must": {
+				"exportValues": ["${component.toPascalCase()}"]
+			}
+		},
+		{
+			"name": "webapp-components-named-after-file",
+			"description": "Each webapp component file exports a component matching its kebab-case filename in PascalCase.",
+			"paths": [
+				"apps/webapp/src/components/{component}.tsx",
+				"apps/webapp/src/components/*/{component}.tsx",
+				"apps/webapp/src/components/*/*/{component}.tsx",
+				"apps/webapp/src/components/*/*/*/{component}.tsx",
+				"apps/webapp/src/components/*/*/*/*/{component}.tsx",
+				"apps/webapp/src/app/*/*/components/{component}.tsx",
+				"apps/webapp/src/app/*/*/components/*/{component}.tsx",
+				"apps/webapp/src/app/*/*/components/*/*/{component}.tsx",
+				"apps/webapp/src/app/*/*/*/components/{component}.tsx",
+				"apps/webapp/src/app/*/*/*/components/*/{component}.tsx",
+				"apps/webapp/src/app/*/*/*/components/*/*/{component}.tsx"
+			],
+			"excludeFiles": ["**/use-*.tsx"],
+			"must": {
+				"exportValues": ["${component.toPascalCase()}"]
+			}
+		},
+		{
+			"name": "webapp-middleware-modules",
+			"description": "Each middleware module exports {name}Middleware, composed in src/proxy.ts.",
+			"paths": "apps/webapp/src/middlewares/{middleware}.ts",
+			"must": {
+				"exportConstants": ["${middleware.toCamelCase()}Middleware"]
+			}
+		},
+		{
+			"name": "webapp-api-routes-use-error-handler",
+			"description": "Route handlers wrap their HTTP method exports with withErrorHandler so errors are logged and mapped to responses consistently.",
+			"paths": "apps/webapp/src/app/api/**/route.ts",
+			"must": {
+				"importValues": [
+					{
+						"name": "withErrorHandler",
+						"from": "@/utils/with-error-handler"
+					}
+				]
+			}
+		},
+		{
+			"name": "tests-import-vitest",
+			"description": "All test files run on vitest.",
+			"paths": [
+				"packages/*/tests/**/*.test.ts",
+				"packages/*/tests/**/*.test.tsx",
+				"apps/*/tests/**/*.test.ts",
+				"apps/*/tests/**/*.test.tsx"
+			],
+			"must": {
+				"importValuesFrom": "vitest"
+			}
+		},
+		{
+			"name": "tests-have-no-dev-deps-guard",
+			"description": "Every package test suite carries the no-dev-deps guard test that keeps runtime imports out of devDependencies.",
+			"paths": ["packages/{pkg}/tests", "apps/{app}/tests"],
+			"must": [
+				{
+					"must": {
+						"haveType": "directory",
+						"haveFiles": ["no-dev-deps.test.ts"]
+					}
+				}
+			]
+		}
+	]
+}

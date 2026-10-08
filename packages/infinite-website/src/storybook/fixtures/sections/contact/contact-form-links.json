@@ -1,0 +1,90 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Contact us",
+			"heading": "Get in touch",
+			"description": "We would love to hear from you",
+			"emailLabel": "Email",
+			"phoneLabel": "Phone",
+			"addressLabel": "Address",
+			"address": "123 far away street, 123456 - Vancouver BC"
+		},
+		"actions": [
+			{
+				"label": "email@example.com",
+				"link": {
+					"kind": "email",
+					"address": "email@example.com"
+				}
+			},
+			{
+				"label": "+1 (555) 000-0000",
+				"link": {
+					"kind": "phone",
+					"number": "+15550000000"
+				}
+			},
+			{
+				"label": "Get directions",
+				"link": {
+					"kind": "external",
+					"url": "https://maps.google.com"
+				}
+			}
+		],
+		"form": {
+			"nameLabel": "Name",
+			"emailLabel": "Email",
+			"messageLabel": "Message",
+			"submitLabel": "Send Message",
+			"pendingLabel": "Sending…",
+			"success": "Thank you! We'll get back to you soon.",
+			"error": "We couldn't send your message. Please try again.",
+			"anotherLabel": "Send another message"
+		}
+	},
+	"ar": {
+		"copy": {
+			"kicker": "تواصل معنا",
+			"heading": "تواصل معنا",
+			"description": "يسعدنا أن نسمع منك",
+			"emailLabel": "البريد الإلكتروني",
+			"phoneLabel": "الهاتف",
+			"addressLabel": "العنوان",
+			"address": "123 شارع بعيد، 123456 - فانكوفر، كولومبيا البريطانية"
+		},
+		"actions": [
+			{
+				"label": "email@example.com",
+				"link": {
+					"kind": "email",
+					"address": "email@example.com"
+				}
+			},
+			{
+				"label": "+1 (555) 000-0000",
+				"link": {
+					"kind": "phone",
+					"number": "+15550000000"
+				}
+			},
+			{
+				"label": "احصل على الاتجاهات",
+				"link": {
+					"kind": "external",
+					"url": "https://maps.google.com"
+				}
+			}
+		],
+		"form": {
+			"nameLabel": "الاسم",
+			"emailLabel": "البريد الإلكتروني",
+			"messageLabel": "الرسالة",
+			"submitLabel": "إرسال الرسالة",
+			"pendingLabel": "جارٍ الإرسال…",
+			"success": "شكرًا لك! سنعود إليك قريبًا.",
+			"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+			"anotherLabel": "إرسال رسالة أخرى"
+		}
+	}
+}

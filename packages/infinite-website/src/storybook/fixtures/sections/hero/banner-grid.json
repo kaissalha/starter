@@ -1,0 +1,28 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Freshly baked",
+			"heading": "Layers you can see. Taste you'll remember",
+			"description": "From buttery croissants to delicate pastries, every bite is a moment worth slowing down for"
+		},
+		"actions": [{ "link": { "kind": "anchor", "anchor": "order" }, "label": "Order now" }],
+		"media": [
+			{ "assetId": "acb74bfa-89e7-5642-946e-ec3ded5aea73", "alt": "Croissant on a bakery counter" },
+			{ "assetId": "67f5703b-fd47-5529-b32d-2d7104f7fd9d", "alt": "Baker rolling dough" },
+			{ "assetId": "c765fe51-abfa-5af3-9c90-6ea336889e2d", "alt": "Bakery interior with customers" }
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "مخبوز طازج",
+			"heading": "طبقات تراها. مذاق لا تنساه",
+			"description": "من الكرواسان الزبداني إلى المعجنات الرقيقة، كل قضمة لحظة تستحق أن تتمهل من أجلها"
+		},
+		"actions": [{ "link": { "kind": "anchor", "anchor": "order" }, "label": "اطلب الآن" }],
+		"media": [
+			{ "assetId": "acb74bfa-89e7-5642-946e-ec3ded5aea73", "alt": "كرواسان على طاولة المخبز" },
+			{ "assetId": "67f5703b-fd47-5529-b32d-2d7104f7fd9d", "alt": "خباز يعجن العجين" },
+			{ "assetId": "c765fe51-abfa-5af3-9c90-6ea336889e2d", "alt": "داخل المخبز مع الزبائن" }
+		]
+	}
+}

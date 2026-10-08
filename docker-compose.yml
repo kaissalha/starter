@@ -1,0 +1,14 @@
+services:
+    app-db:
+        image: pgvector/pgvector:pg18
+        volumes:
+            - app_db_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: starter
+            POSTGRES_USER: starter
+            POSTGRES_PASSWORD: kais12345
+        ports:
+            - "127.0.0.1:5432:5432"
+
+volumes:
+    app_db_data:

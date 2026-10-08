@@ -1,0 +1,1556 @@
+{
+	"en": {
+		"site": {
+			"name": "Growth Engine"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Signal & Field navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Signal & Field"
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": [
+								{
+									"label": "Brand Strategy",
+									"link": {
+										"kind": "relative",
+										"path": "/services/brand-strategy"
+									}
+								},
+								{
+									"label": "Performance Marketing",
+									"link": {
+										"kind": "relative",
+										"path": "/services/performance-marketing"
+									}
+								}
+							]
+						},
+						{
+							"label": "Work",
+							"link": {
+								"kind": "relative",
+								"path": "/work"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Insights",
+							"link": {
+								"kind": "relative",
+								"path": "/insights"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "Let's Talk",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 Signal & Field. All rights reserved.",
+						"addressLabel": "Address:",
+						"address": "123 Marketing Way, Suite 500, Austin, TX 78701",
+						"contactLabel": "Contact:",
+						"contact": "(512) 555-0199\nhello@signalandfield.com",
+						"brand": "Signal & Field"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "Work",
+							"link": {
+								"kind": "relative",
+								"path": "/work"
+							}
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "Insights",
+							"link": {
+								"kind": "relative",
+								"path": "/insights"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "Careers",
+							"link": {
+								"kind": "relative",
+								"path": "/careers"
+							}
+						},
+						{
+							"label": "Newsletter",
+							"link": {
+								"kind": "relative",
+								"path": "/newsletter"
+							}
+						},
+						{
+							"label": "Resources",
+							"link": {
+								"kind": "relative",
+								"path": "/resources"
+							}
+						},
+						{
+							"label": "Partners",
+							"link": {
+								"kind": "relative",
+								"path": "/partners"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "LinkedIn",
+							"link": {
+								"kind": "external",
+								"url": "https://www.linkedin.com"
+							}
+						},
+						{
+							"label": "Twitter",
+							"link": {
+								"kind": "external",
+								"url": "https://www.twitter.com"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "Privacy Policy",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "Terms of Service",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Growth Engine"
+					}
+				},
+				"sections": {
+					"banner-diagonal-grid": {
+						"copy": {
+							"heading": "Cut Through the Noise.",
+							"description": "Strategy, creative, and performance marketing that drives awareness, engagement, and measurable growth—without the fluff."
+						},
+						"media": [
+							{
+								"assetId": "4f6a6ab6-79bb-59b9-9b7a-2e5758c4bb65",
+								"alt": "Marketing team collaboration"
+							},
+							{
+								"assetId": "3ec96c9e-5158-5293-99ba-df1dfa5c5d47",
+								"alt": "Marketing team collaborating on creative strategy"
+							}
+						],
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"label": "Start a Project"
+							}
+						]
+					},
+					"feature-images-carousel": {
+						"copy": {
+							"kicker": "00",
+							"heading": "Full-Funnel Marketing",
+							"description": "We combine strategy, creative, and performance marketing to build systems that drive real business growth."
+						},
+						"accessibility": {
+							"carouselLabel": "Marketing services"
+						},
+						"features": [
+							{
+								"title": "Brand Strategy",
+								"description": "Define your positioning, messaging, and visual identity. We build foundations that make every marketing dollar work harder.",
+								"assetId": "79d10d32-1c94-56c7-81ab-aba5dc220dfb",
+								"alt": "Team brainstorming brand strategy on whiteboard"
+							},
+							{
+								"title": "Content & Creative",
+								"description": "Compelling content that captures attention and drives action. From campaigns to social, we create work that resonates.",
+								"assetId": "950a581d-3a73-5096-b98f-4b0ce6b6d562",
+								"alt": "Creative team reviewing design concepts"
+							},
+							{
+								"title": "Performance Marketing",
+								"description": "Data-driven paid media that maximizes ROI. We optimize across channels to find and convert your ideal customers.",
+								"assetId": "f2a678d3-ac07-5714-838a-e9d238fc04e0",
+								"alt": "Analytics dashboard showing marketing performance"
+							},
+							{
+								"title": "Growth Systems",
+								"description": "Marketing automation and CRM integration that nurtures leads and scales your pipeline without scaling your team.",
+								"assetId": "ddddee5b-6219-5bde-83e1-943d691c9afe",
+								"alt": "Marketing automation workflow on screen"
+							}
+						]
+					},
+					"metrics-big-numbers": {
+						"copy": {
+							"kicker": "Proven Results",
+							"heading": "Numbers That Speak\nLouder Than Promises",
+							"description": "We measure success by the growth we generate for our clients. Here's what our partnerships have delivered."
+						},
+						"items": [
+							{
+								"metric": "340%",
+								"description": "Average ROI generated across recent growth campaigns"
+							},
+							{
+								"metric": "2.5M+",
+								"description": "Qualified leads generated for clients across channels"
+							},
+							{
+								"metric": "89%",
+								"description": "Client retention from long-term growth partnerships"
+							},
+							{
+								"metric": "50+",
+								"description": "Brands launched with integrated strategy and creative"
+							}
+						]
+					},
+					"testimonial-single-carousel": {
+						"copy": {
+							"kicker": "What Clients Say",
+							"heading": "Trusted by growing brands."
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "Customer testimonials",
+							"carousel-testimonialspreviousLabel": "Customer testimonials: previous",
+							"carousel-testimonialsnextLabel": "Customer testimonials: next"
+						},
+						"testimonials": [
+							{
+								"quote": "Signal & Field completely transformed our marketing. Within six months, our lead quality improved dramatically and our sales team couldn't be happier. They don't just run campaigns—they build systems.",
+								"name": "Michael Chen",
+								"title": "CEO, TechVenture Labs",
+								"assetId": "29c3b365-ad25-5f70-80dd-ffee2f41e0a4",
+								"alt": "Michael Chen"
+							},
+							{
+								"quote": "Finally, a marketing partner that speaks our language. They understood our B2B sales cycle and built a content strategy that actually supports our sales team instead of creating busy work.",
+								"name": "Sarah Mitchell",
+								"title": "CMO, CloudScale Solutions",
+								"assetId": "ed755755-c2e3-5c7c-bfd0-742ed486a8f0",
+								"alt": "Sarah Mitchell"
+							},
+							{
+								"quote": "The rebrand Signal & Field delivered exceeded our expectations. Our positioning is clearer, our messaging resonates, and we're finally attracting the right clients. Worth every penny.",
+								"name": "David Park",
+								"title": "Founder, Horizon Advisory",
+								"assetId": "85253c85-bb7b-5174-abce-08f618392408",
+								"alt": "David Park"
+							},
+							{
+								"quote": "Working with Signal & Field was a game-changer. Their strategic approach helped us reach customers we never knew existed. Highly recommend!",
+								"name": "Emily Rodriguez",
+								"title": "VP Marketing, Nexus Tech",
+								"assetId": "8dcef575-b56b-59b8-9a50-03c6233adfec",
+								"alt": "Emily Rodriguez"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "Our Philosophy",
+							"heading": "Marketing should make sense.",
+							"description": "Too many businesses are drowning in tactics without a strategy. We believe in building marketing systems that connect every touchpoint into a cohesive journey—from first impression to lasting customer relationship."
+						}
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "FAQ",
+							"heading": "Good to know",
+							"description": "Browse answers to common questions, or reach out for help."
+						},
+						"actions": [
+							{
+								"label": "Contact us",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"items": [
+							{
+								"question": "What makes Signal & Field different from other marketing agencies?",
+								"answer": "We don't do one-size-fits-all tactics. Every engagement starts with understanding your business, audience, and goals. We build custom strategies that combine brand, content, and performance marketing into a cohesive system—not disconnected campaigns that compete with each other."
+							},
+							{
+								"question": "What types of businesses do you work with?",
+								"answer": "We work best with B2B companies, SaaS businesses, and professional services firms that are ready to invest in growth. Our sweet spot is companies doing $2M-$50M in revenue that need strategic marketing leadership, not just tactical execution."
+							},
+							{
+								"question": "How long does it take to see results?",
+								"answer": "It depends on your starting point and goals. Brand work typically shows impact over 6-12 months. Performance marketing can generate leads within weeks. We set realistic expectations upfront and provide transparent reporting so you always know what's working."
+							},
+							{
+								"question": "Do you offer retainer or project-based work?",
+								"answer": "Both. We offer monthly retainers for ongoing marketing partnership, as well as project-based work for specific initiatives like brand development, campaign launches, or website redesigns. Most clients start with a project and move to retainer."
+							},
+							{
+								"question": "How do you measure and report on results?",
+								"answer": "Every engagement includes a custom dashboard with the metrics that matter to your business. We report monthly with clear analysis of what's working, what's not, and what we're doing about it. No vanity metrics—just actionable insights."
+							},
+							{
+								"question": "What does onboarding look like?",
+								"answer": "We start with a discovery sprint to learn your business, audience, and goals. Then we share a clear plan, owners, and timeline so you know exactly what happens in the first 30 days."
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "Meet The Team",
+							"heading": "Strategists, creatives,\nand growth hackers.",
+							"description": "Our team combines decades of experience across brand strategy, performance marketing, and creative execution."
+						},
+						"actions": [
+							{
+								"label": "Start a Project",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "Marcus Williams",
+								"role": "Founder & Chief Strategy Officer",
+								"description": "Former VP of Marketing at two successful startups. Marcus founded Signal & Field to help growing companies build marketing that actually works.",
+								"assetId": "a6dfbe59-9e50-5420-a278-f5caf0b42c9c",
+								"alt": "Marcus Williams"
+							},
+							{
+								"name": "Darius Jackson",
+								"role": "Creative Director",
+								"description": "Award-winning creative with experience at top agencies. Darius leads our brand and content teams with a focus on work that stands out.",
+								"assetId": "ba537481-2af2-5b70-90c1-a15a45d483e4",
+								"alt": "Darius Jackson"
+							},
+							{
+								"name": "Priya Sharma",
+								"role": "Head of Performance",
+								"description": "Data-driven marketer who's managed over $50M in ad spend. Priya ensures every campaign delivers measurable ROI.",
+								"assetId": "1473935a-1dc5-5103-9fe1-d31151ebbacf",
+								"alt": "Priya Sharma"
+							},
+							{
+								"name": "Jasmine Carter",
+								"role": "Content Strategist",
+								"description": "Former journalist turned content strategist. Jasmine crafts narratives that connect brands with their audiences in meaningful ways.",
+								"assetId": "a5954d62-909c-5a83-9f3d-0945c8dcb007",
+								"alt": "Jasmine Carter"
+							},
+							{
+								"name": "Ryan Mitchell",
+								"role": "Senior Account Manager",
+								"description": "Client relationship expert with a background in B2B sales. Ryan ensures every partnership runs smoothly from kickoff to results.",
+								"assetId": "c7276924-dd64-50f1-b73c-4763f67598e5",
+								"alt": "Ryan Mitchell"
+							},
+							{
+								"name": "Nadia Mansour",
+								"role": "Brand Designer",
+								"description": "Visual storyteller with an eye for detail. Nadia transforms brand strategies into compelling visual identities that stand the test of time.",
+								"assetId": "1536fae2-df3a-597f-87ad-3969067dd26b",
+								"alt": "Nadia Mansour"
+							},
+							{
+								"name": "Jordan Ellis",
+								"role": "SEO & Analytics Lead",
+								"description": "Search and analytics specialist who turns data into insights. Jordan optimizes every touchpoint for maximum organic visibility.",
+								"assetId": "e44b338a-9c56-5473-950f-5eb1ed19e75f",
+								"alt": "Jordan Ellis"
+							},
+							{
+								"name": "Sophie Laurent",
+								"role": "Social Media Manager",
+								"description": "Community builder and social media expert. Sophie creates engaging campaigns that spark conversations and build loyal followings.",
+								"assetId": "4c1cc452-9b38-5ccb-8a17-96210a056697",
+								"alt": "Sophie Laurent"
+							}
+						]
+					},
+					"showcase-strip-images": {
+						"copy": {
+							"kicker": "Our Clients",
+							"heading": "Trusted by Growing Brands",
+							"description": "We've helped these companies cut through the noise and connect with their audiences."
+						},
+						"items": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "Logo 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "Logo 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "Logo 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "Logo 4"
+							},
+							{
+								"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+								"alt": "Logo 5"
+							},
+							{
+								"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+								"alt": "Logo 6"
+							},
+							{
+								"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+								"alt": "Logo 7"
+							},
+							{
+								"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+								"alt": "Logo 8"
+							},
+							{
+								"assetId": "d4fa3c2b-b8ce-54b6-af48-8588a77313c2",
+								"alt": "Logo 9"
+							},
+							{
+								"assetId": "59767119-8766-59e2-ac9f-1db09be05656",
+								"alt": "Logo 10"
+							}
+						],
+						"images": [
+							{
+								"assetId": "d2edc570-f866-5149-b842-1323e69116f5",
+								"alt": "Marketing strategy session"
+							},
+							{
+								"assetId": "900ef1c2-f80d-50f5-a904-c787dae17f29",
+								"alt": "Brand workshop"
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "Our Work",
+							"heading": "Campaigns that\ndeliver results.",
+							"description": "A glimpse into the strategic creative work we've produced for our clients."
+						},
+						"media": [
+							{
+								"assetId": "d2edc570-f866-5149-b842-1323e69116f5",
+								"alt": "Marketing strategy session"
+							},
+							{
+								"assetId": "900ef1c2-f80d-50f5-a904-c787dae17f29",
+								"alt": "Brand workshop"
+							},
+							{
+								"assetId": "40c5afc4-4296-5449-a2bc-69df40a7dcbd",
+								"alt": "Creative team collaboration"
+							},
+							{
+								"assetId": "b2792594-1c2e-58cd-9511-6cb760570c19",
+								"alt": "Analytics review"
+							},
+							{
+								"assetId": "4f6a6ab6-79bb-59b9-9b7a-2e5758c4bb65",
+								"alt": "Marketing team collaboration"
+							},
+							{
+								"assetId": "3ec96c9e-5158-5293-99ba-df1dfa5c5d47",
+								"alt": "Marketing team collaborating on creative strategy"
+							}
+						]
+					},
+					"pricing-table-3": {
+						"copy": {
+							"heading": "Flexible partnerships\nfor your needs.",
+							"description": "Whether you need strategic guidance or full-service execution, we have a model that fits your business."
+						},
+						"items": [
+							{
+								"title": "Strategy Sprint",
+								"description": "A focused engagement to define your marketing strategy and roadmap.",
+								"price": "$15K",
+								"original-price": "",
+								"period": "one-time",
+								"features-label": "What's included",
+								"label": "Learn More",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "Market & competitor analysis"
+									},
+									{
+										"title": "Positioning & messaging framework"
+									},
+									{
+										"title": "90-day action plan"
+									},
+									{
+										"title": "2-week engagement"
+									}
+								]
+							},
+							{
+								"title": "Growth Partner",
+								"description": "Ongoing marketing partnership with strategy and execution.",
+								"price": "$10K",
+								"original-price": "",
+								"period": "/month",
+								"features-label": "What's included",
+								"label": "Start Partnership",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "Dedicated strategist"
+									},
+									{
+										"title": "Content & campaign execution"
+									},
+									{
+										"title": "Performance optimization"
+									},
+									{
+										"title": "Monthly reporting & analysis"
+									},
+									{
+										"title": "Quarterly strategy reviews"
+									}
+								]
+							},
+							{
+								"title": "Full Service",
+								"description": "Comprehensive marketing department as a service.",
+								"price": "$25K",
+								"original-price": "",
+								"period": "/month",
+								"features-label": "What's included",
+								"label": "Contact Us",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "Everything in Growth Partner"
+									},
+									{
+										"title": "Brand & creative services"
+									},
+									{
+										"title": "Paid media management"
+									},
+									{
+										"title": "Marketing automation"
+									},
+									{
+										"title": "Priority support"
+									}
+								]
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "Start a Conversation",
+							"heading": "Let's talk about your growth.",
+							"description": "Tell us about your business and goals. We'll get back to you within one business day.",
+							"emailLabel": "Email",
+							"phoneLabel": "Phone",
+							"addressLabel": "Address",
+							"address": "123 Marketing Way, Suite 500, Austin, TX 78701"
+						},
+						"actions": [
+							{
+								"label": "hello@signalandfield.com",
+								"link": {
+									"kind": "email",
+									"address": "hello@signalandfield.com"
+								}
+							},
+							{
+								"label": "(512) 555-0199",
+								"link": {
+									"kind": "phone",
+									"number": "+15125550199"
+								}
+							},
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Work Email",
+							"messageLabel": "Tell us about your marketing challenges",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Message received! We'll be in touch within one business day.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "Contact us",
+							"heading": "Let's grow your pipeline",
+							"description": "Tell us about your goals and we'll get back to you quickly."
+						},
+						"location": {
+							"address": "500 Innovation Drive, Austin, TX 78701"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 500 Innovation Drive, Austin, TX 78701"
+						},
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Work Email",
+							"messageLabel": "Tell us about your marketing challenges",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Message received! We'll be in touch within one business day.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "Visit us",
+							"heading": "Find us nearby \n and stop by today.",
+							"description": "Use the map to get directions and visit our location."
+						},
+						"actions": [
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "500 Innovation Drive, Austin, TX 78701"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 500 Innovation Drive, Austin, TX 78701"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "500 Innovation Drive, Austin, TX 78701"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 500 Innovation Drive, Austin, TX 78701"
+						}
+					},
+					"cta-basic": {
+						"copy": {
+							"heading": "Ready to Accelerate Your Growth?",
+							"description": "Let's talk about your goals and build a marketing system that actually delivers. No fluff, no pressure—just a conversation about what's possible."
+						},
+						"actions": [
+							{
+								"label": "Start a Conversation",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							},
+							{
+								"label": "See Our Work",
+								"link": {
+									"kind": "relative",
+									"path": "/work"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "محرك النمو"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "قائمة سيغنال آند فيلد",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "سيغنال آند فيلد"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": [
+								{
+									"label": "استراتيجية العلامة التجارية",
+									"link": {
+										"kind": "relative",
+										"path": "/services/brand-strategy"
+									}
+								},
+								{
+									"label": "التسويق بالأداء",
+									"link": {
+										"kind": "relative",
+										"path": "/services/performance-marketing"
+									}
+								}
+							]
+						},
+						{
+							"label": "الأعمال",
+							"link": {
+								"kind": "relative",
+								"path": "/work"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "مقالات",
+							"link": {
+								"kind": "relative",
+								"path": "/insights"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "لنتحدث",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 سيغنال آند فيلد. جميع الحقوق محفوظة.",
+						"addressLabel": "العنوان:",
+						"address": "123 طريق التسويق، جناح 500، أوستن، تكساس 78701",
+						"contactLabel": "للتواصل:",
+						"contact": "(512) 555-0199\nhello@signalandfield.com",
+						"brand": "سيغنال آند فيلد"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "الأعمال",
+							"link": {
+								"kind": "relative",
+								"path": "/work"
+							}
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "مقالات",
+							"link": {
+								"kind": "relative",
+								"path": "/insights"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "الوظائف",
+							"link": {
+								"kind": "relative",
+								"path": "/careers"
+							}
+						},
+						{
+							"label": "النشرة البريدية",
+							"link": {
+								"kind": "relative",
+								"path": "/newsletter"
+							}
+						},
+						{
+							"label": "الموارد",
+							"link": {
+								"kind": "relative",
+								"path": "/resources"
+							}
+						},
+						{
+							"label": "الشركاء",
+							"link": {
+								"kind": "relative",
+								"path": "/partners"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "LinkedIn",
+							"link": {
+								"kind": "external",
+								"url": "https://www.linkedin.com"
+							}
+						},
+						{
+							"label": "Twitter",
+							"link": {
+								"kind": "external",
+								"url": "https://www.twitter.com"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "سياسة الخصوصية",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "شروط الخدمة",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "محرك النمو"
+					}
+				},
+				"sections": {
+					"banner-diagonal-grid": {
+						"copy": {
+							"heading": "تجاوز الضجيج.",
+							"description": "استراتيجية وإبداع وتسويق بالأداء يحقق الوعي والتفاعل ونموًا قابلًا للقياس، دون حشو."
+						},
+						"media": [
+							{
+								"assetId": "4f6a6ab6-79bb-59b9-9b7a-2e5758c4bb65",
+								"alt": "تعاون فريق التسويق"
+							},
+							{
+								"assetId": "3ec96c9e-5158-5293-99ba-df1dfa5c5d47",
+								"alt": "فريق التسويق يتعاون على الاستراتيجية الإبداعية"
+							}
+						],
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"label": "ابدأ مشروعًا"
+							}
+						]
+					},
+					"feature-images-carousel": {
+						"copy": {
+							"kicker": "00",
+							"heading": "تسويق شامل لكل مراحل القمع",
+							"description": "نجمع بين الاستراتيجية والإبداع والتسويق بالأداء لبناء أنظمة تحقق نموًا فعليًا للأعمال."
+						},
+						"accessibility": {
+							"carouselLabel": "خدمات التسويق"
+						},
+						"features": [
+							{
+								"title": "استراتيجية العلامة التجارية",
+								"description": "حدد تموضعك ورسائلك وهويتك البصرية. نبني أسسًا تجعل كل دولار تسويقي يعمل بجهد أكبر.",
+								"assetId": "79d10d32-1c94-56c7-81ab-aba5dc220dfb",
+								"alt": "فريق يضع استراتيجية العلامة التجارية على السبورة"
+							},
+							{
+								"title": "المحتوى والإبداع",
+								"description": "محتوى مؤثر يجذب الانتباه ويدفع إلى الفعل. من الحملات إلى وسائل التواصل، نصنع أعمالًا تلقى صدى.",
+								"assetId": "950a581d-3a73-5096-b98f-4b0ce6b6d562",
+								"alt": "فريق إبداعي يراجع مفاهيم التصميم"
+							},
+							{
+								"title": "التسويق بالأداء",
+								"description": "إعلانات مدفوعة قائمة على البيانات تعظّم العائد. نحسّن عبر القنوات لنجد عملاءك المثاليين ونحوّلهم.",
+								"assetId": "f2a678d3-ac07-5714-838a-e9d238fc04e0",
+								"alt": "لوحة تحليلات تعرض أداء التسويق"
+							},
+							{
+								"title": "أنظمة النمو",
+								"description": "أتمتة التسويق وتكامل إدارة العملاء التي ترعى العملاء المحتملين وتوسّع خط المبيعات دون توسيع فريقك.",
+								"assetId": "ddddee5b-6219-5bde-83e1-943d691c9afe",
+								"alt": "سير عمل أتمتة التسويق على الشاشة"
+							}
+						]
+					},
+					"metrics-big-numbers": {
+						"copy": {
+							"kicker": "نتائج مثبتة",
+							"heading": "أرقام تتحدث\nأعلى من الوعود",
+							"description": "نقيس النجاح بالنمو الذي نحققه لعملائنا. هذا ما حققته شراكاتنا."
+						},
+						"items": [
+							{
+								"metric": "340%",
+								"description": "متوسط العائد على الاستثمار في حملات النمو الأخيرة"
+							},
+							{
+								"metric": "2.5M+",
+								"description": "عميل محتمل مؤهل تم تحقيقه للعملاء عبر القنوات"
+							},
+							{
+								"metric": "89%",
+								"description": "معدل الاحتفاظ بالعملاء من شراكات النمو طويلة الأمد"
+							},
+							{
+								"metric": "50+",
+								"description": "علامة تجارية أُطلقت باستراتيجية وإبداع متكاملين"
+							}
+						]
+					},
+					"testimonial-single-carousel": {
+						"copy": {
+							"kicker": "ماذا يقول العملاء",
+							"heading": "موضع ثقة العلامات المتنامية."
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "شهادات العملاء",
+							"carousel-testimonialspreviousLabel": "شهادات العملاء: السابق",
+							"carousel-testimonialsnextLabel": "شهادات العملاء: التالي"
+						},
+						"testimonials": [
+							{
+								"quote": "غيّرت سيغنال آند فيلد تسويقنا كليًا. خلال ستة أشهر تحسنت جودة العملاء المحتملين بشكل كبير وفريق المبيعات في غاية السعادة. إنهم لا يديرون حملات فقط، بل يبنون أنظمة.",
+								"name": "مايكل تشن",
+								"title": "الرئيس التنفيذي، تك فنتشر لابز",
+								"assetId": "29c3b365-ad25-5f70-80dd-ffee2f41e0a4",
+								"alt": "مايكل تشن"
+							},
+							{
+								"quote": "أخيرًا شريك تسويقي يتحدث لغتنا. فهموا دورة مبيعاتنا بين الشركات وبنوا استراتيجية محتوى تدعم فريق المبيعات فعلًا بدلًا من خلق أعمال لا طائل منها.",
+								"name": "سارة ميتشل",
+								"title": "مديرة التسويق، كلاود سكيل سوليوشنز",
+								"assetId": "ed755755-c2e3-5c7c-bfd0-742ed486a8f0",
+								"alt": "سارة ميتشل"
+							},
+							{
+								"quote": "تجاوزت إعادة العلامة التجارية التي قدمتها سيغنال آند فيلد توقعاتنا. أصبح تموضعنا أوضح ورسائلنا تلقى صدى وأصبحنا نجذب العملاء المناسبين أخيرًا. تستحق كل قرش.",
+								"name": "ديفيد بارك",
+								"title": "المؤسس، هورايزن أدفايزري",
+								"assetId": "85253c85-bb7b-5174-abce-08f618392408",
+								"alt": "ديفيد بارك"
+							},
+							{
+								"quote": "كان العمل مع سيغنال آند فيلد نقطة تحول. ساعدنا نهجهم الاستراتيجي في الوصول إلى عملاء لم نكن نعلم بوجودهم. أنصح بهم بشدة!",
+								"name": "إيميلي رودريغيز",
+								"title": "نائبة رئيس التسويق، نكسس تك",
+								"assetId": "8dcef575-b56b-59b8-9a50-03c6233adfec",
+								"alt": "إيميلي رودريغيز"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "فلسفتنا",
+							"heading": "يجب أن يكون التسويق منطقيًا.",
+							"description": "كثير من الشركات تغرق في التكتيكات دون استراتيجية. نؤمن ببناء أنظمة تسويقية تربط كل نقطة اتصال في رحلة متماسكة، من الانطباع الأول إلى علاقة دائمة مع العميل."
+						}
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "الأسئلة الشائعة",
+							"heading": "جدير بالمعرفة",
+							"description": "تصفح إجابات الأسئلة الشائعة أو تواصل معنا للمساعدة."
+						},
+						"actions": [
+							{
+								"label": "اتصل بنا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"items": [
+							{
+								"question": "ما الذي يميز سيغنال آند فيلد عن وكالات التسويق الأخرى؟",
+								"answer": "لا نعتمد تكتيكات موحدة للجميع. يبدأ كل تعاون بفهم عملك وجمهورك وأهدافك. نبني استراتيجيات مخصصة تجمع العلامة التجارية والمحتوى والتسويق بالأداء في نظام متماسك، لا حملات منفصلة تتنافس فيما بينها."
+							},
+							{
+								"question": "مع أي أنواع من الشركات تعملون؟",
+								"answer": "نعمل بأفضل شكل مع شركات الأعمال، وشركات البرمجيات كخدمة، والشركات الخدمية المهنية المستعدة للاستثمار في النمو. فئتنا المثالية شركات تحقق إيرادات بين 2 و50 مليون دولار وتحتاج قيادة تسويقية استراتيجية لا مجرد تنفيذ تكتيكي."
+							},
+							{
+								"question": "كم يستغرق ظهور النتائج؟",
+								"answer": "يعتمد ذلك على نقطة انطلاقك وأهدافك. يظهر أثر عمل العلامة التجارية عادة خلال 6 إلى 12 شهرًا، ويمكن للتسويق بالأداء توليد عملاء محتملين خلال أسابيع. نضع توقعات واقعية مسبقًا ونقدم تقارير شفافة لتعرف دائمًا ما ينجح."
+							},
+							{
+								"question": "هل تقدمون عقودًا شهرية أم عملًا بالمشروع؟",
+								"answer": "كلاهما. نقدم عقودًا شهرية لشراكة تسويقية مستمرة، وعملًا بالمشروع لمبادرات محددة مثل تطوير العلامة التجارية وإطلاق الحملات وإعادة تصميم المواقع. يبدأ معظم العملاء بمشروع ثم ينتقلون إلى عقد شهري."
+							},
+							{
+								"question": "كيف تقيسون النتائج وتقدمون التقارير؟",
+								"answer": "يتضمن كل تعاون لوحة متابعة مخصصة بالمقاييس المهمة لعملك. نقدم تقريرًا شهريًا بتحليل واضح لما ينجح وما لا ينجح وما نفعله حيال ذلك. لا مقاييس شكلية، بل رؤى قابلة للتنفيذ."
+							},
+							{
+								"question": "كيف تبدو عملية البدء؟",
+								"answer": "نبدأ بمرحلة استكشاف لنتعرف على عملك وجمهورك وأهدافك. ثم نشارك خطة واضحة وأصحاب مهام وجدولًا زمنيًا لتعرف بالضبط ما سيحدث في أول 30 يومًا."
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "تعرّف على الفريق",
+							"heading": "استراتيجيون ومبدعون\nوخبراء نمو.",
+							"description": "يجمع فريقنا عقودًا من الخبرة في استراتيجية العلامة التجارية والتسويق بالأداء والتنفيذ الإبداعي."
+						},
+						"actions": [
+							{
+								"label": "ابدأ مشروعًا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "ماركوس ويليامز",
+								"role": "المؤسس ورئيس الاستراتيجية",
+								"description": "نائب رئيس تسويق سابق في شركتين ناشئتين ناجحتين. أسس ماركوس سيغنال آند فيلد لمساعدة الشركات المتنامية على بناء تسويق يعمل فعلًا.",
+								"alt": "ماركوس ويليامز",
+								"assetId": "a6dfbe59-9e50-5420-a278-f5caf0b42c9c"
+							},
+							{
+								"name": "داريوس جاكسون",
+								"role": "المدير الإبداعي",
+								"description": "مبدع حائز على جوائز بخبرة في كبرى الوكالات. يقود داريوس فرق العلامة التجارية والمحتوى بتركيز على أعمال تتميز.",
+								"alt": "داريوس جاكسون",
+								"assetId": "ba537481-2af2-5b70-90c1-a15a45d483e4"
+							},
+							{
+								"name": "بريا شارما",
+								"role": "رئيسة قسم الأداء",
+								"description": "مسوّقة تعتمد على البيانات أدارت أكثر من 50 مليون دولار من الإنفاق الإعلاني. تضمن بريا أن تحقق كل حملة عائدًا قابلًا للقياس.",
+								"alt": "بريا شارما",
+								"assetId": "1473935a-1dc5-5103-9fe1-d31151ebbacf"
+							},
+							{
+								"name": "ياسمين كارتر",
+								"role": "استراتيجية المحتوى",
+								"description": "صحفية سابقة تحولت إلى استراتيجية محتوى. تصيغ ياسمين سرديات تربط العلامات التجارية بجمهورها بطرق ذات معنى.",
+								"alt": "ياسمين كارتر",
+								"assetId": "a5954d62-909c-5a83-9f3d-0945c8dcb007"
+							},
+							{
+								"name": "رايان ميتشل",
+								"role": "مدير حسابات أول",
+								"description": "خبير علاقات عملاء بخلفية في مبيعات الشركات. يضمن رايان سير كل شراكة بسلاسة من البداية حتى النتائج.",
+								"alt": "رايان ميتشل",
+								"assetId": "c7276924-dd64-50f1-b73c-4763f67598e5"
+							},
+							{
+								"name": "نادية منصور",
+								"role": "مصممة علامات تجارية",
+								"description": "راوية بصرية بعين دقيقة للتفاصيل. تحوّل نادية استراتيجيات العلامات التجارية إلى هويات بصرية مؤثرة تصمد أمام الزمن.",
+								"alt": "نادية منصور",
+								"assetId": "1536fae2-df3a-597f-87ad-3969067dd26b"
+							},
+							{
+								"name": "جوردان إيليس",
+								"role": "قائد تحسين محركات البحث والتحليلات",
+								"description": "متخصص في البحث والتحليلات يحوّل البيانات إلى رؤى. يحسّن جوردان كل نقطة اتصال لأقصى ظهور عضوي.",
+								"alt": "جوردان إيليس",
+								"assetId": "e44b338a-9c56-5473-950f-5eb1ed19e75f"
+							},
+							{
+								"name": "صوفي لوران",
+								"role": "مديرة وسائل التواصل الاجتماعي",
+								"description": "بانية مجتمعات وخبيرة وسائل تواصل اجتماعي. تصنع صوفي حملات جذابة تثير الحوار وتبني جمهورًا وفيًا.",
+								"alt": "صوفي لوران",
+								"assetId": "4c1cc452-9b38-5ccb-8a17-96210a056697"
+							}
+						]
+					},
+					"showcase-strip-images": {
+						"copy": {
+							"kicker": "عملاؤنا",
+							"heading": "موضع ثقة العلامات المتنامية",
+							"description": "ساعدنا هذه الشركات على تجاوز الضجيج والتواصل مع جمهورها."
+						},
+						"items": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "الشعار 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "الشعار 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "الشعار 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "الشعار 4"
+							},
+							{
+								"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+								"alt": "الشعار 5"
+							},
+							{
+								"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+								"alt": "الشعار 6"
+							},
+							{
+								"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+								"alt": "الشعار 7"
+							},
+							{
+								"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+								"alt": "الشعار 8"
+							},
+							{
+								"assetId": "d4fa3c2b-b8ce-54b6-af48-8588a77313c2",
+								"alt": "الشعار 9"
+							},
+							{
+								"assetId": "59767119-8766-59e2-ac9f-1db09be05656",
+								"alt": "الشعار 10"
+							}
+						],
+						"images": [
+							{
+								"assetId": "d2edc570-f866-5149-b842-1323e69116f5",
+								"alt": "جلسة استراتيجية تسويقية"
+							},
+							{
+								"assetId": "900ef1c2-f80d-50f5-a904-c787dae17f29",
+								"alt": "ورشة علامة تجارية"
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "أعمالنا",
+							"heading": "حملات\nتحقق النتائج.",
+							"description": "لمحة عن الأعمال الإبداعية الاستراتيجية التي أنجزناها لعملائنا."
+						},
+						"media": [
+							{
+								"assetId": "d2edc570-f866-5149-b842-1323e69116f5",
+								"alt": "جلسة استراتيجية تسويقية"
+							},
+							{
+								"assetId": "900ef1c2-f80d-50f5-a904-c787dae17f29",
+								"alt": "ورشة علامة تجارية"
+							},
+							{
+								"assetId": "40c5afc4-4296-5449-a2bc-69df40a7dcbd",
+								"alt": "تعاون الفريق الإبداعي"
+							},
+							{
+								"assetId": "b2792594-1c2e-58cd-9511-6cb760570c19",
+								"alt": "مراجعة التحليلات"
+							},
+							{
+								"assetId": "4f6a6ab6-79bb-59b9-9b7a-2e5758c4bb65",
+								"alt": "تعاون فريق التسويق"
+							},
+							{
+								"assetId": "3ec96c9e-5158-5293-99ba-df1dfa5c5d47",
+								"alt": "فريق التسويق يتعاون على الاستراتيجية الإبداعية"
+							}
+						]
+					},
+					"pricing-table-3": {
+						"copy": {
+							"heading": "شراكات مرنة\nتناسب احتياجاتك.",
+							"description": "سواء احتجت توجيهًا استراتيجيًا أو تنفيذًا متكاملًا، لدينا نموذج يناسب عملك."
+						},
+						"items": [
+							{
+								"title": "سباق الاستراتيجية",
+								"description": "تعاون مركّز لتحديد استراتيجيتك التسويقية وخارطة طريقك.",
+								"price": "$15K",
+								"original-price": "",
+								"period": "مرة واحدة",
+								"features-label": "ما يشمله",
+								"label": "اعرف المزيد",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "تحليل السوق والمنافسين"
+									},
+									{
+										"title": "إطار التموضع والرسائل"
+									},
+									{
+										"title": "خطة عمل لمدة 90 يومًا"
+									},
+									{
+										"title": "تعاون لمدة أسبوعين"
+									}
+								]
+							},
+							{
+								"title": "شريك النمو",
+								"description": "شراكة تسويقية مستمرة تجمع الاستراتيجية والتنفيذ.",
+								"price": "$10K",
+								"original-price": "",
+								"period": "/شهريًا",
+								"features-label": "ما يشمله",
+								"label": "ابدأ الشراكة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "استراتيجي مخصص"
+									},
+									{
+										"title": "تنفيذ المحتوى والحملات"
+									},
+									{
+										"title": "تحسين الأداء"
+									},
+									{
+										"title": "تقارير وتحليلات شهرية"
+									},
+									{
+										"title": "مراجعات استراتيجية ربع سنوية"
+									}
+								]
+							},
+							{
+								"title": "خدمة متكاملة",
+								"description": "قسم تسويق متكامل كخدمة.",
+								"price": "$25K",
+								"original-price": "",
+								"period": "/شهريًا",
+								"features-label": "ما يشمله",
+								"label": "اتصل بنا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "كل ما في شريك النمو"
+									},
+									{
+										"title": "خدمات العلامة التجارية والإبداع"
+									},
+									{
+										"title": "إدارة الإعلانات المدفوعة"
+									},
+									{
+										"title": "أتمتة التسويق"
+									},
+									{
+										"title": "دعم ذو أولوية"
+									}
+								]
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "ابدأ محادثة",
+							"heading": "لنتحدث عن نموك.",
+							"description": "حدثنا عن عملك وأهدافك. سنرد عليك خلال يوم عمل واحد.",
+							"emailLabel": "البريد الإلكتروني",
+							"phoneLabel": "الهاتف",
+							"addressLabel": "العنوان",
+							"address": "123 طريق التسويق، جناح 500، أوستن، تكساس 78701"
+						},
+						"actions": [
+							{
+								"label": "hello@signalandfield.com",
+								"link": {
+									"kind": "email",
+									"address": "hello@signalandfield.com"
+								}
+							},
+							{
+								"label": "(512) 555-0199",
+								"link": {
+									"kind": "phone",
+									"number": "+15125550199"
+								}
+							},
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "البريد الإلكتروني للعمل",
+							"messageLabel": "حدثنا عن تحديات التسويق لديك",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "تم استلام رسالتك! سنتواصل معك خلال يوم عمل واحد.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "اتصل بنا",
+							"heading": "لننمِّ خط مبيعاتك",
+							"description": "حدثنا عن أهدافك وسنرد عليك سريعًا."
+						},
+						"location": {
+							"address": "500 درايف الابتكار، أوستن، تكساس 78701"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 500 درايف الابتكار، أوستن، تكساس 78701"
+						},
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "البريد الإلكتروني للعمل",
+							"messageLabel": "حدثنا عن تحديات التسويق لديك",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "تم استلام رسالتك! سنتواصل معك خلال يوم عمل واحد.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "زرنا",
+							"heading": "ستجدنا قريبًا \n مرّ بنا اليوم.",
+							"description": "استخدم الخريطة للحصول على الاتجاهات وزيارة موقعنا."
+						},
+						"actions": [
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "500 درايف الابتكار، أوستن، تكساس 78701"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 500 درايف الابتكار، أوستن، تكساس 78701"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "500 درايف الابتكار، أوستن، تكساس 78701"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 500 درايف الابتكار، أوستن، تكساس 78701"
+						}
+					},
+					"cta-basic": {
+						"copy": {
+							"heading": "مستعد لتسريع نموك؟",
+							"description": "لنتحدث عن أهدافك ونبني نظامًا تسويقيًا يحقق النتائج فعلًا. دون حشو ودون ضغط، مجرد حديث عمّا هو ممكن."
+						},
+						"actions": [
+							{
+								"label": "ابدأ محادثة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							},
+							{
+								"label": "شاهد أعمالنا",
+								"link": {
+									"kind": "relative",
+									"path": "/work"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

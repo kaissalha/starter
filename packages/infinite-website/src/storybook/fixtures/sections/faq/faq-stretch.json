@@ -1,0 +1,86 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "00",
+			"heading": "/FAQ",
+			"description": "We combine strategic planning, targeted ads, and engaging content to reach ideal customers. Our focus is on clarity and relevance, ensuring our message resonates."
+		},
+		"actions": [
+			{
+				"label": "Contact us",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				}
+			}
+		],
+		"items": [
+			{
+				"question": "How can I measure the effectiveness of my branding efforts?",
+				"answer": "Brand lift studies, social listening, website analytics, and customer surveys can help measure branding effectiveness."
+			},
+			{
+				"question": "How often should I update my branding materials?",
+				"answer": "Branding materials should be reviewed and updated regularly, ideally every 1-2 years, or whenever there are significant changes in your business or market."
+			},
+			{
+				"question": "What role does storytelling play in branding?",
+				"answer": "Storytelling helps create an emotional connection with your audience, making your brand more relatable and memorable."
+			},
+			{
+				"question": "What are some common branding mistakes to avoid?",
+				"answer": "Common mistakes include lacking a clear brand identity, inconsistent messaging, neglecting audience feedback, and failing to adapt to market changes."
+			},
+			{
+				"question": "What are the key components of a successful branding strategy?",
+				"answer": "A successful branding strategy includes defining your brand purpose, understanding your target audience, creating a unique value proposition, and consistent messaging."
+			},
+			{
+				"question": "How can I ensure brand consistency across different platforms?",
+				"answer": "Establish a brand style guide that outlines your brand's visual elements, tone of voice, and messaging guidelines to ensure consistency."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "٠٠",
+			"heading": "/الأسئلة",
+			"description": "نجمع بين التخطيط الاستراتيجي والإعلانات المستهدفة والمحتوى الجذاب للوصول إلى العملاء المثاليين. نركز على الوضوح والملاءمة لضمان أن تلقى رسالتنا صدى."
+		},
+		"actions": [
+			{
+				"label": "تواصل معنا",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				}
+			}
+		],
+		"items": [
+			{
+				"question": "كيف يمكنني قياس فعالية جهود العلامة التجارية؟",
+				"answer": "يمكن لدراسات تأثير العلامة والاستماع الاجتماعي وتحليلات الموقع واستطلاعات العملاء أن تساعد في قياس فعالية العلامة التجارية."
+			},
+			{
+				"question": "كم مرة يجب تحديث مواد العلامة التجارية؟",
+				"answer": "ينبغي مراجعة مواد العلامة التجارية وتحديثها بانتظام، ويفضل كل سنة إلى سنتين، أو عند حدوث تغييرات كبيرة في عملك أو السوق."
+			},
+			{
+				"question": "ما دور رواية القصص في العلامة التجارية؟",
+				"answer": "تساعد رواية القصص على بناء ارتباط عاطفي مع جمهورك، مما يجعل علامتك أكثر قربًا وأسهل تذكرًا."
+			},
+			{
+				"question": "ما بعض أخطاء العلامة التجارية الشائعة التي يجب تجنبها؟",
+				"answer": "تشمل الأخطاء الشائعة غياب هوية واضحة للعلامة، والرسائل غير المتسقة، وإهمال ملاحظات الجمهور، وعدم التكيف مع تغيرات السوق."
+			},
+			{
+				"question": "ما المكونات الرئيسية لاستراتيجية علامة تجارية ناجحة؟",
+				"answer": "تتضمن استراتيجية العلامة الناجحة تحديد غاية علامتك وفهم جمهورك المستهدف وصياغة عرض قيمة فريد ورسائل متسقة."
+			},
+			{
+				"question": "كيف أضمن اتساق العلامة التجارية عبر المنصات المختلفة؟",
+				"answer": "ضع دليل أسلوب للعلامة يوضح عناصرها البصرية ونبرة الصوت وإرشادات الرسائل لضمان الاتساق."
+			}
+		]
+	}
+}

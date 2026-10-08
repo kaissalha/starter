@@ -1,0 +1,66 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Frequently asked."
+		},
+		"items": [
+			{
+				"question": "How long does a typical remodel take?",
+				"answer": "Most kitchen remodels take eight to twelve weeks once materials are on site. Primary bathroom renovations usually run four to eight weeks. Outdoor projects depend on weather and scope — we share a detailed schedule before work begins.",
+				"number-label": "1."
+			},
+			{
+				"question": "Do you handle permits and inspections?",
+				"answer": "Yes. We pull required permits, coordinate inspections, and keep your project code-compliant from framing through final. You should not have to chase paperwork or wonder what is next.",
+				"number-label": "2."
+			},
+			{
+				"question": "Can we live in the house during construction?",
+				"answer": "In most cases, yes. We set up dust barriers, protect finished floors, and keep a clean site. For full gut kitchens we plan temporary cooking setups so daily life stays workable.",
+				"number-label": "3."
+			},
+			{
+				"question": "How do you price projects?",
+				"answer": "After the initial consult we provide a written estimate with line-item scope. Larger remodels may start with a design retainer, then move to a fixed contract once materials and selections are locked.",
+				"number-label": "4."
+			},
+			{
+				"question": "What areas do you serve?",
+				"answer": "We work throughout the metro area and nearby suburbs. Travel fees may apply beyond a 40-mile radius — tell us your address and we will confirm availability and any additional costs upfront.",
+				"number-label": "5."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "الأسئلة الشائعة."
+		},
+		"items": [
+			{
+				"question": "كم تستغرق إعادة التجديد النموذجية؟",
+				"answer": "تستغرق معظم تجديدات المطابخ من ثمانية إلى اثني عشر أسبوعًا بعد وصول المواد إلى الموقع. وتستغرق تجديدات الحمام الرئيسي عادةً من أربعة إلى ثمانية أسابيع. تعتمد المشاريع الخارجية على الطقس والنطاق، ونشارك جدولًا تفصيليًا قبل بدء العمل.",
+				"number-label": "١."
+			},
+			{
+				"question": "هل تتولون التراخيص والتفتيش؟",
+				"answer": "نعم. نستخرج التراخيص المطلوبة وننسق عمليات التفتيش ونبقي مشروعك متوافقًا مع الاشتراطات من الهيكل حتى التسليم. لا ينبغي أن تلاحق الأوراق أو تتساءل عن الخطوة التالية.",
+				"number-label": "٢."
+			},
+			{
+				"question": "هل يمكننا العيش في المنزل أثناء البناء؟",
+				"answer": "في معظم الحالات نعم. نقيم حواجز للغبار ونحمي الأرضيات المنجزة ونحافظ على نظافة الموقع. وفي المطابخ التي يُعاد بناؤها بالكامل نخطط لإعدادات طهي مؤقتة ليظل العيش اليومي ممكنًا.",
+				"number-label": "٣."
+			},
+			{
+				"question": "كيف تسعّرون المشاريع؟",
+				"answer": "بعد الاستشارة الأولى نقدم تقديرًا مكتوبًا بنطاق عمل مفصل. قد تبدأ التجديدات الكبيرة بدفعة تصميم مقدمة ثم تنتقل إلى عقد ثابت بعد اعتماد المواد والاختيارات.",
+				"number-label": "٤."
+			},
+			{
+				"question": "ما المناطق التي تخدمونها؟",
+				"answer": "نعمل في كامل المنطقة الحضرية والضواحي القريبة. قد تُطبَّق رسوم سفر خارج نطاق ٤٠ ميلًا، أخبرنا بعنوانك وسنؤكد التوفر وأي تكاليف إضافية مسبقًا.",
+				"number-label": "٥."
+			}
+		]
+	}
+}

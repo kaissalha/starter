@@ -1,0 +1,54 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Meet\nthe guides",
+			"description": "Meet our dedicated team, ready to lead you through every trail. We're here to help you explore with confidence and create unforgettable outdoor experiences."
+		},
+		"members": [
+			{
+				"name": "Clara Wong",
+				"role": "Founder & Lead Guide",
+				"assetId": "d132efad-60de-5b8b-a9f2-65e5bb0818a6",
+				"alt": "Clara Wong smiling on a wildflower trail"
+			},
+			{
+				"name": "Daniel Reyes",
+				"role": "Senior Trail Guide",
+				"assetId": "3d4ada30-137a-5e89-a47a-b80e1a79fbf9",
+				"alt": "Daniel Reyes pausing for water on a mountain hike"
+			},
+			{
+				"name": "Maya Patel",
+				"role": "Outdoor Experience Lead",
+				"assetId": "bd2350c8-e9f3-5451-8a27-94f1eae8aa24",
+				"alt": "Maya Patel smiling on a mountain trail"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "تعرّف على\nمرشدينا",
+			"description": "تعرّف على فريقنا المتفاني، المستعد لقيادتك عبر كل مسار. نحن هنا لنساعدك على الاستكشاف بثقة وصناعة تجارب لا تُنسى في الهواء الطلق."
+		},
+		"members": [
+			{
+				"name": "كلارا وونغ",
+				"role": "المؤسسة والمرشدة الرئيسية",
+				"alt": "كلارا وونغ تبتسم على مسار تزيّنه الأزهار البرية",
+				"assetId": "d132efad-60de-5b8b-a9f2-65e5bb0818a6"
+			},
+			{
+				"name": "دانيال رييس",
+				"role": "مرشد مسارات أول",
+				"alt": "دانيال رييس يتوقف لشرب الماء خلال رحلة جبلية",
+				"assetId": "3d4ada30-137a-5e89-a47a-b80e1a79fbf9"
+			},
+			{
+				"name": "مايا باتيل",
+				"role": "مسؤولة تجربة الهواء الطلق",
+				"alt": "مايا باتيل تبتسم على مسار جبلي",
+				"assetId": "bd2350c8-e9f3-5451-8a27-94f1eae8aa24"
+			}
+		]
+	}
+}

@@ -1,0 +1,66 @@
+{
+	"en": {
+		"media": [
+			{
+				"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+				"alt": "Timber lattice pavilion on a forested hillside"
+			},
+			{
+				"assetId": "41823f9b-303f-5b01-ba2c-a3f2ec95282e",
+				"alt": "Curved timber and glass building with a green roof"
+			},
+			{
+				"assetId": "2d4af180-f624-5e8b-b4fc-f1fa8e5922f6",
+				"alt": "Sunlit timber arches curving over a glass-railed atrium"
+			},
+			{
+				"assetId": "b0b24af1-17c5-5001-ab41-b205bd51671c",
+				"alt": "Open timber staircase beneath tall glass walls"
+			},
+			{
+				"assetId": "f0eecba9-4c62-5273-a91f-5545b8cb9022",
+				"alt": "Timber arches and a spiral staircase under a glass roof"
+			},
+			{
+				"assetId": "eb2424a8-5d3e-53ca-9ddd-0a1900acc243",
+				"alt": "Multi-level lobby with a spiral staircase and indoor plants"
+			},
+			{
+				"assetId": "f0770e9d-cdb1-5e74-9852-ebd35a2037f0",
+				"alt": "Sweeping wooden ramps inside a daylit atrium"
+			}
+		]
+	},
+	"ar": {
+		"media": [
+			{
+				"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+				"alt": "جناح خشبي شبكي على سفح تلة مشجّر"
+			},
+			{
+				"assetId": "41823f9b-303f-5b01-ba2c-a3f2ec95282e",
+				"alt": "مبنى منحني من الخشب والزجاج بسقف أخضر"
+			},
+			{
+				"assetId": "2d4af180-f624-5e8b-b4fc-f1fa8e5922f6",
+				"alt": "أقواس خشبية مضاءة بالشمس فوق ردهة بحواجز زجاجية"
+			},
+			{
+				"assetId": "b0b24af1-17c5-5001-ab41-b205bd51671c",
+				"alt": "درج خشبي مفتوح أسفل جدران زجاجية عالية"
+			},
+			{
+				"assetId": "f0eecba9-4c62-5273-a91f-5545b8cb9022",
+				"alt": "أقواس خشبية ودرج حلزوني تحت سقف زجاجي"
+			},
+			{
+				"assetId": "eb2424a8-5d3e-53ca-9ddd-0a1900acc243",
+				"alt": "ردهة متعددة الطوابق بدرج حلزوني ونباتات داخلية"
+			},
+			{
+				"assetId": "f0770e9d-cdb1-5e74-9852-ebd35a2037f0",
+				"alt": "منحدرات خشبية متعرجة داخل ردهة مضاءة بضوء النهار"
+			}
+		]
+	}
+}

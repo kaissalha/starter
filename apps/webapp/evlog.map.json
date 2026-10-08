@@ -1,0 +1,918 @@
+{
+	"version": 1,
+	"generatedAt": "2026-08-15T16:03:11.932Z",
+	"cliVersion": "0.5.2",
+	"ruleSetVersion": 1,
+	"framework": "next",
+	"projectName": "webapp",
+	"score": 100,
+	"routes": [
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale",
+			"file": "src/app/[locale]/(site)/page.tsx",
+			"handler": null,
+			"id": "a852d59b9d15",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/accept-invitation/:id",
+			"file": "src/app/[locale]/accept-invitation/[id]/page.tsx",
+			"handler": null,
+			"id": "9c8fcef8c2de",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/dashboard",
+			"file": "src/app/[locale]/dashboard/(home)/page.tsx",
+			"handler": null,
+			"id": "daa78fd26ed6",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/dashboard/website",
+			"file": "src/app/[locale]/dashboard/website/page.tsx",
+			"handler": null,
+			"id": "5ff239be8d17",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/login",
+			"file": "src/app/[locale]/(auth)/login/page.tsx",
+			"handler": null,
+			"id": "2fbd3671e3f4",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "high",
+				"reasons": ["auth: path says \"login\""]
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/oauth/consent",
+			"file": "src/app/[locale]/(auth)/oauth/consent/page.tsx",
+			"handler": null,
+			"id": "7f3b759f1562",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "high",
+				"reasons": ["auth: path says \"oauth\""]
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/onboarding",
+			"file": "src/app/[locale]/onboarding/page.tsx",
+			"handler": null,
+			"id": "ed8d72691de2",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "page",
+			"method": null,
+			"path": "/:locale/privacy",
+			"file": "src/app/[locale]/(site)/privacy/page.tsx",
+			"handler": null,
+			"id": "1fd9a2dd9d41",
+			"checks": {
+				"page-error-handling": {
+					"status": "n/a"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/accept-md",
+			"file": "src/app/api/accept-md/route.ts",
+			"handler": {
+				"line": 130,
+				"column": 0
+			},
+			"id": "889633d3b898",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				},
+				"error-handling": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/auth/:all*",
+			"file": "src/app/api/auth/[...all]/route.ts",
+			"handler": {
+				"line": 53,
+				"column": 0
+			},
+			"id": "f1e1b342b760",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				},
+				"audit": {
+					"status": "n/a",
+					"suppressed": true,
+					"message": "disabled for this file — this Better Auth catch-all mixes high-volume reads with protocol mutations",
+					"evidence": {
+						"file": "src/app/api/auth/[...all]/route.ts",
+						"line": 5
+					}
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "high",
+				"reasons": ["auth: path says \"auth\""]
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "POST",
+			"path": "/api/auth/:all*",
+			"file": "src/app/api/auth/[...all]/route.ts",
+			"handler": {
+				"line": 54,
+				"column": 0
+			},
+			"id": "5584c3bdc548",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				},
+				"audit": {
+					"status": "n/a",
+					"suppressed": true,
+					"message": "disabled for this file — this Better Auth catch-all mixes high-volume reads with protocol mutations",
+					"evidence": {
+						"file": "src/app/api/auth/[...all]/route.ts",
+						"line": 5
+					}
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "high",
+				"reasons": ["auth: path says \"auth\""]
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/chats/:chatId/stream",
+			"file": "src/app/api/chats/[chatId]/stream/route.ts",
+			"handler": {
+				"line": 24,
+				"column": 0
+			},
+			"id": "23faf533a61f",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "POST",
+			"path": "/api/chats/:chatId/stream",
+			"file": "src/app/api/chats/[chatId]/stream/route.ts",
+			"handler": {
+				"line": 13,
+				"column": 0
+			},
+			"id": "829465f93dc5",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "DELETE",
+			"path": "/api/mcp",
+			"file": "src/app/api/mcp/route.ts",
+			"handler": {
+				"line": 86,
+				"column": 0
+			},
+			"id": "0ac9cade48a6",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/mcp",
+			"file": "src/app/api/mcp/route.ts",
+			"handler": {
+				"line": 84,
+				"column": 0
+			},
+			"id": "61ff69b60c1f",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "POST",
+			"path": "/api/mcp",
+			"file": "src/app/api/mcp/route.ts",
+			"handler": {
+				"line": 85,
+				"column": 0
+			},
+			"id": "0a592ecd7006",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/media",
+			"file": "src/app/api/media/route.ts",
+			"handler": {
+				"line": 19,
+				"column": 0
+			},
+			"id": "39a06f692090",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "POST",
+			"path": "/api/media",
+			"file": "src/app/api/media/route.ts",
+			"handler": {
+				"line": 10,
+				"column": 0
+			},
+			"id": "8f712acf35c3",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "DELETE",
+			"path": "/api/rpc/:rest*?",
+			"file": "src/app/api/rpc/[[...rest]]/route.ts",
+			"handler": {
+				"line": 33,
+				"column": 0
+			},
+			"id": "4b9301333f91",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/rpc/:rest*?",
+			"file": "src/app/api/rpc/[[...rest]]/route.ts",
+			"handler": {
+				"line": 29,
+				"column": 0
+			},
+			"id": "7ede0b59e3a6",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "HEAD",
+			"path": "/api/rpc/:rest*?",
+			"file": "src/app/api/rpc/[[...rest]]/route.ts",
+			"handler": {
+				"line": 34,
+				"column": 0
+			},
+			"id": "77aeaeaa7acc",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "PATCH",
+			"path": "/api/rpc/:rest*?",
+			"file": "src/app/api/rpc/[[...rest]]/route.ts",
+			"handler": {
+				"line": 32,
+				"column": 0
+			},
+			"id": "bfe07872ad4c",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "POST",
+			"path": "/api/rpc/:rest*?",
+			"file": "src/app/api/rpc/[[...rest]]/route.ts",
+			"handler": {
+				"line": 30,
+				"column": 0
+			},
+			"id": "a82fa3928b5a",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "PUT",
+			"path": "/api/rpc/:rest*?",
+			"file": "src/app/api/rpc/[[...rest]]/route.ts",
+			"handler": {
+				"line": 31,
+				"column": 0
+			},
+			"id": "9180aa986234",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "DELETE",
+			"path": "/api/v1/:rest*?",
+			"file": "src/app/api/v1/[[...rest]]/route.ts",
+			"handler": {
+				"line": 54,
+				"column": 0
+			},
+			"id": "e4b642595236",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "GET",
+			"path": "/api/v1/:rest*?",
+			"file": "src/app/api/v1/[[...rest]]/route.ts",
+			"handler": {
+				"line": 50,
+				"column": 0
+			},
+			"id": "9f29013d261e",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "PATCH",
+			"path": "/api/v1/:rest*?",
+			"file": "src/app/api/v1/[[...rest]]/route.ts",
+			"handler": {
+				"line": 53,
+				"column": 0
+			},
+			"id": "209ae5e00370",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "POST",
+			"path": "/api/v1/:rest*?",
+			"file": "src/app/api/v1/[[...rest]]/route.ts",
+			"handler": {
+				"line": 51,
+				"column": 0
+			},
+			"id": "35bcde3f66d0",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "PUT",
+			"path": "/api/v1/:rest*?",
+			"file": "src/app/api/v1/[[...rest]]/route.ts",
+			"handler": {
+				"line": 52,
+				"column": 0
+			},
+			"id": "04407a07f31d",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		}
+	]
+}

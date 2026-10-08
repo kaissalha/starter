@@ -1,0 +1,84 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Our Services",
+			"heading": "Your Partner in\nFinancial Success",
+			"description": "Our certified financial experts guide individuals and businesses in making informed decisions about retirement, investing, and daily finances."
+		},
+		"actions": [{ "label": "Schedule a Call", "link": { "kind": "anchor", "anchor": "contact" } }],
+		"accessibility": { "carouselLabel": "Services", "indicatorsLabel": "Choose service" },
+		"features": [
+			{
+				"title": "Tax Optimization Services",
+				"description": "We provide tax planning to lower liabilities and enhance returns. Our experts stay updated on tax laws.",
+				"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+				"alt": "Garden path winding past rose bushes and lavender beds"
+			},
+			{
+				"title": "Wealth Management",
+				"description": "Comprehensive wealth management solutions tailored to your financial goals and risk tolerance.",
+				"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+				"alt": "Sunlit formal garden with clipped hedges and grass borders"
+			},
+			{
+				"title": "Retirement Planning",
+				"description": "Strategic retirement planning to secure your future with personalized investment strategies.",
+				"assetId": "499fa051-dd27-564e-baa1-a954a993a1a8",
+				"alt": "Rose garden path lined with hedges and blooming roses"
+			},
+			{
+				"title": "Estate Planning",
+				"description": "Protect your legacy with comprehensive estate planning and wealth transfer strategies.",
+				"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+				"alt": "Landscaped lawn bordered by flower beds and hedges"
+			},
+			{
+				"title": "Insurance Solutions",
+				"description": "Tailored insurance coverage to protect what matters most to you and your family.",
+				"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+				"alt": "Cottage garden path with roses and foxgloves"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "خدماتنا",
+			"heading": "شريكك في\nالنجاح المالي",
+			"description": "يرشد خبراؤنا الماليون المعتمدون الأفراد والشركات إلى اتخاذ قرارات مدروسة بشأن التقاعد والاستثمار والشؤون المالية اليومية."
+		},
+		"actions": [{ "label": "احجز مكالمة", "link": { "kind": "anchor", "anchor": "contact" } }],
+		"accessibility": { "carouselLabel": "الخدمات", "indicatorsLabel": "اختر خدمة" },
+		"features": [
+			{
+				"title": "خدمات تحسين الضرائب",
+				"description": "نقدّم تخطيطًا ضريبيًا لخفض الالتزامات وتعزيز العوائد. يتابع خبراؤنا أحدث القوانين الضريبية.",
+				"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+				"alt": "ممر حديقة يمر بين شجيرات الورد وأحواض الخزامى"
+			},
+			{
+				"title": "إدارة الثروات",
+				"description": "حلول شاملة لإدارة الثروات مصممة وفق أهدافك المالية ومدى تحملك للمخاطر.",
+				"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+				"alt": "حديقة رسمية مشمسة بأسوار نباتية مشذبة وحواف عشبية"
+			},
+			{
+				"title": "التخطيط للتقاعد",
+				"description": "تخطيط تقاعدي استراتيجي لتأمين مستقبلك باستراتيجيات استثمار مخصصة.",
+				"assetId": "499fa051-dd27-564e-baa1-a954a993a1a8",
+				"alt": "ممر حديقة ورود تحيط به أسوار نباتية وورود متفتحة"
+			},
+			{
+				"title": "تخطيط التركات",
+				"description": "احمِ إرثك بتخطيط شامل للتركات واستراتيجيات نقل الثروة.",
+				"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+				"alt": "مرج منسق تحيط به أحواض الزهور والأسوار النباتية"
+			},
+			{
+				"title": "حلول التأمين",
+				"description": "تغطية تأمينية مخصصة لحماية أهم ما لديك ولدى عائلتك.",
+				"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+				"alt": "ممر حديقة ريفية بالورود وأزهار القفاز"
+			}
+		]
+	}
+}

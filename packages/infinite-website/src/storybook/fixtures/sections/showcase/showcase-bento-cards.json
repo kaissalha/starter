@@ -1,0 +1,116 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Companies",
+			"heading": "Read more stories from our clients",
+			"description": "We are dedicated to empowering entrepreneurs and their teams, providing them with the tools, knowledge, and opportunities they need to grow and succeed."
+		},
+		"items": [
+			{
+				"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+				"alt": "Boltshift",
+				"stat": "3x",
+				"label": "faster delivery"
+			},
+			{
+				"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+				"alt": "Lightbox",
+				"stat": "2x",
+				"label": "ROI investment"
+			},
+			{
+				"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+				"alt": "CloudWatch",
+				"stat": "40%",
+				"label": "cost reduction"
+			},
+			{
+				"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+				"alt": "Layers",
+				"stat": "60%",
+				"label": "faster onboarding"
+			},
+			{
+				"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+				"alt": "Capsule",
+				"stat": "4.8",
+				"label": "customer rating"
+			},
+			{
+				"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+				"alt": "Galileo",
+				"stat": "1.5M",
+				"label": "annual savings"
+			},
+			{
+				"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+				"alt": "GlobalBank",
+				"stat": "20%",
+				"label": "improved scalability"
+			},
+			{
+				"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+				"alt": "Sisyphus",
+				"stat": "12k",
+				"label": "active users"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "الشركات",
+			"heading": "اقرأ المزيد من قصص عملائنا",
+			"description": "نحن ملتزمون بتمكين رواد الأعمال وفرقهم، وتزويدهم بالأدوات والمعرفة والفرص التي يحتاجونها للنمو والنجاح."
+		},
+		"items": [
+			{
+				"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+				"alt": "بولتشيفت",
+				"stat": "3x",
+				"label": "تسليم أسرع"
+			},
+			{
+				"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+				"alt": "لايت بوكس",
+				"stat": "2x",
+				"label": "عائد الاستثمار"
+			},
+			{
+				"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+				"alt": "كلاود ووتش",
+				"stat": "40%",
+				"label": "خفض التكاليف"
+			},
+			{
+				"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+				"alt": "لاييرز",
+				"stat": "60%",
+				"label": "تهيئة أسرع"
+			},
+			{
+				"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+				"alt": "كابسول",
+				"stat": "4.8",
+				"label": "تقييم العملاء"
+			},
+			{
+				"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+				"alt": "غاليليو",
+				"stat": "1.5M",
+				"label": "مليون وفورات سنوية"
+			},
+			{
+				"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+				"alt": "غلوبال بانك",
+				"stat": "20%",
+				"label": "تحسّن في قابلية التوسع"
+			},
+			{
+				"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+				"alt": "سيزيفوس",
+				"stat": "12k",
+				"label": "مستخدم نشط"
+			}
+		]
+	}
+}

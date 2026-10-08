@@ -1,0 +1,196 @@
+{
+	"en": {
+		"accessibility": {
+			"navigationLabel": "Florora navigation",
+			"mobileNavigationLabel": "Menu"
+		},
+		"copy": {
+			"header-main-brand": "Florora"
+		},
+		"navigation": [
+			{
+				"label": "Home",
+				"link": {
+					"kind": "relative",
+					"path": "/"
+				},
+				"dropdown": []
+			},
+			{
+				"label": "Products",
+				"link": {
+					"kind": "relative",
+					"path": "/products"
+				},
+				"dropdown": [
+					{
+						"label": "All Products",
+						"link": {
+							"kind": "relative",
+							"path": "/products"
+						}
+					},
+					{
+						"label": "Pricing",
+						"link": {
+							"kind": "relative",
+							"path": "/pricing"
+						}
+					}
+				]
+			},
+			{
+				"label": "About Us",
+				"link": {
+					"kind": "relative",
+					"path": "/about"
+				},
+				"dropdown": []
+			},
+			{
+				"label": "Contact",
+				"link": {
+					"kind": "relative",
+					"path": "/contact"
+				},
+				"dropdown": []
+			}
+		],
+		"actions": [
+			{
+				"label": "Sign Up",
+				"link": {
+					"kind": "relative",
+					"path": "/signup"
+				}
+			},
+			{
+				"label": "Login",
+				"link": {
+					"kind": "relative",
+					"path": "/login"
+				}
+			}
+		],
+		"socialLinks": [
+			{
+				"label": "Facebook",
+				"link": {
+					"kind": "external",
+					"url": "https://facebook.com"
+				}
+			},
+			{
+				"label": "X",
+				"link": {
+					"kind": "external",
+					"url": "https://x.com"
+				}
+			},
+			{
+				"label": "Instagram",
+				"link": {
+					"kind": "external",
+					"url": "https://instagram.com"
+				}
+			}
+		]
+	},
+	"ar": {
+		"accessibility": {
+			"navigationLabel": "قائمة فلورورا",
+			"mobileNavigationLabel": "القائمة"
+		},
+		"copy": {
+			"header-main-brand": "فلورورا"
+		},
+		"navigation": [
+			{
+				"label": "الرئيسية",
+				"link": {
+					"kind": "relative",
+					"path": "/"
+				},
+				"dropdown": []
+			},
+			{
+				"label": "المنتجات",
+				"link": {
+					"kind": "relative",
+					"path": "/products"
+				},
+				"dropdown": [
+					{
+						"label": "كل المنتجات",
+						"link": {
+							"kind": "relative",
+							"path": "/products"
+						}
+					},
+					{
+						"label": "الأسعار",
+						"link": {
+							"kind": "relative",
+							"path": "/pricing"
+						}
+					}
+				]
+			},
+			{
+				"label": "من نحن",
+				"link": {
+					"kind": "relative",
+					"path": "/about"
+				},
+				"dropdown": []
+			},
+			{
+				"label": "اتصل بنا",
+				"link": {
+					"kind": "relative",
+					"path": "/contact"
+				},
+				"dropdown": []
+			}
+		],
+		"actions": [
+			{
+				"label": "إنشاء حساب",
+				"link": {
+					"kind": "relative",
+					"path": "/signup"
+				}
+			},
+			{
+				"label": "تسجيل الدخول",
+				"link": {
+					"kind": "relative",
+					"path": "/login"
+				}
+			}
+		],
+		"socialLinks": [
+			{
+				"label": "Facebook",
+				"link": {
+					"kind": "external",
+					"url": "https://facebook.com"
+				}
+			},
+			{
+				"label": "X",
+				"link": {
+					"kind": "external",
+					"url": "https://x.com"
+				}
+			},
+			{
+				"label": "Instagram",
+				"link": {
+					"kind": "external",
+					"url": "https://instagram.com"
+				}
+			}
+		]
+	}
+}

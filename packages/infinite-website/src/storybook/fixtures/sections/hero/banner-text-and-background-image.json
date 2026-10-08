@@ -1,0 +1,20 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Garden",
+			"heading": "Create your \n dream garden with vibrant blooms",
+			"description": "Transform your outdoor space into a vibrant sanctuary. From lush blooms to timeless layouts, we'll bring beauty and balance to your garden."
+		},
+		"actions": [{ "link": { "kind": "anchor", "anchor": "get-started" }, "label": "Get Started" }],
+		"media": [{ "assetId": "54106edb-df9f-5a3b-9ea7-270facc342b3", "alt": "Gardener tending a lush green lawn" }]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "حديقة",
+			"heading": "اصنع حديقة أحلامك \n بأزهار نابضة بالحياة",
+			"description": "حوّل مساحتك الخارجية إلى ملاذ نابض بالحياة. من الأزهار المورقة إلى التصاميم الخالدة، سنضفي الجمال والتوازن على حديقتك."
+		},
+		"actions": [{ "link": { "kind": "anchor", "anchor": "get-started" }, "label": "ابدأ الآن" }],
+		"media": [{ "assetId": "54106edb-df9f-5a3b-9ea7-270facc342b3", "alt": "بستاني يعتني بعشب أخضر كثيف" }]
+	}
+}

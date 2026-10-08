@@ -1,0 +1,44 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Home repairs, without the hassle",
+			"description": "Reliable handyman services for the fixes and upgrades you’ve been putting off. Clear communication, clean work, and results you’ll feel good about."
+		},
+		"media": [
+			{
+				"assetId": "a0ce3d3a-3d70-5864-b38f-41bbae51764d",
+				"alt": "Passengers and golden retrievers relax in the spacious cabin of a private jet"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "schedule"
+				},
+				"label": "Schedule a Call"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "إصلاحات منزلية بلا عناء",
+			"description": "خدمات سباكة وصيانة موثوقة للإصلاحات والتحسينات التي أجّلتها طويلًا. تواصل واضح وعمل نظيف ونتائج تفرحك."
+		},
+		"media": [
+			{
+				"assetId": "a0ce3d3a-3d70-5864-b38f-41bbae51764d",
+				"alt": "ركاب وكلاب غولدن ريتريفر يسترخون في مقصورة طائرة خاصة فسيحة"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "schedule"
+				},
+				"label": "احجز مكالمة"
+			}
+		]
+	}
+}

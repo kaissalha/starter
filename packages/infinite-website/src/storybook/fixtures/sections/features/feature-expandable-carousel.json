@@ -1,0 +1,70 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Features",
+			"heading": "Everything you need to succeed",
+			"description": "Powerful tools and features designed to help you achieve your goals faster and more efficiently."
+		},
+		"actions": [
+			{ "label": "Get Started", "link": { "kind": "anchor", "anchor": "contact" } },
+			{ "label": "Learn More", "link": { "kind": "anchor", "anchor": "contact" } }
+		],
+		"accessibility": { "carouselLabel": "Features", "indicatorsLabel": "Choose feature" },
+		"features": [
+			{
+				"tag": "01",
+				"title": "Guided onboarding",
+				"description": "Personalized setup paths enable every role to get productive on day one."
+			},
+			{
+				"tag": "02",
+				"title": "Workflow automations",
+				"description": "Automate repetitive handoffs with adaptable playbooks built for your processes."
+			},
+			{
+				"tag": "03",
+				"title": "Actionable insights",
+				"description": "Real-time dashboards surface trends and recommended actions before issues appear."
+			},
+			{
+				"tag": "04",
+				"title": "Integrated support",
+				"description": "Live specialists and deep documentation keep launches on track around the clock."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "المزايا",
+			"heading": "كل ما تحتاجه لتنجح",
+			"description": "أدوات ومزايا قوية مصممة لمساعدتك على تحقيق أهدافك بشكل أسرع وأكثر كفاءة."
+		},
+		"actions": [
+			{ "label": "ابدأ الآن", "link": { "kind": "anchor", "anchor": "contact" } },
+			{ "label": "اعرف المزيد", "link": { "kind": "anchor", "anchor": "contact" } }
+		],
+		"accessibility": { "carouselLabel": "المزايا", "indicatorsLabel": "اختر ميزة" },
+		"features": [
+			{
+				"tag": "٠١",
+				"title": "تهيئة موجهة",
+				"description": "مسارات إعداد مخصصة تمكّن كل دور من الإنتاجية منذ اليوم الأول."
+			},
+			{
+				"tag": "٠٢",
+				"title": "أتمتة سير العمل",
+				"description": "أتمتة عمليات التسليم المتكررة بكتيبات قابلة للتكيف مبنية لعملياتك."
+			},
+			{
+				"tag": "٠٣",
+				"title": "رؤى قابلة للتنفيذ",
+				"description": "لوحات فورية تُظهر الاتجاهات والإجراءات الموصى بها قبل ظهور المشكلات."
+			},
+			{
+				"tag": "٠٤",
+				"title": "دعم متكامل",
+				"description": "متخصصون مباشرون ووثائق معمقة تُبقي الإطلاقات على المسار على مدار الساعة."
+			}
+		]
+	}
+}

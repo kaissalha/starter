@@ -1,0 +1,119 @@
+name: Production
+
+on:
+    push:
+        branches:
+            - master
+
+permissions:
+    contents: read
+
+jobs:
+    gate:
+        name: Gate
+        uses: ./.github/workflows/quality.yml
+
+    quality:
+        name: Quality checks
+        needs: [gate]
+        if: always()
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - name: Require every gate job to pass
+              env:
+                  GATE_RESULT: ${{ needs.gate.result }}
+              run: test "$GATE_RESULT" = success
+
+    prepare:
+        name: Prepare production
+        needs: [gate]
+        if: github.event_name == 'push'
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+        concurrency:
+            group: production-prepare
+            cancel-in-progress: false
+        permissions:
+            actions: read
+            contents: read
+            statuses: write
+        env:
+            VERCEL_ORG_ID: ${{ vars.VERCEL_TEAM_ID }}
+            VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+            VERCEL_TEAM_ID: ${{ vars.VERCEL_TEAM_ID }}
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+            - name: Detect superseded commit
+              id: head
+              run: |
+                  latest=$(git ls-remote origin refs/heads/master | cut -f1)
+                  if [ "$latest" = "$GITHUB_SHA" ]; then
+                      echo "current=true" >> "$GITHUB_OUTPUT"
+                  else
+                      echo "current=false" >> "$GITHUB_OUTPUT"
+                      echo "::notice::Skipping production preparation for $GITHUB_SHA because master advanced to $latest."
+                  fi
+
+            - name: Setup
+              if: steps.head.outputs.current == 'true'
+              uses: ./.github/actions/setup
+
+            - name: Check migration drift
+              if: steps.head.outputs.current == 'true'
+              run: bun --filter @starter/db drift
+
+            - name: Deploy Tinybird resources
+              if: steps.head.outputs.current == 'true'
+              run: make tinybird-deploy
+              env:
+                  TINYBIRD_TOKEN: ${{ secrets.TINYBIRD_TOKEN }}
+                  TINYBIRD_URL: https://api.us-east.tinybird.co
+
+            - name: Pull Vercel environment
+              if: steps.head.outputs.current == 'true'
+              run: bunx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_ACCESS_TOKEN }}
+              working-directory: apps/webapp
+
+            - name: Run migrations
+              if: steps.head.outputs.current == 'true'
+              run: bunx dotenv-cli@11.0.0 -e ./apps/webapp/.vercel/.env.production.local -- bun --filter @starter/db migrate
+
+            - name: Notify Vercel (webapp)
+              if: steps.head.outputs.current == 'true'
+              uses: vercel/repository-dispatch/actions/status@30f760c6640485cd92f8c785ef361382555fb712 # v1
+              env:
+                  VERCEL_ACCESS_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}
+              with:
+                  name: "Vercel - starter-webapp: prepare"
+
+            - name: Notify Vercel (websites)
+              if: steps.head.outputs.current == 'true'
+              uses: vercel/repository-dispatch/actions/status@30f760c6640485cd92f8c785ef361382555fb712 # v1
+              env:
+                  VERCEL_ACCESS_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}
+              with:
+                  name: "Vercel - starter-websites: prepare"
+
+    alert:
+        name: Alert on failed production pipeline
+        needs: [gate, quality, prepare]
+        if: failure() && github.event_name == 'push'
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        permissions: {}
+        env:
+            SLACK_ALERT_WEBHOOK: ${{ secrets.SLACK_ALERT_WEBHOOK }}
+
+        steps:
+            - name: Post to Slack
+              if: env.SLACK_ALERT_WEBHOOK != ''
+              env:
+                  RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+              run: |
+                  jq -n --arg text "Production pipeline failed for ${GITHUB_SHA}: ${RUN_URL}" '{text: $text}' |
+                      curl --fail --silent --show-error --request POST --header 'Content-Type: application/json' --data @- "$SLACK_ALERT_WEBHOOK"

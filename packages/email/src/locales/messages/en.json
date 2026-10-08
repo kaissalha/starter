@@ -1,0 +1,75 @@
+{
+	"components": {
+		"footer": {
+			"company": "starter"
+		},
+		"logo": {
+			"alt": "starter"
+		}
+	},
+	"welcome": {
+		"title": "Welcome to starter",
+		"greeting": "Hi {firstName}",
+		"intro": "Welcome to starter! I'm Kais, one of the founders. It's really important to us that you have a great experience ramping up.",
+		"description": "We're excited to help you build and grow your business. Our platform is designed to make running your business easier and more efficient.",
+		"support": "If you have any questions or need assistance, don't hesitate to reach out to our support team.",
+		"signature": "Best regards,<br/>Kais"
+	},
+	"otp": {
+		"title": "Your verification code",
+		"greeting": "Hi there",
+		"intro": "You requested a one-time password to sign in to your account.",
+		"description": "Enter the following code to complete your sign-in:",
+		"code_label": "Your verification code:",
+		"expires": "This code will expire in {minutes} minutes.",
+		"not_requested": "If you didn't request this code, you can safely ignore this email.",
+		"signature": "Best regards,<br/>The starter Team"
+	},
+	"invitation": {
+		"preview": "You're invited to join {organizationName}",
+		"title": "You're invited to join {organizationName}",
+		"greeting": "Hi there",
+		"intro": "{inviter} has invited you to join {organizationName} as a {role}.",
+		"description": "Click the button below to accept this invitation and get started. This invite was sent to {recipientEmail}.",
+		"cta": "Accept invitation",
+		"fallback": "Or copy and paste this link into your browser:",
+		"not_you": "If you didn't expect this invitation, you can safely ignore this email.",
+		"signature": "Best regards,<br/>The starter Team",
+		"roles": {
+			"admin": "admin",
+			"member": "member"
+		}
+	},
+	"contactMessage": {
+		"preview": "New message from {name}",
+		"subject": "New message from {name}",
+		"title": "New message from your website",
+		"intro": "{name} sent you a message through your website contact form.",
+		"email_label": "Email",
+		"phone_label": "Phone",
+		"message_label": "Message",
+		"cta": "View message"
+	},
+	"domainAlert": {
+		"cta": "Manage domain",
+		"expiring": {
+			"preview": "{domain} expires soon",
+			"subject": "{domain} expires soon",
+			"title": "{domain} expires soon",
+			"body": "Your domain {domain} expires soon. Days left: {days}. Renew it to keep your website online at this address."
+		},
+		"failed": {
+			"preview": "{domain} couldn't be registered",
+			"subject": "{domain} couldn't be registered",
+			"title": "{domain} couldn't be registered",
+			"body": "We couldn't register {domain}. Open your website settings to review the domain and try again."
+		}
+	},
+	"notificationSettings": {
+		"reason": "You get this email because of your notification settings.",
+		"link": "Manage notification settings"
+	},
+	"test": {
+		"markup": "Hello <strong>World</strong>"
+	}
+}

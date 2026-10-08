@@ -1,0 +1,174 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Beam Pricing Plans",
+			"description": "Choose the perfect plan for your needs. Flexible options for any team size."
+		},
+		"items": [
+			{
+				"title": "Basic",
+				"price": "$99",
+				"period": "/month",
+				"features-label": "Includes:",
+				"description": "For small teams and startups looking to get started with essential features and basic support.",
+				"label": "Get started",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "Feature 1"
+					},
+					{
+						"title": "Feature 2"
+					},
+					{
+						"title": "Feature 3"
+					}
+				],
+				"badge-label": "Most popular"
+			},
+			{
+				"title": "Professional",
+				"price": "$199",
+				"period": "/month",
+				"features-label": "Includes:",
+				"description": "For growing businesses that need advanced features and priority support.",
+				"label": "Get started",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "Everything in Basic"
+					},
+					{
+						"title": "Feature 4"
+					},
+					{
+						"title": "Feature 5"
+					},
+					{
+						"title": "Feature 6"
+					}
+				],
+				"badge-label": "Most popular"
+			},
+			{
+				"title": "Enterprise",
+				"price": "$499",
+				"period": "/month",
+				"features-label": "Includes:",
+				"description": "For large organizations requiring custom solutions and dedicated support.",
+				"label": "Contact sales",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "Everything in Professional"
+					},
+					{
+						"title": "Feature 7"
+					},
+					{
+						"title": "Feature 8"
+					},
+					{
+						"title": "Feature 9"
+					}
+				],
+				"badge-label": "Most popular"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "خطط أسعار بيم",
+			"description": "اختر الخطة المثالية لاحتياجاتك. خيارات مرنة لأي حجم فريق."
+		},
+		"items": [
+			{
+				"title": "الأساسية",
+				"price": "99$",
+				"period": "/شهريًا",
+				"features-label": "تشمل:",
+				"description": "للفرق الصغيرة والشركات الناشئة التي تبدأ بالميزات الأساسية والدعم الأساسي.",
+				"label": "ابدأ الآن",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "الميزة 1"
+					},
+					{
+						"title": "الميزة 2"
+					},
+					{
+						"title": "الميزة 3"
+					}
+				],
+				"badge-label": "الأكثر شيوعًا"
+			},
+			{
+				"title": "الاحترافية",
+				"price": "199$",
+				"period": "/شهريًا",
+				"features-label": "تشمل:",
+				"description": "للأعمال المتنامية التي تحتاج إلى ميزات متقدمة ودعم ذي أولوية.",
+				"label": "ابدأ الآن",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "كل ما في الأساسية"
+					},
+					{
+						"title": "الميزة 4"
+					},
+					{
+						"title": "الميزة 5"
+					},
+					{
+						"title": "الميزة 6"
+					}
+				],
+				"badge-label": "الأكثر شيوعًا"
+			},
+			{
+				"title": "المؤسسات",
+				"price": "499$",
+				"period": "/شهريًا",
+				"features-label": "تشمل:",
+				"description": "للمؤسسات الكبيرة التي تحتاج إلى حلول مخصصة ودعم مخصص.",
+				"label": "تواصل مع المبيعات",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "كل ما في الاحترافية"
+					},
+					{
+						"title": "الميزة 7"
+					},
+					{
+						"title": "الميزة 8"
+					},
+					{
+						"title": "الميزة 9"
+					}
+				],
+				"badge-label": "الأكثر شيوعًا"
+			}
+		]
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"en": {
+		"location": {
+			"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+		},
+		"accessibility": {
+			"mapLabel": "Map of 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+		}
+	},
+	"ar": {
+		"location": {
+			"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+		},
+		"accessibility": {
+			"mapLabel": "خريطة 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+		}
+	}
+}

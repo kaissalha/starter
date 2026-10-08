@@ -1,0 +1,28 @@
+{
+	"en": {
+		"copy": { "heading": "Mobile detailing,\ndone right" },
+		"actions": [
+			{ "link": { "kind": "anchor", "anchor": "get-started" }, "label": "Book a detail" },
+			{ "link": { "kind": "anchor", "anchor": "packages" }, "label": "View packages" }
+		],
+		"media": [
+			{
+				"assetId": "63d260aa-fb32-5b0b-80f4-6a5df2cf1e1e",
+				"alt": "Dark classic wagon parked in a dim garage with warm light"
+			}
+		]
+	},
+	"ar": {
+		"copy": { "heading": "تنظيف السيارات المتنقل،\nبإتقان" },
+		"actions": [
+			{ "link": { "kind": "anchor", "anchor": "get-started" }, "label": "احجز خدمة تنظيف" },
+			{ "link": { "kind": "anchor", "anchor": "packages" }, "label": "شاهد الباقات" }
+		],
+		"media": [
+			{
+				"assetId": "63d260aa-fb32-5b0b-80f4-6a5df2cf1e1e",
+				"alt": "سيارة كلاسيكية داكنة متوقفة في مرآب خافت بإضاءة دافئة"
+			}
+		]
+	}
+}

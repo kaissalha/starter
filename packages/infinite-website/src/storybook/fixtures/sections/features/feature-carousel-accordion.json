@@ -1,0 +1,92 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "How we help",
+			"heading": "Financial clarity\nfor every stage\nof life",
+			"description": "From everyday budgeting to long-term goals, we help you build a plan that protects what matters and grows with you."
+		},
+		"accessibility": { "carouselLabel": "How we help" },
+		"features": [
+			{
+				"number": "01",
+				"title": "Education savings",
+				"description": "College and future-ready plans that grow alongside your kids—so opportunity is within reach when they need it.",
+				"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+				"alt": "Restored brown first-generation Range Rover parked outdoors"
+			},
+			{
+				"number": "02",
+				"title": "Budgeting that sticks",
+				"description": "Simple systems for tracking spending, paying down debt, and building habits that keep your household on solid ground.",
+				"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+				"alt": "Blue classic Range Rover on a studio backdrop"
+			},
+			{
+				"number": "03",
+				"title": "Retirement planning",
+				"description": "Clear roadmaps for saving, investing, and stepping into retirement with confidence—so your later years feel secure.",
+				"assetId": "63d260aa-fb32-5b0b-80f4-6a5df2cf1e1e",
+				"alt": "Green classic Range Rover in a dark workshop"
+			},
+			{
+				"number": "04",
+				"title": "Family protection",
+				"description": "Insurance, emergency funds, and estate basics designed to safeguard the people who depend on you most.",
+				"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+				"alt": "Classic car interior with tan leather seats and wood trim"
+			},
+			{
+				"number": "05",
+				"title": "Personal advisory",
+				"description": "One-on-one guidance through big decisions—home buying, investments, and tax strategy—with advice you can act on.",
+				"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+				"alt": "Close-up of a tan leather seat with modern controls"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "كيف نساعد",
+			"heading": "وضوح مالي\nلكل مرحلة\nمن الحياة",
+			"description": "من الميزانية اليومية إلى الأهداف طويلة الأجل، نساعدك على بناء خطة تحمي ما يهمك وتنمو معك."
+		},
+		"accessibility": { "carouselLabel": "كيف نساعد" },
+		"features": [
+			{
+				"number": "٠١",
+				"title": "الادخار للتعليم",
+				"description": "خطط جامعية ومستقبلية تنمو مع أطفالك—لتكون الفرصة في متناولهم عندما يحتاجونها.",
+				"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+				"alt": "سيارة رينج روفر الكلاسيكية البنية المرممة متوقفة في الخارج"
+			},
+			{
+				"number": "٠٢",
+				"title": "ميزانية تدوم",
+				"description": "أنظمة بسيطة لتتبع الإنفاق وسداد الديون وبناء عادات تُبقي أسرتك على أرض صلبة.",
+				"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+				"alt": "سيارة رينج روفر كلاسيكية زرقاء على خلفية استوديو"
+			},
+			{
+				"number": "٠٣",
+				"title": "التخطيط للتقاعد",
+				"description": "خرائط طريق واضحة للادخار والاستثمار والدخول في التقاعد بثقة—ليكون عمرك المتقدم آمنًا.",
+				"assetId": "63d260aa-fb32-5b0b-80f4-6a5df2cf1e1e",
+				"alt": "سيارة رينج روفر كلاسيكية خضراء في ورشة مظلمة"
+			},
+			{
+				"number": "٠٤",
+				"title": "حماية الأسرة",
+				"description": "تأمين وصناديق طوارئ وأساسيات التركات مصممة لحماية من يعتمدون عليك أكثر.",
+				"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+				"alt": "مقصورة سيارة كلاسيكية بمقاعد جلدية بنية وزخارف خشبية"
+			},
+			{
+				"number": "٠٥",
+				"title": "الاستشارات الشخصية",
+				"description": "إرشاد فردي في القرارات الكبرى—شراء المنزل والاستثمار والاستراتيجية الضريبية—بنصائح يمكنك تنفيذها.",
+				"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+				"alt": "صورة مقربة لمقعد جلدي بني بأزرار تحكم حديثة"
+			}
+		]
+	}
+}

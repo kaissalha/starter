@@ -1,0 +1,168 @@
+{
+	"name": "webapp",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "next dev --hostname 0.0.0.0",
+		"dev:ai": "devtools",
+		"dev:blob": "ngrok http 3000",
+		"dev:cron": "bun scripts/dev-cron.ts",
+		"dev:mcp": "bunx @modelcontextprotocol/inspector",
+		"dev:workflow": "bunx workflow web --noBrowser",
+		"workflow:inspect": "bunx workflow inspect runs",
+		"build": "next build",
+		"postbuild": "bunx accept-md fix-routes",
+		"start": "next start",
+		"evlog:check": "evlog map --baseline evlog.map.json --min-score 100 --no-write",
+		"react-doctor": "react-doctor . --score --blocking error",
+		"shadscan": "shadscan . --fail-under 50 --no-interactive",
+		"typegen": "next typegen",
+		"typecheck": "tsc --noEmit --skipLibCheck"
+	},
+	"dependencies": {
+		"@ai-sdk/react": "4.0.133",
+		"@base-ui/react": "^1.8.0",
+		"@better-auth/api-key": "^1.7.7",
+		"@better-auth/i18n": "^1.7.7",
+		"@better-auth/mcp": "^1.7.7",
+		"@better-auth/oauth-provider": "^1.7.7",
+		"@better-fetch/fetch": "1.3.2",
+		"@fontsource-variable/noto-sans-arabic": "^5.3.0",
+		"@fontsource/open-runde": "^5.3.0",
+		"@hookform/resolvers": "^5.9.1",
+		"@hugeicons/core-free-icons": "^4.3.5",
+		"@hugeicons/react": "^1.1.10",
+		"@openuidev/react-lang": "^0.3.1",
+		"@orpc/client": "2.0.0-beta.42",
+		"@orpc/json-schema": "2.0.0-beta.42",
+		"@orpc/openapi": "2.0.0-beta.42",
+		"@orpc/server": "2.0.0-beta.42",
+		"@orpc/tanstack-query": "2.0.0-beta.42",
+		"@orpc/zod": "2.0.0-beta.42",
+		"@posthog/next": "^0.9.0",
+		"@posthog/nextjs-config": "^1.11.1",
+		"@starter/analytics": "workspace:*",
+		"@starter/documents": "workspace:*",
+		"@starter/genui": "workspace:*",
+		"@starter/infinite-brand": "workspace:*",
+		"@starter/infinite-links": "workspace:*",
+		"@starter/infinite-website": "workspace:*",
+		"@starter/observability": "workspace:*",
+		"@starter/server": "workspace:*",
+		"@starter/ui": "workspace:*",
+		"@starter/utils": "workspace:*",
+		"@tanstack/react-query": "^5.104.1",
+		"@tanstack/react-query-devtools": "^5.104.1",
+		"@tanstack/react-table": "^9.2.6",
+		"@tiptap/extension-image": "^3.31.4",
+		"@tiptap/markdown": "^3.31.4",
+		"@tiptap/pm": "^3.31.4",
+		"@tiptap/react": "^3.31.4",
+		"@tiptap/starter-kit": "^3.31.4",
+		"@vercel/blob": "^2.8.1",
+		"@vercel/cli-config": "0.3.1",
+		"@vercel/cli-exec": "1.0.1",
+		"@vercel/otel": "^2.1.3",
+		"@vercel/speed-insights": "^2.0.0",
+		"@vercel/toolbar": "^0.2.7",
+		"@wrksz/themes": "^2.0.3",
+		"accept-md-runtime": "^5.0.2",
+		"ai": "7.0.130",
+		"babel-plugin-react-compiler": "1.0.0",
+		"better-auth": "^1.7.7",
+		"cobe": "2.0.1",
+		"country-flag-icons": "1.6.20",
+		"date-fns": "^4.4.0",
+		"deepmerge": "^4.3.1",
+		"drizzle-orm": "^1.0.0-rc.5",
+		"env.style": "1.0.1",
+		"evlog": "^2.30.1",
+		"jose": "^6.2.12",
+		"jsonpath-rfc9535": "1.3.0",
+		"morphicons": "^1.7.1",
+		"motion": "14.0.0",
+		"next": "16.4.0",
+		"next-intl": "^4.14.9",
+		"nuqs": "^2.10.1",
+		"qrcode": "^1.5.4",
+		"react": "^19.3.0",
+		"react-dom": "^19.3.0",
+		"react-hook-form": "^7.89.0",
+		"streamdown": "^2.7.0",
+		"superjson": "^2.2.6",
+		"thinking-orbs": "0.3.2",
+		"torph": "0.1.3",
+		"use-stick-to-bottom": "^1.1.6",
+		"uuid": "^14.0.2",
+		"validator": "^13.15.35",
+		"vercel": "^62.7.0",
+		"workflow": "5.1.0",
+		"zod": "4.6.5",
+		"zustand": "^5.0.15"
+	},
+	"devDependencies": {
+		"@ai-sdk/devtools": "1.0.33",
+		"@starter/tsconfig": "workspace:*",
+		"@tailwindcss/postcss": "^4.3.3",
+		"@testing-library/jest-dom": "^7.0.1",
+		"@testing-library/react": "^16.3.3",
+		"@testing-library/user-event": "^14.6.7",
+		"@total-typescript/ts-reset": "^0.6.1",
+		"@types/node": "^26.6.4",
+		"@types/qrcode": "^1.5.6",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"@types/validator": "^13.15.10",
+		"@vitejs/plugin-react": "^6.1.2",
+		"accept-md": "^5.0.2",
+		"baseline-browser-mapping": "^2.11.27",
+		"dotenv-cli": "^11.0.0",
+		"globals": "^17.13.0",
+		"jsdom": "^30.1.2",
+		"postcss": "^8.5.29",
+		"tailwindcss": "^4.3.3",
+		"typescript": "7.0.2"
+	},
+	"reactDoctor": {
+		"ignore": {
+			"files": [
+				".next/**"
+			],
+			"overrides": [
+				{
+					"files": [
+						"global.d.ts"
+					],
+					"rules": [
+						"typescript/consistent-type-definitions"
+					]
+				},
+				{
+					"files": [
+						"postcss.config.mjs"
+					],
+					"rules": [
+						"import/no-default-export"
+					]
+				},
+				{
+					"files": [
+						"src/app/.well-known/workflow/**"
+					],
+					"rules": [
+						"react-doctor/webhook-signature-risk"
+					]
+				},
+				{
+					"files": [
+						"src/app/api/mcp/route.ts"
+					],
+					"rules": [
+						"react-doctor/mcp-tool-capability-risk"
+					]
+				}
+			]
+		}
+	}
+}

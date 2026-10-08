@@ -1,0 +1,8 @@
+{
+	"components": {
+		"footer": {
+			"copyright": "© {year} {companyName}. All rights reserved.",
+			"page": "Page {pageNumber} of {totalPages}"
+		}
+	}
+}

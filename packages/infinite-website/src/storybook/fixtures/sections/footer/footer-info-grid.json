@@ -1,0 +1,258 @@
+{
+	"en": {
+		"copy": {
+			"copyright": "© 2025 Florora. All rights reserved.",
+			"addressLabel": "Address:",
+			"address": "123 Oak Street, Springfield, IL 62701",
+			"contactLabel": "Contact:",
+			"contact": "(555) 123-4567 johndoe@email.com",
+			"brand": "Florora"
+		},
+		"navItems": [
+			{
+				"label": "About Us",
+				"link": {
+					"kind": "relative",
+					"path": "/about"
+				}
+			},
+			{
+				"label": "FAQ",
+				"link": {
+					"kind": "relative",
+					"path": "/faq"
+				}
+			},
+			{
+				"label": "Our Mission",
+				"link": {
+					"kind": "relative",
+					"path": "/mission"
+				}
+			},
+			{
+				"label": "Support",
+				"link": {
+					"kind": "relative",
+					"path": "/support"
+				}
+			},
+			{
+				"label": "Contact",
+				"link": {
+					"kind": "relative",
+					"path": "/contact"
+				}
+			},
+			{
+				"label": "Partners",
+				"link": {
+					"kind": "relative",
+					"path": "/partners"
+				}
+			},
+			{
+				"label": "Blog",
+				"link": {
+					"kind": "relative",
+					"path": "/blog"
+				}
+			},
+			{
+				"label": "Affiliates",
+				"link": {
+					"kind": "relative",
+					"path": "/affiliates"
+				}
+			},
+			{
+				"label": "Careers",
+				"link": {
+					"kind": "relative",
+					"path": "/careers"
+				}
+			},
+			{
+				"label": "Press",
+				"link": {
+					"kind": "relative",
+					"path": "/press"
+				}
+			}
+		],
+		"legalLinks": [
+			{
+				"label": "Privacy Policy",
+				"link": {
+					"kind": "relative",
+					"path": "/privacy"
+				}
+			},
+			{
+				"label": "Terms of Service",
+				"link": {
+					"kind": "relative",
+					"path": "/terms"
+				}
+			},
+			{
+				"label": "Cookie Policy",
+				"link": {
+					"kind": "relative",
+					"path": "/cookies"
+				}
+			}
+		],
+		"socialLinks": [
+			{
+				"label": "Facebook",
+				"link": {
+					"kind": "external",
+					"url": "https://facebook.com"
+				}
+			},
+			{
+				"label": "X",
+				"link": {
+					"kind": "external",
+					"url": "https://x.com"
+				}
+			},
+			{
+				"label": "Instagram",
+				"link": {
+					"kind": "external",
+					"url": "https://instagram.com"
+				}
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"copyright": "© 2025 فلورورا. جميع الحقوق محفوظة.",
+			"addressLabel": "العنوان:",
+			"address": "123 شارع البلوط، سبرينغفيلد، إلينوي 62701",
+			"contactLabel": "للتواصل:",
+			"contact": "(555) 123-4567 johndoe@email.com",
+			"brand": "فلورورا"
+		},
+		"navItems": [
+			{
+				"label": "من نحن",
+				"link": {
+					"kind": "relative",
+					"path": "/about"
+				}
+			},
+			{
+				"label": "الأسئلة الشائعة",
+				"link": {
+					"kind": "relative",
+					"path": "/faq"
+				}
+			},
+			{
+				"label": "مهمتنا",
+				"link": {
+					"kind": "relative",
+					"path": "/mission"
+				}
+			},
+			{
+				"label": "الدعم",
+				"link": {
+					"kind": "relative",
+					"path": "/support"
+				}
+			},
+			{
+				"label": "تواصل معنا",
+				"link": {
+					"kind": "relative",
+					"path": "/contact"
+				}
+			},
+			{
+				"label": "الشركاء",
+				"link": {
+					"kind": "relative",
+					"path": "/partners"
+				}
+			},
+			{
+				"label": "المدونة",
+				"link": {
+					"kind": "relative",
+					"path": "/blog"
+				}
+			},
+			{
+				"label": "الشركاء التابعون",
+				"link": {
+					"kind": "relative",
+					"path": "/affiliates"
+				}
+			},
+			{
+				"label": "الوظائف",
+				"link": {
+					"kind": "relative",
+					"path": "/careers"
+				}
+			},
+			{
+				"label": "الصحافة",
+				"link": {
+					"kind": "relative",
+					"path": "/press"
+				}
+			}
+		],
+		"legalLinks": [
+			{
+				"label": "سياسة الخصوصية",
+				"link": {
+					"kind": "relative",
+					"path": "/privacy"
+				}
+			},
+			{
+				"label": "شروط الخدمة",
+				"link": {
+					"kind": "relative",
+					"path": "/terms"
+				}
+			},
+			{
+				"label": "سياسة ملفات الارتباط",
+				"link": {
+					"kind": "relative",
+					"path": "/cookies"
+				}
+			}
+		],
+		"socialLinks": [
+			{
+				"label": "فيسبوك",
+				"link": {
+					"kind": "external",
+					"url": "https://facebook.com"
+				}
+			},
+			{
+				"label": "إكس",
+				"link": {
+					"kind": "external",
+					"url": "https://x.com"
+				}
+			},
+			{
+				"label": "إنستغرام",
+				"link": {
+					"kind": "external",
+					"url": "https://instagram.com"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,533 @@
+{
+	"root": "Card",
+	"components": {
+		"Card": {
+			"signature": "Card(children: (Metric | BarChart | FunnelChart | LineChart | AreaChart | ComposedChart | RadarChart | PieChart | RadialChart | Select | Button)[])",
+			"description": "Root container for an openui-lang block. Children stack vertically. Put titles, captions, and narrative in markdown outside the fence."
+		},
+		"Metric": {
+			"signature": "Metric(label: string, value: string, detail?: string, tone?: \"neutral\" | \"positive\" | \"negative\")",
+			"description": "Compact KPI or summary metric with an optional supporting detail and sentiment tone"
+		},
+		"Series": {
+			"signature": "Series(category: string, values: number[])",
+			"description": "One named series of numeric values aligned to chart labels"
+		},
+		"BarChart": {
+			"signature": "BarChart(labels: string[], series: Series[], variant?: \"grouped\" | \"stacked\")",
+			"description": "Vertical bars; use for comparing values across categories with one or more series"
+		},
+		"FunnelChart": {
+			"signature": "FunnelChart(labels: string[], values: number[])",
+			"description": "Conversion or pipeline funnel with stage labels and numeric values, typically decreasing from top to bottom"
+		},
+		"LineChart": {
+			"signature": "LineChart(labels: string[], series: Series[], variant?: \"linear\" | \"natural\" | \"step\")",
+			"description": "Spectrum lines over ordered categories for trends and continuous data"
+		},
+		"AreaChart": {
+			"signature": "AreaChart(labels: string[], series: Series[], variant?: \"linear\" | \"natural\" | \"step\")",
+			"description": "Spectrum gradient area chart for trends"
+		},
+		"ComposedChart": {
+			"signature": "ComposedChart(labels: string[], series: Series[], variant?: \"linear\" | \"natural\" | \"step\")",
+			"description": "Spectrum composed chart: first series uses bars, remaining series use lines"
+		},
+		"RadarChart": {
+			"signature": "RadarChart(labels: string[], series: Series[], variant?: \"linear\" | \"natural\" | \"step\")",
+			"description": "Spectrum radar chart for comparing nonnegative values across dimensions"
+		},
+		"PieChart": {
+			"signature": "PieChart(labels: string[], values: number[], variant?: \"pie\" | \"donut\")",
+			"description": "Spectrum pie or donut chart for nonnegative parts of a whole"
+		},
+		"RadialChart": {
+			"signature": "RadialChart(labels: string[], values: number[])",
+			"description": "Spectrum radial bars comparing nonnegative values on a shared scale"
+		},
+		"SelectItem": {
+			"signature": "SelectItem(value: string, label: string)",
+			"description": "One option in a Select control"
+		},
+		"Select": {
+			"signature": "Select(name: string, items: SelectItem[], value: $binding<string>, placeholder?: string)",
+			"description": "Interactive selector bound to a $variable for switching the data shown in the UI"
+		},
+		"Button": {
+			"signature": "Button(label: string, action?: ActionExpression, variant?: \"primary\" | \"secondary\")",
+			"description": "Button that updates UI state, opens a safe URL, or continues the conversation"
+		}
+	},
+	"componentGroups": [
+		{
+			"components": ["Metric"],
+			"name": "Metrics",
+			"notes": ["- Use Metric for a small set of decision-relevant KPIs, not as a substitute for prose."]
+		},
+		{
+			"components": [
+				"LineChart",
+				"AreaChart",
+				"BarChart",
+				"ComposedChart",
+				"PieChart",
+				"RadarChart",
+				"RadialChart",
+				"FunnelChart",
+				"Series"
+			],
+			"name": "Charts",
+			"notes": [
+				"- LineChart or AreaChart for trends over time or ordered categories.",
+				"- ComposedChart draws the first series as bars and remaining series as lines on one shared scale.",
+				"- PieChart for parts of a whole; use the donut variant for a ring. RadialChart compares values on one shared scale.",
+				"- RadarChart compares nonnegative series across dimensions.",
+				"- BarChart for comparing values across categories.",
+				"- FunnelChart for stage conversion flows where each step is smaller than the previous.",
+				"- Define series with Series(category, values) references for line and bar charts."
+			]
+		},
+		{
+			"components": ["Select", "SelectItem", "Button"],
+			"name": "Controls",
+			"notes": [
+				"- Bind Select.value to a declared $variable and use that variable to change visible metrics or chart data.",
+				"- Use Button actions only for @Set, @Reset, @ToAssistant, or @OpenUrl; never invent unsupported tool calls."
+			]
+		}
+	],
+	"schema": {
+		"$schema": "https://json-schema.org/draft/2020-12/schema",
+		"type": "object",
+		"properties": {
+			"Card": {
+				"$ref": "#/$defs/Card"
+			},
+			"Metric": {
+				"$ref": "#/$defs/Metric"
+			},
+			"Series": {
+				"$ref": "#/$defs/Series"
+			},
+			"BarChart": {
+				"$ref": "#/$defs/BarChart"
+			},
+			"FunnelChart": {
+				"$ref": "#/$defs/FunnelChart"
+			},
+			"LineChart": {
+				"$ref": "#/$defs/LineChart"
+			},
+			"AreaChart": {
+				"$ref": "#/$defs/AreaChart"
+			},
+			"ComposedChart": {
+				"$ref": "#/$defs/ComposedChart"
+			},
+			"RadarChart": {
+				"$ref": "#/$defs/RadarChart"
+			},
+			"PieChart": {
+				"$ref": "#/$defs/PieChart"
+			},
+			"RadialChart": {
+				"$ref": "#/$defs/RadialChart"
+			},
+			"SelectItem": {
+				"$ref": "#/$defs/SelectItem"
+			},
+			"Select": {
+				"$ref": "#/$defs/Select"
+			},
+			"Button": {
+				"$ref": "#/$defs/Button"
+			}
+		},
+		"required": [
+			"Card",
+			"Metric",
+			"Series",
+			"BarChart",
+			"FunnelChart",
+			"LineChart",
+			"AreaChart",
+			"ComposedChart",
+			"RadarChart",
+			"PieChart",
+			"RadialChart",
+			"SelectItem",
+			"Select",
+			"Button"
+		],
+		"additionalProperties": false,
+		"$defs": {
+			"Card": {
+				"type": "object",
+				"properties": {
+					"children": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"anyOf": [
+								{
+									"$ref": "#/$defs/Metric"
+								},
+								{
+									"$ref": "#/$defs/BarChart"
+								},
+								{
+									"$ref": "#/$defs/FunnelChart"
+								},
+								{
+									"$ref": "#/$defs/LineChart"
+								},
+								{
+									"$ref": "#/$defs/AreaChart"
+								},
+								{
+									"$ref": "#/$defs/ComposedChart"
+								},
+								{
+									"$ref": "#/$defs/RadarChart"
+								},
+								{
+									"$ref": "#/$defs/PieChart"
+								},
+								{
+									"$ref": "#/$defs/RadialChart"
+								},
+								{
+									"$ref": "#/$defs/Select"
+								},
+								{
+									"$ref": "#/$defs/Button"
+								}
+							]
+						}
+					}
+				},
+				"required": ["children"],
+				"additionalProperties": false,
+				"description": "Root container for an openui-lang block. Children stack vertically. Put titles, captions, and narrative in markdown outside the fence."
+			},
+			"Metric": {
+				"type": "object",
+				"properties": {
+					"label": {
+						"type": "string",
+						"minLength": 1
+					},
+					"value": {
+						"type": "string",
+						"minLength": 1
+					},
+					"detail": {
+						"type": "string"
+					},
+					"tone": {
+						"type": "string",
+						"enum": ["neutral", "positive", "negative"]
+					}
+				},
+				"required": ["label", "value"],
+				"additionalProperties": false,
+				"description": "Compact KPI or summary metric with an optional supporting detail and sentiment tone"
+			},
+			"BarChart": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"series": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"$ref": "#/$defs/Series"
+						}
+					},
+					"variant": {
+						"type": "string",
+						"enum": ["grouped", "stacked"]
+					}
+				},
+				"required": ["labels", "series"],
+				"additionalProperties": false,
+				"description": "Vertical bars; use for comparing values across categories with one or more series"
+			},
+			"Series": {
+				"type": "object",
+				"properties": {
+					"category": {
+						"type": "string",
+						"minLength": 1
+					},
+					"values": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "number",
+							"minimum": -1e100,
+							"maximum": 1e100
+						}
+					}
+				},
+				"required": ["category", "values"],
+				"additionalProperties": false,
+				"description": "One named series of numeric values aligned to chart labels"
+			},
+			"FunnelChart": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"values": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "number",
+							"minimum": 0,
+							"maximum": 1e100
+						}
+					}
+				},
+				"required": ["labels", "values"],
+				"additionalProperties": false,
+				"description": "Conversion or pipeline funnel with stage labels and numeric values, typically decreasing from top to bottom"
+			},
+			"LineChart": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"series": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"$ref": "#/$defs/Series"
+						}
+					},
+					"variant": {
+						"type": "string",
+						"enum": ["linear", "natural", "step"]
+					}
+				},
+				"required": ["labels", "series"],
+				"additionalProperties": false,
+				"description": "Spectrum lines over ordered categories for trends and continuous data"
+			},
+			"AreaChart": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"series": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"$ref": "#/$defs/Series"
+						}
+					},
+					"variant": {
+						"type": "string",
+						"enum": ["linear", "natural", "step"]
+					}
+				},
+				"required": ["labels", "series"],
+				"additionalProperties": false,
+				"description": "Spectrum gradient area chart for trends"
+			},
+			"ComposedChart": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"series": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"$ref": "#/$defs/Series"
+						}
+					},
+					"variant": {
+						"type": "string",
+						"enum": ["linear", "natural", "step"]
+					}
+				},
+				"required": ["labels", "series"],
+				"additionalProperties": false,
+				"description": "Spectrum composed chart: first series uses bars, remaining series use lines"
+			},
+			"RadarChart": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"series": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"$ref": "#/$defs/Series"
+						}
+					},
+					"variant": {
+						"type": "string",
+						"enum": ["linear", "natural", "step"]
+					}
+				},
+				"required": ["labels", "series"],
+				"additionalProperties": false,
+				"description": "Spectrum radar chart for comparing nonnegative values across dimensions"
+			},
+			"PieChart": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"values": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "number",
+							"minimum": 0,
+							"maximum": 1e100
+						}
+					},
+					"variant": {
+						"type": "string",
+						"enum": ["pie", "donut"]
+					}
+				},
+				"required": ["labels", "values"],
+				"additionalProperties": false,
+				"description": "Spectrum pie or donut chart for nonnegative parts of a whole"
+			},
+			"RadialChart": {
+				"type": "object",
+				"properties": {
+					"labels": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"values": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"type": "number",
+							"minimum": 0,
+							"maximum": 1e100
+						}
+					}
+				},
+				"required": ["labels", "values"],
+				"additionalProperties": false,
+				"description": "Spectrum radial bars comparing nonnegative values on a shared scale"
+			},
+			"Select": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"minLength": 1
+					},
+					"items": {
+						"minItems": 1,
+						"type": "array",
+						"items": {
+							"$ref": "#/$defs/SelectItem"
+						}
+					},
+					"value": {
+						"type": "string",
+						"minLength": 1
+					},
+					"placeholder": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"required": ["name", "items", "value"],
+				"additionalProperties": false,
+				"description": "Interactive selector bound to a $variable for switching the data shown in the UI"
+			},
+			"SelectItem": {
+				"type": "object",
+				"properties": {
+					"value": {
+						"type": "string",
+						"minLength": 1
+					},
+					"label": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"required": ["value", "label"],
+				"additionalProperties": false,
+				"description": "One option in a Select control"
+			},
+			"Button": {
+				"type": "object",
+				"properties": {
+					"label": {
+						"type": "string",
+						"minLength": 1
+					},
+					"action": {},
+					"variant": {
+						"type": "string",
+						"enum": ["primary", "secondary"]
+					}
+				},
+				"required": ["label"],
+				"additionalProperties": false,
+				"description": "Button that updates UI state, opens a safe URL, or continues the conversation"
+			}
+		}
+	}
+}

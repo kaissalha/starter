@@ -1,0 +1,58 @@
+{
+	"en": {
+		"copy": {
+			"heading": "FAQ's",
+			"description": "Still have questions? Contact us."
+		},
+		"items": [
+			{
+				"question": "What is Financial Planning?",
+				"answer": "Our team for analyzing and engaging with customers, evaluating valuable insights and connecting the branches."
+			},
+			{
+				"question": "How do I set Financial Goals?",
+				"answer": "Start by identifying your short-term and long-term financial objectives. Consider factors like retirement, education, emergency funds, and major purchases when setting your goals."
+			},
+			{
+				"question": "What is a Retirement Plan?",
+				"answer": "A retirement plan is a financial strategy designed to provide income during retirement. It typically involves saving and investing over your working years to build a nest egg for your future."
+			},
+			{
+				"question": "How do I invest my Money?",
+				"answer": "Investing involves putting your money into assets like stocks, bonds, mutual funds, or real estate with the expectation of earning returns. Consider your risk tolerance and time horizon when choosing investments."
+			},
+			{
+				"question": "What are the benefits of Financial Planning?",
+				"answer": "Financial planning helps you achieve your life goals, manage your money effectively, prepare for emergencies, and build long-term wealth through disciplined saving and investing strategies."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "الأسئلة الشائعة",
+			"description": "لا تزال لديك أسئلة؟ تواصل معنا."
+		},
+		"items": [
+			{
+				"question": "ما هو التخطيط المالي؟",
+				"answer": "فريقنا يحلل العملاء ويتفاعل معهم، ويقيّم الرؤى القيّمة ويربط الفروع ببعضها."
+			},
+			{
+				"question": "كيف أضع أهدافي المالية؟",
+				"answer": "ابدأ بتحديد أهدافك المالية قصيرة وطويلة المدى. ضع في اعتبارك عوامل مثل التقاعد والتعليم وصناديق الطوارئ والمشتريات الكبرى عند وضع أهدافك."
+			},
+			{
+				"question": "ما هي خطة التقاعد؟",
+				"answer": "خطة التقاعد استراتيجية مالية مصممة لتوفير دخل أثناء التقاعد. وتتضمن عادةً الادخار والاستثمار طوال سنوات عملك لبناء مدخرات لمستقبلك."
+			},
+			{
+				"question": "كيف أستثمر أموالي؟",
+				"answer": "يعني الاستثمار وضع أموالك في أصول مثل الأسهم والسندات والصناديق المشتركة أو العقارات بتوقع تحقيق عوائد. ضع في اعتبارك قدرتك على تحمل المخاطر وأفقك الزمني عند اختيار الاستثمارات."
+			},
+			{
+				"question": "ما فوائد التخطيط المالي؟",
+				"answer": "يساعدك التخطيط المالي على تحقيق أهداف حياتك وإدارة أموالك بفعالية والاستعداد للطوارئ وبناء ثروة طويلة الأجل من خلال استراتيجيات ادخار واستثمار منضبطة."
+			}
+		]
+	}
+}

@@ -1,0 +1,5 @@
+{
+	"extends": "@starter/tsconfig/react-lib.json",
+	"include": [".", "../../tools/testing/dev-dependency-imports.ts"],
+	"exclude": ["node_modules"]
+}

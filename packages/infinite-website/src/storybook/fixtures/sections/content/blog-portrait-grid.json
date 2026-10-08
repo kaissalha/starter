@@ -1,0 +1,34 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Latest from the blog",
+			"description": "Explore our latest articles and insights to stay informed and inspired.",
+			"empty": "Publish a post to fill this section"
+		},
+		"actions": [
+			{
+				"label": "See all posts",
+				"link": {
+					"kind": "relative",
+					"path": "/blog"
+				}
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "أحدث ما في المدونة",
+			"description": "استكشف أحدث مقالاتنا ورؤانا لتبقى مطلعًا وملهَمًا.",
+			"empty": "انشر مقالًا لملء هذا القسم"
+		},
+		"actions": [
+			{
+				"label": "عرض كل المقالات",
+				"link": {
+					"kind": "relative",
+					"path": "/blog"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,149 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"ui": "tui",
+	"tasks": {
+		"dev": {
+			"cache": false,
+			"persistent": true,
+			"passThroughEnv": ["TINYBIRD_URL", "TINYBIRD_READ_TOKEN", "TINYBIRD_APPEND_TOKEN", "TINYBIRD_BRANCH_TOKEN"]
+		},
+		"dev:mastra": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:ai": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:workflow": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:styles": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:blob": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:cron": {
+			"cache": false,
+			"persistent": true
+		},
+		"dev:mcp": {
+			"cache": false,
+			"persistent": true
+		},
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", ".next/**", "!.next/cache/**", ".react-email/**"],
+			"cache": true
+		},
+		"webapp#build": {
+			"dependsOn": ["^build"],
+			"inputs": ["$TURBO_DEFAULT$", "apps/webapp/package.json"],
+			"outputs": [
+				".next/**",
+				"!.next/cache/**",
+				"src/app/.well-known/workflow/**",
+				"public/.well-known/workflow/**"
+			],
+			"cache": true,
+			"passThroughEnv": ["VERCEL_OIDC_TOKEN"],
+			"env": [
+				"AI_GATEWAY_API_KEY",
+				"BETTER_AUTH_SECRET",
+				"BLOB_PUBLIC_READ_WRITE_TOKEN",
+				"BLOB_READ_WRITE_TOKEN",
+				"BRANDFETCH_API_KEY",
+				"BRANDFETCH_CLIENT_KEY",
+				"CRON_SECRET",
+				"DATAFORSEO_LOGIN",
+				"DATAFORSEO_PASSWORD",
+				"DATABASE_URL",
+				"EMAIL_FROM",
+				"EVENTS_EXTERNAL_DELIVERY",
+				"FIRECRAWL_API_KEY",
+				"GOOGLE_CLIENT_ID",
+				"GOOGLE_CLIENT_SECRET",
+				"NEXT_PUBLIC_ENABLE_OPENUI_DEVTOOLS",
+				"NEXT_PUBLIC_ENABLE_QUERY_DEVTOOLS",
+				"NEXT_PUBLIC_POSTHOG_KEY",
+				"PEXELS_API_KEY",
+				"POSTHOG_PERSONAL_API_KEY",
+				"POSTHOG_PROJECT_ID",
+				"PREVIEW_SECRET",
+				"REACT_SCAN",
+				"REDIS_URL",
+				"RESEND_KEY",
+				"UNSPLASH_ACCESS_KEY",
+				"UNSPLASH_APPLICATION_ID",
+				"UNSPLASH_SECRET_KEY",
+				"UPSTASH_TOKEN",
+				"UPSTASH_URL",
+				"VERCEL_BLOB_CALLBACK_URL",
+				"WEBSITES_URL",
+				"TINYBIRD_URL",
+				"TINYBIRD_READ_TOKEN",
+				"TINYBIRD_APPEND_TOKEN",
+				"TINYBIRD_BRANCH_TOKEN",
+				"DOMAIN_PURCHASES_ENABLED",
+				"OTEL_EXPORTER_OTLP_ENDPOINT",
+				"OTLP_ENDPOINT",
+				"POSTHOG_API_KEY",
+				"POSTHOG_HOST",
+				"VERCEL_DOMAINS_TEAM_ID",
+				"VERCEL_DOMAINS_TOKEN",
+				"VERCEL_ENV",
+				"VERCEL_WEBSITES_PROJECT_ID",
+				"WEBSITES_PLATFORM_DOMAIN"
+			]
+		},
+		"websites#build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", ".next/**", "!.next/cache/**", "public/brand-fonts/**"],
+			"cache": true,
+			"env": [
+				"CRON_SECRET",
+				"DATABASE_URL",
+				"UNSPLASH_ACCESS_KEY",
+				"UNSPLASH_APPLICATION_ID",
+				"UNSPLASH_SECRET_KEY",
+				"WEBSITE_CRAWLER_POLICY",
+				"WEBAPP_URL",
+				"TINYBIRD_URL",
+				"TINYBIRD_READ_TOKEN",
+				"TINYBIRD_APPEND_TOKEN",
+				"TINYBIRD_BRANCH_TOKEN",
+				"OTEL_EXPORTER_OTLP_ENDPOINT",
+				"OTLP_ENDPOINT",
+				"POSTHOG_API_KEY",
+				"POSTHOG_HOST",
+				"REDIS_URL",
+				"VERCEL_ENV",
+				"WEBSITES_PLATFORM_DOMAIN"
+			]
+		},
+		"react-doctor": {
+			"cache": false
+		},
+		"shadscan": {
+			"cache": true
+		},
+		"evlog:check": {
+			"cache": true
+		},
+		"typegen": {
+			"outputs": [".next/types/**"],
+			"env": ["POSTHOG_PERSONAL_API_KEY", "POSTHOG_PROJECT_ID"]
+		},
+		"transit": {
+			"dependsOn": ["^transit"]
+		},
+		"typecheck": {
+			"dependsOn": ["transit", "typegen"],
+			"cache": true
+		}
+	}
+}

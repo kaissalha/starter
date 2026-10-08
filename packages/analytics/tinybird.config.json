@@ -1,0 +1,6 @@
+{
+	"include": ["src/resources.ts", "src/endpoints.ts"],
+	"token": "${TINYBIRD_TOKEN}",
+	"baseUrl": "${TINYBIRD_URL}",
+	"devMode": "branch"
+}

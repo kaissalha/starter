@@ -1,0 +1,76 @@
+name: "Generate Preview URLs"
+description: "Generates standardized preview URLs for PR deployments"
+
+inputs:
+    branch_name:
+        description: "The branch name to use for generating preview URLs"
+        required: true
+    app_prefix:
+        description: "The prefix for the app (webapp or cms)"
+        required: true
+    preview_domain:
+        description: "The base domain for preview URLs"
+        required: false
+        default: "preview.durable.co"
+    wildcard:
+        description: "Generate as wildcard URL"
+        required: false
+        default: "false"
+
+outputs:
+    preview_url:
+        description: "The generated preview URL"
+        value: ${{ steps.generate-url.outputs.preview_url }}
+    alias:
+        description: "The alias part of the preview URL"
+        value: ${{ steps.generate-url.outputs.alias }}
+
+runs:
+    using: "composite"
+    steps:
+        - name: Generate Preview URL
+          id: generate-url
+          shell: bash
+          run: |
+              # Sanitize branch name
+              SANITIZED_BRANCH=$(echo "${{ inputs.branch_name }}" | 
+                          tr '/' '-' | 
+                          sed 's/[^a-zA-Z0-9-]/-/g' | 
+                          tr '[:upper:]' '[:lower:]')
+
+              # Get prefix length to calculate available space for branch name
+              APP_PREFIX="${{ inputs.app_prefix }}"
+              PREVIEW_DOMAIN="${{ inputs.preview_domain }}"
+              PREFIX_LENGTH=${#APP_PREFIX}
+              DOMAIN_LENGTH=${#PREVIEW_DOMAIN}
+
+
+              # Account for the hyphens and dot: prefix-branch.domain
+              # Plus wildcard if enabled: *.prefix-branch.domain
+               OVERHEAD=$((PREFIX_LENGTH + DOMAIN_LENGTH + 2))
+               if [ "${{ inputs.wildcard }}" = "true" ]; then
+                  OVERHEAD=$((OVERHEAD + 2))  # Add 2 for "*."
+               fi
+
+               MAX_BRANCH_LENGTH=$((60 - OVERHEAD))
+
+              # If combined length would be too long, truncate branch part and append a hash
+              if [ ${#SANITIZED_BRANCH} -gt $MAX_BRANCH_LENGTH ]; then
+                  HASH=$(echo "$SANITIZED_BRANCH" | md5sum | cut -c 1-6)
+                  # Reduce branch length to leave room for hash and hyphen
+                  TRUNCATE_LENGTH=$((MAX_BRANCH_LENGTH - 7))
+                  SANITIZED_BRANCH="${SANITIZED_BRANCH:0:$TRUNCATE_LENGTH}-${HASH}"
+              fi
+
+
+              # Generate alias
+              ALIAS="${{ inputs.app_prefix }}-${SANITIZED_BRANCH}.${{ inputs.preview_domain }}"
+
+              # Wildcard option
+              if [ "${{ inputs.wildcard }}" = "true" ]; then
+                  ALIAS="*.${ALIAS}"
+              fi
+
+              # Set outputs
+              echo "preview_url=https://${ALIAS}" >> $GITHUB_OUTPUT
+              echo "alias=${ALIAS}" >> $GITHUB_OUTPUT

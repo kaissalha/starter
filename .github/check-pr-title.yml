@@ -1,0 +1,20 @@
+titleOnly: true
+types:
+    - feat
+    - feature
+    - fix
+    - chore
+    - docs
+    - style
+    - refactor
+    - test
+    - perf
+scopes:
+    - "*"
+subjectPattern: .+
+subjectPatternError: "The subject must not be empty."
+# This regex matches Linear issues like EPDS-123
+requireIssue: true
+issuePrefix: ["EPDS-", "WAL-", "PCH-", "LU-", "BWSR-"]
+issuePattern: '([A-Z]{2,}-\d+)'
+issuePatternError: "A Linear issue (e.g., EPDS-123) must be referenced in the title or body."

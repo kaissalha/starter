@@ -1,0 +1,16 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Let's start building a brighter financial future together.",
+			"description": "We're here to help you manage your finances with smart planning and investing tips."
+		},
+		"actions": [{ "label": "Get Started", "link": { "kind": "anchor", "anchor": "contact" } }]
+	},
+	"ar": {
+		"copy": {
+			"heading": "لنبدأ معًا في بناء مستقبل مالي أكثر إشراقًا.",
+			"description": "نحن هنا لمساعدتك في إدارة أموالك من خلال التخطيط الذكي ونصائح الاستثمار."
+		},
+		"actions": [{ "label": "ابدأ الآن", "link": { "kind": "anchor", "anchor": "contact" } }]
+	}
+}

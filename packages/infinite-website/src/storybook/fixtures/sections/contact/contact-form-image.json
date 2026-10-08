@@ -1,0 +1,48 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Contact us",
+			"heading": "Send us a message",
+			"description": "We would love to hear from you"
+		},
+		"media": [
+			{
+				"assetId": "2f70c71b-a43c-5ab3-9f62-94c7a1eef89d",
+				"alt": "Person working at a desk"
+			}
+		],
+		"form": {
+			"nameLabel": "Name",
+			"emailLabel": "Email",
+			"messageLabel": "Message",
+			"submitLabel": "Send Message",
+			"pendingLabel": "Sending…",
+			"success": "Thank you! We'll get back to you soon.",
+			"error": "We couldn't send your message. Please try again.",
+			"anotherLabel": "Send another message"
+		}
+	},
+	"ar": {
+		"copy": {
+			"kicker": "تواصل معنا",
+			"heading": "أرسل لنا رسالة",
+			"description": "يسعدنا أن نسمع منك"
+		},
+		"media": [
+			{
+				"assetId": "2f70c71b-a43c-5ab3-9f62-94c7a1eef89d",
+				"alt": "شخص يعمل على مكتبه"
+			}
+		],
+		"form": {
+			"nameLabel": "الاسم",
+			"emailLabel": "البريد الإلكتروني",
+			"messageLabel": "الرسالة",
+			"submitLabel": "إرسال الرسالة",
+			"pendingLabel": "جارٍ الإرسال…",
+			"success": "شكرًا لك! سنعود إليك قريبًا.",
+			"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+			"anotherLabel": "إرسال رسالة أخرى"
+		}
+	}
+}

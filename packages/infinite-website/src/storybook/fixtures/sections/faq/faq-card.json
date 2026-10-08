@@ -1,0 +1,90 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "FAQ",
+			"heading": "Frequently asked questions",
+			"description": "We would love to hear from you",
+			"bottomTitle": "Still have questions?",
+			"bottomDescription": "Send us a message, and our team will get back to you as soon as possible."
+		},
+		"actions": [
+			{
+				"label": "Contact us",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				}
+			}
+		],
+		"items": [
+			{
+				"question": "What are the best plants for a low-maintenance garden?",
+				"answer": "Create a low-maintenance garden with native plants that need less water. Use perennials like lavender and sedum, which attract pollinators. Mulch retains moisture and reduces weeds, simplifying garden care."
+			},
+			{
+				"question": "How to choose the right low-maintenance shrubs?",
+				"answer": "Select shrubs that are drought-tolerant and disease-resistant. Options like boxwood and juniper require minimal pruning and can thrive in various soil types."
+			},
+			{
+				"question": "What ground cover is best for a low-maintenance yard?",
+				"answer": "Consider creeping thyme or clover as ground cover. They spread easily, suppress weeds, and require little watering once established, making them perfect for low-maintenance landscaping."
+			},
+			{
+				"question": "Tips for maintaining a low-maintenance lawn?",
+				"answer": "Opt for drought-resistant grass varieties like fescue or Bermuda. Mow less frequently and leave grass clippings on the lawn to provide nutrients and reduce the need for fertilizer."
+			},
+			{
+				"question": "What are some easy-care flowering plants?",
+				"answer": "Plant daylilies and coneflowers for vibrant blooms with minimal effort. These perennials are hardy, withstand various conditions, and attract beneficial insects."
+			},
+			{
+				"question": "How to design a low-maintenance outdoor space?",
+				"answer": "Incorporate hardscaping elements like stone pathways and patios. Use raised beds for easy access and select plants that thrive in your local climate to minimize upkeep."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "الأسئلة الشائعة",
+			"heading": "الأسئلة الأكثر شيوعًا",
+			"description": "يسعدنا أن نسمع منك",
+			"bottomTitle": "لا تزال لديك أسئلة؟",
+			"bottomDescription": "أرسل لنا رسالة وسيرد عليك فريقنا في أقرب وقت ممكن."
+		},
+		"actions": [
+			{
+				"label": "تواصل معنا",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				}
+			}
+		],
+		"items": [
+			{
+				"question": "ما أفضل النباتات لحديقة قليلة الصيانة؟",
+				"answer": "أنشئ حديقة قليلة الصيانة بنباتات محلية تحتاج إلى ماء أقل. استخدم نباتات معمرة مثل اللافندر والسدوم التي تجذب الملقحات. يحتفظ المهاد بالرطوبة ويقلل الأعشاب الضارة مما يبسط العناية بالحديقة."
+			},
+			{
+				"question": "كيف أختار الشجيرات المناسبة قليلة الصيانة؟",
+				"answer": "اختر شجيرات تتحمل الجفاف وتقاوم الأمراض. خيارات مثل البقس والعرعر تتطلب تقليمًا أقل ويمكنها النمو في أنواع مختلفة من التربة."
+			},
+			{
+				"question": "ما أفضل غطاء أرضي لحديقة قليلة الصيانة؟",
+				"answer": "فكر في الزعتر الزاحف أو البرسيم كغطاء أرضي. ينتشران بسهولة ويكبحان الأعشاب الضارة ويحتاجان إلى ماء قليل بعد ترسخهما، مما يجعلهما مثاليين لتنسيق الحدائق قليل الصيانة."
+			},
+			{
+				"question": "نصائح للحفاظ على عشب قليل الصيانة؟",
+				"answer": "اختر أنواع عشب مقاومة للجفاف مثل الفسكيو أو البرمودا. قلل عدد مرات الجز واترك قصاصات العشب على المرج لتوفير العناصر الغذائية وتقليل الحاجة إلى الأسمدة."
+			},
+			{
+				"question": "ما بعض النباتات المزهرة سهلة العناية؟",
+				"answer": "ازرع زنابق النهار والإشنسا للحصول على أزهار نابضة بالحياة بأقل جهد. هذه النباتات المعمرة قوية وتتحمل ظروفًا متنوعة وتجذب الحشرات النافعة."
+			},
+			{
+				"question": "كيف أصمم مساحة خارجية قليلة الصيانة؟",
+				"answer": "أضف عناصر صلبة مثل الممرات الحجرية والباحات. استخدم أحواضًا مرتفعة لسهولة الوصول واختر نباتات تزدهر في مناخك المحلي لتقليل الصيانة."
+			}
+		]
+	}
+}

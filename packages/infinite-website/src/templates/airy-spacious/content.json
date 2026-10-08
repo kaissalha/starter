@@ -1,0 +1,670 @@
+{
+	"en": {
+		"site": {
+			"name": "Airy Spacious"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Trailbound. navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Trailbound."
+					},
+					"navigation": [
+						{
+							"label": "Trips",
+							"link": {
+								"kind": "relative",
+								"path": "/trips"
+							},
+							"dropdown": [
+								{
+									"label": "Day Hikes",
+									"link": {
+										"kind": "relative",
+										"path": "/services/weddings"
+									},
+									"description": "Guided trails for every level"
+								},
+								{
+									"label": "Multi-Day Treks",
+									"link": {
+										"kind": "relative",
+										"path": "/services/events"
+									},
+									"description": "Overnight adventures in the wild"
+								},
+								{
+									"label": "Private Groups",
+									"link": {
+										"kind": "relative",
+										"path": "/services/subscriptions"
+									},
+									"description": "Custom trips for your crew"
+								}
+							]
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "Book a trip",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"heading": "Let's hike\ntogether",
+						"socialTitle": "SOCIALS",
+						"copyright": "© 2026 TRAILBOUND ADVENTURES. ALL RIGHTS RESERVED."
+					},
+					"actions": [
+						{
+							"label": "hello@trailboundadventures.com",
+							"link": {
+								"kind": "email",
+								"address": "hello@trailboundadventures.com"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						},
+						{
+							"label": "TikTok",
+							"link": {
+								"kind": "external",
+								"url": "https://www.tiktok.com"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "PRIVACY POLICY",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "TERMS OF SERVICE",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Airy Spacious"
+					}
+				},
+				"sections": {
+					"banner-compact-background": {
+						"copy": {
+							"heading": "Pack your bags\nand get outside",
+							"description": "We are an outdoor adventure company guiding wild, unforgettable hiking trips for beginners, groups, and seasoned explorers."
+						},
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "Three hikers with colorful backpacks walking a mountain ridge overlooking a green valley"
+							}
+						],
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"label": "Book a trip"
+							}
+						]
+					},
+					"text-scroll-reveal": {
+						"copy": {
+							"description": "Inspired by nature's raw beauty, we built a guiding company that goes beyond the usual tourist trail. We lead hikers through rugged peaks, quiet forests, and hidden ridgelines to bring the wild, poetic essence of the outdoors into every adventure."
+						}
+					},
+					"team-staggered": {
+						"copy": {
+							"heading": "Meet\nthe guides",
+							"description": "Meet our dedicated team, ready to lead your next outdoor adventure. We're here to guide, support, and help you discover trails you'll never forget."
+						},
+						"members": [
+							{
+								"name": "Clara Wong",
+								"role": "Founder & Lead Guide",
+								"assetId": "ef263e03-6329-5fea-bb99-3e5259310d01",
+								"alt": "Clara Wong smiling on a mountain trail in hiking gear with a scenic valley behind her"
+							},
+							{
+								"name": "Daniel Reyes",
+								"role": "Expeditions & Logistics Lead",
+								"assetId": "9b3b247f-b541-5b60-b36f-1d71fd79d791",
+								"alt": "Daniel Reyes taking a water break while hiking through a wildflower-filled mountain valley"
+							},
+							{
+								"name": "Maya Patel",
+								"role": "Senior Trail Guide",
+								"assetId": "ff06ea48-c669-5e07-a425-5de21a69067c",
+								"alt": "Maya Patel smiling in a sun hat with a mountain valley backdrop"
+							}
+						]
+					},
+					"testimonial-centered-carousel": {
+						"copy": {
+							"heading": "Trail\nStories"
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "Trail stories",
+							"carousel-testimonialspreviousLabel": "Trail stories: previous",
+							"carousel-testimonialsnextLabel": "Trail stories: next",
+							"carousel-testimonialsindicatorsLabel": "Trail stories pagination"
+						},
+						"testimonials": [
+							{
+								"quote": "Trailbound turned our weekend into something unforgettable. The guides made our whole group feel confident and inspired.",
+								"name": "Amanda & James",
+								"title": "Jasper National Park, May 2025"
+							},
+							{
+								"quote": "Their multi-day trek was the highlight of our year. Every campsite had a view worth the climb.",
+								"name": "Outdoor Magazine",
+								"title": "Glacier National Park, March 2025"
+							},
+							{
+								"quote": "Standing on that summit felt like another world. Friends are still talking about the sunrise hike.",
+								"name": "Priya & Daniel",
+								"title": "Banff National Park, February 2025"
+							}
+						]
+					},
+					"gallery-bento-editorial": {
+						"copy": {
+							"heading": "Take in the\nwild beauty",
+							"description": "We are an outdoor adventure company guiding wild, unforgettable hiking trips for beginners, groups, and seasoned explorers."
+						},
+						"media": [
+							{
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "Two hikers with backpacks and a dog walking a mountain trail through a green alpine valley"
+							},
+							{
+								"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+								"alt": "Group of hikers and a dog crossing a grassy mountain slope with snow-capped peaks beyond"
+							},
+							{
+								"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+								"alt": "Hikers descending a dirt trail toward rugged mountains under a bright sky"
+							},
+							{
+								"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+								"alt": "Guided hiking group in outdoor gear walking a root-filled trail through a mossy forest"
+							},
+							{
+								"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+								"alt": "Hikers in technical gear trekking single-file through a lush fern-lined forest"
+							},
+							{
+								"assetId": "83dc0e2c-cc53-5693-b8ab-1016461edfb6",
+								"alt": "Five hikers with backpacks walking a muddy trail through a lush mossy old-growth forest"
+							},
+							{
+								"assetId": "87dabc8d-23bd-55ff-a537-88f782c975a3",
+								"alt": "Adventure group hiking through dense temperate rainforest on a muddy trail"
+							},
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "Three hikers with colorful backpacks walking a mountain ridge overlooking a green valley"
+							}
+						]
+					},
+					"feature-sticky-image": {
+						"copy": {
+							"heading": "Our\nTrips"
+						},
+						"media": [
+							{
+								"assetId": "5f548492-6f27-59da-a33a-7be6bc451fd2",
+								"alt": "Editorial floral arrangement among kraft paper boxes"
+							}
+						],
+						"items": [
+							{
+								"number": "1",
+								"title": "Day Hikes",
+								"description": "Scenic half-day and full-day trails with expert guides, packed lunches, and routes tailored to your fitness level."
+							},
+							{
+								"number": "2",
+								"title": "Multi-Day Treks",
+								"description": "Immersive overnight adventures with camping, trail meals, and sweeping views that leave a lasting impression."
+							},
+							{
+								"number": "3",
+								"title": "Private Group Trips",
+								"description": "Custom itineraries for friends, families, and teams who want a shared outdoor experience built around them."
+							},
+							{
+								"number": "4",
+								"title": "Skills Workshops",
+								"description": "Hands-on sessions covering navigation, packing, and trail safety for aspiring hikers and weekend explorers."
+							}
+						]
+					},
+					"blog-list": {
+						"copy": {
+							"heading": "Trail Journal\n& guides",
+							"description": "Explore our latest hiking tips, trip reports, and outdoor inspiration for your next adventure on the trail.",
+							"empty": "Publish a post to fill this section"
+						}
+					},
+					"contact": {
+						"copy": {
+							"heading": "Let's plan\nyour next adventure",
+							"description": "Tell us where you want to go. Due to high demand, we'll respond within five business days to discuss your ideal hiking trip.",
+							"watermark": "Get outside"
+						},
+						"form": {
+							"nameLabel": "Full Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "Tell us about your ideal trip",
+							"submitLabel": "Send message",
+							"pendingLabel": "Sending…",
+							"success": "Thank you! We'll be in touch within five business days.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "متجدد الهواء وواسع"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "قائمة ترايلباوند",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "ترايلباوند."
+					},
+					"navigation": [
+						{
+							"label": "الرحلات",
+							"link": {
+								"kind": "relative",
+								"path": "/trips"
+							},
+							"dropdown": [
+								{
+									"label": "رحلات اليوم الواحد",
+									"link": {
+										"kind": "relative",
+										"path": "/services/weddings"
+									},
+									"description": "مسارات بمرافقة مرشدين لكل المستويات"
+								},
+								{
+									"label": "رحلات متعددة الأيام",
+									"link": {
+										"kind": "relative",
+										"path": "/services/events"
+									},
+									"description": "مغامرات ليلية في البرية"
+								},
+								{
+									"label": "مجموعات خاصة",
+									"link": {
+										"kind": "relative",
+										"path": "/services/subscriptions"
+									},
+									"description": "رحلات مخصصة لمجموعتك"
+								}
+							]
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "احجز رحلة",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"heading": "لنمشِ\nمعًا",
+						"socialTitle": "التواصل الاجتماعي",
+						"copyright": "© 2026 ترايلباوند للمغامرات. جميع الحقوق محفوظة."
+					},
+					"actions": [
+						{
+							"label": "hello@trailboundadventures.com",
+							"link": {
+								"kind": "email",
+								"address": "hello@trailboundadventures.com"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						},
+						{
+							"label": "تيك توك",
+							"link": {
+								"kind": "external",
+								"url": "https://www.tiktok.com"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "سياسة الخصوصية",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "شروط الخدمة",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "متجدد الهواء وواسع"
+					}
+				},
+				"sections": {
+					"banner-compact-background": {
+						"copy": {
+							"heading": "جهّز حقيبتك\nواخرج إلى الطبيعة",
+							"description": "نحن شركة مغامرات خارجية ننظم رحلات مشي برية لا تُنسى للمبتدئين والمجموعات والمستكشفين المحترفين."
+						},
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "ثلاثة متنزهين بحقائب ملونة يسيرون على قمة جبلية تطل على وادٍ أخضر"
+							}
+						],
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"label": "احجز رحلة"
+							}
+						]
+					},
+					"text-scroll-reveal": {
+						"copy": {
+							"description": "استلهامًا من جمال الطبيعة الخام، أسسنا شركة إرشاد تتجاوز المسار السياحي المعتاد. نقود المتنزهين عبر القمم الوعرة والغابات الهادئة والتلال الخفية لنجلب روح البرية الشاعرية إلى كل مغامرة."
+						}
+					},
+					"team-staggered": {
+						"copy": {
+							"heading": "تعرّف على\nمرشدينا",
+							"description": "تعرّف على فريقنا المتفاني الجاهز لقيادة مغامرتك الخارجية القادمة. نحن هنا لنرشدك وندعمك ونساعدك على اكتشاف مسارات لن تنساها."
+						},
+						"members": [
+							{
+								"name": "كلارا وونغ",
+								"role": "المؤسسة والمرشدة الرئيسية",
+								"alt": "كلارا وونغ تبتسم على مسار جبلي بملابس المشي وخلفها وادٍ خلاب",
+								"assetId": "ef263e03-6329-5fea-bb99-3e5259310d01"
+							},
+							{
+								"name": "دانيال رييس",
+								"role": "مسؤول الرحلات والخدمات اللوجستية",
+								"alt": "دانيال رييس يأخذ استراحة لشرب الماء أثناء المشي في وادٍ جبلي مليء بالزهور البرية",
+								"assetId": "9b3b247f-b541-5b60-b36f-1d71fd79d791"
+							},
+							{
+								"name": "مايا باتيل",
+								"role": "مرشدة مسارات أولى",
+								"alt": "مايا باتيل تبتسم بقبعة شمس وخلفها وادٍ جبلي",
+								"assetId": "ff06ea48-c669-5e07-a425-5de21a69067c"
+							}
+						]
+					},
+					"testimonial-centered-carousel": {
+						"copy": {
+							"heading": "حكايات\nالمسار"
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "حكايات المسار",
+							"carousel-testimonialspreviousLabel": "حكايات المسار: السابق",
+							"carousel-testimonialsnextLabel": "حكايات المسار: التالي",
+							"carousel-testimonialsindicatorsLabel": "ترقيم حكايات المسار"
+						},
+						"testimonials": [
+							{
+								"quote": "حوّلت ترايلباوند عطلتنا إلى تجربة لا تُنسى. جعلنا المرشدون نشعر جميعًا بالثقة والإلهام.",
+								"name": "أماندا وجيمس",
+								"title": "منتزه جاسبر الوطني، مايو 2025"
+							},
+							{
+								"quote": "كانت رحلتهم متعددة الأيام أبرز ما في عامنا. كان لكل مخيم إطلالة تستحق عناء الصعود.",
+								"name": "مجلة الطبيعة",
+								"title": "منتزه غلاسير الوطني، مارس 2025"
+							},
+							{
+								"quote": "كان الوقوف على تلك القمة أشبه بعالم آخر. ما زال أصدقاؤنا يتحدثون عن رحلة الشروق.",
+								"name": "بريا ودانيال",
+								"title": "منتزه بانف الوطني، فبراير 2025"
+							}
+						]
+					},
+					"gallery-bento-editorial": {
+						"copy": {
+							"heading": "استمتع\nبجمال البرية",
+							"description": "نحن شركة مغامرات خارجية ننظم رحلات مشي برية لا تُنسى للمبتدئين والمجموعات والمستكشفين المحترفين."
+						},
+						"media": [
+							{
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "متنزهان بحقائب ظهر وكلب يسيران على مسار جبلي عبر وادٍ ألبي أخضر"
+							},
+							{
+								"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+								"alt": "مجموعة متنزهين وكلب يعبرون منحدرًا جبليًا عشبيًا وخلفهم قمم مكسوة بالثلوج"
+							},
+							{
+								"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+								"alt": "متنزهون ينزلون مسارًا ترابيًا نحو جبال وعرة تحت سماء مشرقة"
+							},
+							{
+								"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+								"alt": "مجموعة مشي بمرافقة مرشد تسير على مسار مليء بالجذور عبر غابة مكسوة بالطحالب"
+							},
+							{
+								"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+								"alt": "متنزهون بمعدات متخصصة يسيرون في صف واحد عبر غابة وارفة مليئة بالسرخس"
+							},
+							{
+								"assetId": "83dc0e2c-cc53-5693-b8ab-1016461edfb6",
+								"alt": "خمسة متنزهين بحقائب ظهر يسيرون على مسار موحل عبر غابة قديمة كثيفة مكسوة بالطحالب"
+							},
+							{
+								"assetId": "87dabc8d-23bd-55ff-a537-88f782c975a3",
+								"alt": "مجموعة مغامرة تسير عبر غابة مطيرة معتدلة كثيفة على مسار موحل"
+							},
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "ثلاثة متنزهين بحقائب ملونة يسيرون على قمة جبلية تطل على وادٍ أخضر"
+							}
+						]
+					},
+					"feature-sticky-image": {
+						"copy": {
+							"heading": "رحلاتنا"
+						},
+						"media": [
+							{
+								"assetId": "5f548492-6f27-59da-a33a-7be6bc451fd2",
+								"alt": "تنسيق زهور تحريري بين صناديق ورق كرافت"
+							}
+						],
+						"items": [
+							{
+								"number": "1",
+								"title": "رحلات اليوم الواحد",
+								"description": "مسارات خلابة لنصف يوم أو يوم كامل مع مرشدين خبراء ووجبات غداء جاهزة ومسارات تناسب مستوى لياقتك."
+							},
+							{
+								"number": "2",
+								"title": "رحلات متعددة الأيام",
+								"description": "مغامرات ليلية غامرة مع تخييم ووجبات على المسار وإطلالات واسعة تترك أثرًا لا يُنسى."
+							},
+							{
+								"number": "3",
+								"title": "رحلات المجموعات الخاصة",
+								"description": "برامج مخصصة للأصدقاء والعائلات والفرق الراغبين في تجربة خارجية مشتركة مصممة لهم."
+							},
+							{
+								"number": "4",
+								"title": "ورش المهارات",
+								"description": "جلسات عملية تغطي الملاحة وتجهيز الحقيبة وسلامة المسار للمتنزهين الطموحين ومستكشفي عطلة نهاية الأسبوع."
+							}
+						]
+					},
+					"blog-list": {
+						"copy": {
+							"heading": "يوميات المسار\nوأدلته",
+							"description": "اكتشف أحدث نصائح المشي وتقارير الرحلات وإلهام الطبيعة لمغامرتك القادمة على المسار.",
+							"empty": "انشر مقالًا لملء هذا القسم"
+						}
+					},
+					"contact": {
+						"copy": {
+							"heading": "لنخطط\nلمغامرتك القادمة",
+							"description": "أخبرنا إلى أين تريد الذهاب. نظرًا لارتفاع الطلب، سنرد خلال خمسة أيام عمل لمناقشة رحلة المشي المثالية لك.",
+							"watermark": "اخرج للطبيعة"
+						},
+						"form": {
+							"nameLabel": "الاسم الكامل",
+							"emailLabel": "عنوان البريد الإلكتروني",
+							"messageLabel": "حدثنا عن رحلتك المثالية",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكرًا لك! سنتواصل معك خلال خمسة أيام عمل.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					}
+				}
+			}
+		}
+	}
+}

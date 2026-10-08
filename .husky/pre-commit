@@ -1,0 +1,7 @@
+bun run jscpd
+bun lint
+bun konsistent
+bun typecheck
+bun react-doctor
+bun shadscan
+bun evlog:check

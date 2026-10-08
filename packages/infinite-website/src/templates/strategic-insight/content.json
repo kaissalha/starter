@@ -1,0 +1,1242 @@
+{
+	"en": {
+		"site": {
+			"name": "Strategic Insight"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Kaelen & Co. navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Kaelen & Co."
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "Get in touch",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					],
+					"socialLinks": []
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2025 Kaelen & Co. All rights reserved.",
+						"addressLabel": "Address:",
+						"address": "123 Oak Street, Springfield, IL 62701",
+						"contactLabel": "Contact:",
+						"contact": "1800 123 4567\nemail@example.com",
+						"brand": "Kaelen & Co."
+					},
+					"navItems": [
+						{
+							"label": "About Us",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "Our Mission",
+							"link": {
+								"kind": "relative",
+								"path": "/mission"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "Blog",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							}
+						},
+						{
+							"label": "Careers",
+							"link": {
+								"kind": "relative",
+								"path": "/careers"
+							}
+						},
+						{
+							"label": "FAQ",
+							"link": {
+								"kind": "relative",
+								"path": "/faq"
+							}
+						},
+						{
+							"label": "Support",
+							"link": {
+								"kind": "relative",
+								"path": "/support"
+							}
+						},
+						{
+							"label": "Partners",
+							"link": {
+								"kind": "relative",
+								"path": "/partners"
+							}
+						},
+						{
+							"label": "Affiliates",
+							"link": {
+								"kind": "relative",
+								"path": "/affiliates"
+							}
+						},
+						{
+							"label": "Privacy",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "LinkedIn",
+							"link": {
+								"kind": "external",
+								"url": "https://www.linkedin.com"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "X",
+							"link": {
+								"kind": "external",
+								"url": "https://www.x.com"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "Privacy Policy",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "Terms of Service",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						},
+						{
+							"label": "Cookies Settings",
+							"link": {
+								"kind": "relative",
+								"path": "/cookies"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Strategic Insight"
+					}
+				},
+				"sections": {
+					"banner-text-and-image": {
+						"copy": {
+							"kicker": "Garden",
+							"heading": "Elevate your\nBusiness Strategy",
+							"description": "We empower leaders to navigate complexity with confidence. Strategic clarity, operational excellence, and the insight needed to turn ambition into a lasting legacy."
+						},
+						"actions": [
+							{
+								"label": "Get in touch",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "Professional business coach in modern office"
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "Our Work",
+							"heading": "Where strategy\nmeets execution.",
+							"description": "Our approach is designed to help you think clearly and act with confidence in every engagement."
+						},
+						"media": [
+							{
+								"assetId": "4c0ccd62-1d50-58d2-bdd6-fa2e74df274d",
+								"alt": "Coaching session"
+							},
+							{
+								"assetId": "e4eb75ab-0b93-5e1f-8f62-19e8e30e672e",
+								"alt": "Strategy session"
+							},
+							{
+								"assetId": "e3b0673a-c040-5f96-adff-c1b5c255dfc9",
+								"alt": "Messaging workshop"
+							},
+							{
+								"assetId": "59bdea2d-7c95-599f-aea4-dd260b3f21ba",
+								"alt": "Leadership coaching"
+							},
+							{
+								"assetId": "7189ce04-86f4-5160-9864-f4fd6569983d",
+								"alt": "Operations planning"
+							},
+							{
+								"assetId": "dff13cec-f982-5bf1-95cf-6c2f07590f75",
+								"alt": "Progress review meeting"
+							}
+						]
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "Clients",
+							"heading": "Trusted by leaders",
+							"description": "Organizations that partner with us for strategic clarity and operational excellence."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "Client logo 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "Client logo 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "Client logo 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "Client logo 4"
+							},
+							{
+								"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+								"alt": "Client logo 5"
+							},
+							{
+								"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+								"alt": "Client logo 6"
+							},
+							{
+								"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+								"alt": "Client logo 7"
+							},
+							{
+								"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+								"alt": "Client logo 8"
+							}
+						]
+					},
+					"feature-centered-carousel": {
+						"copy": {
+							"heading": "Our principles",
+							"kicker": "",
+							"description": ""
+						},
+						"actions": [
+							{
+								"label": "Get in touch",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "Services",
+							"indicatorsLabel": "Choose service"
+						},
+						"features": [
+							{
+								"title": "Strategy Sessions",
+								"description": "Get a complete picture of your business strengths and map out where you want to go—creating a clear starting point for your journey.",
+								"assetId": "e4eb75ab-0b93-5e1f-8f62-19e8e30e672e",
+								"alt": "Strategy session"
+							},
+							{
+								"title": "Messaging & Positioning",
+								"description": "Organize your intellectual capital into a coherent system that communicates value instantly and converts observers into partners.",
+								"assetId": "e3b0673a-c040-5f96-adff-c1b5c255dfc9",
+								"alt": "Messaging workshop"
+							},
+							{
+								"title": "Leadership Development",
+								"description": "Build confidence and master the skills that matter. We develop strategies to handle any scenario with poise and authority.",
+								"assetId": "59bdea2d-7c95-599f-aea4-dd260b3f21ba",
+								"alt": "Leadership coaching"
+							},
+							{
+								"title": "Operational Excellence",
+								"description": "Navigate complexity with a clear roadmap. We create step-by-step action plans that turn ambition into lasting legacy.",
+								"assetId": "7189ce04-86f4-5160-9864-f4fd6569983d",
+								"alt": "Operations planning"
+							}
+						]
+					},
+					"metrics-numbers": {
+						"copy": {
+							"kicker": "Metrics",
+							"heading": "Trusted by small businesses for over\na decade",
+							"description": "We've built our reputation on reliability, accuracy, and a genuine commitment to our clients' financial success."
+						},
+						"items": [
+							{
+								"metric": "15+",
+								"label": "Years of Experience"
+							},
+							{
+								"metric": "800+",
+								"label": "Happy Clients"
+							},
+							{
+								"metric": "12K+",
+								"label": "Tax Returns Filed"
+							},
+							{
+								"metric": "98%",
+								"label": "Client Satisfaction"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"description": "Atria Coaching is a focused practice built to help founders simplify what they sell, sharpen how they explain it, and make better decisions with less friction. Everything here is designed to be used as-is — or reshaped entirely.",
+							"kicker": "",
+							"heading": ""
+						}
+					},
+					"testimonial-carousel-card": {
+						"copy": {
+							"kicker": "Client Stories",
+							"heading": "Hear from Those\nWe've Guided"
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "Member testimonials",
+							"carousel-testimonialspreviousLabel": "Member testimonials: previous",
+							"carousel-testimonialsnextLabel": "Member testimonials: next"
+						},
+						"testimonials": [
+							{
+								"quote": "They helped me simplify what I sell and sharpen how I explain it. Strategic clarity and operational excellence—exactly what I needed to turn ambition into results.",
+								"name": "Jennifer Martinez",
+								"title": "Founder & CEO",
+								"assetId": "c68dde34-8ca1-507d-975b-cf533185e203",
+								"alt": "Jennifer Martinez"
+							},
+							{
+								"quote": "Chaotic messaging was undermining my expertise. They helped me organize my intellectual capital into a coherent system that communicates value instantly.",
+								"name": "Marcus Thompson",
+								"title": "Consulting Partner",
+								"assetId": "84095c37-d336-59df-ae7b-f2d4f6623100",
+								"alt": "Marcus Thompson"
+							},
+							{
+								"quote": "Structure is the language of authority. This practice gave me the framework to make better decisions with less friction—everything designed to be used as-is or reshaped entirely.",
+								"name": "Sarah Chen",
+								"title": "Executive Director",
+								"assetId": "a1d21984-d87c-5527-9769-31f92966cbec",
+								"alt": "Sarah Chen"
+							}
+						]
+					},
+					"team-grid-columns": {
+						"copy": {
+							"kicker": "Your Guides",
+							"heading": "Experienced partners\nfor your journey.",
+							"description": "Our coaches bring decades of experience in strategy, leadership, and organizational development to help you achieve your goals."
+						},
+						"members": [
+							{
+								"name": "Rachel Ing",
+								"role": "Founder & Executive Coach",
+								"description": "A certified executive coach with 15 years in leadership development, Rachel founded the practice to provide the strategic clarity that transforms ambition into lasting legacy.",
+								"assetId": "7014eddd-f58f-5297-a68e-3451d55810d0",
+								"alt": "Rachel Ing",
+								"socialLinks": []
+							}
+						]
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "Visit us",
+							"heading": "Find us nearby\nand stop by today.",
+							"description": "Use the map to get directions and visit our location."
+						},
+						"actions": [
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "123 Oak Street, Springfield, IL 62701"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 123 Oak Street, Springfield, IL 62701"
+						}
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "Pricing",
+							"heading": "Invest in your\ngrowth",
+							"description": "Flexible coaching packages designed to meet you where you are and take you where you want to be."
+						},
+						"items": [
+							{
+								"title": "Foundation",
+								"price": "$250",
+								"description": "For emerging leaders ready to build a strategic foundation",
+								"label": "Get started",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Monthly strategy session"
+									},
+									{
+										"title": "Goal-setting framework"
+									},
+									{
+										"title": "Email support between sessions"
+									},
+									{
+										"title": "Resource library access"
+									},
+									{
+										"title": "Progress tracking dashboard"
+									},
+									{
+										"title": "Quarterly review"
+									}
+								],
+								"badge-label": "Most popular"
+							},
+							{
+								"title": "Executive",
+								"price": "$500",
+								"description": "For senior leaders seeking accelerated transformation",
+								"label": "Get started",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Bi-weekly coaching sessions"
+									},
+									{
+										"title": "Leadership assessment"
+									},
+									{
+										"title": "Priority email and phone support"
+									},
+									{
+										"title": "Custom action plans"
+									},
+									{
+										"title": "Stakeholder feedback analysis"
+									},
+									{
+										"title": "Monthly progress reports"
+									}
+								],
+								"badge-label": "Most Popular"
+							},
+							{
+								"title": "Enterprise",
+								"price": "$1,200",
+								"description": "For organizations building a culture of strategic excellence",
+								"label": "Contact us",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Weekly team coaching sessions"
+									},
+									{
+										"title": "Organizational assessment"
+									},
+									{
+										"title": "Dedicated success manager"
+									},
+									{
+										"title": "Workshop facilitation"
+									},
+									{
+										"title": "Executive team alignment"
+									},
+									{
+										"title": "Annual strategy retreat"
+									}
+								],
+								"badge-label": "Most popular"
+							}
+						]
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "FAQ",
+							"heading": "Frequently asked\nquestions",
+							"description": "If you have any further questions, please contact us."
+						},
+						"actions": [],
+						"items": [
+							{
+								"question": "What types of coaching do you offer?",
+								"answer": "We offer executive coaching, leadership development, strategic planning facilitation, and organizational consulting. Each engagement is tailored to your specific goals, whether you're an individual leader or an entire team seeking transformation."
+							},
+							{
+								"question": "How long does a typical coaching engagement last?",
+								"answer": "Most engagements run between 3 and 12 months depending on your objectives. We begin with an assessment phase, then move into active coaching with regular check-ins to measure progress and adjust our approach."
+							},
+							{
+								"question": "What results can I expect from coaching?",
+								"answer": "Clients typically see measurable improvements in decision-making clarity, team alignment, revenue growth, and personal leadership effectiveness. We set clear benchmarks at the start and track progress throughout the engagement."
+							},
+							{
+								"question": "Do you work with individuals or organizations?",
+								"answer": "Both. We work with individual executives seeking personal growth as well as leadership teams and organizations looking to improve strategic alignment, culture, and operational performance."
+							},
+							{
+								"question": "How do I know if coaching is right for me?",
+								"answer": "Coaching is ideal if you're navigating a transition, scaling your business, building a leadership team, or simply want an experienced thought partner. We offer a complimentary discovery call to explore whether we're the right fit."
+							}
+						]
+					},
+					"contact-form-text": {
+						"copy": {
+							"kicker": "Business Coaching",
+							"heading": "Send us a message",
+							"description": "We would love to hear from you",
+							"email": "email@example.com",
+							"phone": "1800 123 4567",
+							"address": "123 Oak Street, Springfield, IL 62701"
+						},
+						"form": {
+							"nameLabel": "Name",
+							"emailLabel": "Email",
+							"messageLabel": "Message",
+							"submitLabel": "Submit",
+							"pendingLabel": "Sending…",
+							"success": "Message received! We'll be in touch soon.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"cta-basic": {
+						"copy": {
+							"heading": "Ready to lead with clarity?",
+							"description": "Book a complimentary discovery call and take the first step toward strategic transformation."
+						},
+						"actions": [
+							{
+								"label": "Schedule a call",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "البصيرة الاستراتيجية"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "ملاحة Kaelen & Co",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "كايلين وشركاه"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "تواصل معنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					],
+					"socialLinks": []
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2025 Kaelen & Co. جميع الحقوق محفوظة.",
+						"addressLabel": "العنوان:",
+						"address": "123 شارع أوك، سبرينجفيلد، إلينوي 62701",
+						"contactLabel": "للتواصل:",
+						"contact": "1800 123 4567\nemail@example.com",
+						"brand": "كايلين وشركاه"
+					},
+					"navItems": [
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "مهمتنا",
+							"link": {
+								"kind": "relative",
+								"path": "/mission"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "المدونة",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							}
+						},
+						{
+							"label": "الوظائف",
+							"link": {
+								"kind": "relative",
+								"path": "/careers"
+							}
+						},
+						{
+							"label": "الأسئلة الشائعة",
+							"link": {
+								"kind": "relative",
+								"path": "/faq"
+							}
+						},
+						{
+							"label": "الدعم",
+							"link": {
+								"kind": "relative",
+								"path": "/support"
+							}
+						},
+						{
+							"label": "الشركاء",
+							"link": {
+								"kind": "relative",
+								"path": "/partners"
+							}
+						},
+						{
+							"label": "الشركاء التابعون",
+							"link": {
+								"kind": "relative",
+								"path": "/affiliates"
+							}
+						},
+						{
+							"label": "الخصوصية",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "LinkedIn",
+							"link": {
+								"kind": "external",
+								"url": "https://www.linkedin.com"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "X",
+							"link": {
+								"kind": "external",
+								"url": "https://www.x.com"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "سياسة الخصوصية",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "شروط الخدمة",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						},
+						{
+							"label": "إعدادات ملفات الارتباط",
+							"link": {
+								"kind": "relative",
+								"path": "/cookies"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "البصيرة الاستراتيجية"
+					}
+				},
+				"sections": {
+					"banner-text-and-image": {
+						"copy": {
+							"kicker": "الحديقة",
+							"heading": "ارفع مستوى شخصيتك\nاستراتيجية الأعمال",
+							"description": "نحن نمكن القادة من التعامل مع التعقيدات بثقة. الوضوح الاستراتيجي والتميز التشغيلي والبصيرة اللازمة لتحويل الطموح إلى إرث دائم."
+						},
+						"actions": [
+							{
+								"label": "تواصل معنا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "مدرب أعمال محترف في المكاتب الحديثة"
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "عملنا",
+							"heading": "حيث الاستراتيجية\nيفي بالتنفيذ.",
+							"description": "تم تصميم نهجنا لمساعدتك على التفكير بوضوح والتصرف بثقة في كل مشاركة. جلسة التدريب"
+						},
+						"media": [
+							{
+								"assetId": "4c0ccd62-1d50-58d2-bdd6-fa2e74df274d",
+								"alt": "جلسة تدريب"
+							},
+							{
+								"assetId": "e4eb75ab-0b93-5e1f-8f62-19e8e30e672e",
+								"alt": "جلسة استراتيجية"
+							},
+							{
+								"assetId": "e3b0673a-c040-5f96-adff-c1b5c255dfc9",
+								"alt": "ورشة عمل المراسلة"
+							},
+							{
+								"assetId": "59bdea2d-7c95-599f-aea4-dd260b3f21ba",
+								"alt": "التدريب على القيادة"
+							},
+							{
+								"assetId": "7189ce04-86f4-5160-9864-f4fd6569983d",
+								"alt": "تخطيط العمليات"
+							},
+							{
+								"assetId": "dff13cec-f982-5bf1-95cf-6c2f07590f75",
+								"alt": "Progress review meeting"
+							}
+						]
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "العملاء",
+							"heading": "موثوق به من قبل القادة",
+							"description": "مؤسسات تشاركنا لتحقيق الوضوح الاستراتيجي والتميز التشغيلي."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "شعار العميل 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "شعار العميل 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "شعار العميل 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "شعار العميل 4"
+							},
+							{
+								"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+								"alt": "شعار العميل 5"
+							},
+							{
+								"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+								"alt": "شعار العميل 6"
+							},
+							{
+								"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+								"alt": "شعار العميل 7"
+							},
+							{
+								"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+								"alt": "شعار العميل 8"
+							}
+						]
+					},
+					"feature-centered-carousel": {
+						"copy": {
+							"heading": "مبادئنا",
+							"kicker": "",
+							"description": ""
+						},
+						"actions": [
+							{
+								"label": "تواصل معنا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "الخدمات",
+							"indicatorsLabel": "اختر خدمة"
+						},
+						"features": [
+							{
+								"title": "جلسات الإستراتيجية",
+								"description": "احصل على صورة كاملة لنقاط قوة عملك وحدد المكان الذي تريد الذهاب إليه - مما يؤدي إلى إنشاء نقطة بداية واضحة لرحلتك.",
+								"assetId": "e4eb75ab-0b93-5e1f-8f62-19e8e30e672e",
+								"alt": "جلسة استراتيجية"
+							},
+							{
+								"title": "المراسلة وتحديد المواقع",
+								"description": "قم بتنظيم رأس المال الفكري الخاص بك في نظام متماسك ينقل القيمة على الفور ويحول المراقبين إلى شركاء.",
+								"assetId": "e3b0673a-c040-5f96-adff-c1b5c255dfc9",
+								"alt": "ورشة عمل المراسلة"
+							},
+							{
+								"title": "تنمية المهارات القيادية",
+								"description": "قم ببناء الثقة وإتقان المهارات المهمة. نحن نطور استراتيجيات للتعامل مع أي سيناريو بتوازن وسلطة.",
+								"assetId": "59bdea2d-7c95-599f-aea4-dd260b3f21ba",
+								"alt": "التدريب على القيادة"
+							},
+							{
+								"title": "التميز التشغيلي",
+								"description": "تعامل مع التعقيد من خلال خريطة طريق واضحة. نقوم بإنشاء خطط عمل خطوة بخطوة تحول الطموح إلى إرث دائم.",
+								"assetId": "7189ce04-86f4-5160-9864-f4fd6569983d",
+								"alt": "تخطيط العمليات"
+							}
+						]
+					},
+					"metrics-numbers": {
+						"copy": {
+							"kicker": "المقاييس",
+							"heading": "موثوق به من قبل الشركات الصغيرة لأكثر من\nعقد من الزمن",
+							"description": "لقد بنينا سمعتنا على الموثوقية والدقة والالتزام الحقيقي بالنجاح المالي لعملائنا."
+						},
+						"items": [
+							{
+								"metric": "15+",
+								"label": "سنوات من الخبرة"
+							},
+							{
+								"metric": "800+",
+								"label": "عملاء سعداء"
+							},
+							{
+								"metric": "12K+",
+								"label": "تقديم الإقرارات الضريبية"
+							},
+							{
+								"metric": "98%",
+								"label": "رضا العميل"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"description": "Atria Coaching هي ممارسة مركزة تم تصميمها لمساعدة المؤسسين على تبسيط ما يبيعونه، وصقل كيفية شرحه، واتخاذ قرارات أفضل مع احتكاك أقل. تم تصميم كل شيء هنا ليتم استخدامه كما هو، أو إعادة تشكيله بالكامل.",
+							"kicker": "",
+							"heading": ""
+						}
+					},
+					"testimonial-carousel-card": {
+						"copy": {
+							"kicker": "قصص العملاء",
+							"heading": "اسمع من هؤلاء\nلقد قمنا بالاسترشاد"
+						},
+						"accessibility": {
+							"carousel-testimonialsLabel": "شهادات الأعضاء",
+							"carousel-testimonialspreviousLabel": "شهادات الأعضاء: السابق",
+							"carousel-testimonialsnextLabel": "شهادات الأعضاء: التالي"
+						},
+						"testimonials": [
+							{
+								"quote": "لقد ساعدوني في تبسيط ما أبيعه وتوضيح كيفية شرحه. الوضوح الاستراتيجي والتميز التشغيلي - هو بالضبط ما احتاجه لتحويل الطموح إلى نتائج.",
+								"name": "جينيفر مارتينيز",
+								"title": "المؤسس والرئيس التنفيذي",
+								"assetId": "c68dde34-8ca1-507d-975b-cf533185e203",
+								"alt": "جينيفر مارتينيز"
+							},
+							{
+								"quote": "كانت الرسائل الفوضوية تقوض خبرتي. لقد ساعدوني في تنظيم رأسمالي الفكري في نظام متماسك ينقل القيمة على الفور.",
+								"name": "ماركوس طومسون",
+								"title": "شريكة استشارية",
+								"assetId": "84095c37-d336-59df-ae7b-f2d4f6623100",
+								"alt": "ماركوس طومسون"
+							},
+							{
+								"quote": "البنية هي لغة السلطة. لقد أعطتني هذه الممارسة إطارًا لاتخاذ قرارات أفضل مع قدر أقل من الاحتكاك - كل شيء مصمم ليتم استخدامه كما هو أو إعادة تشكيله بالكامل.",
+								"name": "سارة تشين",
+								"title": "المدير التنفيذي",
+								"assetId": "a1d21984-d87c-5527-9769-31f92966cbec",
+								"alt": "سارة تشين"
+							}
+						]
+					},
+					"team-grid-columns": {
+						"copy": {
+							"kicker": "أدلةك",
+							"heading": "الشركاء ذوي الخبرة\nلرحلتك.",
+							"description": "يتمتع مدربونا بعقود من الخبرة في مجال الإستراتيجية والقيادة والتطوير التنظيمي لمساعدتك في تحقيق أهدافك."
+						},
+						"members": [
+							{
+								"name": "راشيل إنج",
+								"role": "المؤسسة والمدربة التنفيذية",
+								"description": "مدربة تنفيذية معتمدة تتمتع بخبرة 15 عامًا في تطوير المهارات القيادية، أسست راشيل هذه الممارسة لتوفير الوضوح الاستراتيجي الذي يحول الطموح إلى إرث دائم. نمو",
+								"assetId": "7014eddd-f58f-5297-a68e-3451d55810d0",
+								"alt": "راشيل إنج",
+								"socialLinks": []
+							}
+						]
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "قم بزيارتنا",
+							"heading": "تجدنا بالقرب منك\nوتوقف اليوم.",
+							"description": "استخدم الخريطة للحصول على الاتجاهات وزيارة موقعنا."
+						},
+						"actions": [
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "123 شارع أوك، سبرينجفيلد، إلينوي 62701"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 123 Oak Street, Springfield, IL 62701"
+						}
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "التسعير",
+							"heading": "استثمر في",
+							"description": "حزم تدريب مرنة مصممة لتلبية احتياجاتك أينما كنت وتأخذك إلى حيث تريد أن تكون."
+						},
+						"items": [
+							{
+								"title": "الأساسيات",
+								"price": "$250",
+								"description": "للقادة الناشئين المستعدين لبناء أساس استراتيجي",
+								"label": "ابدأ",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Monthly strategy session"
+									},
+									{
+										"title": "Goal-setting framework"
+									},
+									{
+										"title": "Email support between sessions"
+									},
+									{
+										"title": "Resource library access"
+									},
+									{
+										"title": "Progress tracking dashboard"
+									},
+									{
+										"title": "Quarterly review"
+									}
+								],
+								"badge-label": "الأكثر شعبية حزمة التصميم"
+							},
+							{
+								"title": "التنفيذي",
+								"price": "$500",
+								"description": "لكبار القادة الذين يسعون إلى التحول السريع",
+								"label": "ابدأ",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Bi-weekly coaching sessions"
+									},
+									{
+										"title": "Leadership assessment"
+									},
+									{
+										"title": "Priority email and phone support"
+									},
+									{
+										"title": "Custom action plans"
+									},
+									{
+										"title": "Stakeholder feedback analysis"
+									},
+									{
+										"title": "Monthly progress reports"
+									}
+								],
+								"badge-label": "الأكثر طلبًا"
+							},
+							{
+								"title": "المؤسسات",
+								"price": "$1,200",
+								"description": "للمؤسسات التي تبني ثقافة التميز الاستراتيجي",
+								"label": "تواصل معنا",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"features": [
+									{
+										"title": "Weekly team coaching sessions"
+									},
+									{
+										"title": "Organizational assessment"
+									},
+									{
+										"title": "Dedicated success manager"
+									},
+									{
+										"title": "Workshop facilitation"
+									},
+									{
+										"title": "Executive team alignment"
+									},
+									{
+										"title": "Annual strategy retreat"
+									}
+								],
+								"badge-label": "الأكثر شعبية حزمة التصميم"
+							}
+						]
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "الأسئلة الشائعة",
+							"heading": "سؤال متكرر أسئلة",
+							"description": "إذا كان لديك أي أسئلة أخرى، يرجى الاتصال بنا."
+						},
+						"actions": [],
+						"items": [
+							{
+								"question": "ما هي أنواع التدريب التي تقدمها؟",
+								"answer": "We offer executive coaching, leadership development, strategic planning facilitation, and organizational consulting. Each engagement is tailored to your specific goals, whether you're an individual leader or an entire team seeking transformation."
+							},
+							{
+								"question": "ما هي مدة مشاركة التدريب النموذجية؟",
+								"answer": "Most engagements run between 3 and 12 months depending on your objectives. We begin with an assessment phase, then move into active coaching with regular check-ins to measure progress and adjust our approach."
+							},
+							{
+								"question": "ما هي النتائج التي يمكن أن أتوقعها من التدريب؟",
+								"answer": "Clients typically see measurable improvements in decision-making clarity, team alignment, revenue growth, and personal leadership effectiveness. We set clear benchmarks at the start and track progress throughout the engagement."
+							},
+							{
+								"question": "هل تعمل مع الأفراد أو المنظمات؟",
+								"answer": "Both. We work with individual executives seeking personal growth as well as leadership teams and organizations looking to improve strategic alignment, culture, and operational performance."
+							},
+							{
+								"question": "How do I know if coaching is right for me?",
+								"answer": "Coaching is ideal if you're navigating a transition, scaling your business, building a leadership team, or simply want an experienced thought partner. We offer a complimentary discovery call to explore whether we're the right fit."
+							}
+						]
+					},
+					"contact-form-text": {
+						"copy": {
+							"kicker": "تدريب الأعمال",
+							"heading": "أرسل لنا رسالة",
+							"description": "يسعدنا أن نسمع منك",
+							"email": "email@example.com",
+							"phone": "1800 123 4567",
+							"address": "123 شارع أوك، سبرينجفيلد، إلينوي 62701"
+						},
+						"form": {
+							"nameLabel": "الاسم",
+							"emailLabel": "البريد الإلكتروني",
+							"messageLabel": "الرسالة",
+							"submitLabel": "إرسال",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "تم استلام رسالتك! سنتواصل معك قريبًا.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"cta-basic": {
+						"copy": {
+							"heading": "هل أنت مستعد للقيادة بوضوح؟",
+							"description": "احجز مكالمة استكشافية مجانية واتخذ الخطوة الأولى نحو التحول الاستراتيجي."
+						},
+						"actions": [
+							{
+								"label": "جدولة مكالمة",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

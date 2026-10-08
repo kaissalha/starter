@@ -1,0 +1,1316 @@
+{
+	"en": {
+		"site": {
+			"name": "Urban Edge"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "FORGE navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "FORGE"
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Programs",
+							"link": {
+								"kind": "relative",
+								"path": "/programs"
+							},
+							"dropdown": [
+								{
+									"label": "Strength Training",
+									"link": {
+										"kind": "relative",
+										"path": "/programs/strength-training"
+									}
+								},
+								{
+									"label": "HIIT Classes",
+									"link": {
+										"kind": "relative",
+										"path": "/programs/hiit-classes"
+									}
+								}
+							]
+						},
+						{
+							"label": "Trainers",
+							"link": {
+								"kind": "relative",
+								"path": "/trainers"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Schedule",
+							"link": {
+								"kind": "relative",
+								"path": "/schedule"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Join",
+							"link": {
+								"kind": "relative",
+								"path": "/join"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "Start Free Trial",
+							"link": {
+								"kind": "relative",
+								"path": "/trial"
+							}
+						}
+					],
+					"socialLinks": []
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 FORGE Fitness. All rights reserved.",
+						"brand": "FORGE"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "Programs",
+							"link": {
+								"kind": "relative",
+								"path": "/programs"
+							}
+						},
+						{
+							"label": "Trainers",
+							"link": {
+								"kind": "relative",
+								"path": "/trainers"
+							}
+						},
+						{
+							"label": "Schedule",
+							"link": {
+								"kind": "relative",
+								"path": "/schedule"
+							}
+						},
+						{
+							"label": "Join",
+							"link": {
+								"kind": "relative",
+								"path": "/join"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "Privacy Policy",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "Terms of Service",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Urban Edge"
+					}
+				},
+				"sections": {
+					"banner-card": {
+						"copy": {
+							"kicker": "FORGE Fitness",
+							"heading": "Build strength.\nFind focus.",
+							"description": "Premium equipment meets expert coaching. Train with athletes who get it."
+						},
+						"media": [
+							{
+								"assetId": "f462ab49-733c-54d0-93d1-bf5abf38a431",
+								"alt": "Personal trainer assisting a man with a cable exercise in a gym."
+							}
+						],
+						"actions": [
+							{
+								"label": "Start Your Journey",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						]
+					},
+					"feature-bento-grid": {
+						"copy": {
+							"kicker": "The FORGE Difference",
+							"heading": "Built for\nserious athletes.",
+							"description": "We've created an environment where nothing stands between you and your goals. Every detail is designed for performance."
+						},
+						"actions": [
+							{
+								"label": "Book a Tour",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						],
+						"features": [
+							{
+								"number": "01",
+								"title": "Elite Equipment",
+								"description": "Rogue, Eleiko, and Assault—we invest in the best so you can train at the highest level."
+							},
+							{
+								"number": "02",
+								"title": "24/7 Access",
+								"description": "Your schedule, your rules. Train whenever inspiration strikes with round-the-clock facility access."
+							},
+							{
+								"number": "03",
+								"title": "Recovery Zone",
+								"description": "Cryotherapy, saunas, and massage guns. Recover faster and come back stronger every session."
+							},
+							{
+								"number": "04",
+								"title": "Community First",
+								"description": "Join a tribe of like-minded athletes who motivate, challenge, and celebrate each other."
+							},
+							{
+								"number": "05",
+								"title": "Expert Coaching",
+								"description": "Certified coaches who program, spot, and push you past every plateau."
+							},
+							{
+								"number": "06",
+								"title": "Flexible Programs",
+								"description": "Strength, conditioning, and mobility plans built around your goals and schedule."
+							}
+						],
+						"media": [
+							{
+								"assetId": "475dd812-e820-5ef7-9932-d274d13ebc84",
+								"alt": "Premium gym floor"
+							},
+							{
+								"assetId": "826e026e-9302-5333-bb9f-fc42128c11dd",
+								"alt": "Recovery area"
+							},
+							{
+								"assetId": "eb2424a8-5d3e-53ca-9ddd-0a1900acc243",
+								"alt": "Modern gym interior with treadmills, squat racks, and free weights near large windows."
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "Our Space",
+							"heading": "Where effort\nmeets equipment.",
+							"description": "15,000 square feet packed with everything you need to train hard, recover smart, and level up daily."
+						},
+						"media": [
+							{
+								"assetId": "6cd26007-eb21-5416-8e0f-286475f9f3fc",
+								"alt": "Rows of dumbbells in a gym."
+							},
+							{
+								"assetId": "8a913557-b238-50d9-ad0d-1a9ce034a4f9",
+								"alt": "Hands gripping a barbell during a deadlift in a gym."
+							},
+							{
+								"assetId": "24b80e4b-4f2f-50e5-8df8-6f5be63464b3",
+								"alt": "Woman putting on boxing gloves in a gym."
+							},
+							{
+								"assetId": "eb2424a8-5d3e-53ca-9ddd-0a1900acc243",
+								"alt": "Modern gym interior with treadmills, squat racks, and free weights near large windows."
+							},
+							{
+								"assetId": "49dbc06d-ece2-5d2c-8481-81e4edc1a7ca",
+								"alt": "Modern gym training area with cable machines, suspension straps, battle ropes, and turf."
+							},
+							{
+								"assetId": "00a58176-1743-54e3-ba49-cd8dd4b5ad5f",
+								"alt": "Woman performing a barbell deadlift in a gym."
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "Our Philosophy",
+							"heading": "Strength isn't given. It's earned.",
+							"description": "At FORGE, we believe that real progress comes from consistent effort, expert guidance, and a community that pushes you to be better every day."
+						}
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "Trusted By",
+							"heading": "Elite brands train here",
+							"description": "We're proud to partner with leading fitness and sports brands."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "Logo 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "Logo 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "Logo 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "Logo 4"
+							}
+						]
+					},
+					"metrics-basic": {
+						"copy": {
+							"kicker": "By The Numbers",
+							"heading": "Results that speak for themselves.",
+							"description": "Our members don't just train—they transform."
+						},
+						"actions": [
+							{
+								"label": "Start Free Trial",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "5,000+",
+								"title": "Active Members",
+								"description": "A thriving community of dedicated athletes"
+							},
+							{
+								"metric": "15",
+								"title": "Expert Coaches",
+								"description": "Certified professionals guiding your journey"
+							},
+							{
+								"metric": "24/7",
+								"title": "Facility Access",
+								"description": "Train on your schedule, not ours"
+							},
+							{
+								"metric": "98%",
+								"title": "Member Retention",
+								"description": "Once you join, you won't want to leave"
+							}
+						]
+					},
+					"testimonial-carousel": {
+						"copy": {
+							"kicker": "Member Stories",
+							"heading": "Real people.\nReal progress."
+						},
+						"actions": [
+							{
+								"label": "See More Stories",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						],
+						"accessibility": {
+							"carousel-testimonialsLabel": "Customer testimonials",
+							"carousel-testimonialspreviousLabel": "Customer testimonials: previous",
+							"carousel-testimonialsnextLabel": "Customer testimonials: next",
+							"carousel-testimonialsindicatorsLabel": "Customer testimonials pagination"
+						},
+						"testimonials": [
+							{
+								"quote": "Down 40 pounds in six months, but honestly? The mental shift was even bigger. I came in thinking I just needed to lose weight, but FORGE taught me how to move properly, eat smarter, and actually enjoy the process. Now I'm chasing PRs instead of just trying to look better. This place completely rewired how I think about fitness.",
+								"name": "Marcus Williams",
+								"title": "Lost 40 lbs in 6 months",
+								"assetId": "84095c37-d336-59df-ae7b-f2d4f6623100",
+								"alt": "Marcus Williams"
+							},
+							{
+								"quote": "I compete nationally in powerlifting, so my standards are high. The equipment here is legit—Rogue racks, Eleiko bars, calibrated plates. But it's the coaching that sets FORGE apart. They understand programming, they know when to push and when to back off, and they actually care about your goals. No compromises, no excuses, just solid training every single day.",
+								"name": "Jasmine Torres",
+								"title": "National Powerlifting Competitor",
+								"assetId": "de0aab5b-9f68-535b-a16f-92337d5ccaa7",
+								"alt": "Jasmine Torres"
+							},
+							{
+								"quote": "Best part about FORGE? The people. Everyone's grinding toward something—whether it's their first pull-up or a competition prep. Nobody's showing off, nobody's judging. You just show up, work hard, and somehow everyone else's energy makes you push a little harder. It's contagious in the best way possible. I've made some of my closest friends here.",
+								"name": "Ryan Chen",
+								"title": "Member since 2021",
+								"assetId": "96f86dc8-3913-5897-b586-aff66b5c64a3",
+								"alt": "Ryan Chen"
+							},
+							{
+								"quote": "I've bounced around to every gym in town—big chains, boutique studios, you name it. This is the first one I actually get excited to show up to. The vibe is just different. Great equipment, knowledgeable staff, and zero pretension. Whether I'm hitting a heavy deadlift day or just need to move after sitting at my desk all day, I know I'm walking into the right place.",
+								"name": "Aisha Johnson",
+								"title": "Fitness Enthusiast",
+								"assetId": "7c4f40f0-f8a3-56c2-8dda-92a4f8d3d661",
+								"alt": "Aisha Johnson"
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "Meet Your Coaches",
+							"heading": "Pros who\nlive this life.",
+							"description": "Every coach here has competed, recovered, and come back stronger. They know the work because they've done it."
+						},
+						"actions": [
+							{
+								"label": "Start Free Trial",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "Derek Stone",
+								"role": "Head Coach & Founder",
+								"description": "15+ years as an NFL strength coach. Now helping athletes at every level hit PRs and break through plateaus.",
+								"assetId": "9b9c1bd1-f21f-53df-8006-531803a4c69c",
+								"alt": "Portrait of a man standing in a gym"
+							},
+							{
+								"name": "Mia Rodriguez",
+								"role": "HIIT & Conditioning Specialist",
+								"description": "CrossFit Games competitor and nutrition coach. Her classes are intense, but everyone leaves feeling accomplished.",
+								"assetId": "dee17b28-95b2-52f1-8a65-b70103e3dc34",
+								"alt": "Portrait of a woman standing in a gym"
+							},
+							{
+								"name": "Kai Thompson",
+								"role": "Combat Sports Coach",
+								"description": "Pro MMA fighter (12-2) teaching striking fundamentals and fight-ready conditioning to all skill levels.",
+								"assetId": "61001eb9-9a57-5294-a51c-69325c3d5a61",
+								"alt": "Kai Thompson"
+							}
+						]
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "Membership Plans",
+							"heading": "Pick your\ntraining level.",
+							"description": "Every membership gets you 24/7 access, premium gear, and a crew that shows up ready to work. Scale up anytime."
+						},
+						"items": [
+							{
+								"title": "Basic",
+								"price": "$79/month",
+								"description": "Everything you need to train hard and stay consistent, no extras required.",
+								"label": "Get Started",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								},
+								"features": [
+									{
+										"title": "24/7 facility access"
+									},
+									{
+										"title": "All premium equipment"
+									},
+									{
+										"title": "Free fitness assessment"
+									},
+									{
+										"title": "Community support"
+									}
+								],
+								"badge-label": "Most popular"
+							},
+							{
+								"title": "Elite",
+								"price": "$129/month",
+								"description": "Add unlimited classes, recovery tools, and nutrition guidance to accelerate your progress.",
+								"label": "Join Elite",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								},
+								"features": [
+									{
+										"title": "Everything in Basic"
+									},
+									{
+										"title": "Unlimited group classes"
+									},
+									{
+										"title": "Priority trainer access"
+									},
+									{
+										"title": "Recovery zone access"
+									},
+									{
+										"title": "Nutrition consultation"
+									}
+								],
+								"badge-label": "Most Popular"
+							},
+							{
+								"title": "Champion",
+								"price": "$199/month",
+								"description": "Built for competitive athletes who need personalized programming and one-on-one coaching.",
+								"label": "Go Champion",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								},
+								"features": [
+									{
+										"title": "Everything in Elite"
+									},
+									{
+										"title": "Personal training sessions"
+									},
+									{
+										"title": "Custom program design"
+									},
+									{
+										"title": "Competition prep support"
+									},
+									{
+										"title": "Exclusive athlete events"
+									}
+								],
+								"badge-label": "Most popular"
+							}
+						]
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "FAQ",
+							"heading": "Common Questions",
+							"description": "Everything you need to know about training at FORGE."
+						},
+						"actions": [],
+						"items": [
+							{
+								"question": "What's included in my membership?",
+								"answer": "All memberships include 24/7 facility access, premium equipment, and community support. Elite and Champion tiers add classes, coaching, and recovery amenities."
+							},
+							{
+								"question": "Can I try before I commit?",
+								"answer": "Absolutely. We offer a free week trial so you can experience everything FORGE has to offer before making a decision."
+							},
+							{
+								"question": "Do you offer personal training?",
+								"answer": "Yes! Our Champion membership includes personal training sessions, or you can add sessions to any membership tier."
+							},
+							{
+								"question": "What are your hours?",
+								"answer": "We're open 24/7 for all members. Staffed hours are 5am-10pm Monday through Friday, and 7am-8pm on weekends."
+							}
+						]
+					},
+					"cta-background-image": {
+						"media": [
+							{
+								"assetId": "26f0c008-552c-5132-9f5a-2ca01d2c128b",
+								"alt": "Woman performing a barbell deadlift in a gym."
+							}
+						],
+						"copy": {
+							"heading": "Stop planning.\nStart training.",
+							"description": "Try FORGE free for a week. No commitments, no pressure—just see if it clicks. We think it will."
+						},
+						"actions": [
+							{
+								"label": "Start Free Week",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							},
+							{
+								"label": "Schedule Tour",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						]
+					},
+					"contact-form-image": {
+						"copy": {
+							"kicker": "Get Started",
+							"heading": "Ready to transform?",
+							"description": "Drop us a message and we'll get back to you within 24 hours."
+						},
+						"media": [
+							{
+								"assetId": "6398fb74-ee22-56aa-8184-cecb653630f4",
+								"alt": "Athlete training in modern gym"
+							}
+						],
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "Tell us about your fitness goals",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Message Received! We'll be in touch soon.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "Get Started",
+							"heading": "Ready to transform?",
+							"description": "Drop us a message and we'll get back to you within 24 hours."
+						},
+						"location": {
+							"address": "55 Water Street, Vancouver, BC V6B 1A1"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 55 Water Street, Vancouver, BC V6B 1A1"
+						},
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "Tell us about your fitness goals",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Message Received! We'll be in touch soon.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "Visit us",
+							"heading": "Find us nearby\nand stop by today.",
+							"description": "Use the map to get directions and visit our location."
+						},
+						"actions": [
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "55 Water Street, Vancouver, BC V6B 1A1"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 55 Water Street, Vancouver, BC V6B 1A1"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "55 Water Street, Vancouver, BC V6B 1A1"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 55 Water Street, Vancouver, BC V6B 1A1"
+						}
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "الحافة الحضرية"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "صياغة الملاحة",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "صياغة برامج"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "البرامج",
+							"link": {
+								"kind": "relative",
+								"path": "/programs"
+							},
+							"dropdown": [
+								{
+									"label": "تدريب القوة",
+									"link": {
+										"kind": "relative",
+										"path": "/programs/strength-training"
+									}
+								},
+								{
+									"label": "فئات HIIT",
+									"link": {
+										"kind": "relative",
+										"path": "/programs/hiit-classes"
+									}
+								}
+							]
+						},
+						{
+							"label": "المدربين",
+							"link": {
+								"kind": "relative",
+								"path": "/trainers"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الجدول",
+							"link": {
+								"kind": "relative",
+								"path": "/schedule"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الانضمام",
+							"link": {
+								"kind": "relative",
+								"path": "/join"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "بدء النسخة التجريبية المجانية",
+							"link": {
+								"kind": "relative",
+								"path": "/trial"
+							}
+						}
+					],
+					"socialLinks": []
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 فورج للياقة البدنية. جميع الحقوق محفوظة.",
+						"brand": "صياغة برامج"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "البرامج",
+							"link": {
+								"kind": "relative",
+								"path": "/programs"
+							}
+						},
+						{
+							"label": "المدربين",
+							"link": {
+								"kind": "relative",
+								"path": "/trainers"
+							}
+						},
+						{
+							"label": "الجدول",
+							"link": {
+								"kind": "relative",
+								"path": "/schedule"
+							}
+						},
+						{
+							"label": "الانضمام",
+							"link": {
+								"kind": "relative",
+								"path": "/join"
+							}
+						}
+					],
+					"legalLinks": [
+						{
+							"label": "سياسة الخصوصية",
+							"link": {
+								"kind": "relative",
+								"path": "/privacy"
+							}
+						},
+						{
+							"label": "شروط الخدمة",
+							"link": {
+								"kind": "relative",
+								"path": "/terms"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "الحافة الحضرية"
+					}
+				},
+				"sections": {
+					"banner-card": {
+						"copy": {
+							"kicker": "فورج للياقة البدنية",
+							"heading": "بناء القوة.\nابحث عن التركيز.",
+							"description": "معدات متميزة وتدريب احترافي. تمرّن مع رياضيين يفهمونك."
+						},
+						"media": [
+							{
+								"assetId": "f462ab49-733c-54d0-93d1-bf5abf38a431",
+								"alt": "مدرب شخصي يساعد رجلاً في تمرين الكابل في صالة الألعاب الرياضية."
+							}
+						],
+						"actions": [
+							{
+								"label": "ابدأ رحلتك",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						]
+					},
+					"feature-bento-grid": {
+						"copy": {
+							"kicker": "ما يميز FORGE",
+							"heading": "مصمم للرياضيين \nالجادين.",
+							"description": "أنشأنا بيئة لا يقف فيها شيء بينك وبين أهدافك. كل تفصيل مصمم للأداء."
+						},
+						"actions": [
+							{
+								"label": "احجز جولة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						],
+						"features": [
+							{
+								"number": "01",
+								"title": "معدات النخبة",
+								"description": "نستثمر في أفضل معدات Rogue وEleiko وAssault لتتدرب على أعلى مستوى."
+							},
+							{
+								"number": "02",
+								"title": "دخول على مدار الساعة",
+								"description": "جدولك وقواعدك. تدرب متى شئت مع إمكانية الدخول إلى المنشأة على مدار الساعة."
+							},
+							{
+								"number": "03",
+								"title": "منطقة التعافي",
+								"description": "العلاج بالتبريد والساونا وأجهزة التدليك لتتعافى أسرع وتعود أقوى."
+							},
+							{
+								"number": "04",
+								"title": "المجتمع أولًا",
+								"description": "انضم إلى مجتمع من الرياضيين الذين يحفزون بعضهم ويتحدون بعضهم ويحتفلون معًا."
+							},
+							{
+								"number": "05",
+								"title": "تدريب احترافي",
+								"description": "مدربون معتمدون يصممون برنامجك ويراقبونك ويدفعونك لتجاوز كل مرحلة ثبات."
+							},
+							{
+								"number": "06",
+								"title": "برامج مرنة",
+								"description": "خطط للقوة واللياقة والحركة مصممة وفق أهدافك وجدولك."
+							}
+						],
+						"media": [
+							{
+								"assetId": "475dd812-e820-5ef7-9932-d274d13ebc84",
+								"alt": "أرضية صالة رياضية متميزة"
+							},
+							{
+								"assetId": "826e026e-9302-5333-bb9f-fc42128c11dd",
+								"alt": "منطقة التعافي"
+							},
+							{
+								"assetId": "eb2424a8-5d3e-53ca-9ddd-0a1900acc243",
+								"alt": "تصميم داخلي حديث لصالة الألعاب الرياضية مع أجهزة المشي، ورفوف القرفصاء، والأوزان الحرة بالقرب من النوافذ الكبيرة."
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "مساحتنا",
+							"heading": "حيث الجهد\nيلبي المعدات.",
+							"description": "مساحة 15000 قدم مربع مليئة بكل ما تحتاجه للتدريب الجاد والتعافي بذكاء والارتقاء بالمستوى يوميًا."
+						},
+						"media": [
+							{
+								"assetId": "6cd26007-eb21-5416-8e0f-286475f9f3fc",
+								"alt": "صفوف من الدمبل في صالة الألعاب الرياضية."
+							},
+							{
+								"assetId": "8a913557-b238-50d9-ad0d-1a9ce034a4f9",
+								"alt": "الأيدي التي تمسك بالحديد أثناء الرفعة المميتة في صالة الألعاب الرياضية."
+							},
+							{
+								"assetId": "24b80e4b-4f2f-50e5-8df8-6f5be63464b3",
+								"alt": "امرأة ترتدي قفازات الملاكمة في صالة الألعاب الرياضية."
+							},
+							{
+								"assetId": "eb2424a8-5d3e-53ca-9ddd-0a1900acc243",
+								"alt": "تصميم داخلي حديث لصالة الألعاب الرياضية مع أجهزة المشي، ورفوف القرفصاء، والأوزان الحرة بالقرب من النوافذ الكبيرة."
+							},
+							{
+								"assetId": "49dbc06d-ece2-5d2c-8481-81e4edc1a7ca",
+								"alt": "منطقة تدريب رياضية حديثة مزودة بآلات الكابلات وأشرطة التعليق وحبال القتال والعشب."
+							},
+							{
+								"assetId": "00a58176-1743-54e3-ba49-cd8dd4b5ad5f",
+								"alt": "امرأة تؤدي تمرين الرفعة الميتة بالبار في صالة رياضية."
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "فلسفتنا",
+							"heading": "لم يتم إعطاء القوة. لقد حصل.",
+							"description": "في FORGE، نؤمن بأن التقدم الحقيقي يأتي من الجهد المستمر وتوجيهات الخبراء والمجتمع الذي يدفعك إلى أن تكون أفضل كل يوم."
+						}
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "موثوق بنا",
+							"heading": "العلامات التجارية النخبة تتدرب هنا",
+							"description": "نفخر بالشراكة مع علامات رائدة في اللياقة والرياضة."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "الشعار 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "الشعار 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "الشعار 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "الشعار 4"
+							}
+						]
+					},
+					"metrics-basic": {
+						"copy": {
+							"kicker": "بالأرقام",
+							"heading": "نتائج تتحدث عن نفسها.",
+							"description": "أعضاؤنا لا يتدربون فقط، بل يتحولون."
+						},
+						"actions": [
+							{
+								"label": "بدء النسخة التجريبية المجانية",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "5,000+",
+								"title": "الأعضاء النشطين",
+								"description": "مجتمع مزدهر من الرياضيين المتفانين"
+							},
+							{
+								"metric": "15",
+								"title": "المدربين الخبراء",
+								"description": "محترفون معتمدون يرشدون رحلتك"
+							},
+							{
+								"metric": "24/7",
+								"title": "الوصول إلى المرافق",
+								"description": "تدرب وفقًا لجدولك الزمني، وليس جدولنا الزمني"
+							},
+							{
+								"metric": "98%",
+								"title": "الاحتفاظ بالأعضاء",
+								"description": "بمجرد انضمامك، لن ترغب في المغادرة"
+							}
+						]
+					},
+					"testimonial-carousel": {
+						"copy": {
+							"kicker": "قصص الأعضاء",
+							"heading": "أناس حقيقيون.\nتقدم حقيقي."
+						},
+						"actions": [
+							{
+								"label": "شاهد المزيد من القصص",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						],
+						"accessibility": {
+							"carousel-testimonialsLabel": "شهادات العملاء",
+							"carousel-testimonialspreviousLabel": "شهادات العملاء: السابق",
+							"carousel-testimonialsnextLabel": "شهادات العملاء: التالي",
+							"carousel-testimonialsindicatorsLabel": "ترقيم صفحات شهادات العملاء"
+						},
+						"testimonials": [
+							{
+								"quote": "نزل 40 جنيه في ستة أشهر لكن بصراحة؟ وكان التحول العقلي أكبر. لقد فكرت في أنني بحاجة فقط إلى إنقاص الوزن، لكن FORGE علمتني كيفية التحرك بشكل صحيح، وتناول الطعام بشكل أكثر ذكاءً، والاستمتاع بالعملية بالفعل. الآن أنا أطارد العلاقات العامة بدلاً من مجرد محاولة الظهور بشكل أفضل. لقد غيّر هذا المكان تمامًا طريقة تفكيري في اللياقة البدنية.",
+								"name": "ماركوس ويليامز",
+								"title": "خسرت 40 رطلاً في 6 أشهر",
+								"assetId": "84095c37-d336-59df-ae7b-f2d4f6623100",
+								"alt": "ماركوس ويليامز"
+							},
+							{
+								"quote": "أنا أتنافس على المستوى الوطني في رفع الأثقال، لذا فإن معاييري عالية. المعدات هنا شرعية - رفوف مارقة، وقضبان Eleiko، وألواح معايرة. لكن التدريب هو ما يميز FORGE. إنهم يفهمون البرمجة، ويعرفون متى يجب الدفع ومتى يتراجعون، ويهتمون بالفعل بأهدافك. لا تنازلات ولا أعذار، مجرد تدريب قوي كل يوم.",
+								"name": "ياسمين توريس",
+								"title": "المنافس الوطني لرفع الأثقال",
+								"assetId": "de0aab5b-9f68-535b-a16f-92337d5ccaa7",
+								"alt": "ياسمين توريس"
+							},
+							{
+								"quote": "أفضل جزء في FORGE؟ الناس. الجميع يتجه نحو شيء ما، سواء كان ذلك أول عملية سحب أو استعداد للمنافسة. لا أحد يتباهى، ولا أحد يحكم. أنت فقط تظهر، وتعمل بجد، وبطريقة أو بأخرى فإن طاقة الجميع تجعلك تضغط بقوة أكبر. إنه معدي بأفضل طريقة ممكنة. لقد كونت بعضًا من أصدقائي المقربين هنا.",
+								"name": "ريان تشين",
+								"title": "عضو منذ عام 2021",
+								"assetId": "96f86dc8-3913-5897-b586-aff66b5c64a3",
+								"alt": "ريان تشين"
+							},
+							{
+								"quote": "لقد ذهبت إلى كل صالة ألعاب رياضية في المدينة - السلاسل الكبيرة، استوديوهات البوتيك، سمها ما شئت. هذا هو أول شيء أشعر بالإثارة للحضور إليه. الأجواء مختلفة تمامًا. معدات رائعة، فريق عمل واسع المعرفة، ولا ادعاء. سواء كنت أواجه يومًا ثقيلًا من الرفعة المميتة أو أحتاج فقط إلى التحرك بعد الجلوس على مكتبي طوال اليوم، فأنا أعلم أنني أسير في المكان الصحيح.",
+								"name": "عائشة جونسون",
+								"title": "عشاق اللياقة البدنية",
+								"assetId": "7c4f40f0-f8a3-56c2-8dda-92a4f8d3d661",
+								"alt": "عائشة جونسون"
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "تعرف على مدربيك",
+							"heading": "الايجابيات الذين\nعش هذه الحياة.",
+							"description": "كل مدرب هنا تنافس، وتعافى، وعاد أقوى. إنهم يعرفون العمل لأنهم قاموا به."
+						},
+						"actions": [
+							{
+								"label": "بدء النسخة التجريبية المجانية",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "ديريك ستون",
+								"role": "المدرب الرئيسي والمؤسس",
+								"description": "أكثر من 15 عامًا كمدرب قوة في اتحاد كرة القدم الأميركي. الآن نساعد الرياضيين على كل المستويات على الوصول إلى العلاقات العامة واختراق الهضاب.",
+								"assetId": "9b9c1bd1-f21f-53df-8006-531803a4c69c",
+								"alt": "صورة لرجل يقف في صالة الألعاب الرياضية"
+							},
+							{
+								"name": "ميا رودريجيز",
+								"role": "أخصائي HIIT والتكييف",
+								"description": "منافس ألعاب CrossFit ومدرب التغذية. فصولها مكثفة، لكن الجميع يغادرون وهم يشعرون بالإنجاز.",
+								"assetId": "dee17b28-95b2-52f1-8a65-b70103e3dc34",
+								"alt": "صورة لامرأة واقفة في صالة الألعاب الرياضية"
+							},
+							{
+								"name": "كاي طومسون",
+								"role": "مدرب الرياضات القتالية",
+								"description": "Pro MMA (12-2) يقوم بتعليم الأساسيات المذهلة والتكييف الجاهز للقتال لجميع مستويات المهارة.",
+								"assetId": "61001eb9-9a57-5294-a51c-69325c3d5a61",
+								"alt": "كاي طومسون"
+							}
+						]
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "خطط العضوية",
+							"heading": "اختر ما يناسبك مستوى التدريب\n.",
+							"description": "كل عضوية تمنحك دخولًا على مدار الساعة، ومعدات متميزة، وفريقًا حاضرًا للعمل بجدّ. يمكنك الترقية في أي وقت."
+						},
+						"items": [
+							{
+								"title": "الأساسية",
+								"price": "79$/شهريًا",
+								"description": "كل ما تحتاجه للتدريب الجاد والبقاء ثابتًا، دون الحاجة إلى أي إضافات.",
+								"label": "ابدأ الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								},
+								"features": [
+									{
+										"title": "دخول إلى النادي على مدار الساعة"
+									},
+									{
+										"title": "جميع المعدات المتميزة"
+									},
+									{
+										"title": "تقييم لياقة مجاني"
+									},
+									{
+										"title": "دعم المجتمع"
+									}
+								],
+								"badge-label": "الأكثر شعبية حزمة التصميم"
+							},
+							{
+								"title": "النخبة",
+								"price": "129$/شهريًا",
+								"description": "قم بإضافة عدد غير محدود من الفصول وأدوات الاسترداد وإرشادات التغذية لتسريع تقدمك.",
+								"label": "انضم إلى النخبة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								},
+								"features": [
+									{
+										"title": "كل ما في الأساسية"
+									},
+									{
+										"title": "حصص جماعية غير محدودة"
+									},
+									{
+										"title": "أولوية الوصول إلى المدرب"
+									},
+									{
+										"title": "دخول منطقة الاستشفاء"
+									},
+									{
+										"title": "استشارة تغذية"
+									}
+								],
+								"badge-label": "الأكثر طلبًا"
+							},
+							{
+								"title": "البطل",
+								"price": "199$/شهريًا",
+								"description": "مصممة للرياضيين المتنافسين الذين يحتاجون برامج مخصصة وتدريبًا فرديًا.",
+								"label": "اذهب بطل",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								},
+								"features": [
+									{
+										"title": "كل ما في باقة النخبة"
+									},
+									{
+										"title": "جلسات تدريب شخصي"
+									},
+									{
+										"title": "تصميم برنامج مخصص"
+									},
+									{
+										"title": "دعم الاستعداد للمنافسات"
+									},
+									{
+										"title": "فعاليات حصرية للرياضيين"
+									}
+								],
+								"badge-label": "الأكثر شعبية حزمة التصميم"
+							}
+						]
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "الأسئلة الشائعة",
+							"heading": "الأسئلة الشائعة",
+							"description": "كل ما تحتاج لمعرفته حول التدريب في FORGE."
+						},
+						"actions": [],
+						"items": [
+							{
+								"question": "ما الذي تتضمنه عضويتي؟",
+								"answer": "تشمل جميع العضويات الوصول إلى المرافق على مدار الساعة طوال أيام الأسبوع والمعدات المتميزة ودعم المجتمع. تضيف مستويات النخبة والبطل الفصول الدراسية والتدريب ووسائل الراحة للتعافي."
+							},
+							{
+								"question": "هل يمكنني المحاولة قبل الالتزام؟",
+								"answer": "على الاطلاق. نحن نقدم نسخة تجريبية مجانية لمدة أسبوع حتى تتمكن من تجربة كل ما تقدمه FORGE قبل اتخاذ القرار."
+							},
+							{
+								"question": "هل تقدمون تدريبًا شخصيًا؟",
+								"answer": "نعم! تتضمن عضوية البطل لدينا جلسات تدريب شخصية، أو يمكنك إضافة جلسات إلى أي فئة عضوية."
+							},
+							{
+								"question": "ما هي ساعات عملك؟",
+								"answer": "نحن مفتوحون 24/7 لجميع الأعضاء. ساعات العمل هي من 5 صباحًا إلى 10 مساءً من الاثنين إلى الجمعة، ومن 7 صباحًا إلى 8 مساءً في عطلات نهاية الأسبوع."
+							}
+						]
+					},
+					"cta-background-image": {
+						"media": [
+							{
+								"assetId": "26f0c008-552c-5132-9f5a-2ca01d2c128b",
+								"alt": "امرأة تؤدي تمرين الرفعة الميتة بالبار في صالة رياضية."
+							}
+						],
+						"copy": {
+							"heading": "توقف عن التخطيط.\nابدأ التدريب.",
+							"description": "جرّب فورج مجانًا لمدة أسبوع. بلا التزامات ولا ضغوط، فقط اكتشف إن كان يناسبك. نظن أنه سيناسبك."
+						},
+						"actions": [
+							{
+								"label": "ابدأ الأسبوع المجاني",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							},
+							{
+								"label": "حدد موعدًا لجولة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-image"
+								}
+							}
+						]
+					},
+					"contact-form-image": {
+						"copy": {
+							"kicker": "ابدأ الآن",
+							"heading": "هل أنت مستعد للتحول؟",
+							"description": "أرسل لنا رسالة وسنقوم بالرد عليك خلال 24 ساعة."
+						},
+						"media": [
+							{
+								"assetId": "6398fb74-ee22-56aa-8184-cecb653630f4",
+								"alt": "تدريب الرياضيين في صالة الألعاب الرياضية الحديثة"
+							}
+						],
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "عنوان البريد الإلكتروني",
+							"messageLabel": "أخبرنا عن أهداف اللياقة البدنية الخاصة بك",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "Message Received! We'll be in touch soon.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "ابدأ الآن",
+							"heading": "هل أنت مستعد للتحول؟",
+							"description": "أرسل لنا رسالة وسنقوم بالرد عليك خلال 24 ساعة."
+						},
+						"location": {
+							"address": "55 Water Street، فانكوفر، كولومبيا البريطانية V6B 1A1"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة رقم 55 Water Street، فانكوفر، كولومبيا البريطانية V6B 1A1"
+						},
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "عنوان البريد الإلكتروني",
+							"messageLabel": "أخبرنا عن أهداف اللياقة البدنية الخاصة بك",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "Message Received! We'll be in touch soon.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "قم بزيارتنا",
+							"heading": "تجدنا بالقرب منك\nوتوقف اليوم.",
+							"description": "استخدم الخريطة للحصول على الاتجاهات وزيارة موقعنا."
+						},
+						"actions": [
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "55 Water Street، فانكوفر، كولومبيا البريطانية V6B 1A1"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة رقم 55 Water Street، فانكوفر، كولومبيا البريطانية V6B 1A1"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "55 Water Street، فانكوفر، كولومبيا البريطانية V6B 1A1"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة رقم 55 Water Street، فانكوفر، كولومبيا البريطانية V6B 1A1"
+						}
+					}
+				}
+			}
+		}
+	}
+}

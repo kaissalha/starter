@@ -1,0 +1,226 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Pricing plans",
+			"heading": "Choose Your Plan",
+			"description": "Bring the wild, poetic essence of nature into your space\nwith a subscription tailored to your lifestyle.",
+			"footer-text": "Need a custom arrangement?"
+		},
+		"actions": [
+			{
+				"label": "Contact our studio",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				}
+			}
+		],
+		"items": [
+			{
+				"title": "Bloom",
+				"price": "$29",
+				"period": "/month",
+				"description": "Perfect for everyday inspiration and single stem deliveries.",
+				"label": "Grow your garden",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "Weekly seasonal bouquet"
+					},
+					{
+						"title": "Free local delivery"
+					},
+					{
+						"title": "Studio-quality stems"
+					},
+					{
+						"title": "Floral care guide"
+					},
+					{
+						"title": "Member-only workshops"
+					}
+				],
+				"badge-label": "Most Popular"
+			},
+			{
+				"title": "Garden",
+				"price": "$69",
+				"period": "/month",
+				"description": "A lush selection of unconventional blooms for your home or studio.",
+				"label": "Grow your garden",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "Two bespoke arrangements"
+					},
+					{
+						"title": "Priority same-day delivery"
+					},
+					{
+						"title": "Exotic & rare varieties"
+					},
+					{
+						"title": "Custom vessel styling"
+					},
+					{
+						"title": "10% off event bookings"
+					},
+					{
+						"title": "Personal florist consult"
+					}
+				],
+				"badge-label": "Most Popular"
+			},
+			{
+				"title": "Greenhouse",
+				"price": "$29",
+				"period": "/month",
+				"description": "Perfect for everyday inspiration and single stem deliveries.",
+				"label": "Grow your garden",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "Weekly office installation"
+					},
+					{
+						"title": "Unlimited maintenance visits"
+					},
+					{
+						"title": "Sustainably sourced rarities"
+					},
+					{
+						"title": "24/7 dedicated support"
+					},
+					{
+						"title": "Quarterly event styling"
+					},
+					{
+						"title": "Early access to new crops"
+					}
+				],
+				"badge-label": "Most Popular"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "خطط الأسعار",
+			"heading": "اختر خطتك",
+			"description": "أضف جوهر الطبيعة البري والشاعري إلى مساحتك\nمع اشتراك مصمم ليناسب أسلوب حياتك.",
+			"footer-text": "هل تحتاج إلى ترتيب مخصص؟"
+		},
+		"actions": [
+			{
+				"label": "تواصل مع الاستوديو",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				}
+			}
+		],
+		"items": [
+			{
+				"title": "براعم",
+				"price": "29$",
+				"period": "/شهريًا",
+				"description": "مثالية للإلهام اليومي وتوصيل الأغصان المفردة.",
+				"label": "نمِّ حديقتك",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "باقة موسمية أسبوعية"
+					},
+					{
+						"title": "توصيل محلي مجاني"
+					},
+					{
+						"title": "سيقان بجودة الاستوديو"
+					},
+					{
+						"title": "دليل العناية بالزهور"
+					},
+					{
+						"title": "ورش عمل حصرية للأعضاء"
+					}
+				],
+				"badge-label": "الأكثر شيوعًا"
+			},
+			{
+				"title": "حديقة",
+				"price": "69$",
+				"period": "/شهريًا",
+				"description": "مجموعة غنية من الأزهار غير التقليدية لمنزلك أو استوديوك.",
+				"label": "نمِّ حديقتك",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "تنسيقان مخصصان"
+					},
+					{
+						"title": "توصيل ذو أولوية في اليوم نفسه"
+					},
+					{
+						"title": "أنواع غريبة ونادرة"
+					},
+					{
+						"title": "تنسيق مخصص للمزهريات"
+					},
+					{
+						"title": "خصم 10% على حجوزات الفعاليات"
+					},
+					{
+						"title": "استشارة شخصية مع منسق الزهور"
+					}
+				],
+				"badge-label": "الأكثر شيوعًا"
+			},
+			{
+				"title": "بيت زجاجي",
+				"price": "29$",
+				"period": "/شهريًا",
+				"description": "مثالية للإلهام اليومي وتوصيل الأغصان المفردة.",
+				"label": "نمِّ حديقتك",
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"features": [
+					{
+						"title": "تركيب أسبوعي في المكتب"
+					},
+					{
+						"title": "زيارات صيانة غير محدودة"
+					},
+					{
+						"title": "أنواع نادرة من مصادر مستدامة"
+					},
+					{
+						"title": "دعم مخصص على مدار الساعة"
+					},
+					{
+						"title": "تنسيق فعاليات ربع سنوي"
+					},
+					{
+						"title": "وصول مبكر إلى المحاصيل الجديدة"
+					}
+				],
+				"badge-label": "الأكثر شيوعًا"
+			}
+		]
+	}
+}

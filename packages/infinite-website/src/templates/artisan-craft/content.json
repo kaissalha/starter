@@ -1,0 +1,1288 @@
+{
+	"en": {
+		"site": {
+			"name": "Artisan Craft"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Butter & Crumb navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Butter & Crumb"
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Menu",
+							"link": {
+								"kind": "relative",
+								"path": "/menu"
+							},
+							"dropdown": [
+								{
+									"label": "Breakfast",
+									"link": {
+										"kind": "relative",
+										"path": "/menu/breakfast"
+									}
+								},
+								{
+									"label": "Pastries",
+									"link": {
+										"kind": "relative",
+										"path": "/menu/pastries"
+									}
+								}
+							]
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Gallery",
+							"link": {
+								"kind": "relative",
+								"path": "/gallery"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 Butter & Crumb Bakery. Baked with love.",
+						"address": "247 Bakery Lane, Oakville, CA 94558",
+						"brand": "Butter & Crumb"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "Menu",
+							"link": {
+								"kind": "relative",
+								"path": "/menu"
+							}
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "Gallery",
+							"link": {
+								"kind": "relative",
+								"path": "/gallery"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Artisan Craft"
+					}
+				},
+				"sections": {
+					"banner-grid": {
+						"copy": {
+							"kicker": "Artisan Bakery",
+							"heading": "Handcrafted with \nlove since 1985.",
+							"description": "Every loaf tells a story. We use time-honored techniques and the finest ingredients to bring you bread that's more than just food—it's a tradition."
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "feature-menu-list"
+								},
+								"label": "View Our Menu"
+							}
+						],
+						"media": [
+							{
+								"assetId": "200f770c-080e-5ad3-99a3-164d06942567",
+								"alt": "Croissant on a bakery counter"
+							},
+							{
+								"assetId": "1ee7edb1-3db2-5496-9e72-bd448aaf368a",
+								"alt": "Baker rolling dough"
+							},
+							{
+								"assetId": "579db33c-0b00-57cf-86fa-f899d33ac693",
+								"alt": "Bakery interior with customers"
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "From Our Oven",
+							"heading": "A glimpse of \nour creations.",
+							"description": "Every item is handcrafted with care. Here's a taste of what awaits you at Butter & Crumb Bakery."
+						},
+						"media": [
+							{
+								"assetId": "0666b532-1e31-5af7-b221-12412dd1e473",
+								"alt": "Fresh artisan bread loaves"
+							},
+							{
+								"assetId": "eb6ab42a-c54c-523b-8de2-de6578fa9cb7",
+								"alt": "Croissants and pastries"
+							},
+							{
+								"assetId": "dde1e884-f830-51f1-bb20-45636d443055",
+								"alt": "Custom celebration cake"
+							},
+							{
+								"assetId": "c1480554-e263-58f5-83b0-0ffba6e55be1",
+								"alt": "Baker at work"
+							},
+							{
+								"assetId": "ce974b79-e0ad-5360-9669-1466c9e0a1ec",
+								"alt": "Cookie assortment"
+							},
+							{
+								"assetId": "200f770c-080e-5ad3-99a3-164d06942567",
+								"alt": "Croissant on a bakery counter"
+							}
+						]
+					},
+					"feature-menu-list": {
+						"copy": {
+							"kicker": "From Our Oven",
+							"heading": "Today's bakery menu.",
+							"description": "Fresh loaves, pastries, and sweets baked throughout the day with time-honored techniques and the finest ingredients."
+						},
+						"items": [
+							{
+								"assetId": "0666b532-1e31-5af7-b221-12412dd1e473",
+								"alt": "Country sourdough loaf",
+								"title": "Country Sourdough",
+								"description": "Slow-fermented artisan loaf with a crackling crust and tender, tangy crumb.",
+								"price": "$9"
+							},
+							{
+								"assetId": "eb6ab42a-c54c-523b-8de2-de6578fa9cb7",
+								"alt": "Butter croissant",
+								"title": "Butter Croissant",
+								"description": "Laminated pastry with golden layers and a rich, flaky finish.",
+								"price": "$5"
+							},
+							{
+								"assetId": "dde1e884-f830-51f1-bb20-45636d443055",
+								"alt": "Celebration cake",
+								"title": "Celebration Cake",
+								"description": "Custom layer cake decorated for birthdays, weddings, and special occasions.",
+								"price": "From $48"
+							},
+							{
+								"assetId": "ce974b79-e0ad-5360-9669-1466c9e0a1ec",
+								"alt": "Cookie assortment",
+								"title": "Cookie Assortment",
+								"description": "A rotating mix of chocolate chip, shortbread, and seasonal bakery cookies.",
+								"price": "$18"
+							}
+						]
+					},
+					"feature-grid": {
+						"copy": {
+							"kicker": "What We Offer",
+							"heading": "Artisan quality \nin every bite.",
+							"description": "From classic sourdough to delicate pastries, we craft everything with care using traditional methods and the finest ingredients."
+						},
+						"actions": [
+							{
+								"label": "View Full Menu",
+								"link": {
+									"kind": "anchor",
+									"anchor": "feature-menu-list"
+								}
+							}
+						],
+						"features": [
+							{
+								"title": "Fresh Baked Bread",
+								"description": "Daily-baked artisan loaves using time-honored techniques and locally sourced flour.",
+								"assetId": "a3376636-4e07-5974-b11b-7b17a1d9bf4a",
+								"alt": "Fresh baked bread"
+							},
+							{
+								"title": "Pastries & Sweets",
+								"description": "Handcrafted croissants, danishes, and seasonal treats made fresh every morning.",
+								"assetId": "eb9f274f-ef34-5ee6-9437-03ad740bd13b",
+								"alt": "Pastries and sweets"
+							},
+							{
+								"title": "Custom Cakes",
+								"description": "Celebration cakes designed and decorated for your special occasions.",
+								"assetId": "a2e6f210-1c16-59c7-9a29-51b63462d429",
+								"alt": "Custom cakes"
+							}
+						]
+					},
+					"metrics-card-grid": {
+						"copy": {
+							"kicker": "By The Numbers",
+							"heading": "Three decades \nof excellence.",
+							"description": "Our commitment to quality has built a legacy we're proud to share."
+						},
+						"items": [
+							{
+								"metric": "38",
+								"title": "Years in Business"
+							},
+							{
+								"metric": "500+",
+								"title": "Daily Customers"
+							},
+							{
+								"metric": "15",
+								"title": "Master Bakers"
+							},
+							{
+								"metric": "100%",
+								"title": "Natural Ingredients"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "Our Philosophy",
+							"heading": "Bread is meant to be shared.",
+							"description": "For three generations, our family has believed that breaking bread together creates connections that last a lifetime. Every loaf we bake is made with this simple truth in mind."
+						}
+					},
+					"testimonial-grid": {
+						"copy": {
+							"kicker": "Happy Customers",
+							"heading": "What our \ncommunity says."
+						},
+						"actions": [
+							{
+								"label": "Leave a Review",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "The sourdough here is life-changing. I drive 30 minutes just for their Saturday morning loaves. Worth every mile!",
+								"name": "Maria Gonzalez",
+								"title": "Weekly Regular",
+								"assetId": "1753e090-bec2-5cd9-a42e-726f7d46b52d",
+								"alt": "Maria Gonzalez"
+							},
+							{
+								"quote": "They made our wedding cake and it was absolutely stunning. Guests are still talking about how delicious it was!",
+								"name": "Robert & Emma Walsh",
+								"title": "Wedding Clients",
+								"assetId": "9d25b352-6e3d-52cb-8b62-e0cd0f07f37f",
+								"alt": "Robert Walsh"
+							}
+						]
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "As Seen In",
+							"heading": "Featured by the best",
+							"description": "We're proud to be recognized by leading food publications and local media."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "Logo 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "Logo 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "Logo 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "Logo 4"
+							},
+							{
+								"assetId": "77723c02-b4c8-551b-92c3-a2393056bb07",
+								"alt": "Logo 5"
+							},
+							{
+								"assetId": "b75849e7-5460-5a26-801c-7d78f070ad22",
+								"alt": "Logo 6"
+							},
+							{
+								"assetId": "6054a92c-74c3-5551-be4d-2943274d0c0d",
+								"alt": "Logo 7"
+							},
+							{
+								"assetId": "da01c101-518e-52fc-afe5-b5ca18fca4c0",
+								"alt": "Logo 8"
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "Our Bakers",
+							"heading": "Meet the hands \nbehind the bread.",
+							"description": "Our team of passionate bakers brings decades of combined experience and a deep love for the craft."
+						},
+						"actions": [
+							{
+								"label": "Visit the bakery",
+								"link": {
+									"kind": "anchor",
+									"anchor": "location-text-and-map"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "Giuseppe Romano",
+								"role": "Head Baker & Owner",
+								"description": "Third-generation baker who learned the craft from his grandmother in Naples. Founded Butter & Crumb in 1985.",
+								"assetId": "9d25b352-6e3d-52cb-8b62-e0cd0f07f37f",
+								"alt": "Giuseppe Romano"
+							},
+							{
+								"name": "Marie Dubois",
+								"role": "Pastry Chef",
+								"description": "Trained at Le Cordon Bleu Paris. Creates our award-winning croissants and seasonal fruit tarts.",
+								"assetId": "1753e090-bec2-5cd9-a42e-726f7d46b52d",
+								"alt": "Marie Dubois"
+							},
+							{
+								"name": "Jonas Müller",
+								"role": "Bread Specialist",
+								"description": "Sourdough enthusiast who maintains our 30-year-old starter. Known for his perfect crust technique.",
+								"assetId": "eb21fcb0-239d-5f31-9022-82e764e1af65",
+								"alt": "Jonas Müller"
+							}
+						]
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "FAQ",
+							"heading": "Frequently asked questions",
+							"description": "If you have any further questions, please contact us."
+						},
+						"actions": [
+							{
+								"label": "Contact Us",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"items": [
+							{
+								"question": "What are your bakery hours?",
+								"answer": "We're open Tuesday through Sunday from 7am to 3pm. We're closed on Mondays for baking preparation."
+							},
+							{
+								"question": "Do you take custom cake orders?",
+								"answer": "Yes! We create custom cakes for all occasions. Please contact us at least one week in advance for custom orders."
+							},
+							{
+								"question": "Are your products made fresh daily?",
+								"answer": "Absolutely. All our breads and pastries are baked fresh every morning using traditional artisan methods."
+							},
+							{
+								"question": "Do you offer gluten-free options?",
+								"answer": "We have a selection of gluten-free items available. Please ask our staff about current options."
+							}
+						]
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "Our Offerings",
+							"heading": "Fresh from \nthe oven.",
+							"description": "Quality ingredients and artisan craftsmanship at fair prices. Pre-order for pickup or subscribe to our weekly bread box."
+						},
+						"items": [
+							{
+								"title": "Daily Loaves",
+								"price": "$8",
+								"description": "Classic artisan bread baked fresh daily using traditional methods.",
+								"label": "Order Now",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "Sourdough"
+									},
+									{
+										"title": "Whole Wheat"
+									},
+									{
+										"title": "Rye"
+									}
+								],
+								"badge-label": ""
+							},
+							{
+								"title": "Pastry Box",
+								"price": "$24",
+								"description": "A curated selection of our finest morning pastries.",
+								"label": "Order Now",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "6 Croissants"
+									},
+									{
+										"title": "4 Danish"
+									},
+									{
+										"title": "2 Scones"
+									}
+								],
+								"badge-label": "Popular"
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "Get in Touch",
+							"heading": "Questions or special orders?",
+							"description": "We'd love to hear from you. Send us a message and we'll respond within 24 hours.",
+							"email": "hello@butterandcrumb.com",
+							"phone": "+1 (555) 123-4567",
+							"address": "247 Bakery Lane, Oakville, CA 94558"
+						},
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "Your Message",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Thank you! We'll get back to you soon.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "Get in Touch",
+							"heading": "Questions or special orders?",
+							"description": "We'd love to hear from you. Send us a message and we'll respond within 24 hours."
+						},
+						"location": {
+							"address": "142 Artisan Lane, Charleston, SC 29401"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 142 Artisan Lane, Charleston, SC 29401"
+						},
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "Your Message",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Thank you! We'll get back to you soon.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "Visit us",
+							"heading": "Find us nearby \n and stop by today.",
+							"description": "Use the map to get directions and visit our location."
+						},
+						"actions": [
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "142 Artisan Lane, Charleston, SC 29401"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 142 Artisan Lane, Charleston, SC 29401"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "142 Artisan Lane, Charleston, SC 29401"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 142 Artisan Lane, Charleston, SC 29401"
+						}
+					},
+					"cta-basic": {
+						"copy": {
+							"heading": "Order fresh bread for your table.",
+							"description": "Pre-order online for same-day pickup, or subscribe to our weekly bread box for doorstep delivery."
+						},
+						"actions": [
+							{
+								"label": "Order Online",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							},
+							{
+								"label": "Subscribe to Bread Box",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "الحرف اليدوية"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "قائمة باتر آند كرامب",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "باتر آند كرامب"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "القائمة",
+							"link": {
+								"kind": "relative",
+								"path": "/menu"
+							},
+							"dropdown": [
+								{
+									"label": "الإفطار",
+									"link": {
+										"kind": "relative",
+										"path": "/menu/breakfast"
+									}
+								},
+								{
+									"label": "المعجنات",
+									"link": {
+										"kind": "relative",
+										"path": "/menu/pastries"
+									}
+								}
+							]
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "المعرض",
+							"link": {
+								"kind": "relative",
+								"path": "/gallery"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2026 مخبز باتر آند كرامب. خُبز بحب.",
+						"address": "247 شارع المخبز، أوكفيل، كاليفورنيا 94558",
+						"brand": "باتر آند كرامب"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "القائمة",
+							"link": {
+								"kind": "relative",
+								"path": "/menu"
+							}
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "المعرض",
+							"link": {
+								"kind": "relative",
+								"path": "/gallery"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "الحرف اليدوية"
+					}
+				},
+				"sections": {
+					"banner-grid": {
+						"copy": {
+							"kicker": "مخبز حرفي",
+							"heading": "مصنوعة يدويًا \nبحب منذ عام 1985.",
+							"description": "لكل رغيف حكاية. نستخدم تقنيات عريقة وأجود المكونات لنقدم لك خبزًا هو أكثر من مجرد طعام، إنه تقليد."
+						},
+						"actions": [
+							{
+								"link": {
+									"kind": "anchor",
+									"anchor": "feature-menu-list"
+								},
+								"label": "اطلع على قائمتنا"
+							}
+						],
+						"media": [
+							{
+								"assetId": "200f770c-080e-5ad3-99a3-164d06942567",
+								"alt": "كرواسون على طاولة المخبز"
+							},
+							{
+								"assetId": "1ee7edb1-3db2-5496-9e72-bd448aaf368a",
+								"alt": "خباز يفرد العجين"
+							},
+							{
+								"assetId": "579db33c-0b00-57cf-86fa-f899d33ac693",
+								"alt": "داخل المخبز مع الزبائن"
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "من فرننا",
+							"heading": "لمحة عن \nإبداعاتنا.",
+							"description": "كل قطعة مصنوعة يدويًا بعناية. إليك لمحة مما ينتظرك في مخبز باتر آند كرامب."
+						},
+						"media": [
+							{
+								"assetId": "0666b532-1e31-5af7-b221-12412dd1e473",
+								"alt": "أرغفة خبز حرفي طازجة"
+							},
+							{
+								"assetId": "eb6ab42a-c54c-523b-8de2-de6578fa9cb7",
+								"alt": "كرواسون ومعجنات"
+							},
+							{
+								"assetId": "dde1e884-f830-51f1-bb20-45636d443055",
+								"alt": "كعكة احتفال مخصصة"
+							},
+							{
+								"assetId": "c1480554-e263-58f5-83b0-0ffba6e55be1",
+								"alt": "خباز أثناء العمل"
+							},
+							{
+								"assetId": "ce974b79-e0ad-5360-9669-1466c9e0a1ec",
+								"alt": "تشكيلة بسكويت"
+							},
+							{
+								"assetId": "200f770c-080e-5ad3-99a3-164d06942567",
+								"alt": "كرواسون على طاولة المخبز"
+							}
+						]
+					},
+					"feature-menu-list": {
+						"copy": {
+							"kicker": "من فرننا",
+							"heading": "قائمة المخبز اليوم.",
+							"description": "أرغفة ومعجنات وحلويات طازجة تُخبز على مدار اليوم بتقنيات عريقة وأجود المكونات."
+						},
+						"items": [
+							{
+								"assetId": "0666b532-1e31-5af7-b221-12412dd1e473",
+								"alt": "رغيف العجين المخمر الريفي",
+								"title": "العجين المخمر الريفي",
+								"description": "رغيف حرفي مخمر ببطء بقشرة مقرمشة ولب طري ذو نكهة حامضة خفيفة.",
+								"price": "$9"
+							},
+							{
+								"assetId": "eb6ab42a-c54c-523b-8de2-de6578fa9cb7",
+								"alt": "كرواسون الزبدة",
+								"title": "كرواسون الزبدة",
+								"description": "معجنات مطبقة بطبقات ذهبية وقوام غني هش.",
+								"price": "$5"
+							},
+							{
+								"assetId": "dde1e884-f830-51f1-bb20-45636d443055",
+								"alt": "كعكة الاحتفال",
+								"title": "كعكة الاحتفال",
+								"description": "كعكة طبقات مخصصة ومزينة لأعياد الميلاد والأعراس والمناسبات الخاصة.",
+								"price": "ابتداءً من $48"
+							},
+							{
+								"assetId": "ce974b79-e0ad-5360-9669-1466c9e0a1ec",
+								"alt": "تشكيلة بسكويت",
+								"title": "تشكيلة البسكويت",
+								"description": "مزيج متجدد من بسكويت رقائق الشوكولاتة والزبدة وبسكويت المخبز الموسمي.",
+								"price": "$18"
+							}
+						]
+					},
+					"feature-grid": {
+						"copy": {
+							"kicker": "ماذا نقدم",
+							"heading": "جودة حرفية \nفي كل قضمة.",
+							"description": "من العجين المخمر الكلاسيكي إلى المعجنات الرقيقة، نصنع كل شيء بعناية بالطرق التقليدية وأجود المكونات."
+						},
+						"actions": [
+							{
+								"label": "اطلع على القائمة كاملة",
+								"link": {
+									"kind": "anchor",
+									"anchor": "feature-menu-list"
+								}
+							}
+						],
+						"features": [
+							{
+								"title": "خبز طازج",
+								"description": "أرغفة حرفية تُخبز يوميًا بتقنيات عريقة ودقيق من مصادر محلية.",
+								"assetId": "a3376636-4e07-5974-b11b-7b17a1d9bf4a",
+								"alt": "خبز طازج"
+							},
+							{
+								"title": "معجنات وحلويات",
+								"description": "كرواسون ودانش وحلويات موسمية مصنوعة يدويًا وطازجة كل صباح.",
+								"assetId": "eb9f274f-ef34-5ee6-9437-03ad740bd13b",
+								"alt": "معجنات وحلويات"
+							},
+							{
+								"title": "كعك مخصص",
+								"description": "كعكات احتفال مصممة ومزينة لمناسباتك الخاصة.",
+								"assetId": "a2e6f210-1c16-59c7-9a29-51b63462d429",
+								"alt": "كعك مخصص"
+							}
+						]
+					},
+					"metrics-card-grid": {
+						"copy": {
+							"kicker": "بالأرقام",
+							"heading": "ثلاثة عقود \nمن التميز.",
+							"description": "التزامنا بالجودة بنى إرثًا نفخر بمشاركته."
+						},
+						"items": [
+							{
+								"metric": "38",
+								"title": "عامًا في المهنة"
+							},
+							{
+								"metric": "500+",
+								"title": "زبون يوميًا"
+							},
+							{
+								"metric": "15",
+								"title": "خبازًا محترفًا"
+							},
+							{
+								"metric": "100%",
+								"title": "مكونات طبيعية"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "فلسفتنا",
+							"heading": "الخبز خُلق ليُتقاسم.",
+							"description": "منذ ثلاثة أجيال تؤمن عائلتنا بأن تقاسم الخبز يخلق روابط تدوم مدى الحياة. كل رغيف نخبزه نصنعه بهذه الحقيقة البسيطة في بالنا."
+						}
+					},
+					"testimonial-grid": {
+						"copy": {
+							"kicker": "زبائن سعداء",
+							"heading": "ماذا يقول \nمجتمعنا."
+						},
+						"actions": [
+							{
+								"label": "اترك تقييمًا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "العجين المخمر هنا يغيّر الحياة. أقود 30 دقيقة فقط من أجل أرغفة صباح السبت. يستحق كل كيلومتر!",
+								"name": "ماريا غونزاليس",
+								"title": "زبونة أسبوعية",
+								"assetId": "1753e090-bec2-5cd9-a42e-726f7d46b52d",
+								"alt": "ماريا غونزاليس"
+							},
+							{
+								"quote": "صنعوا كعكة زفافنا وكانت مذهلة تمامًا. ما زال الضيوف يتحدثون عن مذاقها الرائع!",
+								"name": "روبرت وإيما والش",
+								"title": "عملاء حفل زفاف",
+								"assetId": "9d25b352-6e3d-52cb-8b62-e0cd0f07f37f",
+								"alt": "روبرت والش"
+							}
+						]
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "كما ظهرنا في",
+							"heading": "حظينا بتغطية الأفضل",
+							"description": "نفخر بتقدير أبرز المنشورات الغذائية والإعلام المحلي لنا."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "الشعار 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "الشعار 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "الشعار 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "الشعار 4"
+							},
+							{
+								"assetId": "77723c02-b4c8-551b-92c3-a2393056bb07",
+								"alt": "الشعار 5"
+							},
+							{
+								"assetId": "b75849e7-5460-5a26-801c-7d78f070ad22",
+								"alt": "الشعار 6"
+							},
+							{
+								"assetId": "6054a92c-74c3-5551-be4d-2943274d0c0d",
+								"alt": "الشعار 7"
+							},
+							{
+								"assetId": "da01c101-518e-52fc-afe5-b5ca18fca4c0",
+								"alt": "الشعار 8"
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "خبازونا",
+							"heading": "تعرّف على الأيدي \nخلف الخبز.",
+							"description": "فريقنا من الخبازين الشغوفين يجمع عقودًا من الخبرة وحبًا عميقًا للحرفة."
+						},
+						"actions": [
+							{
+								"label": "زر المخبز",
+								"link": {
+									"kind": "anchor",
+									"anchor": "location-text-and-map"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "جوزيبي رومانو",
+								"role": "كبير الخبازين والمالك",
+								"description": "خباز من الجيل الثالث تعلّم الحرفة من جدته في نابولي. أسس باتر آند كرامب عام 1985.",
+								"alt": "جوزيبي رومانو",
+								"assetId": "9d25b352-6e3d-52cb-8b62-e0cd0f07f37f"
+							},
+							{
+								"name": "ماري دوبوا",
+								"role": "شيف معجنات",
+								"description": "تدربت في لو كوردون بلو باريس. تبتكر كرواسوننا الحائز على الجوائز وفطائر الفاكهة الموسمية.",
+								"alt": "ماري دوبوا",
+								"assetId": "1753e090-bec2-5cd9-a42e-726f7d46b52d"
+							},
+							{
+								"name": "يوناس مولر",
+								"role": "أخصائي الخبز",
+								"description": "عاشق العجين المخمر ويعتني بخميرتنا التي يبلغ عمرها 30 عامًا. معروف بإتقانه لتقنية القشرة المثالية.",
+								"alt": "يوناس مولر",
+								"assetId": "eb21fcb0-239d-5f31-9022-82e764e1af65"
+							}
+						]
+					},
+					"faq-accordion": {
+						"copy": {
+							"kicker": "الأسئلة الشائعة",
+							"heading": "الأسئلة المتكررة",
+							"description": "إذا كانت لديك أسئلة أخرى فيُرجى التواصل معنا."
+						},
+						"actions": [
+							{
+								"label": "اتصل بنا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						],
+						"items": [
+							{
+								"question": "ما هي ساعات عمل المخبز؟",
+								"answer": "نفتح من الثلاثاء إلى الأحد من 7 صباحًا حتى 3 عصرًا. نغلق يوم الاثنين للتحضير للخبز."
+							},
+							{
+								"question": "هل تقبلون طلبات الكعك المخصص؟",
+								"answer": "نعم! نصنع كعكًا مخصصًا لجميع المناسبات. يُرجى التواصل معنا قبل أسبوع على الأقل للطلبات المخصصة."
+							},
+							{
+								"question": "هل منتجاتكم طازجة يوميًا؟",
+								"answer": "بالتأكيد. تُخبز جميع أرغفتنا ومعجناتنا طازجة كل صباح بالطرق الحرفية التقليدية."
+							},
+							{
+								"question": "هل لديكم خيارات خالية من الغلوتين؟",
+								"answer": "لدينا تشكيلة من المنتجات الخالية من الغلوتين. يُرجى سؤال فريقنا عن الخيارات المتوفرة حاليًا."
+							}
+						]
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "عروضنا",
+							"heading": "طازج \nمن الفرن.",
+							"description": "مكونات عالية الجودة وحرفية بأسعار عادلة. اطلب مسبقًا للاستلام أو اشترك في صندوق الخبز الأسبوعي."
+						},
+						"items": [
+							{
+								"title": "أرغفة يومية",
+								"price": "$8",
+								"description": "خبز حرفي كلاسيكي يُخبز طازجًا يوميًا بالطرق التقليدية.",
+								"label": "اطلب الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "عجين مخمر"
+									},
+									{
+										"title": "قمح كامل"
+									},
+									{
+										"title": "الشيلم"
+									}
+								],
+								"badge-label": ""
+							},
+							{
+								"title": "صندوق المعجنات",
+								"price": "$24",
+								"description": "تشكيلة منتقاة من أجود معجنات الصباح لدينا.",
+								"label": "اطلب الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								},
+								"features": [
+									{
+										"title": "6 كرواسون"
+									},
+									{
+										"title": "4 دانش"
+									},
+									{
+										"title": "2 سكون"
+									}
+								],
+								"badge-label": "الأكثر طلبًا"
+							}
+						]
+					},
+					"contact": {
+						"copy": {
+							"kicker": "تواصل معنا",
+							"heading": "أسئلة أو طلبات خاصة؟",
+							"description": "يسعدنا سماعك. أرسل لنا رسالة وسنرد خلال 24 ساعة.",
+							"email": "hello@butterandcrumb.com",
+							"phone": "+1 (555) 123-4567",
+							"address": "247 شارع المخبز، أوكفيل، كاليفورنيا 94558"
+						},
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "البريد الإلكتروني",
+							"messageLabel": "رسالتك",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكرًا لك! سنرد عليك قريبًا.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "تواصل معنا",
+							"heading": "أسئلة أو طلبات خاصة؟",
+							"description": "يسعدنا سماعك. أرسل لنا رسالة وسنرد خلال 24 ساعة."
+						},
+						"location": {
+							"address": "142 شارع أرتيزان، تشارلستون، ساوث كارولاينا 29401"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 142 شارع أرتيزان، تشارلستون، ساوث كارولاينا 29401"
+						},
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "البريد الإلكتروني",
+							"messageLabel": "رسالتك",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكرًا لك! سنرد عليك قريبًا.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "زرنا",
+							"heading": "ستجدنا قريبًا \n مرّ بنا اليوم.",
+							"description": "استخدم الخريطة للحصول على الاتجاهات وزيارة موقعنا."
+						},
+						"actions": [
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "142 شارع أرتيزان، تشارلستون، ساوث كارولاينا 29401"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 142 شارع أرتيزان، تشارلستون، ساوث كارولاينا 29401"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "142 شارع أرتيزان، تشارلستون، ساوث كارولاينا 29401"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 142 شارع أرتيزان، تشارلستون، ساوث كارولاينا 29401"
+						}
+					},
+					"cta-basic": {
+						"copy": {
+							"heading": "اطلب خبزًا طازجًا لمائدتك.",
+							"description": "اطلب مسبقًا عبر الإنترنت للاستلام في اليوم نفسه، أو اشترك في صندوق الخبز الأسبوعي للتوصيل إلى بابك."
+						},
+						"actions": [
+							{
+								"label": "اطلب عبر الإنترنت",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							},
+							{
+								"label": "اشترك في صندوق الخبز",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

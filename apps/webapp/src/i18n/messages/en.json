@@ -1,0 +1,3534 @@
+{
+	"media": {
+		"editImage": "Edit image",
+		"edit": "Edit media: {name}",
+		"title": "Media library",
+		"description": "Upload your images and videos, or choose a stock photo.",
+		"upload": "Choose a file or drop it here",
+		"limits": "JPG, PNG, WebP, AVIF, GIF up to 10 MB · MP4, WebM up to 100 MB",
+		"progress": "Uploading {percent}%",
+		"finishing": "Finishing upload…",
+		"invalid": "Choose a supported file within the size limit.",
+		"failed": "Upload failed. Please try again.",
+		"search": "Search uploads by filename",
+		"loading": "Loading media…",
+		"retry": "Try again",
+		"empty": "No uploads found. Add your first image or video above.",
+		"more": "Load more",
+		"use": "Use selected media",
+		"choose": "Choose media",
+		"media": "Media",
+		"replaceDescription": "Replace an image or video in this section. Changes apply to every language.",
+		"slot": "Media {number}",
+		"replaceSlot": "Replace media {number}",
+		"uploads": "Your uploads",
+		"stock": "Stock photos",
+		"stockSearch": "Search stock photos",
+		"searchAction": "Search",
+		"stockPrompt": "Describe the photo you are looking for.",
+		"stockEmpty": "No photos found. Try a different search.",
+		"stockPartial": "Some photo sources are unavailable. Showing the available results.",
+		"stockFailed": "Stock photos could not be loaded. Try again.",
+		"stockSelectFailed": "This photo could not be added. Try again or choose another.",
+		"stockPhoto": "Stock photo",
+		"remove": "Remove image",
+		"deleteAction": "Delete media: {name}",
+		"deleteTitle": "Delete media",
+		"deleteDescription": "Delete {name}? This cannot be undone.",
+		"deleteFailed": "Could not delete this media. Try again.",
+		"generate": "Generate",
+		"logoLimits": "SVG, PNG, JPG, WebP, AVIF, GIF up to 5 MB",
+		"logo": {
+			"style": "Style",
+			"generate": "Generate logo",
+			"regenerate": "Generate another",
+			"generating": "Generating your logo…",
+			"failed": "The logo couldn't be generated. Try again."
+		}
+	},
+	"permissions": {
+		"readOnly": "You have read-only access to this workspace.",
+		"view": "View",
+		"roles": {
+			"owner": "Owner",
+			"admin": "Admin",
+			"member": "Member"
+		}
+	},
+	"common": {
+		"navigation": "Navigation",
+		"toggleNavigation": "Toggle navigation",
+		"loading": "Loading...",
+		"cancel": "Cancel",
+		"save": "Save",
+		"edit": "Edit",
+		"delete": "Delete",
+		"add": "Add",
+		"view": "View",
+		"search": "Search",
+		"close": "Close",
+		"next": "Next",
+		"previous": "Previous",
+		"ok": "OK",
+		"yes": "Yes",
+		"no": "No",
+		"done": "Done",
+		"actions": {
+			"back": "Back",
+			"creating": "Creating...",
+			"cancel": "Cancel"
+		},
+		"validation": {
+			"required": "This field is required",
+			"invalidEmail": "Please enter a valid email address"
+		},
+		"messages": {
+			"somethingWentWrong": "Something went wrong. Please try again."
+		},
+		"fields": {
+			"name": "Name",
+			"firstName": "First name",
+			"lastName": "Last name",
+			"email": "Email",
+			"phoneNumber": "Phone",
+			"additionalContext": "Additional context",
+			"dateAdded": "Date added",
+			"date": "Date",
+			"author": "Author",
+			"latestMessage": "Latest message",
+			"contact": "Contact",
+			"startedAt": "Started"
+		},
+		"today": "Today",
+		"yesterday": "Yesterday",
+		"deleted": "Deleted",
+		"deleteFailed": "Failed to delete",
+		"failed": "Failed",
+		"saved": "Saved",
+		"saving": "Saving...",
+		"saveError": "Didn't save!",
+		"sent": "Sent!",
+		"sending": "Sending...",
+		"sentFailed": "Didn't send",
+		"retry": "Retry",
+		"upgrade": "Upgrade",
+		"download": "Download",
+		"downloaded": "Downloaded",
+		"downloadFailed": "Download failed",
+		"beta": "Beta",
+		"prompt": "Prompt",
+		"select": "Select",
+		"back": "Back",
+		"copyToClipboard": "Copy to clipboard",
+		"copiedToClipboard": "Copied to clipboard"
+	},
+	"breadcrumbs": {
+		"home": "Home",
+		"settings": "Settings",
+		"chat": "Chat",
+		"links": "Links",
+		"website": "Website",
+		"contacts": "Contacts",
+		"blog": "Blog",
+		"seoGeo": "SEO & GEO",
+		"analytics": "Analytics",
+		"library": "Library"
+	},
+	"language": {
+		"label": "Language",
+		"current": "Language: {language}",
+		"options": {
+			"en": "English",
+			"ar": "Arabic"
+		}
+	},
+	"theme": {
+		"label": "Theme",
+		"current": "Theme: {theme}",
+		"options": {
+			"light": "Light",
+			"dark": "Dark",
+			"system": "System"
+		}
+	},
+	"links": {
+		"agent": {
+			"agentTitle": "Ask about your links page",
+			"agentDescription": "Update your links, rewrite your bio, or change the design. You’ll review changes before they are applied.",
+			"agentPlaceholder": "Ask the agent to update your links page…"
+		},
+		"title": "Links",
+		"loading": "Loading your links page…",
+		"loadFailed": "Your links page could not be loaded.",
+		"retry": "Try again",
+		"preview": "Links page preview",
+		"inlineEdit": {
+			"label": "Edit link page text",
+			"placeholder": "Type something…"
+		},
+		"modes": {
+			"preview": "Preview"
+		},
+		"publication": {
+			"status": {
+				"published": "Published"
+			}
+		},
+		"editor": {
+			"blockActions": {
+				"toolbar": "Section actions",
+				"design": "Design",
+				"moveUp": "Move up",
+				"moveDown": "Move down",
+				"delete": "Delete"
+			},
+			"socialsDescription": "Show icons that link to your profiles.",
+			"addSocial": "Add social icon",
+			"socialUrl": "Profile link",
+			"socialEmail": "Email address",
+			"removeSocial": "Remove social icon",
+			"addBlock": "Add section",
+			"pasteLink": "Paste a link",
+			"pasteLinkAction": "Add",
+			"addBlockDescription": "Choose a section to add. You can edit and reorder it afterwards.",
+			"drag": "Drag to reorder",
+			"url": "URL",
+			"videoUrl": "YouTube link",
+			"layout": "Layout",
+			"layouts": {
+				"classic": "Classic",
+				"classicDescription": "Efficient, direct and compact.",
+				"featured": "Featured",
+				"featuredDescription": "A larger card that stands out."
+			},
+			"display": "Display as",
+			"displays": {
+				"stack": "Stack",
+				"grid": "Grid",
+				"carousel": "Carousel"
+			},
+			"collectionLinks": "Links in this collection",
+			"addLink": "Add link",
+			"button": "Button (optional)",
+			"buttonUrl": "Button URL",
+			"redirect": "Redirect",
+			"redirectDescription": "Temporarily send all visitors straight to this link.",
+			"remove": "Delete",
+			"invalid": "Fix the highlighted fields before publishing.",
+			"invalidUrl": "Enter a complete http:// or https:// URL.",
+			"kinds": {
+				"link": "Link",
+				"linkDescription": "A button that opens any URL.",
+				"header": "Header",
+				"headerDescription": "A title to group the blocks below it.",
+				"text": "Text",
+				"textDescription": "A paragraph with an optional button.",
+				"video": "Video",
+				"videoDescription": "Embed a YouTube video.",
+				"collection": "Collection",
+				"collectionDescription": "Group links as a stack, grid or carousel.",
+				"socials": "Social icons",
+				"socialsDescription": "A row of icons linking to your profiles.",
+				"tabs": "Page tabs",
+				"tabsDescription": "Pill buttons that link to other pages.",
+				"embed": "Media embed",
+				"embedDescription": "Embed Spotify, Apple Music, SoundCloud, TikTok, Vimeo or YouTube.",
+				"form": "Form",
+				"formDescription": "Collect emails or messages.",
+				"marquee": "Marquee",
+				"marqueeDescription": "Scrolling text banner.",
+				"announcement": "Announcement",
+				"announcementDescription": "A dismissible banner or card.",
+				"faq": "FAQ",
+				"faqDescription": "Questions with expandable answers.",
+				"testimonials": "Testimonials",
+				"testimonialsDescription": "Quotes from customers.",
+				"countdown": "Countdown",
+				"countdownDescription": "A timer counting down to a date."
+			},
+			"back": "Back",
+			"buttonDescription": "Add a button below the text.",
+			"sectionPlacement": "Section placement",
+			"sectionPlacementDescription": "Attach this section to the header or keep it in the page.",
+			"sectionPlacements": {
+				"page": "Page",
+				"header": "Header"
+			},
+			"sectionDesign": "Section design",
+			"sectionStyle": "Section style",
+			"sectionStyles": {
+				"plain": "Plain",
+				"card": "Card",
+				"band": "Band"
+			},
+			"sectionAlignment": "Alignment",
+			"sectionAlignments": {
+				"inherit": "Page",
+				"center": "Centered",
+				"start": "Start",
+				"end": "End"
+			},
+			"sectionColors": "Section colors",
+			"sectionBackground": "Background",
+			"sectionText": "Text",
+			"buttonOverride": "Custom button design",
+			"buttonOverrideDescription": "Override the page button design in this section.",
+			"details": "Details",
+			"imageUrl": "Image",
+			"linkDescription": "Description",
+			"quickLinks": "Quick links",
+			"quickLinksDescription": "Common links for local businesses. Add the details after.",
+			"presets": {
+				"whatsapp": "WhatsApp",
+				"directions": "Directions",
+				"reviews": "Reviews",
+				"booking": "Booking",
+				"menu": "Menu"
+			},
+			"badge": "Badge",
+			"badgePlaceholder": "e.g. 15% off",
+			"socialDisplay": "Display",
+			"collapsible": "Collapsible",
+			"collapsibleDescription": "Show this collection as a dropdown button.",
+			"socialDisplays": {
+				"icons": "Icons",
+				"chips": "Labels"
+			},
+			"tabs": "Tabs",
+			"addTab": "Add tab",
+			"tab": "Tab",
+			"tabLabel": "Label",
+			"formAction": "Form endpoint URL",
+			"submitLabel": "Submit button label",
+			"formFields": "Fields",
+			"addField": "Add field",
+			"fieldLabel": "Field label",
+			"fieldType": "Type",
+			"fieldTypes": {
+				"email": "Email",
+				"text": "Text",
+				"phone": "Phone",
+				"textarea": "Message"
+			},
+			"required": "Required",
+			"marqueeStyle": "Style",
+			"marqueeStyles": {
+				"plain": "Plain",
+				"ribbon": "Ribbon"
+			},
+			"marqueeSpeed": "Speed",
+			"marqueeSeparator": "Separator",
+			"uppercase": "Uppercase",
+			"marqueeRibbonColor": "Ribbon color",
+			"marqueeTextColor": "Text color",
+			"announcementLayout": "Layout",
+			"announcementLayouts": {
+				"banner": "Top banner",
+				"card": "Floating card"
+			},
+			"learnMore": "Learn more",
+			"faqItems": "Questions",
+			"addQuestion": "Add question",
+			"question": "Question",
+			"answer": "Answer",
+			"testimonialItems": "Testimonials",
+			"addTestimonial": "Add testimonial",
+			"reviewerName": "Name",
+			"reviewerCompany": "Company or context",
+			"quote": "Quote",
+			"endsAt": "Ends at",
+			"endedMessage": "Message when finished",
+			"embedUrl": "Media URL",
+			"linkCta": "Button label",
+			"linkEmoji": "Emoji icon",
+			"linkAlign": "Text alignment",
+			"linkAnimation": "Animation",
+			"linkAnimations": {
+				"none": "None",
+				"pulse": "Pulse",
+				"shake": "Shake",
+				"tada": "Tada",
+				"jump": "Jump",
+				"swing": "Swing",
+				"jello": "Jello",
+				"rubber": "Rubber band"
+			},
+			"tabsStyle": "Style",
+			"tabsStyles": {
+				"pills": "Pills",
+				"menu": "Menu"
+			}
+		},
+		"design": {
+			"theme": "Theme",
+			"header": "Header",
+			"headerLayout": "Header layout",
+			"headerLayouts": {
+				"classic": "Classic",
+				"hero": "Hero",
+				"minimal-01": "Centered",
+				"minimal-02": "Name first",
+				"minimal-03": "Collage",
+				"minimal-04": "Left aligned",
+				"creative-01": "Filmstrip",
+				"creative-02": "Windows",
+				"creative-03": "Portrait",
+				"creative-04": "Rounded",
+				"bold-01": "Marquee",
+				"bold-02": "Arch",
+				"bold-03": "Editorial",
+				"bold-04": "Type poster",
+				"centered": "Centered",
+				"banner": "Banner",
+				"headshot": "Headshot",
+				"business": "Business"
+			},
+			"headerDesign": "Header design",
+			"headerStyles": {
+				"plain": "Plain",
+				"card": "Card",
+				"band": "Band"
+			},
+			"headerBackground": "Header background",
+			"headerTextColor": "Header text",
+			"titleSize": "Title size",
+			"titleSizes": {
+				"small": "Small",
+				"large": "Large"
+			},
+			"titleColor": "Title color",
+			"auto": "Auto",
+			"reset": "Reset",
+			"colors": "Colors",
+			"fonts": "Fonts",
+			"wallpapers": {
+				"fill": "Fill",
+				"gradient": "Gradient",
+				"split": "Split",
+				"pattern": "Pattern",
+				"mesh": "Soft",
+				"animated": "Animated",
+				"image": "Photo"
+			},
+			"pattern": "Pattern",
+			"patterns": {
+				"polka": "Polka",
+				"stripe": "Stripe",
+				"waves": "Waves",
+				"zigzag": "Zig zag"
+			},
+			"buttons": "Buttons",
+			"buttonStyle": "Button style",
+			"buttonStyles": {
+				"solid": "Solid",
+				"outline": "Outline",
+				"soft": "Soft",
+				"glass": "Glass"
+			},
+			"shadow": "Shadow",
+			"shadows": {
+				"none": "None",
+				"soft": "Subtle",
+				"hard": "Hard"
+			},
+			"buttonColor": "Button color",
+			"buttonTextColor": "Button text color",
+			"shadowColor": "Shadow color",
+			"title": "Design",
+			"brandTheme": "Your brand",
+			"buttonLayout": "Button layout",
+			"buttonPreview": "Button",
+			"custom": "Custom",
+			"imageUrl": "Profile image",
+			"designCategory": "Design category",
+			"designCategories": {
+				"minimal": "Minimal",
+				"creative": "Creative",
+				"bold": "Bold",
+				"buttons": "Buttons",
+				"cards": "Cards",
+				"advanced": "Advanced",
+				"studio": "Studio"
+			},
+			"linkDesigns": {
+				"buttons-01": "Square buttons",
+				"buttons-02": "Pill buttons",
+				"buttons-03": "Large thumbnails",
+				"buttons-04": "Staggered pills",
+				"buttons-05": "Circle list",
+				"buttons-06": "Arrow list",
+				"buttons-07": "Minimal list",
+				"buttons-08": "Banner links",
+				"cards-01": "Photo cards",
+				"cards-02": "Title above",
+				"cards-03": "Card carousel",
+				"cards-04": "Three columns",
+				"cards-05": "Photo overlay",
+				"cards-06": "Polaroids",
+				"cards-07": "Card grid",
+				"cards-08": "Offset grid",
+				"advanced-01": "Browser circles",
+				"advanced-02": "Photo notes",
+				"advanced-03": "Circle arrows",
+				"advanced-04": "Browser posters",
+				"advanced-05": "Tickets",
+				"advanced-06": "Editorial grid",
+				"advanced-07": "Portrait carousel",
+				"advanced-08": "Wide carousel",
+				"buttons-09": "Thumbnail card",
+				"buttons-10": "Studio button",
+				"cards-09": "Highlight card",
+				"cards-10": "Photo tile",
+				"cards-11": "Photo grid",
+				"cards-12": "Photo carousel",
+				"cards-13": "Photo grid (3 columns)"
+			},
+			"originalLayout": "Use original layout",
+			"pageText": "Text",
+			"buttonOpacity": "Button opacity",
+			"gradientColor": "Colour {number}",
+			"themeNames": {
+				"aberdeen": "Aberdeen",
+				"abu-dhabi": "Abu Dhabi",
+				"accra": "Accra",
+				"adelaide": "Adelaide",
+				"agadir": "Agadir",
+				"alexandria": "Alexandria",
+				"algiers": "Algiers",
+				"almaty": "Almaty",
+				"amman": "Amman",
+				"anchorage": "Anchorage",
+				"ankara": "Ankara",
+				"antalya": "Antalya",
+				"antwerp": "Antwerp",
+				"aqaba": "Aqaba",
+				"asheville": "Asheville",
+				"aspen": "Aspen",
+				"asuncion": "Asuncion",
+				"athens": "Athens",
+				"auckland": "Auckland",
+				"baku": "Baku",
+				"bali": "Bali",
+				"baltimore": "Baltimore",
+				"bangalore": "Bangalore",
+				"bangkok": "Bangkok",
+				"bath": "Bath",
+				"beirut": "Beirut",
+				"belfast": "Belfast",
+				"belgrade": "Belgrade",
+				"bergen": "Bergen",
+				"bern": "Bern",
+				"biarritz": "Biarritz",
+				"bilbao": "Bilbao",
+				"birmingham": "Birmingham",
+				"bogota": "Bogota",
+				"bologna": "Bologna",
+				"bordeaux": "Bordeaux",
+				"bozeman": "Bozeman",
+				"bratislava": "Bratislava",
+				"bremen": "Bremen",
+				"brighton": "Brighton",
+				"bristol": "Bristol",
+				"bruges": "Bruges",
+				"bucharest": "Bucharest",
+				"budapest": "Budapest",
+				"buffalo": "Buffalo",
+				"burlington": "Burlington",
+				"busan": "Busan",
+				"cadiz": "Cadiz",
+				"cali": "Cali",
+				"cambridge": "Cambridge",
+				"cancun": "Cancun",
+				"canberra": "Canberra",
+				"cannes": "Cannes",
+				"caracas": "Caracas",
+				"carmel": "Carmel",
+				"cartagena": "Cartagena",
+				"casablanca": "Casablanca",
+				"charleston": "Charleston",
+				"charlotte": "Charlotte",
+				"chattanooga": "Chattanooga",
+				"chengdu": "Chengdu",
+				"chiang-mai": "Chiang Mai",
+				"christchurch": "Christchurch",
+				"cincinnati": "Cincinnati",
+				"cleveland": "Cleveland",
+				"cologne": "Cologne",
+				"colombo": "Colombo",
+				"columbus": "Columbus",
+				"cordoba": "Cordoba",
+				"cork": "Cork",
+				"cusco": "Cusco",
+				"da-nang": "Da Nang",
+				"dahab": "Dahab",
+				"darwin": "Darwin",
+				"delhi": "Delhi",
+				"des-moines": "Des Moines",
+				"doha": "Doha",
+				"dresden": "Dresden",
+				"dubai": "Dubai",
+				"dubrovnik": "Dubrovnik",
+				"dunedin": "Dunedin",
+				"durban": "Durban",
+				"durham": "Durham",
+				"dusseldorf": "Dusseldorf",
+				"edinburgh": "Edinburgh",
+				"eindhoven": "Eindhoven",
+				"el-paso": "El Paso",
+				"essaouira": "Essaouira",
+				"eugene": "Eugene",
+				"faro": "Faro",
+				"fez": "Fez",
+				"fiji": "Fiji",
+				"flagstaff": "Flagstaff",
+				"fort-worth": "Fort Worth",
+				"frankfurt": "Frankfurt",
+				"fremantle": "Fremantle",
+				"fresno": "Fresno",
+				"fukuoka": "Fukuoka",
+				"galway": "Galway",
+				"gdansk": "Gdansk",
+				"geneva": "Geneva",
+				"genoa": "Genoa",
+				"ghent": "Ghent",
+				"gibraltar": "Gibraltar",
+				"glasgow": "Glasgow",
+				"goa": "Goa",
+				"gothenburg": "Gothenburg",
+				"granada": "Granada",
+				"graz": "Graz",
+				"guadalajara": "Guadalajara",
+				"halifax": "Halifax",
+				"hamburg": "Hamburg",
+				"hanoi": "Hanoi",
+				"hartford": "Hartford",
+				"heidelberg": "Heidelberg",
+				"helsinki": "Helsinki",
+				"hobart": "Hobart",
+				"hoi-an": "Hoi An",
+				"hong-kong": "Hong Kong",
+				"houston": "Houston",
+				"hvar": "Hvar",
+				"ibiza": "Ibiza",
+				"indianapolis": "Indianapolis",
+				"innsbruck": "Innsbruck",
+				"istanbul": "Istanbul",
+				"izmir": "Izmir",
+				"jackson": "Jackson",
+				"jaipur": "Jaipur",
+				"jakarta": "Jakarta",
+				"jeddah": "Jeddah",
+				"jerash": "Jerash",
+				"johannesburg": "Johannesburg",
+				"juneau": "Juneau",
+				"kampala": "Kampala",
+				"kathmandu": "Kathmandu",
+				"key-west": "Key West",
+				"kigali": "Kigali",
+				"kingston": "Kingston",
+				"kobe": "Kobe",
+				"krakow": "Krakow",
+				"kuala-lumpur": "Kuala Lumpur",
+				"kuwait": "Kuwait",
+				"la-paz": "La Paz",
+				"lake-tahoe": "Lake Tahoe",
+				"lausanne": "Lausanne",
+				"leeds": "Leeds",
+				"leipzig": "Leipzig",
+				"lima": "Lima",
+				"lille": "Lille",
+				"liverpool": "Liverpool",
+				"ljubljana": "Ljubljana",
+				"lucerne": "Lucerne",
+				"luxor": "Luxor",
+				"lyon": "Lyon",
+				"macau": "Macau",
+				"madison": "Madison",
+				"malaga": "Malaga",
+				"male": "Male",
+				"malibu": "Malibu",
+				"malmo": "Malmo",
+				"malta": "Malta",
+				"manama": "Manama",
+				"marseille": "Marseille",
+				"maui": "Maui",
+				"medellin": "Medellin",
+				"memphis": "Memphis",
+				"mendoza": "Mendoza",
+				"merida": "Merida",
+				"milan": "Milan",
+				"milwaukee": "Milwaukee",
+				"minneapolis": "Minneapolis",
+				"minsk": "Minsk",
+				"mombasa": "Mombasa",
+				"monaco": "Monaco",
+				"montevideo": "Montevideo",
+				"monterey": "Monterey",
+				"montpellier": "Montpellier",
+				"montreal": "Montreal",
+				"moab": "Moab",
+				"muscat": "Muscat",
+				"nagoya": "Nagoya",
+				"nairobi": "Nairobi",
+				"nantes": "Nantes",
+				"nantucket": "Nantucket",
+				"naples": "Naples",
+				"napa": "Napa",
+				"nassau": "Nassau",
+				"new-orleans": "New Orleans",
+				"newport": "Newport",
+				"nice": "Nice",
+				"nizwa": "Nizwa",
+				"norfolk": "Norfolk",
+				"nuremberg": "Nuremberg",
+				"oakland": "Oakland",
+				"oaxaca": "Oaxaca",
+				"odessa": "Odessa",
+				"ojai": "Ojai",
+				"okinawa": "Okinawa",
+				"omaha": "Omaha",
+				"oporto": "Oporto",
+				"osaka": "Osaka",
+				"ottawa": "Ottawa",
+				"oxford": "Oxford",
+				"palermo": "Palermo",
+				"palma": "Palma",
+				"palm-springs": "Palm Springs",
+				"panama": "Panama",
+				"park-city": "Park City",
+				"pasadena": "Pasadena",
+				"perth": "Perth",
+				"petra": "Petra",
+				"phuket": "Phuket",
+				"pittsburgh": "Pittsburgh",
+				"porto": "Porto",
+				"positano": "Positano",
+				"prague": "Prague",
+				"pretoria": "Pretoria",
+				"puebla": "Puebla",
+				"quebec": "Quebec",
+				"queenstown": "Queenstown",
+				"quito": "Quito",
+				"rabat": "Rabat",
+				"raleigh": "Raleigh",
+				"reno": "Reno",
+				"riga": "Riga",
+				"riyadh": "Riyadh",
+				"rochester": "Rochester",
+				"rome": "Rome",
+				"rotterdam": "Rotterdam",
+				"salalah": "Salalah",
+				"salt-lake": "Salt Lake",
+				"salzburg": "Salzburg",
+				"san-jose": "San Jose",
+				"san-juan": "San Juan",
+				"santa-barbara": "Santa Barbara",
+				"santa-cruz": "Santa Cruz",
+				"santa-fe": "Santa Fe",
+				"santiago": "Santiago",
+				"santorini": "Santorini",
+				"sapporo": "Sapporo",
+				"sarajevo": "Sarajevo",
+				"sausalito": "Sausalito",
+				"seattle": "Seattle",
+				"sendai": "Sendai",
+				"seychelles": "Seychelles",
+				"shanghai": "Shanghai",
+				"sharjah": "Sharjah",
+				"sheffield": "Sheffield",
+				"siena": "Siena",
+				"singapore": "Singapore",
+				"sintra": "Sintra",
+				"sofia": "Sofia",
+				"split": "Split",
+				"spokane": "Spokane",
+				"st-augustine": "St. Augustine",
+				"st-petersburg": "St. Petersburg",
+				"stuttgart": "Stuttgart",
+				"tallinn": "Tallinn",
+				"tampa": "Tampa",
+				"tangier": "Tangier",
+				"taos": "Taos",
+				"taipei": "Taipei",
+				"tbilisi": "Tbilisi",
+				"tel-aviv-jaffa": "Jaffa",
+				"telluride": "Telluride",
+				"tunis": "Tunis",
+				"turin": "Turin",
+				"uppsala": "Uppsala",
+				"utrecht": "Utrecht",
+				"valletta": "Valletta",
+				"valparaiso": "Valparaiso",
+				"venice": "Venice",
+				"verona": "Verona",
+				"victoria": "Victoria",
+				"vienna": "Vienna",
+				"vilnius": "Vilnius",
+				"warsaw": "Warsaw",
+				"washington": "Washington",
+				"wellington": "Wellington",
+				"whistler": "Whistler",
+				"wichita": "Wichita",
+				"windhoek": "Windhoek",
+				"winnipeg": "Winnipeg",
+				"wroclaw": "Wroclaw",
+				"xian": "Xi'an",
+				"yerevan": "Yerevan",
+				"yokohama": "Yokohama",
+				"york": "York",
+				"yosemite": "Yosemite",
+				"zagreb": "Zagreb",
+				"zanzibar": "Zanzibar",
+				"zermatt": "Zermatt",
+				"zurich": "Zurich",
+				"acapulco": "Acapulco",
+				"akron": "Akron",
+				"albany": "Albany",
+				"amalfi": "Amalfi",
+				"arles": "Arles",
+				"arusha": "Arusha",
+				"avignon": "Avignon",
+				"banff": "Banff",
+				"barbados": "Barbados",
+				"basel": "Basel",
+				"berkeley": "Berkeley",
+				"big-sur": "Big Sur",
+				"boise": "Boise",
+				"bora-bora": "Bora Bora",
+				"cairns": "Cairns",
+				"capri": "Capri",
+				"chamonix": "Chamonix",
+				"colmar": "Colmar",
+				"como": "Como",
+				"corfu": "Corfu",
+				"crete": "Crete",
+				"curacao": "Curacao",
+				"dijon": "Dijon",
+				"djerba": "Djerba",
+				"evora": "Evora",
+				"fes-medina": "Medina",
+				"florianopolis": "Florianopolis",
+				"galveston": "Galveston",
+				"hakone": "Hakone",
+				"hamilton": "Hamilton",
+				"hilo": "Hilo",
+				"kauai": "Kauai",
+				"kerala": "Kerala",
+				"kona": "Kona",
+				"kotor": "Kotor",
+				"lanzarote": "Lanzarote",
+				"lecce": "Lecce",
+				"lombok": "Lombok",
+				"lugano": "Lugano",
+				"madeira": "Madeira",
+				"mallorca": "Mallorca",
+				"marbella": "Marbella",
+				"menorca": "Menorca",
+				"montauk": "Montauk",
+				"mykolaiv": "Mykolaiv",
+				"nara": "Nara",
+				"ontario": "Ontario",
+				"orvieto": "Orvieto",
+				"paphos": "Paphos",
+				"portofino": "Portofino",
+				"puglia": "Puglia",
+				"ravenna": "Ravenna",
+				"rhodes": "Rhodes",
+				"rovinj": "Rovinj",
+				"saint-tropez": "Saint-Tropez",
+				"san-sebastian": "San Sebastian",
+				"sardinia": "Sardinia",
+				"segovia": "Segovia",
+				"sicily": "Sicily",
+				"siwa": "Siwa",
+				"sorrento": "Sorrento",
+				"st-moritz": "St. Moritz",
+				"taormina": "Taormina",
+				"toledo": "Toledo",
+				"tromso": "Tromso",
+				"tuscany": "Tuscany",
+				"uluwatu": "Uluwatu",
+				"ushuaia": "Ushuaia",
+				"vail": "Vail",
+				"zadar": "Zadar",
+				"abuja": "Abuja",
+				"addis-ababa": "Addis Ababa",
+				"antigua": "Antigua",
+				"aswan": "Aswan",
+				"bahrain": "Bahrain",
+				"bangor": "Bangor",
+				"belize": "Belize",
+				"boca-raton": "Boca Raton",
+				"bonn": "Bonn",
+				"cairo-heliopolis": "Heliopolis",
+				"calais": "Calais",
+				"cape-cod": "Cape Cod",
+				"catania": "Catania",
+				"dar-es-salaam": "Dar es Salaam",
+				"dhahran": "Dhahran",
+				"el-gouna": "El Gouna",
+				"hurghada": "Hurghada",
+				"ismailia": "Ismailia",
+				"jericho": "Jericho",
+				"khobar": "Khobar",
+				"lagos-algarve": "Algarve",
+				"luanda": "Luanda",
+				"maputo": "Maputo",
+				"medina-coast": "Medina Coast",
+				"nablus": "Nablus",
+				"oran": "Oran",
+				"port-louis": "Port Louis",
+				"ras-al-khaimah": "Ras Al Khaimah",
+				"sfax": "Sfax",
+				"sousse": "Sousse",
+				"tabuk": "Tabuk",
+				"taif": "Taif",
+				"tripoli": "Tripoli",
+				"ubud": "Ubud",
+				"alula": "AlUla",
+				"abha": "Abha",
+				"fujairah": "Fujairah",
+				"ajman": "Ajman",
+				"byblos": "Byblos",
+				"sidon": "Sidon",
+				"tyre": "Tyre",
+				"irbid": "Irbid"
+			},
+			"wallpaperImage": "Photo",
+			"buttonImages": "Show images",
+			"cornerRadius": "Corner radius",
+			"borderWidth": "Border width",
+			"borderColor": "Border color",
+			"shadowStrength": "Shadow strength",
+			"buttonSpacing": "Spacing",
+			"buttonEffect": "Surface effect",
+			"buttonEffects": {
+				"none": "None",
+				"flat": "Soft emboss",
+				"concave": "Concave",
+				"convex": "Convex",
+				"inset": "Inset",
+				"frosted": "Frosted glass"
+			},
+			"avatarSize": "Photo size",
+			"avatarRing": "Photo ring",
+			"avatarRingColor": "Ring color",
+			"avatarShadow": "Photo shadow",
+			"socialIconSize": "Social icon size",
+			"headingFont": "Heading font",
+			"bodyFont": "Body font",
+			"fontWeight": "Weight",
+			"wallpaperNoise": "Grain texture",
+			"imageOverlay": "Image overlay",
+			"imageOverlayColor": "Overlay color",
+			"animation": "Animation",
+			"animationStyles": {
+				"classic": "Classic",
+				"mesh": "Mesh",
+				"neuro": "Glow"
+			},
+			"animationSpeed": "Speed",
+			"animationIntensity": "Intensity",
+			"socialsAtBottom": "Social icons at bottom",
+			"desktopColor": "Desktop background",
+			"dividerSize": "Text size",
+			"dividerSpaceAbove": "Space above",
+			"dividerSpaceBelow": "Space below",
+			"dividerRule": "Line",
+			"dividerRules": {
+				"none": "None",
+				"solid": "Solid",
+				"dashed": "Dashed",
+				"dotted": "Dotted",
+				"double": "Double"
+			},
+			"dividerRuleWidth": "Line thickness",
+			"background": "Background",
+			"text": "Text",
+			"removeColor": "Remove color",
+			"addColor": "Add color",
+			"gradientAngle": "Angle",
+			"splitPosition": "Split position",
+			"animationScale": "Scale",
+			"animationSwirl": "Swirl",
+			"badgeColor": "Badge color",
+			"badgeTextColor": "Badge text color",
+			"ctaColor": "Call-to-action color",
+			"ctaTextColor": "Call-to-action text color",
+			"avatar": "Profile photo",
+			"fontItalic": "Italic",
+			"banner": "Banner",
+			"bannerFade": "Fade into page",
+			"color": "Color",
+			"profile": "Profile",
+			"buttonUppercase": "Uppercase text",
+			"shape": "Shape",
+			"socialIcons": "Social icons",
+			"dividers": "Dividers",
+			"fontModes": {
+				"pairings": "Pairings",
+				"custom": "Custom"
+			},
+			"logo": "Logo"
+		},
+		"validation": {
+			"invalid": "Check that every title and URL is valid before publishing."
+		},
+		"save": {
+			"failed": "The links page could not be saved. Refresh and try again."
+		},
+		"publish": {
+			"mobile": "Publish",
+			"open": "Open publish panel",
+			"title": "Publish your links",
+			"description": "Make your links page available to everyone on the web.",
+			"unpublishedDescription": "Your published links page has changes waiting to go live.",
+			"upToDateDescription": "Your links page is up to date.",
+			"websiteUrl": "Links URL",
+			"publicTitle": "Public links page",
+			"publicDescription": "Once published, anyone can visit your links page on the web.",
+			"action": "Publish",
+			"changes": "Publish changes",
+			"success": "Links page published",
+			"failed": "The links page could not be published. Refresh and try again."
+		}
+	},
+	"website": {
+		"title": "Website",
+		"editBrand": "Edit brand",
+		"loading": "Loading your website…",
+		"sidebar": {
+			"agent": "Agent",
+			"page": "Design",
+			"customize": "Customize",
+			"toggle": "Toggle website panel",
+			"togglePreview": "Preview",
+			"agentTitle": "Ask about this website",
+			"agentDescription": "Rewrite copy, change layouts, add sections, or update the brand. You’ll review every website change before it is applied.",
+			"agentPlaceholder": "Ask the agent to update your website…",
+			"pageTitle": "Design",
+			"layoutTitle": "Header and footer",
+			"layoutDescription": "Choose the global sections that frame every page.",
+			"headerTitle": "Header",
+			"headerDescription": "Change the navigation and brand arrangement.",
+			"footerTitle": "Footer",
+			"footerDescription": "Change the closing navigation and information layout.",
+			"brandTitle": "Brand",
+			"brandDescription": "Colors, typography, and corners shared across every page."
+		},
+		"publication": {
+			"status": {
+				"draft": "Draft",
+				"changes": "Unpublished changes",
+				"published": "Published"
+			}
+		},
+		"publish": {
+			"mobile": "Publish",
+			"open": "Open publish panel",
+			"title": "Publish your site",
+			"description": "Make your website available to everyone on the web.",
+			"unpublishedDescription": "Your published site has changes waiting to go live.",
+			"upToDateDescription": "Your website is up to date.",
+			"websiteUrl": "Website URL",
+			"publicTitle": "Public website",
+			"publicDescription": "Once published, anyone can visit your website on the web.",
+			"action": "Publish website",
+			"changes": "Publish changes",
+			"success": "Website published",
+			"failed": "The website could not be published. Refresh and try again."
+		},
+		"languages": {
+			"label": "Language",
+			"main": "Main",
+			"setMain": "Set as main language",
+			"addLanguages": "Add languages",
+			"failed": "Could not update languages. Please try again.",
+			"translate": "Translate missing content",
+			"remove": "Remove",
+			"removeTitle": "Remove {language}?",
+			"removeDescription": "Its translated content is removed from your draft. Adding it again needs a new translation.",
+			"retry": "Retry",
+			"translating": "Translating into {language}…",
+			"translatingBadge": "Translating",
+			"translationFailed": "Translation failed",
+			"add": "Add language"
+		},
+		"pages": {
+			"home": "Home",
+			"label": "Page",
+			"navigation": "Main navigation"
+		},
+		"modes": {
+			"label": "Website mode",
+			"edit": "Edit",
+			"preview": "Preview"
+		},
+		"viewports": {
+			"label": "Preview size",
+			"desktop": "Desktop",
+			"tablet": "Tablet",
+			"mobile": "Mobile"
+		},
+		"editor": {
+			"failed": "Your change couldn’t be saved. The latest version has been restored."
+		},
+		"inlineEdit": {
+			"ai": {
+				"title": "AI edit",
+				"instruction": "What would you like to change?",
+				"placeholder": "Describe a change (optional)…",
+				"generate": "Generate",
+				"generating": "Generating text…",
+				"close": "Close AI edit",
+				"failed": "Couldn’t generate text. Please try again.",
+				"changed": "This text changed while generating. Your latest edit was kept."
+			},
+			"label": "Edit website text",
+			"placeholder": "Type something…",
+			"menu": {
+				"showBlog": "Show Blog link",
+				"hideBlog": "Hide Blog link",
+				"edit": "Edit menu item",
+				"item": {
+					"title": "Menu item",
+					"description": "Use one panel to make this a direct link or a dropdown and manage its items.",
+					"label": "Label",
+					"kind": "Item type",
+					"kinds": {
+						"link": "Link",
+						"dropdown": "Dropdown"
+					},
+					"fallbackType": "Fallback link type",
+					"fallbackDestination": "Fallback destination",
+					"items": "Dropdown items",
+					"item": "Item {number}",
+					"itemLabel": "Item label",
+					"newItem": "New item",
+					"addItem": "Add item",
+					"removeItem": "Remove dropdown item",
+					"needsItem": "Add at least one dropdown item before saving.",
+					"remove": "Remove menu item",
+					"save": "Save menu item",
+					"add": "Add menu item",
+					"manage": "Header menu",
+					"moveUp": "Move {label} earlier",
+					"moveDown": "Move {label} later"
+				},
+				"dropdown": {
+					"title": "Dropdown settings",
+					"description": "Edit the dropdown label and the destination used when the menu cannot open.",
+					"label": "Dropdown label",
+					"type": "Fallback link type",
+					"destination": "Fallback destination",
+					"save": "Save dropdown"
+				},
+				"dropdownItem": {
+					"title": "Dropdown link",
+					"description": "Edit this link inside the dropdown menu.",
+					"label": "Item label",
+					"type": "Link type",
+					"destination": "Destination",
+					"save": "Save dropdown link"
+				},
+				"navigation": {
+					"title": "Navigation item",
+					"description": "Edit this item in the website header or footer navigation.",
+					"label": "Item label",
+					"type": "Link type",
+					"destination": "Destination",
+					"save": "Save navigation item"
+				}
+			},
+			"link": {
+				"edit": "Edit link",
+				"title": "Link destination",
+				"description": "Choose where this link or button should take visitors.",
+				"buttonText": "Button text",
+				"linkText": "Link text",
+				"type": "Link type",
+				"destination": "Destination",
+				"page": "Page",
+				"pageSection": "Section on page",
+				"section": "Section",
+				"anchor": "Anchor",
+				"top": "Top of page",
+				"cancel": "Cancel",
+				"save": "Save link",
+				"invalid": "Enter a valid destination before saving.",
+				"types": {
+					"page": "Page",
+					"section": "Section",
+					"external": "External URL",
+					"booking": "Booking URL",
+					"relative": "Site path",
+					"email": "Email",
+					"phone": "Phone",
+					"anchor": "Named anchor"
+				}
+			},
+			"accordion": {
+				"add": "Add accordion item",
+				"delete": "Delete accordion item",
+				"deleteTitle": "Delete this item?",
+				"deleteDescription": "It is removed from your draft. Your published site does not change until you publish."
+			}
+		},
+		"customize": {
+			"action": "Customize",
+			"title": "Customize your brand",
+			"back": "Back to design",
+			"cancel": "Cancel",
+			"done": "Done",
+			"palette": {
+				"title": "Colors",
+				"presets": "Palettes",
+				"preset": "Palette {number}",
+				"colors": {
+					"background": "Background",
+					"neutral": "Text",
+					"primary": "Primary",
+					"secondary": "Secondary",
+					"tertiary": "Tertiary"
+				}
+			},
+			"fonts": {
+				"title": "Fonts",
+				"headingPreview": "Make an impression",
+				"bodyPreview": "Clear, comfortable reading on every screen."
+			},
+			"corners": {
+				"title": "Corners",
+				"preview": "Preview",
+				"options": {
+					"square": "Square",
+					"subtle": "Subtle",
+					"rounded": "Rounded",
+					"soft": "Soft"
+				}
+			},
+			"buttons": {
+				"title": "Buttons",
+				"options": {
+					"solid": "Solid",
+					"outline": "Outline"
+				}
+			},
+			"suggest": {
+				"action": "Suggest",
+				"label": "Describe your business or the look you want",
+				"placeholder": "warm, premium, bakery",
+				"recommended": "Recommended",
+				"failed": "Couldn’t get a suggestion. Try again.",
+				"none": "No preset matched that request."
+			},
+			"logo": {
+				"title": "Logo"
+			}
+		},
+		"templates": {
+			"applyFailed": "Couldn’t apply this theme. Your saved draft is unchanged.",
+			"title": "Themes",
+			"loading": "Loading themes…",
+			"back": "Back to design",
+			"original": "Original",
+			"cancel": "Cancel",
+			"done": "Done",
+			"recommended": "Recommended"
+		},
+		"layout": {
+			"previewFailed": "Couldn’t generate this preview. Select the layout to try again.",
+			"title": "Choose a section layout",
+			"headerTitle": "Choose a header design",
+			"footerTitle": "Choose a footer design",
+			"option": "Layout {number}",
+			"current": "Current",
+			"back": "Back",
+			"cancel": "Cancel",
+			"done": "Done",
+			"progress": "Generating the missing content for this layout.",
+			"failed": {
+				"title": "Layout generation failed",
+				"description": "The previous layout is still intact. Choose a layout again when you’re ready."
+			},
+			"disconnected": {
+				"title": "Layout generation was interrupted",
+				"description": "Reconnect to continue receiving this layout.",
+				"action": "Reconnect"
+			}
+		},
+		"intro": {
+			"eyebrow": "A complete first draft",
+			"title": "Turn a short brief into your website",
+			"description": "Enter your business details once to create a website and a matching Links page."
+		},
+		"sectionCatalog": {
+			"title": "Add a section",
+			"description": "Choose a compatible section style. Its copy and images will be generated fresh.",
+			"close": "Back",
+			"search": "Search section styles",
+			"filter": "Filter section styles by category",
+			"allCategories": "All",
+			"loading": "Loading section styles…",
+			"add": "Add Section",
+			"select": "Add",
+			"preparing": "Preparing the new section",
+			"categories": {
+				"contact": "Contact",
+				"hero": "Hero",
+				"content": "Content",
+				"features": "Features",
+				"gallery": "Gallery",
+				"faq": "Frequently asked questions",
+				"call-to-action": "Call to action"
+			},
+			"recommended": "Recommended"
+		},
+		"sectionActions": {
+			"toolbar": "Section controls",
+			"aiEdit": "AI Edit",
+			"design": "Design",
+			"moveUp": "Move section up",
+			"moveDown": "Move section down",
+			"delete": "Delete section",
+			"deleteTitle": "Delete this section?",
+			"deleteDescription": "Its content is removed from your draft. Your published site does not change until you publish.",
+			"failed": "Couldn't update that section. Please try again."
+		},
+		"sectionAddition": {
+			"progress": "Generating the new section and its images…",
+			"failed": {
+				"title": "We couldn’t add that section",
+				"description": "Your website was left unchanged. Choose a section and try again.",
+				"action": "Choose section"
+			},
+			"disconnected": {
+				"title": "The new section is still being generated",
+				"description": "Reconnect to continue from the last saved event.",
+				"action": "Reconnect"
+			}
+		},
+		"failed": {
+			"title": "We couldn’t generate the website",
+			"description": "Your business details are saved. Try again or update them before restarting.",
+			"action": "Try again"
+		},
+		"blocked": {
+			"title": "Website editing is blocked",
+			"description": "An unrecognized website operation is attached. Refresh to check its status."
+		},
+		"disconnected": {
+			"title": "The live preview was interrupted",
+			"description": "The generation may still be running. Reconnect to continue from the last saved event.",
+			"action": "Reconnect"
+		},
+		"domains": {
+			"title": "Domains",
+			"description": "Give your website an address that feels like you.",
+			"hostname": "Domain name",
+			"connect": "Connect domain",
+			"registrationDeferred": "Domain purchases are coming soon.",
+			"taken": "Unavailable",
+			"type": "Type",
+			"name": "Name",
+			"value": "Value",
+			"retry": "Retry",
+			"checkNow": "Check now",
+			"disconnect": "Disconnect",
+			"disconnectTitle": "Disconnect {hostname}?",
+			"disconnectNote": "Your website stops loading on this domain. A registration stays active until it expires.",
+			"cancel": "Cancel",
+			"actions": "Domain actions",
+			"error": "The request could not be completed. Try again.",
+			"connectConflict": "This domain is already connected to a website.",
+			"loading": "Loading domains…",
+			"findTitle": "Find a domain",
+			"findDescription": "Find a memorable name for your business.",
+			"connectTitle": "Connect a domain you already own",
+			"connectSummary": "Bring a domain you’ve purchased elsewhere.",
+			"connectDescription": "Keep your domain with your current provider and connect it to your website.",
+			"siteAddress": "Website address",
+			"editAddress": "Edit website address",
+			"saveAddress": "Save",
+			"addressTaken": "This address is taken.",
+			"addressInvalid": "Use 3–50 lowercase letters, numbers, or hyphens.",
+			"back": "Back",
+			"searchLabel": "Business or domain name",
+			"searchPlaceholder": "Your business or example.com",
+			"checking": "Checking availability…",
+			"searchError": "Couldn’t check availability. Try again.",
+			"rateLimited": "Too many searches. Wait a moment and try again.",
+			"unsupportedSuffix": "{suffix} domains aren’t available to buy here yet. You can still connect one you own.",
+			"loadError": "Couldn’t load your domains.",
+			"close": "Close",
+			"status": {
+				"disconnecting": "Disconnecting",
+				"dns": "Waiting for DNS",
+				"live": "Live",
+				"ownership": "Verifying ownership",
+				"tls": "Securing"
+			},
+			"primaryHostname": "Visitors are sent to {hostname}",
+			"makePrimaryHostname": "Send visitors to {hostname}",
+			"manageDns": "Manage DNS",
+			"method": "Connection method",
+			"methodRecords": "DNS records",
+			"methodNameservers": "Nameservers",
+			"recordInstructions": "Add these records at your domain provider.",
+			"nameserverInstructions": "Replace your domain’s nameservers with these at your domain provider.",
+			"removeRecords": "Remove these records",
+			"caaBlocked": "Your domain’s CAA records block certificate issuance. Allow letsencrypt.org.",
+			"recordStatus": "Status",
+			"recordReady": "Found",
+			"recordWaiting": "Not found yet",
+			"registered": "Registered",
+			"renewsOn": "Renews {date}",
+			"expiresOn": "Expires {date}",
+			"autoRenew": "Auto-renew",
+			"transferCode": "Transfer code",
+			"getTransferCode": "Get transfer code",
+			"registrationStatus": {
+				"active": "Registered",
+				"registering": "Registering",
+				"failed": "Registration failed",
+				"expired": "Expired"
+			},
+			"checkoutTitle": "Get your domain",
+			"registrant": "Domain owner",
+			"registrantFields": {
+				"firstName": "First name",
+				"lastName": "Last name",
+				"email": "Email",
+				"phone": "Phone",
+				"companyName": "Company (optional)",
+				"address1": "Address",
+				"address2": "Apartment, suite (optional)",
+				"city": "City",
+				"state": "State or province",
+				"zip": "Postal code",
+				"country": "Country"
+			},
+			"registrantErrors": {
+				"required": "Required.",
+				"email": "Enter a valid email.",
+				"phone": "Enter the number with its country code, like +15550100100."
+			},
+			"selectCountry": "Select a country",
+			"purchaseUnavailable": "This domain is no longer available.",
+			"priceChanged": "The price changed. Review it and try again.",
+			"purchaseError": "The purchase couldn’t be completed. Try again.",
+			"dnsTitle": "DNS for {hostname}",
+			"dnsDescription": "Records for email and other services.",
+			"addRecord": "Add record",
+			"editRecord": "Edit record",
+			"deleteRecord": "Delete record",
+			"saveRecord": "Save record",
+			"priority": "Priority",
+			"recordLocked": "Managed automatically",
+			"recordError": "The record couldn’t be saved. Check its values and try again.",
+			"renewsAt": "renews at {price}/yr",
+			"perYear": "{price} per year",
+			"noResults": "No domains found. Try another name.",
+			"domainLabel": "Domain",
+			"priceLabel": "Price",
+			"getDomain": "Get domain",
+			"ownershipTitle": "Registered in your name",
+			"ownershipNote": "You own this domain. Our registrar partner may email you about the registration; usually no action is needed.",
+			"selectOption": "Select an option",
+			"registrantInvalid": "Some owner details are missing or invalid for this extension."
+		},
+		"setup": "Business details",
+		"settings": {
+			"title": "Site settings",
+			"domains": "Domains",
+			"languages": "Languages",
+			"integrations": "Integrations",
+			"googleAnalyticsId": "Google Analytics measurement ID",
+			"integrationName": "Integration name",
+			"enabled": "Enabled",
+			"placement": "Placement",
+			"head": "Head",
+			"body-start": "Body start",
+			"body-end": "Body end",
+			"customCode": "Custom code",
+			"remove": "Remove",
+			"addIntegration": "Add custom code",
+			"invalid": "Could not save. Check your settings and try again.",
+			"save": "Save",
+			"cancel": "Cancel",
+			"unpublish": "Unpublish website",
+			"unpublishTitle": "Unpublish website?",
+			"unpublishDescription": "Your website will go offline. You can publish it again at any time.",
+			"unpublishSuccess": "Website unpublished",
+			"unpublishFailed": "The website could not be unpublished. Refresh and try again.",
+			"pages": "Pages & SEO",
+			"pagesTitle": "Pages & SEO",
+			"pagesForm": {
+				"home": "Home",
+				"title": "Google title",
+				"description": "Google description",
+				"length": "{count}/{limit} characters",
+				"save": "Save"
+			}
+		}
+	},
+	"chats": {
+		"general": "General",
+		"marketing": "Marketing",
+		"finance": "Finance",
+		"sales": "Sales",
+		"customerService": "Customer service",
+		"research": "Research",
+		"global": "General",
+		"studio": "Studio",
+		"newChat": "New chat",
+		"history": "History",
+		"noHistory": "No previous chats",
+		"loadMore": "Load more",
+		"loadFailed": "Couldn’t load chat history.",
+		"retry": "Retry",
+		"startConversation": "Start a conversation",
+		"askAnything": "Ask me anything about your business and I'll help you out.",
+		"generalDescription": "Start a conversation with your AI assistant about general topics related to your business.",
+		"marketingDescription": "Get help with marketing strategies, campaigns, and promotional content for your business.",
+		"financeDescription": "Discuss financial planning, budgeting, and money management for your business.",
+		"salesDescription": "Get assistance with sales strategies, customer acquisition, and revenue growth.",
+		"customerServiceDescription": "Improve your customer service approach and handle customer inquiries effectively.",
+		"customerDescription": "Improve your customer service approach and handle customer inquiries effectively.",
+		"researchDescription": "Conduct research, analyze market trends, and gather insights for your business decisions.",
+		"globalDescription": "Start a conversation with your AI assistant about general topics related to your business.",
+		"studioDescription": "Generate images for your business.",
+		"placeholder": "How can starter help you?",
+		"collectBusinessInfoTool": {
+			"message": "To give you answers relevant to your business, can you describe your business and any products or services you offer?",
+			"inputPlaceholder": "Collect business info",
+			"success": "You can update your business details anytime in Settings.",
+			"openSettings": "Open settings",
+			"getAnswer": "Get answer",
+			"descriptionExists": "Your business information has been updated. Click below to continue with your personalized answer."
+		},
+		"error": "Looks like there was an error",
+		"rateLimit": {
+			"title": "You’ve hit your limit for messages sent.",
+			"description": "Please try again tomorrow at {date}"
+		},
+		"emailVerification": {
+			"title": "You need to verify your email",
+			"description": "Before using more of starter, you need to verify your email address",
+			"cta": "Verify email",
+			"sent": {
+				"title": "Verification email sent!",
+				"description": "Check your email for a verification link"
+			}
+		},
+		"viewReasoning": "View reasoning",
+		"businessDescriptionInput": {
+			"title": "To create better visuals for your business, can you <strong>describe your business</strong> and any products or services do you offer?",
+			"placeholder": "What’s your business about? What products or services do you offer?"
+		}
+	},
+	"notFound": {
+		"title": "Page not found",
+		"description": "Sorry, but the page you were looking for could not be found.",
+		"backHome": "Go back home"
+	},
+	"ai": {
+		"tools": {}
+	},
+	"dashboard": {
+		"home": {
+			"greeting": {
+				"morning": "Good morning",
+				"afternoon": "Good afternoon",
+				"evening": "Good evening"
+			},
+			"subtitle": "Here's a quick look at how things are going.",
+			"overview": {
+				"agents": "Agents",
+				"website": "Your website",
+				"editWebsite": "Edit website",
+				"createWebsite": "Create website",
+				"published": "Published",
+				"unpublished": "Unpublished changes",
+				"draft": "Draft",
+				"loading": "Loading your website…",
+				"error": "Your website couldn’t be loaded",
+				"retry": "Try again",
+				"inProgress": "Your website is taking shape",
+				"emptyTitle": "Your next chapter starts here",
+				"emptyDescription": "Create your website, then preview and manage it right here.",
+				"contacts": {
+					"title": "Contacts",
+					"action": "View contacts",
+					"empty": "No contacts yet."
+				},
+				"blog": {
+					"title": "Blog",
+					"action": "Manage posts",
+					"empty": "No blog posts yet."
+				},
+				"links": {
+					"title": "Links",
+					"action": "Edit links",
+					"empty": "No links yet."
+				},
+				"loadError": "Couldn’t load these items.",
+				"loadingRecords": "Loading…",
+				"untitled": "Untitled post"
+			},
+			"weather": {
+				"loading": "Loading weather…",
+				"unavailable": "Weather unavailable",
+				"source": "Weather by Open-Meteo"
+			}
+		}
+	},
+	"account": {
+		"settings": "Settings",
+		"logout": "Logout",
+		"notifications": "Notifications",
+		"login": {
+			"pageTitle": "Sign in | starter",
+			"title": "Continue to starter",
+			"description": "Log in or register with the options below",
+			"heroTitle": "Welcome to starter",
+			"heroSubtitle": "Sign in or create an account",
+			"homeLink": "Go to the home page",
+			"emailCta": "Continue with Email",
+			"backFromEmailStep": "Back",
+			"orDivider": "or",
+			"moreOptionsShow": "Show other options",
+			"moreOptionsHide": "Hide other options",
+			"emailContinue": "Continue",
+			"titleOtp": "Check your email",
+			"otpDescription": "Enter the verification code we sent to your email",
+			"otpRequestedRelative": "Code requested {relativeTime}",
+			"withEmail": "Sign in with email",
+			"withGoogle": "Continue with Google",
+			"lastUsed": "Last used",
+			"signingIn": "Signing in...",
+			"verifying": "Verifying...",
+			"verify": "Verify",
+			"orContinueWith": "Or continue with",
+			"noAccount": "Don't have an account? Sign up",
+			"backToEmail": "Back to email",
+			"otpSent": "Verification code sent to your email",
+			"loginSuccess": "Successfully logged in",
+			"legal": {
+				"prefix": "By signing in you agree to our",
+				"acknowledge": "By continuing, you acknowledge that you understand and agree to the",
+				"betweenClauses": " and ",
+				"ending": ".",
+				"terms": "Terms of service",
+				"termsPath": "Terms & Conditions",
+				"privacy": "Privacy policy",
+				"privacyPath": "Privacy Policy"
+			},
+			"messages": {
+				"emailFailed": "Unable to send a verification code. Please try again.",
+				"invalidOtp": "Invalid verification code. Please try again."
+			},
+			"fields": {
+				"email": {
+					"placeholder": "Email address",
+					"placeholderAlt": "Enter email address",
+					"label": "Email address",
+					"validation": {
+						"required": "Email is required",
+						"invalid": "Invalid email address"
+					}
+				},
+				"otp": {
+					"label": "Enter verification code"
+				}
+			}
+		},
+		"oauthConsent": {
+			"pageTitle": "Authorize access | starter",
+			"homeLink": "Go to the home page",
+			"title": "Authorize MCP access",
+			"description": "{clientName} wants to connect to starter.",
+			"unknownClient": "An MCP client",
+			"permissionsTitle": "This connection will be able to:",
+			"workspaceLabel": "Workspace",
+			"destinationLabel": "Returns to",
+			"workspaceNotice": "Access is limited to your active workspace.",
+			"scopes": {
+				"openid": "Identify your account",
+				"profile": "View your name and profile",
+				"email": "View your email address",
+				"offlineAccess": "Stay connected without asking again",
+				"mcp": "Use MCP tools in your active workspace"
+			},
+			"approve": "Authorize",
+			"deny": "Cancel",
+			"error": "This authorization request is invalid or has expired. Return to your MCP client and try again."
+		},
+		"signup": {
+			"title": "Create your account",
+			"withEmail": "Sign up with email",
+			"withGoogle": "Continue with Google",
+			"creatingAccount": "Creating account...",
+			"orContinueWith": "Or continue with",
+			"haveAccount": "Already have an account? Sign in",
+			"errors": {
+				"failedToCreate": "Failed to create account. Please try again."
+			},
+			"fields": {
+				"name": {
+					"placeholder": "Full name",
+					"label": "Full name",
+					"errors": {
+						"required": "Full name is required",
+						"tooShort": "Full name must be at least 2 characters"
+					}
+				},
+				"business": {
+					"placeholder": "Business name",
+					"label": "Business name",
+					"errors": {
+						"required": "Business name is required",
+						"tooShort": "Business name must be at least 2 characters"
+					}
+				},
+				"email": {
+					"placeholder": "Email address",
+					"label": "Email address",
+					"errors": {
+						"required": "Email is required",
+						"invalid": "Please enter a valid email address"
+					}
+				}
+			}
+		}
+	},
+	"organization": {
+		"organizations": "MyOlv",
+		"addOrganization": "Add workspace",
+		"switchOrganization": "Switch workspace",
+		"createOrganization": "Create workspace",
+		"errors": {
+			"failedToSwitch": "Failed to switch workspace",
+			"failedToCreate": "Failed to create workspace"
+		}
+	},
+	"onboarding": {
+		"title": "Tell us about your business",
+		"description": "Three quick questions. We’ll create your website and a matching Links page.",
+		"loadingInvitations": "Checking for pending invitations...",
+		"inviteTitle": "Join your team",
+		"inviteDescription": "We found invitations for {email}. Accept one to continue.",
+		"inviteEmpty": "No invitation found for this account.",
+		"inviteAction": "Accept invitation",
+		"inviteActionPending": "Joining...",
+		"inviteExpires": "Expires {date}",
+		"createAction": "Generate website & Links",
+		"messages": {
+			"loadInvitations": "We couldn't load your invitations.",
+			"acceptInvitation": "We couldn't accept that invitation.",
+			"createOrganization": "We couldn't create your workspace.",
+			"invalidName": "Enter your business name.",
+			"invalidLocation": "Enter your city or service area.",
+			"invalidType": "Enter your business type.",
+			"nameTooLong": "Use 100 characters or fewer.",
+			"locationTooLong": "Use 200 characters or fewer.",
+			"typeTooLong": "Use 120 characters or fewer.",
+			"setupFailed": "We couldn’t finish setup. Try again to continue with your workspace.",
+			"implausibleBrief": "Please describe your business a little more clearly so we can build the right website."
+		},
+		"fields": {
+			"name": {
+				"label": "What’s your business called?",
+				"placeholder": "e.g. Northstar Studio"
+			},
+			"location": {
+				"label": "Where is your business based?",
+				"placeholder": "e.g. Toronto, Canada"
+			},
+			"type": {
+				"label": "What does your business do?",
+				"placeholder": "e.g. Photography studio"
+			}
+		},
+		"next": "Continue",
+		"back": "Back",
+		"step": "Step {current} of {total}"
+	},
+	"acceptInvitation": {
+		"home": "Go to the home page",
+		"eyebrow": "Team invitation",
+		"title": "You're invited",
+		"titleWithOrganization": "Join {organizationName}",
+		"description": "You've been invited to join this workspace with {role} access. This invitation was sent to {email}.",
+		"descriptionFallback": "Accept this invitation to join the workspace.",
+		"defaultRole": "Member",
+		"roles": {
+			"owner": "Owner",
+			"admin": "Admin",
+			"member": "Member"
+		},
+		"accept": "Accept invitation",
+		"openWorkspace": "Open workspace",
+		"retry": "Try again",
+		"decline": "Decline",
+		"signInAsOther": "Sign in with a different account",
+		"success": "Welcome aboard!",
+		"rejected": "Invitation declined",
+		"signedInAs": "Signed in as {email}",
+		"mismatch": {
+			"title": "This invitation was sent to a different email",
+			"description": "You're signed in as {userEmail}. Sign in with the email address that received this invitation."
+		},
+		"unavailable": {
+			"title": "This invitation is no longer available",
+			"description": "The link may have expired, been canceled, or already been used. Ask the workspace owner for a new invitation."
+		},
+		"loadError": {
+			"title": "We couldn't load this invitation",
+			"description": "Please try again to check the invitation."
+		},
+		"messages": {
+			"acceptError": "We couldn't accept that invitation.",
+			"rejectError": "We couldn't decline that invitation.",
+			"activateError": "You've joined the workspace, but we couldn't open it. Try opening it again.",
+			"signOutError": "We couldn't sign you out. Please try again."
+		}
+	},
+	"globalError": {
+		"globalTitle": "Oops! Something went wrong.",
+		"globalDescription": "We apologize for the inconvenience. An unexpected error has occurred.",
+		"tryAgain": "Try again"
+	},
+	"components": {
+		"chat": {
+			"markdown": {
+				"downloadImage": "Download image",
+				"copyCode": "Copy code",
+				"downloadCode": "Download code",
+				"copy": "Copy table",
+				"copied": "Copied",
+				"download": "Download table",
+				"csv": "CSV",
+				"tsv": "TSV",
+				"md": "Markdown",
+				"viewFullscreen": "View fullscreen",
+				"exitFullscreen": "Exit fullscreen"
+			},
+			"chatInput": {
+				"placeholder": "How can I help you today?",
+				"writePrompt": "Write your prompt",
+				"plusMenu": {
+					"aria": "Add files, connectors, and more",
+					"addFiles": "Add files or photos",
+					"screenshot": "Take a screenshot",
+					"addToProject": "Add to project",
+					"currentProject": "Current project",
+					"createProject": "Create project",
+					"addFromGitHub": "Add from GitHub",
+					"skills": "Skills",
+					"skillCreator": "skill-creator",
+					"manageSkills": "Manage skills",
+					"addSkill": "Add skill",
+					"addConnectors": "Add connectors",
+					"research": "Research",
+					"webSearch": "Web search",
+					"useStyle": "Use style",
+					"concise": "Concise",
+					"explanatory": "Explanatory"
+				},
+				"attachment": {
+					"preview": "Preview {name}",
+					"remove": "Remove",
+					"close": "Close",
+					"closeImagePreview": "Close image preview",
+					"previewTitle": "Preview of {name}",
+					"previewAlt": "Preview of {name}",
+					"zeroLines": "0 lines",
+					"lineCount": "{count, plural, one {# line} other {# lines}}",
+					"fileExtensionFallback": "file",
+					"formattingDisclaimer": "Formatting may be inconsistent from source",
+					"loadingPreview": "Loading preview…",
+					"previewUnavailable": "Preview not available for this file type or size.",
+					"cardSummary": "{name}, {details}",
+					"uploading": "Uploading…",
+					"processing": "Indexing…",
+					"uploadFailed": "Upload failed"
+				},
+				"fileSize": {
+					"zero": "0 B",
+					"bytes": "{size} B",
+					"kilobytes": "{size} KB",
+					"megabytes": "{size} MB",
+					"gigabytes": "{size} GB"
+				},
+				"clarify": {
+					"back": "Back",
+					"continue": "Continue",
+					"dismiss": "Dismiss questions",
+					"finish": "Finish",
+					"freeTextPlaceholder": "Type your answer…",
+					"noQuestions": "No questions.",
+					"otherPlaceholder": "Describe in your own words",
+					"progress": "Question {current} of {total}",
+					"skip": "Skip"
+				}
+			},
+			"input": {
+				"stop": "Stop",
+				"send": "Send",
+				"attachFiles": "Attach files",
+				"chooseFiles": "Choose files",
+				"dropzone": "Chat file dropzone",
+				"dropActive": "Drop files to attach",
+				"fileReadFailed": "Could not read one of those files. Try again.",
+				"fileTooLarge": "Files must be {size} or smaller.",
+				"fileUploadFailed": "Could not upload one of those files.",
+				"removeFile": "Remove {filename}",
+				"tooManyFiles": "You can attach up to {count} files.",
+				"unsupportedFileType": "Only text-like files can be uploaded to knowledge right now.",
+				"uploaded": "Uploaded",
+				"uploadFailed": "Upload failed",
+				"uploading": "Uploading...",
+				"processing": "Indexing..."
+			},
+			"message": {
+				"copyToClipboard": "Copy to clipboard",
+				"copiedToClipboard": "Copied to clipboard",
+				"openuiConfirmExternal": "Open {host} in a new tab?",
+				"openuiError": "This interactive view couldn’t be rendered.",
+				"tool": {
+					"inputStreaming": "Preparing...",
+					"processing": "Processing...",
+					"noResults": "No results found",
+					"error": "This action couldn’t be completed.",
+					"searchingKnowledge": "Searching your knowledge…",
+					"approval": {
+						"title": "{action}?",
+						"description": "Review and approve this change before the agent applies it.",
+						"summary": {
+							"review": "Review this change before applying it.",
+							"publish": "Publish all current website and Brand changes.",
+							"updateBrand": "Update the website's Brand settings.",
+							"addSection": "Add a section at position {position}.",
+							"composeSection": "Add a custom section at position {position}.",
+							"modifySection": "Update the selected section.",
+							"nodes": "Update {count, plural, one {# page element} other {# page elements}}.",
+							"removed": "Remove {count, plural, one {# page element} other {# page elements}}.",
+							"copy": "Update text in {count, plural, one {# place} other {# places}}.",
+							"media": "Update {count, plural, one {# image} other {# images}}.",
+							"links": "Update {count, plural, one {# link} other {# links}}.",
+							"logicAdded": "Add interactive features to this section.",
+							"logicUpdated": "Update this section’s interactive features.",
+							"logicRemoved": "Remove this section’s interactive features.",
+							"scriptAdded": "Add a custom interaction to this section.",
+							"scriptUpdated": "Update this section’s custom interaction.",
+							"delete": "Permanently remove this section from the draft.",
+							"find-replace-text": "Replace matching text across the whole site.",
+							"move-down": "Move this section down one position.",
+							"move-up": "Move this section up one position.",
+							"swap-layout": "Change this section's layout.",
+							"update-text": "Replace the selected website copy.",
+							"deleteContact": "Permanently delete this contact.",
+							"changeLinkPageTheme": "Apply the {theme} theme to Links only, preserving your content and website Brand."
+						},
+						"approve": "Apply change",
+						"approveCount": "Apply {count} changes",
+						"deny": "Cancel",
+						"editCount": "{count, plural, one {# proposed change} other {# proposed changes}}",
+						"pendingCount": "{count, plural, one {# request pending} other {# requests pending}}",
+						"approveAll": "Apply all",
+						"denyAll": "Cancel all",
+						"contactFields": {
+							"name": "Name",
+							"email": "Email",
+							"phone": "Phone"
+						}
+					},
+					"webSearch": {
+						"searching": "Searching the web",
+						"sources": "{count, plural, one {# source} other {# sources}}",
+						"noResults": "No results found on the web",
+						"error": "Web search failed"
+					},
+					"askUserQuestions": {
+						"asking": "Waiting for your answers…",
+						"title": "Clarifying questions",
+						"answered": "{count, plural, one {# question answered} other {# questions answered}}",
+						"skipped": "Skipped",
+						"dismissed": "Questions dismissed"
+					},
+					"actions": {
+						"addWebsiteSection": "Add a website section",
+						"askUserQuestions": "Questions",
+						"buildWebsite": "Update website section",
+						"cancelWebsiteWorkflow": "Stop website creation",
+						"changeWebsiteTemplate": "Change website design",
+						"composeWebsiteSection": "Add a custom section",
+						"createContact": "Add contact",
+						"deleteContact": "Delete contact",
+						"editLinkPage": "Edit Links page",
+						"editWebsite": "Edit website",
+						"generateWebsite": "Create website",
+						"generateWebsiteLayout": "Change section layout",
+						"getBrand": "Brand details",
+						"getContact": "Contact details",
+						"getContactInquirySummary": "Inquiry summary",
+						"getDocument": "Document details",
+						"getLinkPage": "Links page",
+						"getWebsiteStatus": "Website progress",
+						"inspectTable": "Table details",
+						"inspectWebsite": "Website details",
+						"listBrandOptions": "Brand choices",
+						"listContacts": "Listed contacts",
+						"listDocuments": "Your documents",
+						"listWebsiteTemplates": "Website designs",
+						"previewWebsiteTemplate": "Preview website design",
+						"publishBrand": "Publish brand changes",
+						"publishLinkPage": "Publish Links page",
+						"publishWebsite": "Publish website",
+						"retrieveKnowledge": "Your documents",
+						"updateBrand": "Update brand",
+						"updateContact": "Update contact",
+						"webSearch": "Web search",
+						"other": "Review change",
+						"changeLinkPageTheme": "Change Links theme",
+						"recommendBrandAppearance": "Suggest brand appearance",
+						"recommendLinkPageTheme": "Suggest Links theme",
+						"findStockImage": "Find a suitable photo",
+						"listContactMessages": "Contact messages",
+						"triageContactMessage": "Suggest message category",
+						"createLibraryDocument": "Create document",
+						"editLibraryDocument": "Edit document",
+						"generateLibraryImage": "Generate image",
+						"getLibraryAsset": "Read library file",
+						"listLibraryAssets": "Browse library"
+					},
+					"cancelled": "Cancelled"
+				},
+				"status": {
+					"thinking": "Thinking…"
+				},
+				"file": {
+					"file": "File",
+					"attachment": "Attachment"
+				},
+				"linkPreview": {
+					"faviconAlt": "{siteName} favicon"
+				}
+			},
+			"errors": {
+				"alreadySubmitted": "That decision was already sent. Showing the latest state.",
+				"approvalExpired": "That approval expired. Review the request and try again.",
+				"continuationMismatch": "The request changed before your answer arrived. Review it and try again.",
+				"generic": "Something went wrong. Review the request and try again."
+			}
+		},
+		"table": {
+			"rowsPerPage": "Rows per page",
+			"selectResults": "Select number of results",
+			"dash": "-",
+			"of": "of",
+			"firstPage": "Go to first page",
+			"previousPage": "Go to previous page",
+			"nextPage": "Go to next page",
+			"lastPage": "Go to last page",
+			"filters": {
+				"ui": {
+					"searchPlaceholder": "Search...",
+					"clear": "Clear search",
+					"title": "Filters"
+				},
+				"values": {
+					"status": "Status",
+					"leadScore": "Lead Score"
+				}
+			},
+			"view": {
+				"title": "View",
+				"toggleColumns": "Toggle columns"
+			},
+			"delete": {
+				"button": "Delete",
+				"title": "Delete {count} items",
+				"description": "Are you sure you want to delete {count} items? You cannot undo this action.",
+				"cancel": "Cancel",
+				"confirm": "Delete"
+			},
+			"download": {
+				"button": "Download"
+			},
+			"selection": {
+				"selectAll": "Select all",
+				"selectNone": "Select none",
+				"selectAllNumber": "Select all {count}",
+				"selected": "{count} of {total} selected"
+			},
+			"noResults": "No results found."
+		}
+	},
+	"errorPage": {
+		"title": "Something went wrong",
+		"description": "It looks like there was an error, try reloading the page",
+		"reload": "Reload page"
+	},
+	"settings": {
+		"tabs": {
+			"profile": "General",
+			"display": "Display",
+			"organization": "Workspace",
+			"team": "Team",
+			"developers": "Developers",
+			"notifications": "Notifications"
+		},
+		"profile": {
+			"title": "Profile",
+			"description": "Manage your personal information and account details.",
+			"avatar": {
+				"title": "Avatar",
+				"description": "Your profile picture appears alongside your account.",
+				"hint": "Your initials are shown when no profile picture is available."
+			},
+			"displayName": {
+				"title": "Display Name",
+				"description": "Please enter your full name, or a display name you are comfortable with.",
+				"hint": "Please use 32 characters at maximum."
+			},
+			"email": {
+				"title": "Email",
+				"description": "The email address you use to sign in. It cannot be changed here.",
+				"hint": "This is your primary email address for notifications and more."
+			},
+			"fields": {
+				"name": "Name",
+				"namePlaceholder": "Enter your full name",
+				"email": "Email",
+				"emailHint": "Email cannot be changed. Contact support if you need to update it."
+			}
+		},
+		"organization": {
+			"name": {
+				"title": "Workspace name",
+				"description": "The name shown for your workspace in the app and in shared contexts.",
+				"hint": "Use the name teammates and customers recognize.",
+				"placeholder": "Acme Physiotherapy"
+			},
+			"logo": {
+				"title": "Logo",
+				"description": "Your business logo appears on your website and Links page.",
+				"hint": "SVG, PNG, JPG, WebP, AVIF or GIF up to 5 MB."
+			},
+			"empty": "No active workspace is selected. Switch or create a workspace to edit these settings.",
+			"members": {
+				"title": "Members and invitations",
+				"description": "Manage who can access this workspace.",
+				"roleDescription": "Owners can add, edit, and remove content. Admins can add and edit. Members can view only. Owner memberships cannot be changed.",
+				"email": "Email",
+				"invitationRole": "Invitation role",
+				"memberRole": "Role for {name}",
+				"invite": "Invite",
+				"remove": "Remove",
+				"removeMember": "Remove {name}",
+				"cancel": "Cancel invitation",
+				"cancelInvitation": "Cancel invitation for {email}",
+				"invitations": "Pending invitations",
+				"noInvitations": "No pending invitations.",
+				"loading": "Loading members…",
+				"loadFailed": "Unable to load members or invitations.",
+				"retry": "Retry",
+				"failed": "Unable to save this change. Check your permission and try again.",
+				"saved": "Workspace access updated.",
+				"previous": "Previous",
+				"next": "Next",
+				"confirmTitle": "Remove workspace access?",
+				"confirmDescription": "This removes the member or cancels the pending invitation.",
+				"confirm": "Confirm removal",
+				"back": "Back"
+			},
+			"readOnly": "Only workspace owners and admins can edit workspace details.",
+			"messages": {
+				"forbidden": "You do not have permission to update this workspace."
+			},
+			"delete": {
+				"title": "Delete workspace",
+				"description": "Permanently delete this workspace with its files, websites, domains and chats.",
+				"action": "Delete workspace",
+				"dialogTitle": "Delete this workspace?",
+				"dialogDescription": "Files, websites, connected domains and chats in {name} are permanently deleted. This cannot be undone. Type the workspace name to confirm.",
+				"confirmLabel": "Workspace name",
+				"confirmSubmit": "Delete permanently",
+				"error": "Unable to delete this workspace. Try again."
+			}
+		},
+		"team": {
+			"title": "Team",
+			"description": "Invite teammates and manage who has access to this workspace.",
+			"empty": {
+				"noOrganization": "No active workspace is selected. Switch or create a workspace to manage your team.",
+				"noMembers": "No teammates yet. Invite someone to get started."
+			},
+			"labels": {
+				"you": "(you)"
+			},
+			"roles": {
+				"owner": "Owner",
+				"admin": "Admin",
+				"member": "Member"
+			},
+			"status": {
+				"pending": "Invited",
+				"expired": "Expired"
+			},
+			"actions": {
+				"more": "More actions",
+				"menu": "Actions for {name}",
+				"resend": "Resend invitation",
+				"cancelInvitation": "Cancel invitation",
+				"remove": "Remove from team"
+			},
+			"invite": {
+				"cta": "Invite member",
+				"success": "Invitation sent to {email}",
+				"title": "Invite a teammate",
+				"description": "They'll receive an email with a link to join this workspace.",
+				"submit": "Send invitation",
+				"fields": {
+					"email": {
+						"label": "Email address",
+						"placeholder": "teammate@example.com"
+					},
+					"role": {
+						"label": "Role",
+						"placeholder": "Select a role",
+						"options": {
+							"member": "Member",
+							"admin": "Admin"
+						}
+					}
+				},
+				"errors": {
+					"required": "Email is required",
+					"invalidEmail": "Enter a valid email address"
+				}
+			},
+			"messages": {
+				"invite": "We couldn't send that invitation.",
+				"cancelInvitation": "We couldn't cancel that invitation.",
+				"resend": "We couldn't resend that invitation.",
+				"remove": "We couldn't remove that member."
+			},
+			"manage": {
+				"invitation": {
+					"title": "Manage invitation",
+					"description": "Resend or cancel the invitation sent to {email}.",
+					"resend": "Resend",
+					"cancel": "Cancel invitation",
+					"success": "Invitation canceled",
+					"resent": "Invitation resent to {email}"
+				},
+				"member": {
+					"title": "Remove teammate",
+					"description": "Are you sure you want to remove {name} from this team? They will immediately lose access.",
+					"remove": "Remove",
+					"success": "{name} has been removed"
+				}
+			},
+			"loading": "Loading team…",
+			"loadFailed": "Unable to load members or invitations.",
+			"retry": "Retry",
+			"failed": "Unable to save this change. Check your permission and try again.",
+			"saved": "Workspace access updated.",
+			"sent": "Invitation sent.",
+			"previous": "Previous",
+			"next": "Next",
+			"back": "Cancel",
+			"invitations": "Invitations",
+			"noInvitations": "No pending invitations.",
+			"removeMember": "Remove {name}",
+			"cancelInvitation": "Cancel invitation for {email}",
+			"manageAccess": {
+				"title": "Manage access",
+				"description": "Choose what {name} can do in this workspace.",
+				"save": "Save changes"
+			},
+			"roleDescriptions": {
+				"owner": "Full access to workspace content and settings. Owner memberships are protected.",
+				"admin": "Can add and edit content and manage teammates. Cannot remove content or grant ownership.",
+				"member": "Can view content, navigate, and preview. Cannot make changes."
+			},
+			"confirm": {
+				"removeTitle": "Remove teammate?",
+				"removeDescription": "{name} will lose access to this workspace.",
+				"cancelTitle": "Cancel invitation?",
+				"cancelDescription": "The invitation for {name} will stop working.",
+				"submit": "Confirm removal"
+			}
+		},
+		"developers": {
+			"apiKeys": {
+				"title": "API keys",
+				"description": "Keys for the REST API and MCP server, scoped to this workspace. Treat them like passwords.",
+				"create": "Create key",
+				"createTitle": "Create API key",
+				"createDescription": "The key is shown once after creation — store it somewhere safe.",
+				"createdTitle": "API key created",
+				"createdDescription": "Copy the key now. You won't be able to see it again.",
+				"name": "Name",
+				"namePlaceholder": "e.g. CI pipeline",
+				"empty": "No API keys yet. Create one to call the API or connect an MCP client.",
+				"unnamed": "Untitled key",
+				"createdOn": "Created {date}",
+				"expiresOn": "Expires {date}",
+				"revoke": "Revoke",
+				"revokeTitle": "Revoke API key",
+				"revokeDescription": "“{name}” will stop working immediately. This cannot be undone.",
+				"revoked": "API key revoked",
+				"createError": "Failed to create the API key.",
+				"revokeError": "Failed to revoke the API key.",
+				"loadError": "Failed to load API keys.",
+				"retry": "Retry",
+				"cancel": "Cancel",
+				"done": "Done"
+			},
+			"endpoints": {
+				"title": "API & MCP access",
+				"description": "MCP clients connect with OAuth 2.1. API keys remain available for REST and direct MCP access.",
+				"restBase": "REST API base URL",
+				"docs": "API reference",
+				"openapi": "OpenAPI specification",
+				"mcp": "MCP server",
+				"mcpConfig": "MCP client configuration"
+			},
+			"copy": "Copy"
+		},
+		"notifications": {
+			"title": "Notifications",
+			"description": "Choose where you get notified in this workspace."
+		}
+	},
+	"site": {
+		"brand": "starter",
+		"metadata": {
+			"title": "Say what you do. We build the rest.",
+			"description": "Starter turns one sentence about your business into a website, a links page, and a customer list, then keeps working to bring customers in."
+		},
+		"navbar": {
+			"home": "Home",
+			"platform": "Platform",
+			"howItWorks": "How it works",
+			"faqs": "FAQs",
+			"continue": "Get started",
+			"openMenu": "Open menu",
+			"closeMenu": "Close menu",
+			"mobileNavigation": "Mobile navigation",
+			"mobileNavigationDescription": "Explore Starter and start building your business",
+			"navigation": "Main navigation"
+		},
+		"hero": {
+			"promptLabel": "Describe your business",
+			"sentences": {
+				"bakery": "A family bakery in Amman",
+				"barber": "A barbershop in Manchester",
+				"florist": "A florist studio in Dubai"
+			},
+			"start": "Build my website",
+			"published": "Homepage published",
+			"live": "Live",
+			"enquiry": "New enquiry",
+			"enquiryFrom": "Maya L.",
+			"enquiryMessage": "Do you make gift boxes for the holidays?",
+			"sites": {
+				"bakery": {
+					"name": "Crumb & Crust",
+					"navigation": "Breads · Pastries · Visit",
+					"headline": "Baked before sunrise.",
+					"cta": "See today’s bakes",
+					"address": "crumbandcrust.com",
+					"alt": "Loaves of artisan bread on wooden shelves"
+				},
+				"barber": {
+					"name": "Northline",
+					"navigation": "Services · Book",
+					"headline": "Sharp cuts. Easy chairs.",
+					"cta": "Book a chair",
+					"alt": "A barber styling a customer’s hair"
+				},
+				"ceramics": {
+					"name": "Kiln House",
+					"navigation": "Shop · Classes",
+					"headline": "Made slowly, by hand.",
+					"cta": "Shop the collection",
+					"alt": "Handmade ceramic bowls in a pottery studio"
+				}
+			},
+			"titlePrefix": "The AI platform businesses use to",
+			"phrases": {
+				"found": "get found online.",
+				"booked": "get more bookings.",
+				"repeat": "win repeat customers.",
+				"grow": "grow their business."
+			}
+		},
+		"owners": {
+			"eyebrow": "Who it’s for",
+			"title": "Made for the people who keep main street running.",
+			"description": "Bakers, barbers, florists, mechanics. Starter is built for businesses that live on customers walking in, calling, and coming back.",
+			"items": {
+				"baker": {
+					"trade": "Bakery",
+					"alt": "A baker in an apron standing in his bakery"
+				},
+				"barber": {
+					"trade": "Barbershop",
+					"alt": "A smiling barber standing beside his chair"
+				},
+				"florist": {
+					"trade": "Florist",
+					"alt": "A florist wrapping a bouquet in her shop"
+				},
+				"tailor": {
+					"trade": "Tailoring",
+					"alt": "A tailor in a vest working in his studio"
+				},
+				"mechanic": {
+					"trade": "Auto repair",
+					"alt": "A mechanic standing in his garage"
+				},
+				"ceramicist": {
+					"trade": "Ceramics",
+					"alt": "A potter shaping clay on a wheel"
+				},
+				"cafe": {
+					"trade": "Café",
+					"alt": "A café owner standing behind her counter"
+				},
+				"grocer": {
+					"trade": "Grocer",
+					"alt": "A grocer smiling among the shelves of her store"
+				}
+			}
+		},
+		"links": {
+			"eyebrow": "Links",
+			"title": "One link for everything you do.",
+			"description": "Your bio link, in your brand. Bookings, menus, and products one tap away, styled to match your website.",
+			"items": {
+				"bakery": {
+					"name": "Crumb & Crust",
+					"tagline": "Sourdough bakery, Amman",
+					"bio": "Baked before sunrise, every day.\nCakes made to order, two days’ notice.\nWalk in, or order below.",
+					"links": {
+						"first": "Order a birthday cake",
+						"second": "This week’s menu",
+						"third": "Find the bakery"
+					}
+				},
+				"barber": {
+					"name": "Northline",
+					"tagline": "Walk-ins welcome",
+					"bio": "Sharp cuts, hot towels, good conversation.\nOpen late on Thursdays.",
+					"links": {
+						"first": "Book a chair",
+						"second": "Cuts, shaves, and prices",
+						"third": "Gift cards"
+					}
+				},
+				"florist": {
+					"name": "Stem & Story",
+					"tagline": "Florist studio",
+					"bio": "Seasonal flowers, arranged by hand.\nWeekly subscriptions and weekend workshops.",
+					"links": {
+						"first": "Book a workshop",
+						"second": "Shop this week’s bouquets",
+						"third": "Wedding enquiries"
+					}
+				},
+				"ceramics": {
+					"name": "Kiln House",
+					"tagline": "Small-batch stoneware",
+					"bio": "Made slowly, by hand.\nNew pieces every month. Wheel classes on Saturdays.",
+					"links": {
+						"first": "Shop the collection",
+						"second": "Join a wheel class",
+						"third": "Visit the studio"
+					}
+				}
+			}
+		},
+		"platform": {
+			"eyebrow": "All in one place",
+			"title": "Everything you need to launch and grow.",
+			"lead": "A website, a links page, an assistant, and a customer list, built from one sentence about your business and kept up to date as it changes. No designer, no developer, no separate tools.",
+			"website": {
+				"title": "A website from a single sentence.",
+				"features": {
+					"written": "Written for you, in your voice",
+					"mobile": "Looks right on every phone",
+					"search": "Built to show up on Google and in AI search",
+					"domain": "Your own domain",
+					"analytics": "Simple analytics"
+				},
+				"description": "Tell us what you do. We write the words, choose the look, and build pages designed to turn visitors into customers."
+			},
+			"assistant": {
+				"prompt": "Write a post announcing our new country sourdough.",
+				"draft": "Draft post",
+				"reply": "Baked before sunrise, on the shelf by seven. Our new country sourdough is here, and it goes fast.",
+				"channels": "Instagram · Facebook",
+				"title": "An assistant that knows your business.",
+				"features": {
+					"voice": "Posts and offers in your voice",
+					"replies": "Replies to enquiries for you",
+					"knows": "Knows your hours, prices, and services"
+				},
+				"description": "Posts, offers, and replies written in your voice, so your time goes to customers."
+			},
+			"links": {
+				"title": "A links page that looks like you.",
+				"features": {
+					"actions": "Bookings, products, and socials",
+					"brand": "Matches your website’s look",
+					"bio": "One link for every bio"
+				},
+				"description": "One link for your bio, with bookings, products, and socials in your brand."
+			},
+			"contacts": {
+				"people": {
+					"first": {
+						"initial": "M",
+						"name": "Maya L.",
+						"source": "Website form",
+						"detail": "Do you make gift boxes for the holidays?",
+						"time": "2m"
+					},
+					"second": {
+						"initial": "S",
+						"name": "Sam R.",
+						"source": "Booking",
+						"detail": "Birthday cake, Saturday pickup",
+						"time": "1h"
+					},
+					"third": {
+						"initial": "A",
+						"name": "Alex M.",
+						"source": "Links page",
+						"detail": "Sourdough subscription, every Friday",
+						"time": "Yesterday"
+					}
+				},
+				"title": "Every customer, in one place.",
+				"features": {
+					"captured": "Every enquiry and booking captured",
+					"notes": "Notes on every customer",
+					"followups": "Follow-ups that don’t slip"
+				},
+				"description": "Every enquiry, booking, and customer in one place, so nobody slips through the cracks."
+			},
+			"domain": {
+				"description": "Buy a new domain or connect one you already own, and publish with confidence.",
+				"query": "crumbandcrust",
+				"domains": {
+					"first": "crumbandcrust.com",
+					"second": "crumbandcrust.bakery",
+					"third": "crumbandcrust.shop"
+				},
+				"connected": "Connected",
+				"available": "Available",
+				"action": "Get",
+				"title": "Your name on the door.",
+				"features": {
+					"buy": "Buy a new domain or connect one you own",
+					"dns": "DNS set up for you",
+					"live": "Live in minutes"
+				}
+			}
+		},
+		"facts": {
+			"eyebrow": "Why it works",
+			"title": "Three things that bring customers in.",
+			"items": {
+				"found": {
+					"value": "Found",
+					"label": "Pages built to show up on Google and in AI search when people look for what you do."
+				},
+				"chosen": {
+					"value": "Chosen",
+					"label": "A site that looks like your work, with bookings, menus, and prices one tap away."
+				},
+				"remembered": {
+					"value": "Remembered",
+					"label": "Every customer kept in one list, so the next offer, reminder, or thank-you is easy."
+				}
+			}
+		},
+		"howItWorks": {
+			"eyebrow": "How it works",
+			"title": "From idea to open for business.",
+			"description": "You don’t need a technical background or a spare weekend. Start with what you know best: your business.",
+			"steps": {
+				"describe": {
+					"number": "01",
+					"title": "Tell us what you do.",
+					"description": "Share your business and a few details. We find the words and the look."
+				},
+				"make": {
+					"number": "02",
+					"title": "Make it yours.",
+					"description": "Adjust the words, colors, and photos until it feels like your place."
+				},
+				"grow": {
+					"number": "03",
+					"title": "Open your doors online.",
+					"description": "Publish, share your link, and let customers find you, book you, and come back."
+				}
+			},
+			"imageAlt": "A shop owner hanging an open sign on a blue door"
+		},
+		"faqs": {
+			"eyebrow": "Questions",
+			"title": "Good questions. Straight answers.",
+			"items": {
+				"start": {
+					"question": "How fast can I be online?",
+					"answer": "Minutes. Describe your business and Starter builds a first version. Adjust what you like and publish when you’re ready."
+				},
+				"replace": {
+					"question": "Can I make the website my own?",
+					"answer": "Yes. Edit your words, images, colors, fonts, and page sections. You can preview your changes before publishing."
+				},
+				"ai": {
+					"question": "What else does Starter do?",
+					"answer": "Alongside your website, Starter gives you a links page, a customer list, posts and offers written in your voice, and an assistant that knows your business."
+				},
+				"production": {
+					"question": "Can I connect my own domain?",
+					"answer": "Yes. Connect a domain you already own from your website settings. You’ll get the DNS instructions needed to point it to your published website."
+				}
+			}
+		},
+		"cta": {
+			"title": "Your next customer is searching.",
+			"titleAccent": "Let’s make sure they find you.",
+			"description": "A website, a links page, and a customer list, built from one sentence. Your business starts here.",
+			"start": "Build my website",
+			"reassurance": "Ready in minutes. Yours to change any time."
+		},
+		"footer": {
+			"tagline": "For the business only you can build.",
+			"sections": {
+				"product": "Product",
+				"help": "Help",
+				"app": "Account"
+			},
+			"links": {
+				"home": "Home",
+				"platform": "Platform",
+				"links": "Links",
+				"howItWorks": "How it works",
+				"faqs": "FAQs",
+				"signIn": "Sign in",
+				"dashboard": "Your dashboard",
+				"privacy": "Privacy policy",
+				"terms": "Terms of service",
+				"templates": "Templates"
+			},
+			"note": "Every website, links page, and word on this site was made with Starter, from a single sentence."
+		}
+	},
+	"legal": {
+		"lastUpdated": "Last updated: {date}",
+		"company": "[Company legal name]",
+		"address": "[Registered address]",
+		"privacyEmail": "[Privacy contact email]",
+		"legalEmail": "[Legal contact email]"
+	},
+	"privacy": {
+		"title": "Privacy Policy",
+		"description": "How we collect, use, share, and keep information about you and the visitors to the websites you publish.",
+		"intro": "This Privacy Policy describes how {company} (\"we,\" \"us,\" or \"our\") collects, uses, and shares information about you when you use {service} and our related websites, applications, and services (collectively, the \"Services\") or when you otherwise interact with us.",
+		"collect": {
+			"heading": "Information We Collect",
+			"intro": "We collect information you provide directly to us, including:",
+			"items": {
+				"0": "Account details: your name, email address, and, if you sign in with Google, your profile image",
+				"1": "Workspace and business details you enter, such as your business name, address, and the people you invite",
+				"2": "Content you create or upload, including website, links page, and blog content, files, and messages you send to the assistant",
+				"3": "Messages you send us"
+			},
+			"outro": "You choose what content you add to the Services. Do not upload information you have no right to share."
+		},
+		"collectAutomatically": {
+			"heading": "Information We Collect Automatically",
+			"intro": "When you access or use our Services, we automatically collect certain information, including:",
+			"items": {
+				"log": {
+					"label": "Log Information:",
+					"text": "We collect information about your use of the Services, including the type of browser you use, access times, pages viewed, your IP address, and the page you visited before navigating to our Services."
+				},
+				"device": {
+					"label": "Device Information:",
+					"text": "We collect information about the computer or mobile device you use to access our Services, including the hardware model, operating system and version, unique device identifiers, and mobile network information."
+				},
+				"location": {
+					"label": "Location Information:",
+					"text": "We may derive your approximate location from your IP address."
+				}
+			}
+		},
+		"use": {
+			"heading": "Use of Information",
+			"intro": "We use the information we collect to:",
+			"items": {
+				"0": "Provide, maintain, and secure the Services",
+				"1": "Send you sign-in codes, workspace invitations, and security notices",
+				"2": "Operate AI features by sending your prompts and content to the AI providers listed below",
+				"3": "Measure usage and diagnose errors",
+				"4": "Prevent abuse and enforce our Terms of Service"
+			}
+		},
+		"sharing": {
+			"heading": "Sharing of Information",
+			"intro": "We may share information about you as follows or as otherwise described in this Privacy Policy:",
+			"items": {
+				"0": "With the service providers listed below",
+				"1": "With people you invite to your workspace",
+				"2": "With visitors, for content you choose to publish",
+				"3": "In response to a request for information if we believe disclosure is in accordance with, or required by, any applicable law, regulation, or legal process",
+				"4": "If we believe your actions are inconsistent with our user agreements or policies, or to protect the rights, property, and safety of us or others",
+				"5": "In connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business by another company",
+				"6": "With your consent or at your direction"
+			}
+		},
+		"visitors": {
+			"heading": "Visitors to Websites You Publish",
+			"body": "When you publish a website, you decide why and how the personal information of its visitors is processed, and we process it on your behalf. This includes contact form submissions (name, email address, phone number, and message) and website analytics. Website analytics use a random first-party visitor identifier, honor Do Not Track and Global Privacy Control, and do not store raw IP addresses or full user agents."
+		},
+		"processors": {
+			"heading": "Service Providers",
+			"intro": "We rely on these service providers to run the Services. They process information on our behalf:",
+			"items": {
+				"0": "Vercel, for hosting, file storage, domains and DNS, performance measurement, and bot protection",
+				"1": "Our managed database and cache hosting providers, for storing account, workspace, and content data",
+				"2": "Resend, for sending email",
+				"3": "Google, for sign-in if you choose it and for business address lookups",
+				"4": "AI model providers reached through Vercel AI Gateway, currently OpenAI, Google, Anthropic, and DeepSeek, plus AI quality-check services",
+				"5": "PostHog, for product analytics and error reporting, and Tinybird, for analytics of published websites",
+				"6": "Firecrawl, for web search, and Unsplash and Pexels, for stock photo search"
+			}
+		},
+		"retention": {
+			"heading": "Data Retention",
+			"body": "We keep raw website analytics events for 90 days and aggregated website analytics for 13 months. We keep other account and workspace data until you ask us to delete it. Workspace owners can delete a workspace from its settings, and you can ask us to delete your account by emailing the privacy address below. We may keep some records where the law requires it."
+		},
+		"rights": {
+			"heading": "Your Rights and Choices",
+			"body1": "You have the right to access, correct, or delete your personal information. You may also have the right to restrict or object to certain processing of your information. To exercise these rights, email the privacy address shown under Contact Us.",
+			"body2": "You may opt out of receiving promotional communications from us by following the instructions in those messages. If you opt out, we may still send you non-promotional communications, such as those about your account or our ongoing business relations."
+		},
+		"cookies": {
+			"heading": "Cookies and Similar Technologies",
+			"body": "We use necessary cookies to keep you signed in and to remember your active workspace, your language and theme preferences, and the sign-in method you last used. We also use analytics: PostHog stores identifiers in cookies or local storage, and when you are signed in we associate that activity with your account ID, name, and email address; Vercel Speed Insights measures page performance. These run whenever you use the Services. You can clear or block cookies in your browser, but blocking necessary cookies stops sign-in from working."
+		},
+		"security": {
+			"heading": "Security",
+			"body": "We take reasonable measures to help protect information about you from loss, theft, misuse, and unauthorized access, disclosure, alteration, and destruction. However, no internet or email transmission is ever fully secure or error-free."
+		},
+		"children": {
+			"heading": "Children's Privacy",
+			"body": "Our Services are not directed to children under 16, and we do not knowingly collect personal information from children under 16. If we learn that we have collected personal information from a child under 16, we will take steps to delete such information."
+		},
+		"international": {
+			"heading": "International Data Transfers",
+			"body": "Our service providers may process information in the United States and other countries where they or their sub-processors operate."
+		},
+		"changes": {
+			"heading": "Changes to This Policy",
+			"body": "We may change this Privacy Policy from time to time. If we make changes, we will notify you by revising the date at the top of the policy and, in some cases, we may provide you with additional notice (such as adding a statement to our homepage or sending you a notification)."
+		},
+		"contact": {
+			"heading": "Contact Us",
+			"body": "If you have any questions about this Privacy Policy or want to exercise your rights, contact us at"
+		}
+	},
+	"terms": {
+		"title": "Terms of Service",
+		"description": "The terms that govern your use of the Services, including your content, AI features, custom domains, and acceptable use.",
+		"intro": "These Terms of Service (the \"Terms\") govern your access to and use of {service} and our related websites, applications, and services (the \"Services\"), which are operated by {company} (\"we,\" \"us,\" or \"our\"). By creating an account or using the Services, you agree to these Terms and to our Privacy Policy.",
+		"sections": {
+			"acceptance": {
+				"heading": "Acceptance of These Terms",
+				"body": "The Services are operated by {company}. By creating an account or using the Services, you agree to these Terms. If you use the Services on behalf of an organization, you confirm that you are authorized to bind that organization to these Terms. You must be at least 16 years old to use the Services."
+			},
+			"service": {
+				"heading": "The Services",
+				"body": "{service} is an AI-assisted website builder that includes websites, links pages, a blog, a customer inbox, custom domains, analytics, an AI assistant, and API and MCP access. We may add, change, or remove features over time. Some features rely on third-party providers, which are listed in our Privacy Policy."
+			},
+			"accounts": {
+				"heading": "Your Account",
+				"body": "You sign in without a password, using a one-time code sent to your email address or your Google account, so you must keep control of that email address or Google account. You are responsible for activity in your account and for any API keys and MCP connections you create. Workspace owners manage roles and invitations for their workspace. Tell us promptly if you believe someone has used your account without permission."
+			},
+			"content": {
+				"heading": "Your Content",
+				"body": "You own the content you add to the Services. You grant us a license to host, store, process, translate, display, and publish that content as needed to provide the Services and as you direct. You are responsible for having the rights to your content and for making sure it is lawful. Websites and links pages you publish are public on the internet. Review generated drafts before you publish them."
+			},
+			"ai": {
+				"heading": "AI Features",
+				"body": "AI output can be inaccurate, incomplete, or similar to output generated for others, and it is not professional advice. Your prompts and content are processed by the AI providers listed in our Privacy Policy. Do not submit information you have no right to share."
+			},
+			"domains": {
+				"heading": "Custom Domains",
+				"body": "Connect only domains you own or control. We verify ownership using DNS records we give you. You are responsible for your DNS settings, renewals, and your registrar's terms. Where domain registration is offered through our provider, it is subject to that provider's terms. We may disconnect a domain that fails verification or is used in breach of these Terms."
+			},
+			"acceptableUse": {
+				"heading": "Acceptable Use",
+				"body": "You will not use the Services to publish or send content that is unlawful, infringing, deceptive, harassing, hateful, or sexually exploitative; to run phishing, spread malware, or impersonate others; or to send unsolicited bulk messages through contact forms. You will not probe, attack, or overload the Services, bypass limits or access controls, or abuse API or MCP access."
+			},
+			"reporting": {
+				"heading": "Reporting and Enforcement",
+				"body": "To report content or infringement, contact us using the details below and include the URL and a description of the problem. We may remove content, disable a website or links page, or suspend or terminate accounts that break these Terms or the law. We do not review all content in advance."
+			},
+			"siteVisitors": {
+				"heading": "Your Website Visitors",
+				"body": "You are responsible for giving the visitors to your websites any notices and obtaining any consents they are owed, and for using contact form submissions and analytics from your websites lawfully. We process that data on your behalf as described in our Privacy Policy."
+			},
+			"fees": {
+				"heading": "Fees",
+				"body": "[Fees and billing statement]"
+			},
+			"termination": {
+				"heading": "Ending Your Use",
+				"body": "You may stop using the Services at any time and can ask us to delete your account and workspace data by contacting us. We may suspend or end your access for violations of these Terms, for security reasons, or for legal reasons, and may then disable your published websites and links pages."
+			},
+			"disclaimers": {
+				"heading": "Disclaimers",
+				"body": "[Disclaimer of warranties]"
+			},
+			"liability": {
+				"heading": "Limitation of Liability",
+				"body": "[Limitation of liability]"
+			},
+			"law": {
+				"heading": "Governing Law",
+				"body": "[Governing law jurisdiction and venue]"
+			},
+			"changes": {
+				"heading": "Changes to These Terms",
+				"body": "We may update these Terms and will show the new date at the top of this page. For material changes, we may also notify you in the product or by email. If you continue to use the Services after a change, you accept the updated Terms. We record the version in effect when your account is created."
+			}
+		},
+		"contact": {
+			"heading": "Contact Us",
+			"body": "For legal notices, questions about these Terms, or reports of content that breaks them, contact us at"
+		}
+	},
+	"templates": {
+		"index": {
+			"title": "Website templates",
+			"description": "Browse ready-made website templates for small businesses, each available in English and Arabic, then build your own site from a single sentence.",
+			"heading": "Website templates",
+			"intro": "Each template is a complete, bilingual home page with its own layout, colors, and type. Pick a starting point and make it yours.",
+			"view": "View template"
+		},
+		"detail": {
+			"cta": "Build your website",
+			"backToGallery": "All templates"
+		},
+		"items": {
+			"airy-spacious": {
+				"name": "Airy Spacious",
+				"title": "Airy Spacious: a bright template for guides and tour operators",
+				"description": "A light, image-led website template for guides, tour operators, and outdoor studios, with a full-bleed hero, team grid, gallery, and quotes.",
+				"summary": "Airy Spacious opens on a full-bleed photo hero and lets imagery lead. A scroll-reveal manifesto, sticky-image feature list, staggered team grid, centered quote carousel, and editorial bento gallery suit businesses that sell an experience, finishing with a large contact section."
+			},
+			"midnight-aurora": {
+				"name": "Midnight Aurora",
+				"title": "Midnight Aurora: a template for advisors and professional firms",
+				"description": "A polished website template for advisory and professional service firms, with a service carousel, plan comparison, team, reviews, and maps.",
+				"summary": "Midnight Aurora pairs a bento-grid hero with a carousel of services, key figures, and a client logo grid. Plan cards, a ruled team grid, rated testimonials, FAQs, and two map layouts give advisory and professional firms room to explain what they offer and where to find them."
+			},
+			"paw-voyage": {
+				"name": "Paw Voyage",
+				"title": "Paw Voyage: a friendly template for owner-run service businesses",
+				"description": "A warm website template for owner-run service businesses, with a step-by-step process, one clear price, a founder profile, and FAQs.",
+				"summary": "Paw Voyage is built for a business with one person behind it. A split photo hero leads into numbered how-it-works cards, a feature carousel, headline figures, a single pricing plan, and a founder profile, followed by a full-screen testimonial slider, an image FAQ, and contact links."
+			}
+		}
+	},
+	"contacts": {
+		"latestMessage": "Latest message",
+		"messages": "Messages",
+		"messageDate": "Date",
+		"messageDetails": "Message details",
+		"triageAction": "Suggest category and urgency",
+		"triageUnavailable": "A suggestion is unavailable. Review the original message or try again.",
+		"triageBadges": "AI triage",
+		"spamFlag": "Flagged as spam",
+		"triageCategories": {
+			"sales": "Sales inquiry",
+			"support": "Customer support",
+			"booking": "Booking",
+			"feedback": "Feedback",
+			"other": "Other inquiry",
+			"unknown": "Unknown category"
+		},
+		"triageUrgencies": {
+			"routine": "Routine",
+			"timeSensitive": "Time-sensitive",
+			"unknown": "Unknown urgency"
+		},
+		"noMessages": "No messages yet.",
+		"moreMessages": "Load more messages",
+		"actions": "Contact actions",
+		"save": "Save changes",
+		"deleteContact": "Delete contact",
+		"deleteDescription": "Delete {name}? This cannot be undone.",
+		"updateFailed": "Could not save changes. Check whether the email already exists and try again.",
+		"deleteFailed": "Could not delete this contact. Please try again.",
+		"activity": "Activity",
+		"contactCreated": "Contact created",
+		"message": "Message",
+		"call": "Call",
+		"title": "Contacts",
+		"contact": "Contact",
+		"newContact": "New contact",
+		"new": "New",
+		"addContact": "Add contact",
+		"name": "Name",
+		"email": "Email",
+		"phone": "Phone",
+		"createdAt": "Date added",
+		"search": "Search contacts…",
+		"filters": {
+			"trigger": "Filter",
+			"triggerLabel": "Filter contacts, {count} active",
+			"title": "Filter contacts",
+			"description": "Narrow the list by contact details.",
+			"contactMethod": "Contact method",
+			"missing": "Missing details",
+			"triageCategory": "AI category",
+			"spam": "Spam",
+			"onlySpam": "Only messages flagged as spam",
+			"clear": "Clear"
+		},
+		"details": "Details",
+		"close": "Close",
+		"cancel": "Cancel",
+		"loading": "Loading…",
+		"retry": "Try again",
+		"loadMore": "Load more",
+		"loadFailed": "Could not load contacts. Please try again.",
+		"saveFailed": "Could not add this contact. Check whether the email already exists and try again.",
+		"noResults": "No contacts found",
+		"trySearch": "Try another search or clear your filters.",
+		"empty": "You don't have any contacts, yet.",
+		"add": {
+			"name": "Add name",
+			"email": "Add email",
+			"phone": "Add phone number"
+		}
+	},
+	"blog": {
+		"actions": "Blog actions",
+		"generateDescription": "Describe the article you want to write.",
+		"title": "Blog",
+		"newPost": "New Post",
+		"editPost": "Edit post",
+		"search": "Search",
+		"filter": "Filter",
+		"all": "All posts",
+		"draft": "Draft",
+		"published": "Published",
+		"writing": "Writing…",
+		"failed": "Generation failed",
+		"unpublishedChanges": "Unpublished changes",
+		"publishedDate": "Published {date}",
+		"untitled": "Untitled post",
+		"loadError": "Could not load your posts.",
+		"retry": "Retry",
+		"loading": "Loading…",
+		"noResults": "No posts match your search.",
+		"pagination": "Blog pagination",
+		"previous": "Previous",
+		"next": "Next",
+		"createDescription": "Start writing or generate a bilingual draft for your business.",
+		"blankDraft": "Start a blank draft",
+		"topic": "Topic",
+		"instructions": "Instructions (optional)",
+		"generate": "Generate draft",
+		"creating": "Creating…",
+		"uploadImage": "Upload image",
+		"uploading": "Uploading…",
+		"imageError": "Choose a JPEG, PNG, WebP, or AVIF image under 5 MB and try again.",
+		"body": "Article body",
+		"formatting": "Text formatting",
+		"bold": "Bold",
+		"italic": "Italic",
+		"heading": "Heading",
+		"bulletList": "Bullets",
+		"orderedList": "Numbered list",
+		"quote": "Quote",
+		"undo": "Undo",
+		"redo": "Redo",
+		"linkImage": "Link / image",
+		"linkUrl": "Link URL",
+		"insertLink": "Link",
+		"removeLink": "Unlink",
+		"back": "Back to Blog",
+		"saved": "Saved",
+		"saving": "Saving…",
+		"unsaved": "Unsaved changes",
+		"saveError": "Could not save. Your changes are still here. Retry saving before publishing.",
+		"preview": "Preview",
+		"save": "Save",
+		"update": "Update published post",
+		"publish": "Publish",
+		"language": "Content language",
+		"en": "English",
+		"ar": "العربية",
+		"translate": "Generate translation",
+		"bilingualRequired": "Every language needs a title, article text, and cover description before publishing.",
+		"postTitle": "Title",
+		"settings": "Post settings",
+		"slug": "URL slug",
+		"excerpt": "Excerpt",
+		"seoTitle": "SEO title",
+		"seoDescription": "SEO description",
+		"cover": "Cover image",
+		"coverAlt": "Cover description",
+		"removeImage": "Remove image",
+		"unpublish": "Unpublish",
+		"delete": "Delete post",
+		"deleteDescription": "Delete this post and remove it from your website? This cannot be undone.",
+		"replaceDescription": "Generate a new bilingual draft. This replaces the editable content in both languages; your published article stays available until you publish the update.",
+		"generationFailed": "Generation failed.",
+		"documentLimit": "This change exceeds the supported document limits and was not inserted. Shorten the content or simplify its formatting.",
+		"emptyTitle": "No posts yet"
+	},
+	"editorRecovery": {
+		"conflict": "This draft changed elsewhere. Load the latest version to continue; your draft will remain available to download.",
+		"request": "Could not save. Your changes are still here.",
+		"recovered": "Your previous draft is available to download.",
+		"loadLatest": "Load latest",
+		"retry": "Retry saving",
+		"download": "Download your draft",
+		"dismiss": "Dismiss"
+	},
+	"seoGeo": {
+		"title": "SEO & GEO",
+		"headline": "Get discovered by customers",
+		"description": "The easier you are to find on Google and in AI answers like ChatGPT, the more customers reach you. Follow the steps below to raise your score.",
+		"pageChecks": "Page checks",
+		"pageChecksDescription": "{count} localized website pages checked",
+		"publishToCheck": "Publish your website to check its pages.",
+		"noMetadataIssues": "No page content issues found in the published website pages.",
+		"issue": {
+			"missingTitle": "Missing page title",
+			"missingDescription": "Missing page description",
+			"duplicateTitle": "Duplicate page title",
+			"missingH1": "Missing main heading",
+			"multipleH1": "Multiple main headings"
+		},
+		"fixPage": "Fix page",
+		"viewTraffic": "View traffic",
+		"createWebsite": "Create website",
+		"noWebsite": "Create a website to start improving how customers find you.",
+		"loading": "Loading search readiness",
+		"unavailable": "Search readiness is unavailable. Try again later.",
+		"promptExplorer": {
+			"title": "AI answers",
+			"description": "Sample AI answers for {location}.",
+			"loadingDescription": "Preparing local AI answers.",
+			"loading": "Comparing AI answers",
+			"question": "Customer question",
+			"providers": "AI providers",
+			"placeholder": "What would a customer ask about your business?",
+			"run": "Compare answers",
+			"sample": "Model sample",
+			"withSources": "Checked with web sources",
+			"sources": "Sources used",
+			"draftPost": "Draft a post",
+			"lastChecked": "Checked {date}",
+			"recentChecks": "Recent mentions",
+			"mentioned": "Brand mentioned",
+			"notMentioned": "Brand not mentioned",
+			"emptyAnswer": "No answer returned.",
+			"modelError": "This model could not answer right now.",
+			"sampleError": "This question could not be compared right now.",
+			"error": "Answers are unavailable or the hourly limit was reached. Try again later.",
+			"model": {
+				"openai": "OpenAI",
+				"gemini": "Gemini",
+				"claude": "Claude"
+			}
+		},
+		"searchConsole": {
+			"title": "Google Search",
+			"description": "How customers find your website in Google Search.",
+			"connect": "Connect Search Console",
+			"connecting": "Connecting…",
+			"noDomain": "Connect a primary domain to see Google Search performance.",
+			"propertyMissing": "Your Google account does not have a Search Console property for this domain.",
+			"unavailable": "Search Console data is unavailable right now.",
+			"clicks": "Search clicks",
+			"impressions": "Search appearances",
+			"period": "{start} – {end}",
+			"topQueries": "Searches that found you"
+		},
+		"close": "Close",
+		"score": {
+			"title": "Visibility",
+			"outOf": "/100",
+			"label": "Visibility {score} out of 100, {band}",
+			"bands": {
+				"notVisible": "Not visible",
+				"low": "Low visibility",
+				"gettingFound": "Getting found",
+				"visible": "Visible",
+				"highlyVisible": "Highly visible"
+			}
+		},
+		"steps": {
+			"title": "Steps to get found",
+			"todo": "To do",
+			"done": "Done",
+			"allDone": "You're all caught up. Nice work.",
+			"noneDone": "Completed steps show up here.",
+			"minutes": "{count, plural, one {# min} other {# mins}}",
+			"points": "+{count, plural, one {# point} other {# points}}",
+			"publish": {
+				"title": "Publish your website",
+				"description": "Make your site live so customers and AI tools can find it.",
+				"done": "Your website is live.",
+				"action": "Publish"
+			},
+			"domain": {
+				"title": "Connect your own domain",
+				"description": "A custom address builds trust and lets search engines list your site.",
+				"done": "Your domain is connected.",
+				"action": "Connect"
+			},
+			"pages": {
+				"title": "Fix page titles and headings",
+				"description": "Clear titles and headings help Google understand each page.",
+				"done": "Every page has a clear title and heading.",
+				"action": "Review"
+			},
+			"search": {
+				"title": "Connect Google Search",
+				"description": "See how many people find you on Google and what they search for.",
+				"done": "Google Search is connected.",
+				"action": "Connect"
+			},
+			"ai": {
+				"title": "Show up in AI answers",
+				"description": "Write about what customers ask so AI tools like ChatGPT recommend you.",
+				"done": "AI tools mention you in most answers.",
+				"action": "Write a post"
+			}
+		},
+		"handled": {
+			"title": "Handled for you",
+			"ready": "Ready",
+			"pending": "Waiting",
+			"needsPublish": "Starts when you publish your website.",
+			"needsDomain": "Starts when you connect your domain.",
+			"mobile": {
+				"title": "Mobile friendly",
+				"description": "Your site works well on phones and tablets."
+			},
+			"sitemap": {
+				"title": "Sitemap",
+				"description": "Search engines get a map of all your pages."
+			},
+			"aiReadable": {
+				"title": "Readable by AI",
+				"description": "AI tools get a clean version of every page."
+			},
+			"languages": {
+				"title": "Language versions",
+				"description": "Each language is linked so search shows the right one."
+			},
+			"indexing": {
+				"title": "Listed in search",
+				"description": "Search engines are allowed to show your site."
+			}
+		},
+		"answers": {
+			"mentions": "Mentions",
+			"ratio": "{mentioned}/{total}",
+			"ratioLabel": "Mentioned in {mentioned} of {total}"
+		}
+	},
+	"analytics": {
+		"title": "Analytics",
+		"website": "Website",
+		"links": "Links",
+		"blog": "Blog",
+		"surface": "Content",
+		"dates": "Dates",
+		"domain": "Website",
+		"locale": "Language",
+		"invalidRange": "Choose dates within the last 13 months.",
+		"unavailable": "Analytics unavailable",
+		"retry": "Retry",
+		"loading": "Loading analytics",
+		"empty": "No activity in this period",
+		"visitors": "Visitors",
+		"newVisitors": "New visitors",
+		"returningVisitors": "Returning visitors",
+		"visits": "Visits",
+		"pageviews": "Pages viewed",
+		"conversions": "Link clicks & enquiries",
+		"milliseconds": "{value} ms",
+		"periodChange": "{value} vs previous period",
+		"trends": "Visitors & page views",
+		"devices": "Devices",
+		"direct": "Direct visits",
+		"unknown": "Unknown",
+		"mobile": "Mobile",
+		"tablet": "Tablet",
+		"desktop": "Desktop",
+		"allContent": "All content",
+		"periods": {
+			"7": "Last 7 days",
+			"30": "Last 30 days",
+			"90": "Last 90 days",
+			"365": "Last 12 months",
+			"today": "Today",
+			"yesterday": "Yesterday",
+			"custom": "Custom dates"
+		},
+		"homePage": "Home page",
+		"vitalNames": {
+			"LCP": "Loading speed",
+			"INP": "Response to taps & clicks",
+			"CLS": "Visual stability"
+		},
+		"reportTitles": {
+			"pages": "The pages people viewed most",
+			"entryPages": "Where visits started",
+			"exitPages": "Where visits ended",
+			"channels": "Search, social, AI, email and other ways people arrived",
+			"sources": "Websites that sent you visitors",
+			"aiSources": "Visitors sent by AI assistants",
+			"campaigns": "Campaigns that brought visitors",
+			"utmSources": "Where your campaign visitors came from",
+			"utmMediums": "The type of campaign traffic",
+			"countries": "Where your visitors are",
+			"cities": "Cities your visitors are in",
+			"devices": "Phones, tablets and computers",
+			"browsers": "Browsers people used",
+			"os": "Operating systems people used",
+			"actions": "What visitors did on your site",
+			"links": "Links people clicked",
+			"domains": "Your websites",
+			"locales": "Languages people viewed"
+		},
+		"noData": "Nothing here yet",
+		"seeAll": "See all",
+		"changeReport": "Change report: {report}",
+		"close": "Close",
+		"reports": "Reports",
+		"search": "Search",
+		"loadMore": "Load more",
+		"other": "Other",
+		"none": "None",
+		"unknownLocation": "Unknown location",
+		"allWebsites": "All websites",
+		"allLanguages": "All languages",
+		"allDevices": "All",
+		"vsPrevious": "vs previous period",
+		"noChange": "No change",
+		"kpiHelp": "What is {metric}?",
+		"durationSeconds": "{seconds}s",
+		"durationMinutes": "{minutes}m {seconds}s",
+		"loyalty": "New & returning visitors",
+		"speed": "Website speed",
+		"pagesPerVisit": "Pages per visit",
+		"visitsPerVisitor": "Visits per visitor",
+		"actionRate": "Visits with an action",
+		"kpis": {
+			"visitors": "Visitors",
+			"pageviews": "Page views",
+			"engagedTime": "Avg. time on site",
+			"bounceRate": "Left after one page",
+			"conversions": "Actions"
+		},
+		"kpiDefinitions": {
+			"visitors": "Different people who visited. Someone who comes back several times is counted once.",
+			"pageviews": "Every page someone opened. One person opening five pages counts as five.",
+			"engagedTime": "How long a visit lasts on average while the page is open and in use.",
+			"bounceRate": "Visits that viewed a single page and didn't click, call or send an enquiry. Lower is usually better.",
+			"conversions": "Calls, emails, WhatsApp messages, directions, downloads, link clicks and form enquiries."
+		},
+		"views": {
+			"pages": "Top pages",
+			"entryPages": "Entry pages",
+			"exitPages": "Exit pages",
+			"channels": "How people found you",
+			"sources": "Referring websites",
+			"aiSources": "AI assistants",
+			"campaigns": "Campaigns",
+			"utmSources": "Campaign sources",
+			"utmMediums": "Campaign mediums",
+			"countries": "Countries",
+			"cities": "Cities",
+			"devices": "Devices",
+			"browsers": "Browsers",
+			"os": "Operating systems",
+			"actions": "Actions taken",
+			"links": "Links clicked",
+			"domains": "Websites",
+			"locales": "Languages"
+		},
+		"columns": {
+			"pages": "Page",
+			"entryPages": "First page seen",
+			"exitPages": "Last page seen",
+			"channels": "Channel",
+			"sources": "Website",
+			"aiSources": "Assistant",
+			"campaigns": "Campaign",
+			"utmSources": "Source",
+			"utmMediums": "Medium",
+			"countries": "Country",
+			"cities": "City",
+			"devices": "Device",
+			"browsers": "Browser",
+			"os": "System",
+			"actions": "Action",
+			"links": "Link",
+			"domains": "Website",
+			"locales": "Language"
+		},
+		"metricColumns": {
+			"visitors": "Visitors",
+			"pageviews": "Views",
+			"visits": "Visits",
+			"conversions": "Actions"
+		},
+		"channels": {
+			"ai": "AI assistants",
+			"campaigns": "Campaign links",
+			"direct": "Direct & bookmarks",
+			"email": "Email",
+			"paid": "Ads",
+			"referral": "Other websites",
+			"search": "Search engines",
+			"social": "Social media"
+		},
+		"actions": {
+			"calls": "Phone calls",
+			"directions": "Directions",
+			"downloads": "Downloads",
+			"emails": "Emails",
+			"enquiries": "Form enquiries",
+			"links": "Link clicks",
+			"messages": "Text messages",
+			"social": "Social profile visits",
+			"whatsapp": "WhatsApp messages"
+		},
+		"ratings": {
+			"good": "Good",
+			"slow": "Could be faster",
+			"poor": "Slow",
+			"none": "No data"
+		},
+		"live": {
+			"title": "Right now",
+			"badge": "online",
+			"open": "Live view",
+			"online": "{count, plural, one {person on your site} other {people on your site}}",
+			"pageTitle": "Live view",
+			"back": "Back to analytics",
+			"globe": "Globe showing where current visitors are",
+			"visitors": "Visitors online",
+			"nobody": "No one is on your site right now"
+		}
+	},
+	"notifications": {
+		"archive": "Archive",
+		"archiveAll": "Archive all",
+		"bell": "Notifications",
+		"categories": {
+			"leads": "Leads",
+			"website": "Website"
+		},
+		"channels": {
+			"email": "Email",
+			"in_app": "In-app"
+		},
+		"empty": {
+			"archive": "Nothing in the archive",
+			"inbox": "No new notifications"
+		},
+		"loadFailed": "Notifications couldn't be loaded.",
+		"loadMore": "Load more",
+		"retry": "Retry",
+		"settings": "Notification settings",
+		"tabs": {
+			"archive": "Archive",
+			"inbox": "Inbox"
+		},
+		"types": {
+			"contact_message_received": {
+				"setting": "New website messages",
+				"title": "{count, plural, one {New message from {name}} other {# new messages from {name}}}"
+			},
+			"domain_connected": {
+				"setting": "Domain connected",
+				"title": "{hostname} is live"
+			},
+			"domain_registered": {
+				"setting": "Domain registered",
+				"title": "{domain} is registered"
+			},
+			"domain_expiring": {
+				"setting": "Domain expiring",
+				"title": "{domain} expires in {days, plural, one {# day} other {# days}}"
+			},
+			"domain_registration_failed": {
+				"setting": "Domain registration failed",
+				"title": "{domain} couldn’t be registered"
+			}
+		},
+		"unknownSender": "Someone"
+	},
+	"editorShell": {
+		"history": {
+			"undo": "Undo",
+			"redo": "Redo"
+		},
+		"publish": {
+			"live": "Live",
+			"changes": "Unpublished changes",
+			"upToDate": "Up to date"
+		},
+		"share": {
+			"title": "Share with a QR code",
+			"download": "Download QR code",
+			"alt": "QR code for your page"
+		}
+	},
+	"library": {
+		"title": "Library",
+		"search": "Search",
+		"upload": "Upload",
+		"uploadInvalid": "This file type or size is not supported.",
+		"uploadFailed": "Upload failed. Try again.",
+		"kinds": {
+			"all": "Everything",
+			"image": "Images",
+			"video": "Videos",
+			"document": "Documents"
+		},
+		"sort": "Sort",
+		"sorts": {
+			"newest": "Newest first",
+			"oldest": "Oldest first",
+			"name": "Name",
+			"largest": "Largest first"
+		},
+		"source": "Source",
+		"sources": {
+			"all": "All sources",
+			"uploaded": "Uploaded",
+			"generated": "Made with AI"
+		},
+		"emptyTitle": "Your library is empty",
+		"noResults": "No files match your search.",
+		"loadError": "Could not load your library.",
+		"retry": "Retry",
+		"loading": "Loading…",
+		"loadMore": "Load more",
+		"generated": "AI",
+		"processing": "Processing…",
+		"failed": "Processing failed",
+		"back": "Back to library",
+		"name": "File name",
+		"download": "Download",
+		"downloadPdf": "Download PDF",
+		"actions": "File actions",
+		"delete": "Delete",
+		"deleteTitle": "Delete this file?",
+		"deleteDescription": "It will be removed from your library and from the assistant’s knowledge.",
+		"saving": "Saving…",
+		"saved": "Saved",
+		"saveFailed": "Could not save. Your changes are still here.",
+		"conflict": "This document changed elsewhere and was reloaded.",
+		"type": "Type",
+		"size": "Size",
+		"added": "Added",
+		"notFound": "This file could not be found.",
+		"document": "Document content",
+		"formatting": "Formatting",
+		"agent": {
+			"title": "Create with AI",
+			"placeholder": "Describe what to create…",
+			"assetTitle": "Ask about this file",
+			"assetPlaceholder": "Ask about or edit this file…",
+			"open": "Ask AI",
+			"hideConversation": "Hide conversation",
+			"scrollToEnd": "Scroll to latest"
+		},
+		"details": "Details",
+		"dimensions": "Dimensions",
+		"updated": "Updated",
+		"date": "Document date",
+		"language": "Language",
+		"category": "Category",
+		"model": "Model",
+		"prompt": "Prompt",
+		"tags": "Tags",
+		"generating": "Generating…",
+		"versionCount": "{count, plural, one {# version} other {# versions}}",
+		"versions": "Versions",
+		"version": "Version {number}",
+		"filters": "Filters",
+		"filtersLabel": "Filter library, {count} active",
+		"clearFilters": "Clear",
+		"versionModes": {
+			"latest": "Latest only",
+			"all": "All versions"
+		},
+		"viewer": {
+			"clear": "Clear",
+			"columnMenu": "Column menu",
+			"comments": "Comments",
+			"document": "Document",
+			"edits": "Edits",
+			"fileTooLarge": "File too large",
+			"fileTooLargeDescription": "This file exceeds the display limit. Download it to view the full file.",
+			"loading": "Loading",
+			"moreActions": "More actions",
+			"nextResult": "Next result",
+			"of": "of",
+			"page": "Page",
+			"pageNumber": "Page number",
+			"pagesSidebar": "Pages sidebar",
+			"previousResult": "Previous result",
+			"rotateClockwise": "Rotate clockwise",
+			"rotateCounterclockwise": "Rotate counterclockwise",
+			"search": "Search",
+			"sortAscending": "Sort ascending",
+			"sortDescending": "Sort descending",
+			"toggleThumbnails": "Toggle thumbnails",
+			"unableToDisplay": "Unable to display this file.",
+			"upload": "Upload",
+			"zoom": "Zoom",
+			"zoomIn": "Zoom in",
+			"zoomLevel": "Zoom level",
+			"zoomOut": "Zoom out"
+		},
+		"useAsLogo": "Use as logo"
+	},
+	"businessLogo": {
+		"title": "Logo",
+		"type": "Logo type",
+		"text": "Text",
+		"image": "Image",
+		"size": "Size",
+		"replace": "Replace logo",
+		"saved": "Logo saved",
+		"failed": "The logo couldn't be saved. Try again."
+	}
+}

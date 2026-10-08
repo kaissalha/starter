@@ -1,0 +1,24 @@
+name: Check PR title
+
+on:
+    pull_request:
+        types:
+            - opened
+            - edited
+            - synchronize
+            - reopened
+
+permissions:
+    pull-requests: read
+
+jobs:
+    main:
+        name: Validate PR title
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6
+              with:
+                  configuration-path: .github/check-pr-title.yml
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

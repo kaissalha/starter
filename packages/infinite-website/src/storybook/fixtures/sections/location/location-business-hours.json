@@ -1,0 +1,76 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Why choose us",
+			"heading": "Business hours",
+			"description": "We are open 6 days a week. Come to visit us and grab the best coffee in town."
+		},
+		"hours": [
+			{
+				"day": "Monday",
+				"schedule": "08:00 AM - 05:00 PM"
+			},
+			{
+				"day": "Tuesday",
+				"schedule": "08:00 AM - 05:00 PM"
+			},
+			{
+				"day": "Wednesday",
+				"schedule": "08:00 AM - 05:00 PM"
+			},
+			{
+				"day": "Thursday",
+				"schedule": "08:00 AM - 05:00 PM"
+			},
+			{
+				"day": "Friday",
+				"schedule": "08:00 AM - 05:00 PM"
+			},
+			{
+				"day": "Saturday",
+				"schedule": "09:00 AM - 03:00 PM"
+			},
+			{
+				"day": "Sunday",
+				"schedule": "Closed"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "لماذا تختارنا",
+			"heading": "ساعات العمل",
+			"description": "نحن مفتوحون ستة أيام في الأسبوع. تفضل بزيارتنا واستمتع بأفضل قهوة في المدينة."
+		},
+		"hours": [
+			{
+				"day": "الإثنين",
+				"schedule": "08:00 ص - 05:00 م"
+			},
+			{
+				"day": "الثلاثاء",
+				"schedule": "08:00 ص - 05:00 م"
+			},
+			{
+				"day": "الأربعاء",
+				"schedule": "08:00 ص - 05:00 م"
+			},
+			{
+				"day": "الخميس",
+				"schedule": "08:00 ص - 05:00 م"
+			},
+			{
+				"day": "الجمعة",
+				"schedule": "08:00 ص - 05:00 م"
+			},
+			{
+				"day": "السبت",
+				"schedule": "09:00 ص - 03:00 م"
+			},
+			{
+				"day": "الأحد",
+				"schedule": "مغلق"
+			}
+		]
+	}
+}

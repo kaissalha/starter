@@ -1,0 +1,8 @@
+{
+	"extends": "@starter/tsconfig/node.json",
+	"compilerOptions": {
+		"incremental": true,
+		"types": ["node"]
+	},
+	"exclude": ["dist"]
+}

@@ -1,0 +1,116 @@
+{
+	"en": {
+		"copy": {
+			"copyright": "© 2026 Sparkle Home Inc. All Rights Reserved.",
+			"brand": "Sparkle Home"
+		},
+		"navItems": [
+			{
+				"label": "Home",
+				"link": {
+					"kind": "relative",
+					"path": "/"
+				}
+			},
+			{
+				"label": "Services",
+				"link": {
+					"kind": "relative",
+					"path": "/services"
+				}
+			},
+			{
+				"label": "About",
+				"link": {
+					"kind": "relative",
+					"path": "/about"
+				}
+			},
+			{
+				"label": "Pricing",
+				"link": {
+					"kind": "relative",
+					"path": "/pricing"
+				}
+			},
+			{
+				"label": "Blog",
+				"link": {
+					"kind": "relative",
+					"path": "/blog"
+				}
+			},
+			{
+				"label": "Contact",
+				"link": {
+					"kind": "relative",
+					"path": "/contact"
+				}
+			},
+			{
+				"label": "Privacy",
+				"link": {
+					"kind": "relative",
+					"path": "/privacy"
+				}
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"copyright": "© 2026 سباركل هوم. جميع الحقوق محفوظة.",
+			"brand": "سباركل هوم"
+		},
+		"navItems": [
+			{
+				"label": "الرئيسية",
+				"link": {
+					"kind": "relative",
+					"path": "/"
+				}
+			},
+			{
+				"label": "الخدمات",
+				"link": {
+					"kind": "relative",
+					"path": "/services"
+				}
+			},
+			{
+				"label": "من نحن",
+				"link": {
+					"kind": "relative",
+					"path": "/about"
+				}
+			},
+			{
+				"label": "الأسعار",
+				"link": {
+					"kind": "relative",
+					"path": "/pricing"
+				}
+			},
+			{
+				"label": "المدونة",
+				"link": {
+					"kind": "relative",
+					"path": "/blog"
+				}
+			},
+			{
+				"label": "تواصل معنا",
+				"link": {
+					"kind": "relative",
+					"path": "/contact"
+				}
+			},
+			{
+				"label": "الخصوصية",
+				"link": {
+					"kind": "relative",
+					"path": "/privacy"
+				}
+			}
+		]
+	}
+}

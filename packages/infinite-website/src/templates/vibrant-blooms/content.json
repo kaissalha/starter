@@ -1,0 +1,1466 @@
+{
+	"en": {
+		"site": {
+			"name": "Vibrant Blooms"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Florora navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Florora"
+					},
+					"navigation": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": [
+								{
+									"label": "Landscape Design",
+									"link": {
+										"kind": "relative",
+										"path": "/services/landscape-design"
+									}
+								},
+								{
+									"label": "Garden Maintenance",
+									"link": {
+										"kind": "relative",
+										"path": "/services/garden-maintenance"
+									}
+								}
+							]
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Blog",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [],
+					"socialLinks": [
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2024 Florora.",
+						"address": "123 Garden Lane, Green City, Country",
+						"brand": "Florora"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "Blog",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Vibrant Blooms"
+					}
+				},
+				"sections": {
+					"banner-full-image": {
+						"copy": {
+							"heading": "Create your\ndream garden with vibrant blooms."
+						},
+						"actions": [
+							{
+								"label": "Get Started",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "Professional gardener tending to plants in a beautiful garden"
+							}
+						]
+					},
+					"feature-grid": {
+						"copy": {
+							"kicker": "Why choose us",
+							"heading": "Transform Your\nOutdoor Space with\nOur Expert Care",
+							"description": "We bring years of expertise, a love for nature, and a commitment to quality to every project. Whether it's a small garden or a full landscape transformation, we ensure exceptional results."
+						},
+						"actions": [
+							{
+								"label": "Talk to an expert",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"features": [
+							{
+								"title": "Landscape Design",
+								"description": "Stunning, tailored gardens and outdoor spaces designed for you, creating lasting natural beauty.",
+								"assetId": "f86adafa-67a9-5775-b08c-30572cf795b9",
+								"alt": "Landscape Design"
+							},
+							{
+								"title": "Lawn & Plant Care",
+								"description": "Expert care to keep your lawn and plants lush year-round, ensuring optimal growth patterns.",
+								"assetId": "a0424212-96b3-5c45-a5c4-1c877d7d9ab1",
+								"alt": "Lawn & Plant Care"
+							},
+							{
+								"title": "Sustainable Gardening",
+								"description": "Low-maintenance, eco-friendly gardens that save water, promoting environmental harmony naturally.",
+								"assetId": "28089d5d-3547-5556-b06f-a9b8b46806ba",
+								"alt": "Sustainable Gardening"
+							}
+						]
+					},
+					"feature-carousel": {
+						"accessibility": {
+							"carouselLabel": "Services"
+						},
+						"features": [
+							{
+								"kicker": "Step 1",
+								"title": "Landscape Design",
+								"description": "Stunning, tailored gardens and outdoor spaces designed to create lasting natural beauty.",
+								"label": "Learn more",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"assetId": "44b67823-a545-5ff8-84d1-3be249ff0c54",
+								"alt": "Landscape Design"
+							},
+							{
+								"kicker": "Step 2",
+								"title": "Lawn & Plant Care",
+								"description": "Expert care to keep your lawn and plants lush year-round, ensuring healthy growth.",
+								"label": "Learn more",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"assetId": "f86ce7e7-a173-5426-8165-69400000dfd2",
+								"alt": "Lawn & Plant Care"
+							},
+							{
+								"kicker": "Step 3",
+								"title": "Sustainable Gardening",
+								"description": "Low-maintenance, eco-friendly gardens that save water and support the environment.",
+								"label": "Learn more",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"assetId": "1f94fe9e-1109-5ddb-8da6-10ed3675aeaf",
+								"alt": "Sustainable Gardening"
+							}
+						]
+					},
+					"metrics-basic": {
+						"copy": {
+							"kicker": "Expert Lawn Care",
+							"heading": "Transform Your Outdoor Space with Our Expert Lawn Care",
+							"description": "We bring years of experience and a passion for healthy outdoor spaces. From routine lawn care to full transformations, we deliver reliable, high-quality results for every property."
+						},
+						"actions": [
+							{
+								"label": "Talk to an Expert",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "400+",
+								"title": "Lawns restored",
+								"description": "We've turned patchy grass into vibrant lawns for hundreds of clients."
+							},
+							{
+								"metric": "600%",
+								"title": "Increase in property appeal",
+								"description": "Clients enjoy enhanced curb appeal and outdoor enjoyment after working with our landscaping team."
+							},
+							{
+								"metric": "10k",
+								"title": "Square feet maintained",
+								"description": "We care for everything from small yards to large outdoor spaces."
+							},
+							{
+								"metric": "200+",
+								"title": "5-star reviews",
+								"description": "Homeowners trust us for reliable service, expert guidance, and consistently beautiful results."
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "Our work",
+							"heading": "Transform Your\nOutdoor Space with\nOur Expert Care",
+							"description": "We bring years of expertise, a love for nature, and a commitment to quality to every project. Whether it's a small garden or a full landscape transformation, we ensure exceptional results."
+						},
+						"media": [
+							{
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "Beautiful mansion with pool"
+							},
+							{
+								"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+								"alt": "Garden pathway"
+							},
+							{
+								"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+								"alt": "Professional landscaper at work"
+							},
+							{
+								"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+								"alt": "Garden maintenance"
+							},
+							{
+								"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+								"alt": "Outdoor landscaping"
+							},
+							{
+								"assetId": "28089d5d-3547-5556-b06f-a9b8b46806ba",
+								"alt": "Sustainable garden"
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "Meet the Team",
+							"heading": "Our Passionate\nGardening Experts",
+							"description": "Our team of dedicated professionals brings a wealth of knowledge and a love for nature to every project. Get to know the experts who will transform your outdoor space."
+						},
+						"actions": [
+							{
+								"label": "Get a Free Quote",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "Sarah Mitchell",
+								"role": "Founder & Lead Designer",
+								"description": "Sarah brings over 20 years of landscape design experience and a passion for creating outdoor spaces that inspire.",
+								"assetId": "0b034438-9567-5688-bb7b-ad4261315d40",
+								"alt": "Sarah Mitchell"
+							},
+							{
+								"name": "Marcus Chen",
+								"role": "Head Horticulturist",
+								"description": "Marcus specializes in plant science and sustainable gardening practices, ensuring every garden thrives naturally.",
+								"assetId": "aea7b32a-6b80-5278-866e-55be03d9ece5",
+								"alt": "Marcus Chen"
+							},
+							{
+								"name": "Emily Rodriguez",
+								"role": "Garden Care Manager",
+								"description": "Emily leads our maintenance team with meticulous attention to detail and a genuine love for nurturing plants.",
+								"assetId": "735edd9a-8c2c-5dd7-aa40-50b8d3c4c378",
+								"alt": "Emily Rodriguez"
+							},
+							{
+								"name": "James Thompson",
+								"role": "Landscape Architect",
+								"description": "James transforms outdoor spaces with innovative designs that balance aesthetics with functionality and sustainability.",
+								"assetId": "638114b8-5df0-552d-a04b-46ccbb32abe2",
+								"alt": "James Thompson"
+							},
+							{
+								"name": "Olivia Park",
+								"role": "Irrigation Specialist",
+								"description": "Olivia designs efficient watering systems that conserve water while keeping landscapes lush and healthy year-round.",
+								"assetId": "4e22aa1b-0656-5c24-84c1-7e21eb6fdd67",
+								"alt": "Olivia Park"
+							},
+							{
+								"name": "Daniel Williams",
+								"role": "Senior Gardener",
+								"description": "Daniel brings hands-on expertise to every project, from planting to pruning, with over 15 years of experience.",
+								"assetId": "9b3b247f-b541-5b60-b36f-1d71fd79d791",
+								"alt": "Daniel Williams"
+							}
+						]
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "Pricing",
+							"heading": "Simple, Transparent\nPricing Plans",
+							"description": "Choose the plan that fits your garden needs. From basic maintenance to full landscape transformations, we have options for every budget."
+						},
+						"items": [
+							{
+								"title": "Basic Care",
+								"price": "$99/mo",
+								"description": "Essential lawn care to keep your yard looking neat and tidy all season long.",
+								"label": "Get Started",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"features": [
+									{
+										"title": "Weekly lawn mowing"
+									},
+									{
+										"title": "Edge trimming"
+									},
+									{
+										"title": "Debris cleanup"
+									},
+									{
+										"title": "Monthly plant inspection"
+									}
+								],
+								"badge-label": "Most popular"
+							},
+							{
+								"title": "Complete Garden",
+								"price": "$249/mo",
+								"description": "Comprehensive care for a thriving, beautiful garden that impresses year-round.",
+								"label": "Get Started",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"features": [
+									{
+										"title": "Everything in Basic Care"
+									},
+									{
+										"title": "Seasonal planting"
+									},
+									{
+										"title": "Fertilization & weed control"
+									},
+									{
+										"title": "Shrub & hedge trimming"
+									},
+									{
+										"title": "Irrigation system checks"
+									}
+								],
+								"badge-label": "Most popular"
+							},
+							{
+								"title": "Premium Estate",
+								"price": "$499/mo",
+								"description": "White-glove service for estate properties requiring meticulous attention to every detail.",
+								"label": "Contact Us",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"features": [
+									{
+										"title": "Everything in Complete Garden"
+									},
+									{
+										"title": "Custom landscape design"
+									},
+									{
+										"title": "Hardscape maintenance"
+									},
+									{
+										"title": "Outdoor lighting care"
+									},
+									{
+										"title": "Priority scheduling"
+									},
+									{
+										"title": "Dedicated account manager"
+									}
+								],
+								"badge-label": "Most popular"
+							}
+						]
+					},
+					"faq-accordion-image": {
+						"media": [
+							{
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "Lush garden landscape with blooming flowers"
+							}
+						],
+						"copy": {
+							"heading": "Frequently Asked Questions"
+						},
+						"items": [
+							{
+								"question": "What services do you offer for landscape design and maintenance?",
+								"answer": "We offer a variety of services for landscape design and maintenance, including custom garden design, lawn care, tree and shrub planting, irrigation system installation, and seasonal clean-up. Our team is dedicated to creating beautiful outdoor spaces that suit your needs and preferences."
+							},
+							{
+								"question": "What is the best time to plant a garden?",
+								"answer": "The best time to plant a garden depends on your location and the types of plants you want to grow. Generally, spring and fall are ideal for most plants, as temperatures are moderate and rainfall is more consistent. However, some plants thrive in summer or winter, so it's important to research the specific requirements of your chosen plants."
+							},
+							{
+								"question": "How do I maintain my landscape throughout the year?",
+								"answer": "Maintaining your landscape throughout the year involves regular tasks such as mowing, watering, fertilizing, pruning, and mulching. In spring, focus on planting and fertilizing. Summer requires consistent watering and pest control. Fall is the time for cleanup and preparation for winter. Winter maintenance includes protecting plants from frost and planning for the next growing season."
+							},
+							{
+								"question": "What types of plants thrive in my area?",
+								"answer": "The types of plants that thrive in your area depend on your climate zone, soil type, and sun exposure. Native plants are often the best choice as they are adapted to local conditions and require less maintenance. Consider consulting with a local nursery or landscape professional to identify plants that will flourish in your specific environment."
+							},
+							{
+								"question": "How can I create a sustainable garden?",
+								"answer": "Creating a sustainable garden involves choosing native plants, using organic fertilizers and pest control methods, conserving water through efficient irrigation systems and mulching, composting yard waste, and encouraging beneficial insects and wildlife. These practices help create a healthy ecosystem while reducing environmental impact."
+							}
+						]
+					},
+					"cta-background-image": {
+						"media": [
+							{
+								"assetId": "63d260aa-fb32-5b0b-80f4-6a5df2cf1e1e",
+								"alt": "Professional gardener tending to plants in a beautiful garden"
+							}
+						],
+						"copy": {
+							"heading": "Get the Yard You Want Today!",
+							"description": "Transform your outdoor space into a vibrant sanctuary."
+						},
+						"actions": [
+							{
+								"label": "Talk to an Expert",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							},
+							{
+								"label": "Get a Free Quote",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						]
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "Clients",
+							"heading": "We work with the top companies",
+							"description": "With years of experience and a love for nature, we ensure quality in every project, from small gardens to full landscape makeovers."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "Logo 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "Logo 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "Logo 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "Logo 4"
+							},
+							{
+								"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+								"alt": "Logo 5"
+							},
+							{
+								"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+								"alt": "Logo 6"
+							},
+							{
+								"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+								"alt": "Logo 7"
+							},
+							{
+								"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+								"alt": "Logo 8"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "Our work",
+							"heading": "Transform Your Outdoor Space with Our Expert Care",
+							"description": "We bring years of expertise, a love for nature, and a commitment to quality to every project. Whether it's a small garden or a full landscape transformation, we ensure exceptional results."
+						}
+					},
+					"testimonial-grid": {
+						"copy": {
+							"kicker": "Testimonials",
+							"heading": "See What Our\nCustomers Are Saying"
+						},
+						"actions": [
+							{
+								"label": "See more testimonials",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "Our backyard has never looked so good! The team turned our outdoor area into a lush paradise, and we couldn't be happier!",
+								"name": "Sarah Johnson",
+								"title": "Small Business Owner",
+								"assetId": "a1d21984-d87c-5527-9769-31f92966cbec",
+								"alt": "Sarah Johnson"
+							},
+							{
+								"quote": "The attention to detail and professionalism was outstanding. They transformed our vision into reality beyond our expectations!",
+								"name": "Michael Chen",
+								"title": "Marketing Director",
+								"assetId": "b3f4b705-6692-5c6b-b2e1-51676e8fe812",
+								"alt": "Michael Chen"
+							},
+							{
+								"quote": "Exceptional service from start to finish! The results exceeded what we hoped for, and the process was smooth and stress-free.",
+								"name": "Emily Rodriguez",
+								"title": "Restaurant Owner",
+								"assetId": "86c7a657-df58-5c0a-b725-ef9d02aa5f4d",
+								"alt": "Emily Rodriguez"
+							},
+							{
+								"quote": "A fantastic experience! The team was knowledgeable, friendly, and delivered top-notch results that truly enhanced our property.",
+								"name": "David Lee",
+								"title": "Entrepreneur",
+								"assetId": "0c71cde9-f877-5a18-b300-abb49ca6f076",
+								"alt": "David Lee"
+							}
+						]
+					},
+					"contact-form-text": {
+						"copy": {
+							"kicker": "Contact us",
+							"heading": "Send us a message",
+							"description": "We would love to hear from you",
+							"email": "hello@example.com",
+							"phone": "+1 (555) 123-4567",
+							"address": "123 Main St, City, Country"
+						},
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "Your Message",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Thank you! We'll get back to you soon.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "Contact us",
+							"heading": "Let's make your garden flourish",
+							"description": "Share your project details and we'll follow up quickly."
+						},
+						"location": {
+							"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						},
+						"form": {
+							"nameLabel": "Your Name",
+							"emailLabel": "Email Address",
+							"messageLabel": "Tell us about your landscape",
+							"submitLabel": "Send Message",
+							"pendingLabel": "Sending…",
+							"success": "Thank you! We'll get back to you soon.",
+							"error": "We couldn't send your message. Please try again.",
+							"anotherLabel": "Send another message"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "Visit us",
+							"heading": "Find us nearby\nand stop by today.",
+							"description": "Use the map to get directions and visit our location."
+						},
+						"actions": [
+							{
+								"label": "Get directions",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						},
+						"accessibility": {
+							"mapLabel": "Map of 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						}
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "أزهار نابضة بالحياة"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "قائمة فلورورا",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "فلورورا"
+					},
+					"navigation": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": [
+								{
+									"label": "تصميم المناظر الطبيعية",
+									"link": {
+										"kind": "relative",
+										"path": "/services/landscape-design"
+									}
+								},
+								{
+									"label": "صيانة الحدائق",
+									"link": {
+										"kind": "relative",
+										"path": "/services/garden-maintenance"
+									}
+								}
+							]
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "المدونة",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [],
+					"socialLinks": [
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "© 2024 فلورورا.",
+						"address": "123 جاردن لين، جرين سيتي، كانتري",
+						"brand": "فلورورا"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "المدونة",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							}
+						}
+					],
+					"socialLinks": [
+						{
+							"label": "Facebook",
+							"link": {
+								"kind": "external",
+								"url": "https://www.facebook.com"
+							}
+						},
+						{
+							"label": "Instagram",
+							"link": {
+								"kind": "external",
+								"url": "https://www.instagram.com"
+							}
+						},
+						{
+							"label": "Pinterest",
+							"link": {
+								"kind": "external",
+								"url": "https://www.pinterest.com"
+							}
+						}
+					]
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "أزهار نابضة بالحياة"
+					}
+				},
+				"sections": {
+					"banner-full-image": {
+						"copy": {
+							"heading": "اصنع حديقة أحلامك\nبأزهار نابضة بالحياة."
+						},
+						"actions": [
+							{
+								"label": "ابدأ الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "بستاني محترف يعتني بالنباتات في حديقة جميلة"
+							}
+						]
+					},
+					"feature-grid": {
+						"copy": {
+							"kicker": "لماذا نحن",
+							"heading": "حوّل مساحتك الخارجية \nمع عنايتنا \nالخبيرة",
+							"description": "نقدّم سنوات من الخبرة وحبًا للطبيعة والتزامًا بالجودة في كل مشروع. سواء كانت حديقة صغيرة أو تحويلًا كاملًا للمساحة، نضمن نتائج استثنائية."
+						},
+						"actions": [
+							{
+								"label": "تحدث إلى خبير",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"features": [
+							{
+								"title": "تصميم المناظر الطبيعية",
+								"description": "حدائق ومساحات خارجية مذهلة ومصممة خصيصًا لك، تمنحك جمالًا طبيعيًا يدوم.",
+								"assetId": "f86adafa-67a9-5775-b08c-30572cf795b9",
+								"alt": "تصميم المناظر الطبيعية"
+							},
+							{
+								"title": "العناية بالعشب والنباتات",
+								"description": "عناية خبيرة تحافظ على عشبك ونباتاتك خضراء طوال العام لضمان أفضل أنماط النمو.",
+								"assetId": "a0424212-96b3-5c45-a5c4-1c877d7d9ab1",
+								"alt": "العناية بالعشب والنباتات"
+							},
+							{
+								"title": "البستنة المستدامة",
+								"description": "حدائق صديقة للبيئة وقليلة الصيانة توفر الماء وتعزز الانسجام البيئي بشكل طبيعي.",
+								"assetId": "28089d5d-3547-5556-b06f-a9b8b46806ba",
+								"alt": "البستنة المستدامة"
+							}
+						]
+					},
+					"feature-carousel": {
+						"accessibility": {
+							"carouselLabel": "الخدمات"
+						},
+						"features": [
+							{
+								"kicker": "الخطوة 1",
+								"title": "تصميم المناظر الطبيعية",
+								"description": "حدائق ومساحات خارجية مذهلة مصممة خصيصًا لك لتمنحك جمالًا طبيعيًا يدوم.",
+								"label": "اعرف المزيد",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"assetId": "44b67823-a545-5ff8-84d1-3be249ff0c54",
+								"alt": "تصميم المناظر الطبيعية"
+							},
+							{
+								"kicker": "الخطوة 2",
+								"title": "العناية بالعشب والنباتات",
+								"description": "عناية احترافية تحافظ على خضرة العشب والنباتات طوال العام وتضمن نموًا صحيًا.",
+								"label": "اعرف المزيد",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"assetId": "f86ce7e7-a173-5426-8165-69400000dfd2",
+								"alt": "العناية بالعشب والنباتات"
+							},
+							{
+								"kicker": "الخطوة 3",
+								"title": "البستنة المستدامة",
+								"description": "حدائق صديقة للبيئة وقليلة الصيانة توفر المياه وتدعم البيئة.",
+								"label": "اعرف المزيد",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"assetId": "1f94fe9e-1109-5ddb-8da6-10ed3675aeaf",
+								"alt": "البستنة المستدامة"
+							}
+						]
+					},
+					"metrics-basic": {
+						"copy": {
+							"kicker": "عناية احترافية بالعشب",
+							"heading": "حوّل مساحتك الخارجية مع خبراء العناية بالعشب لدينا",
+							"description": "نقدّم سنوات من الخبرة وشغفًا بالمساحات الخارجية الصحية. من العناية الدورية بالعشب إلى التحويلات الكاملة، نحقق نتائج موثوقة وعالية الجودة لكل عقار."
+						},
+						"actions": [
+							{
+								"label": "تحدث مع خبير",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "400+",
+								"title": "مروج تمت استعادتها",
+								"description": "لقد قمنا بتحويل العشب غير المكتمل إلى مروج نابضة بالحياة لمئات العملاء."
+							},
+							{
+								"metric": "600%",
+								"title": "زيادة في جاذبية العقار",
+								"description": "يستمتع العملاء بمظهر خارجي أجمل وبمساحات أكثر راحة بعد التعاون مع فريق تنسيق الحدائق لدينا."
+							},
+							{
+								"metric": "10 آلاف",
+								"title": "قدم مربع تحت الصيانة",
+								"description": "نعتني بكل شيء من الأفنية الصغيرة إلى المساحات الخارجية الكبيرة."
+							},
+							{
+								"metric": "200+",
+								"title": "تقييم بخمس نجوم",
+								"description": "يثق بنا أصحاب المنازل لخدمتنا الموثوقة وإرشادنا الخبير ونتائجنا الجميلة باستمرار."
+							}
+						]
+					},
+					"gallery-grid": {
+						"copy": {
+							"kicker": "أعمالنا",
+							"heading": "حوّل مساحتك الخارجية \nمع عنايتنا \nالخبيرة",
+							"description": "نقدّم سنوات من الخبرة وحبًا للطبيعة والتزامًا بالجودة في كل مشروع. سواء كانت حديقة صغيرة أو تحويلًا كاملًا للمساحة، نضمن نتائج استثنائية."
+						},
+						"media": [
+							{
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "قصر جميل مع حمام سباحة"
+							},
+							{
+								"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+								"alt": "مسار الحديقة"
+							},
+							{
+								"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+								"alt": "منسق تنسيق حدائق محترف في العمل"
+							},
+							{
+								"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+								"alt": "صيانة الحدائق"
+							},
+							{
+								"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+								"alt": "المناظر الطبيعية في الهواء الطلق"
+							},
+							{
+								"assetId": "28089d5d-3547-5556-b06f-a9b8b46806ba",
+								"alt": "حديقة مستدامة"
+							}
+						]
+					},
+					"team-grid": {
+						"copy": {
+							"kicker": "تعرّف على الفريق",
+							"heading": "شغفنا\nخبراء البستنة",
+							"description": "يقدم فريقنا من المحترفين المتفانين ثروة من المعرفة وحب الطبيعة لكل مشروع. تعرف على الخبراء الذين سيغيرون مساحتك الخارجية."
+						},
+						"actions": [
+							{
+								"label": "احصل على عرض سعر مجاني",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"members": [
+							{
+								"name": "سارة ميتشل",
+								"role": "المؤسس والمصمم الرئيسي",
+								"description": "تتمتع سارة بأكثر من 20 عامًا من الخبرة في تصميم المناظر الطبيعية وشغفها بإنشاء مساحات خارجية ملهمة.",
+								"assetId": "0b034438-9567-5688-bb7b-ad4261315d40",
+								"alt": "سارة ميتشل"
+							},
+							{
+								"name": "ماركوس تشن",
+								"role": "رئيس البستانيين",
+								"description": "ماركوس متخصص في علوم النبات وممارسات البستنة المستدامة، مما يضمن ازدهار كل حديقة بشكل طبيعي.",
+								"assetId": "aea7b32a-6b80-5278-866e-55be03d9ece5",
+								"alt": "ماركوس تشن"
+							},
+							{
+								"name": "إيميلي رودريغيز",
+								"role": "مدير رعاية الحدائق",
+								"description": "تقود إميلي فريق الصيانة لدينا باهتمام شديد بالتفاصيل وحب حقيقي لرعاية النباتات.",
+								"assetId": "735edd9a-8c2c-5dd7-aa40-50b8d3c4c378",
+								"alt": "إيميلي رودريغيز"
+							},
+							{
+								"name": "جيمس طومسون",
+								"role": "مهندس المناظر الطبيعية يقوم",
+								"description": "James بتحويل المساحات الخارجية بتصميمات مبتكرة توازن بين الجماليات والوظيفة والاستدامة.",
+								"assetId": "638114b8-5df0-552d-a04b-46ccbb32abe2",
+								"alt": "جيمس طومسون"
+							},
+							{
+								"name": "أوليفيا بارك",
+								"role": "أخصائي الري",
+								"description": "تصمم أوليفيا أنظمة ري فعالة تحافظ على المياه مع الحفاظ على المناظر الطبيعية خصبة وصحية طوال العام.",
+								"assetId": "4e22aa1b-0656-5c24-84c1-7e21eb6fdd67",
+								"alt": "أوليفيا بارك"
+							},
+							{
+								"name": "دانيال ويليامز",
+								"role": "بستاني كبير",
+								"description": "يقدم دانيال الخبرة العملية لكل مشروع، بدءًا من الزراعة وحتى التقليم، مع أكثر من 15 عامًا من الخبرة.",
+								"assetId": "9b3b247f-b541-5b60-b36f-1d71fd79d791",
+								"alt": "دانيال ويليامز"
+							}
+						]
+					},
+					"pricing-table": {
+						"copy": {
+							"kicker": "التسعير",
+							"heading": "بسيط وشفاف\nخطط التسعير",
+							"description": "اختر الخطة التي تناسب احتياجات حديقتك. بدءًا من الصيانة الأساسية وحتى التحولات الكاملة للمناظر الطبيعية، لدينا خيارات تناسب كل ميزانية."
+						},
+						"items": [
+							{
+								"title": "الرعاية الأساسية",
+								"price": "99 دولارًا شهريًا",
+								"description": "العناية الأساسية بالعشب للحفاظ على مظهر حديقتك أنيقًا ومرتبًا طوال الموسم.",
+								"label": "ابدأ الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"features": [
+									{
+										"title": "جز العشب أسبوعيًا"
+									},
+									{
+										"title": "تشذيب الحواف"
+									},
+									{
+										"title": "إزالة المخلفات"
+									},
+									{
+										"title": "فحص شهري للنباتات"
+									}
+								],
+								"badge-label": "الأكثر شعبية حزمة التصميم"
+							},
+							{
+								"title": "حديقة كاملة",
+								"price": "249 دولارًا شهريًا",
+								"description": "رعاية شاملة لحديقة مزدهرة وجميلة تثير الإعجاب طوال العام.",
+								"label": "ابدأ الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"features": [
+									{
+										"title": "كل ما في العناية الأساسية"
+									},
+									{
+										"title": "زراعة موسمية"
+									},
+									{
+										"title": "التسميد ومكافحة الأعشاب الضارة"
+									},
+									{
+										"title": "تشذيب الشجيرات والأسوار النباتية"
+									},
+									{
+										"title": "فحص أنظمة الري"
+									}
+								],
+								"badge-label": "الأكثر شعبية حزمة التصميم"
+							},
+							{
+								"title": "بريميوم إستيت",
+								"price": "499 دولارًا شهريًا",
+								"description": "خدمة القفازات البيضاء للعقارات التي تتطلب اهتمامًا دقيقًا بكل التفاصيل.",
+								"label": "اتصل بنا",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								},
+								"features": [
+									{
+										"title": "كل ما في الحديقة المتكاملة"
+									},
+									{
+										"title": "تصميم حدائق مخصص"
+									},
+									{
+										"title": "صيانة العناصر الصلبة في الحديقة"
+									},
+									{
+										"title": "العناية بالإضاءة الخارجية"
+									},
+									{
+										"title": "أولوية في الجدولة"
+									},
+									{
+										"title": "مدير حساب مخصص"
+									}
+								],
+								"badge-label": "الأكثر شعبية حزمة التصميم"
+							}
+						]
+					},
+					"faq-accordion-image": {
+						"media": [
+							{
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "منظر حديقة خضراء غنّاء بأزهار متفتحة"
+							}
+						],
+						"copy": {
+							"heading": "الأسئلة الأكثر شيوعًا"
+						},
+						"items": [
+							{
+								"question": "ما الخدمات التي تقدمونها لتصميم الحدائق وصيانتها؟",
+								"answer": "نقدم مجموعة متنوعة من الخدمات لتصميم الحدائق وصيانتها، تشمل تصميم الحدائق المخصص، والعناية بالعشب، وزراعة الأشجار والشجيرات، وتركيب أنظمة الري، والتنظيف الموسمي. يلتزم فريقنا بإنشاء مساحات خارجية جميلة تناسب احتياجاتك وتفضيلاتك."
+							},
+							{
+								"question": "ما أفضل وقت لزراعة الحديقة؟",
+								"answer": "يعتمد أفضل وقت لزراعة الحديقة على موقعك وأنواع النباتات التي ترغب في زراعتها. عمومًا، الربيع والخريف مثاليان لمعظم النباتات لأن درجات الحرارة معتدلة وهطول الأمطار أكثر انتظامًا. ومع ذلك، تزدهر بعض النباتات في الصيف أو الشتاء، لذا من المهم البحث عن متطلبات النباتات التي اخترتها."
+							},
+							{
+								"question": "كيف أحافظ على حديقتي طوال العام؟",
+								"answer": "تتطلب العناية بحديقتك طوال العام مهام منتظمة مثل جز العشب والري والتسميد والتقليم والتغطية بالمهاد. في الربيع ركّز على الزراعة والتسميد. يحتاج الصيف إلى ري مستمر ومكافحة الآفات. الخريف وقت التنظيف والتحضير للشتاء، ويشمل الشتاء حماية النباتات من الصقيع والتخطيط لموسم النمو القادم."
+							},
+							{
+								"question": "ما أنواع النباتات التي تزدهر في منطقتي؟",
+								"answer": "تعتمد أنواع النباتات التي تزدهر في منطقتك على المنطقة المناخية ونوع التربة والتعرض للشمس. غالبًا ما تكون النباتات المحلية الخيار الأفضل لأنها متكيفة مع الظروف المحلية وتتطلب صيانة أقل. استشر مشتلًا محليًا أو مختصًا في تنسيق الحدائق لتحديد النباتات الأنسب لبيئتك."
+							},
+							{
+								"question": "كيف يمكنني إنشاء حديقة مستدامة؟",
+								"answer": "يتطلب إنشاء حديقة مستدامة اختيار النباتات المحلية، واستخدام الأسمدة العضوية وطرق مكافحة الآفات الطبيعية، وتوفير المياه عبر أنظمة ري فعالة والتغطية بالمهاد، وتحويل مخلفات الحديقة إلى سماد، وتشجيع الحشرات النافعة والحياة البرية. تساعد هذه الممارسات على بناء نظام بيئي صحي مع تقليل الأثر البيئي."
+							}
+						]
+					},
+					"cta-background-image": {
+						"media": [
+							{
+								"assetId": "63d260aa-fb32-5b0b-80f4-6a5df2cf1e1e",
+								"alt": "بستاني محترف يعتني بالنباتات في حديقة جميلة"
+							}
+						],
+						"copy": {
+							"heading": "احصل على الحديقة التي تريدها اليوم!",
+							"description": "قم بتحويل مساحتك الخارجية إلى ملاذ نابض بالحياة."
+						},
+						"actions": [
+							{
+								"label": "تحدث مع خبير",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							},
+							{
+								"label": "احصل على عرض سعر مجاني",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						]
+					},
+					"showcase-grid": {
+						"copy": {
+							"kicker": "العملاء",
+							"heading": "نعمل مع كبرى الشركات",
+							"description": "بخبرة سنوات وحب للطبيعة، نضمن الجودة في كل مشروع، من الحدائق الصغيرة إلى التجديد الكامل للمساحات الخارجية."
+						},
+						"media": [
+							{
+								"assetId": "156842e8-2fb7-55ae-ab0b-27ec9d3055bd",
+								"alt": "الشعار 1"
+							},
+							{
+								"assetId": "7c38ce71-5e02-55f4-a3e5-040bd44348ae",
+								"alt": "الشعار 2"
+							},
+							{
+								"assetId": "eaded486-2c90-5193-ad00-3adefd5cf218",
+								"alt": "الشعار 3"
+							},
+							{
+								"assetId": "ddace705-7a13-580a-b470-7b46de128d02",
+								"alt": "الشعار 4"
+							},
+							{
+								"assetId": "8a41ef86-aac9-584b-9347-31b01e03d2a2",
+								"alt": "الشعار 5"
+							},
+							{
+								"assetId": "b1a03a7b-aa79-5aee-98ff-7674a0c4b7bf",
+								"alt": "الشعار 6"
+							},
+							{
+								"assetId": "6b670018-6b45-5532-b4da-9adee15c4c90",
+								"alt": "الشعار 7"
+							},
+							{
+								"assetId": "ba5f71f1-84b0-546c-82eb-e7f00145d7a5",
+								"alt": "الشعار 8"
+							}
+						]
+					},
+					"text-basic": {
+						"copy": {
+							"kicker": "أعمالنا",
+							"heading": "حوّل مساحتك الخارجية بعناية خبرائنا",
+							"description": "نقدّم سنوات من الخبرة وحبًا للطبيعة والتزامًا بالجودة في كل مشروع. سواء كانت حديقة صغيرة أو تحويلًا كاملًا للمساحة، نضمن نتائج استثنائية."
+						}
+					},
+					"testimonial-grid": {
+						"copy": {
+							"kicker": "آراء العملاء",
+							"heading": "اكتشف ما يقوله\nعملاؤنا"
+						},
+						"actions": [
+							{
+								"label": "عرض المزيد من الشهادات",
+								"link": {
+									"kind": "anchor",
+									"anchor": "contact-form-text"
+								}
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "لم تبدُ حديقتنا الخلفية بهذا الجمال من قبل! حوّل الفريق مساحتنا الخارجية إلى جنة خضراء، ولا يمكن أن نكون أسعد!",
+								"name": "سارة جونسون",
+								"title": "صاحب عمل صغير",
+								"assetId": "a1d21984-d87c-5527-9769-31f92966cbec",
+								"alt": "سارة جونسون"
+							},
+							{
+								"quote": "كان الاهتمام بالتفاصيل والاحترافية رائعًا. حوّلوا رؤيتنا إلى واقع يفوق توقعاتنا!",
+								"name": "مايكل تشين",
+								"title": "مدير التسويق",
+								"assetId": "b3f4b705-6692-5c6b-b2e1-51676e8fe812",
+								"alt": "مايكل تشين"
+							},
+							{
+								"quote": "خدمة استثنائية من البداية إلى النهاية! تجاوزت النتائج ما كنا نأمله، وكانت العملية سلسة وخالية من التوتر.",
+								"name": "إيميلي رودريغيز",
+								"title": "صاحبة مطعم",
+								"assetId": "86c7a657-df58-5c0a-b725-ef9d02aa5f4d",
+								"alt": "إيميلي رودريغيز"
+							},
+							{
+								"quote": "تجربة رائعة! كان الفريق واسع المعرفة وودودًا وقدّم نتائج رفيعة المستوى حسّنت عقارنا فعلًا.",
+								"name": "ديفيد لي",
+								"title": "رائد أعمال",
+								"assetId": "0c71cde9-f877-5a18-b300-abb49ca6f076",
+								"alt": "ديفيد لي"
+							}
+						]
+					},
+					"contact-form-text": {
+						"copy": {
+							"kicker": "تواصل معنا",
+							"heading": "أرسل لنا رسالة",
+							"description": "يسعدنا أن نسمع منك",
+							"email": "hello@example.com",
+							"phone": "+1 (555) 123-4567",
+							"address": "123 الشارع الرئيسي، المدينة، البلد"
+						},
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "عنوان البريد الإلكتروني",
+							"messageLabel": "رسالتك",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكرًا لك! سنعود إليك قريبًا.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"contact-form-map": {
+						"copy": {
+							"kicker": "تواصل معنا",
+							"heading": "لنجعل حديقتك تزدهر",
+							"description": "شاركنا تفاصيل مشروعك وسنتواصل معك سريعًا."
+						},
+						"location": {
+							"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						},
+						"form": {
+							"nameLabel": "اسمك",
+							"emailLabel": "عنوان البريد الإلكتروني",
+							"messageLabel": "حدثنا عن حديقتك",
+							"submitLabel": "إرسال الرسالة",
+							"pendingLabel": "جارٍ الإرسال…",
+							"success": "شكرًا لك! سنعود إليك قريبًا.",
+							"error": "تعذّر إرسال رسالتك. يرجى المحاولة مرة أخرى.",
+							"anotherLabel": "إرسال رسالة أخرى"
+						}
+					},
+					"location-text-and-map": {
+						"copy": {
+							"kicker": "قم بزيارتنا",
+							"heading": "تجدنا بالقرب منك\nوتوقف اليوم.",
+							"description": "استخدم الخريطة للحصول على الاتجاهات وزيارة موقعنا."
+						},
+						"actions": [
+							{
+								"label": "احصل على الاتجاهات",
+								"link": {
+									"kind": "external",
+									"url": "https://maps.google.com"
+								}
+							}
+						],
+						"location": {
+							"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						}
+					},
+					"location-map": {
+						"location": {
+							"address": "1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						},
+						"accessibility": {
+							"mapLabel": "خريطة 1600 Amphitheatre Parkway, Mountain View, CA 94043"
+						}
+					}
+				}
+			}
+		}
+	}
+}

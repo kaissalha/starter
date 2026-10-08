@@ -1,0 +1,50 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Our work",
+			"description": "See what we have done for our customers"
+		},
+		"media": [
+			{
+				"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+				"alt": "Timber lattice pavilion on a forested hillside"
+			},
+			{
+				"assetId": "41823f9b-303f-5b01-ba2c-a3f2ec95282e",
+				"alt": "Curved timber and glass building with a green roof"
+			},
+			{
+				"assetId": "2d4af180-f624-5e8b-b4fc-f1fa8e5922f6",
+				"alt": "Sunlit timber arches curving over a glass-railed atrium"
+			},
+			{
+				"assetId": "b0b24af1-17c5-5001-ab41-b205bd51671c",
+				"alt": "Open timber staircase beneath tall glass walls"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "أعمالنا",
+			"description": "شاهد ما أنجزناه لعملائنا"
+		},
+		"media": [
+			{
+				"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+				"alt": "جناح خشبي شبكي على سفح تلة مشجّر"
+			},
+			{
+				"assetId": "41823f9b-303f-5b01-ba2c-a3f2ec95282e",
+				"alt": "مبنى منحني من الخشب والزجاج بسقف أخضر"
+			},
+			{
+				"assetId": "2d4af180-f624-5e8b-b4fc-f1fa8e5922f6",
+				"alt": "أقواس خشبية مضاءة بالشمس فوق ردهة بحواجز زجاجية"
+			},
+			{
+				"assetId": "b0b24af1-17c5-5001-ab41-b205bd51671c",
+				"alt": "درج خشبي مفتوح أسفل جدران زجاجية عالية"
+			}
+		]
+	}
+}

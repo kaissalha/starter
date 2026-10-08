@@ -1,0 +1,46 @@
+{
+	"name": "@starter/infinite-links",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"sideEffects": false,
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./contracts": "./src/contracts.ts",
+		"./copy": "./src/link-page-copy.ts",
+		"./document": "./src/link-page-document.ts",
+		"./editing": "./src/link-page-editing.ts",
+		"./embeds": "./src/link-page-embeds.ts",
+		"./themes": "./src/themes.ts"
+	},
+	"scripts": {
+		"dev": "storybook dev -p 6007 --no-open",
+		"build-storybook": "storybook build",
+		"test": "bun run --cwd ../.. test packages/infinite-links/tests",
+		"typecheck": "tsc --noEmit --skipLibCheck"
+	},
+	"dependencies": {
+		"@paper-design/shaders-react": "0.0.81",
+		"@starter/infinite-brand": "workspace:*",
+		"@starter/infinite-website": "workspace:*",
+		"react": "^19.3.0",
+		"zod": "4.6.5"
+	},
+	"devDependencies": {
+		"@starter/tsconfig": "workspace:*",
+		"@storybook/react-vite": "^10.6.1",
+		"@tailwindcss/postcss": "^4.3.3",
+		"@types/node": "^26.6.4",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"@vitejs/plugin-react": "^6.1.2",
+		"postcss": "^8.5.29",
+		"react-dom": "^19.3.0",
+		"storybook": "^10.6.1",
+		"tailwindcss": "^4.3.3",
+		"typescript": "^7.0.2",
+		"vite": "^8.3.3"
+	}
+}

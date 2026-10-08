@@ -1,0 +1,94 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "The studio",
+			"heading": "Handmade pottery\nfor everyday\nrituals",
+			"description": "Small-batch stoneware shaped by hand—quiet pieces meant for slow mornings, shared tables, and the rituals that make a house feel like home."
+		},
+		"actions": [{ "label": "Visit the studio", "link": { "kind": "anchor", "anchor": "contact" } }],
+		"features": [
+			{
+				"title": "Studio collection",
+				"description": "Shelves of finished work—mugs, bowls, and plates ready to bring home.",
+				"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+				"alt": "Garden path winding past rose bushes and lavender beds"
+			},
+			{
+				"title": "Everyday vessels",
+				"description": "Functional forms with soft glazes and speckled details for daily use.",
+				"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+				"alt": "Sunlit formal garden with clipped hedges and grass borders"
+			},
+			{
+				"title": "Wheel throwing",
+				"description": "Hands-on classes where you learn to center clay and shape your own pieces.",
+				"assetId": "54106edb-df9f-5a3b-9ea7-270facc342b3",
+				"alt": "Gardener's gloved hand resting on freshly mowed lawn"
+			},
+			{
+				"title": "Dinnerware sets",
+				"description": "Stacked plates with creamy glaze and fine speckles for the table you gather around.",
+				"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+				"alt": "Garden terrace with blooming hydrangeas and stone paving"
+			},
+			{
+				"title": "Serving bowls",
+				"description": "Generous bowls with blue-rim accents, made for sharing and slow meals.",
+				"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+				"alt": "Cottage garden path with roses and foxgloves"
+			},
+			{
+				"title": "Custom commissions",
+				"description": "One-of-a-kind pieces and small runs crafted to match your space and style.",
+				"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+				"alt": "Landscaped lawn bordered by flower beds and hedges"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "الاستوديو",
+			"heading": "فخار مصنوع يدويًا\nلطقوس\nالحياة اليومية",
+			"description": "أواني حجرية بكميات صغيرة تُشكَّل باليد—قطع هادئة للصباحات البطيئة والموائد المشتركة والطقوس التي تجعل البيت يشبه الدار."
+		},
+		"actions": [{ "label": "زيارة الاستوديو", "link": { "kind": "anchor", "anchor": "contact" } }],
+		"features": [
+			{
+				"title": "مجموعة الاستوديو",
+				"description": "رفوف من الأعمال الجاهزة—أكواب وأوعية وأطباق جاهزة لتأخذها إلى المنزل.",
+				"assetId": "03d64828-6bc6-52ee-92ad-dc5c7302d47e",
+				"alt": "ممر حديقة يمر بين شجيرات الورد وأحواض الخزامى"
+			},
+			{
+				"title": "أوانٍ للاستخدام اليومي",
+				"description": "أشكال عملية بطلاءات ناعمة وتفاصيل منقطة للاستخدام اليومي.",
+				"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+				"alt": "حديقة رسمية مشمسة بأسوار نباتية مشذبة وحواف عشبية"
+			},
+			{
+				"title": "الدوران على العجلة",
+				"description": "دروس عملية تتعلم فيها تمركز الطين وتشكيل قطعك الخاصة.",
+				"assetId": "54106edb-df9f-5a3b-9ea7-270facc342b3",
+				"alt": "يد بستاني بقفاز على عشب مقصوص حديثًا"
+			},
+			{
+				"title": "أطقم الأواني",
+				"description": "أطباق مكدسة بطلاء كريمي ونقاط دقيقة للمائدة التي تجتمع حولها.",
+				"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+				"alt": "شرفة حديقة بأزهار الكوبية وأرضية حجرية"
+			},
+			{
+				"title": "أوعية التقديم",
+				"description": "أوعية سخية بحواف زرقاء، صُنعت للمشاركة والوجبات الهادئة.",
+				"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+				"alt": "ممر حديقة ريفية بالورود وأزهار القفاز"
+			},
+			{
+				"title": "طلبات مخصصة",
+				"description": "قطع فريدة ودفعات صغيرة تُصنع لتناسب مساحتك وذوقك.",
+				"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+				"alt": "مرج منسق تحيط به أحواض الزهور والأسوار النباتية"
+			}
+		]
+	}
+}

@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "alexdima.copy-relative-path",
+    "oxc.oxc-vscode",
+    "bradlc.vscode-tailwindcss",
+    "formulahendry.auto-rename-tag",
+    "ms-vscode.vscode-typescript-tsc",
+    "naumovs.color-highlight",
+    "oderwat.indent-rainbow",
+    "sourcegraph.amp",
+    "streetsidesoftware.code-spell-checker",
+    "vitest.explorer",
+    "YoavBls.pretty-ts-errors",
+    "expo.vscode-expo-tools"
+  ]
+}

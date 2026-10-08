@@ -1,0 +1,26 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "webapp",
+			"cwd": "apps/webapp",
+			"runtimeExecutable": "bun",
+			"runtimeArgs": ["run", "dev"],
+			"port": 3000
+		},
+		{
+			"name": "infinite-website-storybook",
+			"cwd": "packages/infinite-website",
+			"runtimeExecutable": "bun",
+			"runtimeArgs": ["run", "dev"],
+			"port": 6006
+		},
+		{
+			"name": "infinite-links-storybook",
+			"cwd": "packages/infinite-links",
+			"runtimeExecutable": "bun",
+			"runtimeArgs": ["run", "dev", "--", "--no-open"],
+			"port": 6007
+		}
+	]
+}

@@ -1,0 +1,62 @@
+name: Tinybird previews
+
+on:
+    pull_request:
+        types: [opened, synchronize, reopened, closed]
+
+permissions:
+    contents: read
+
+concurrency:
+    group: tinybird-pr-${{ github.event.pull_request.number }}
+    cancel-in-progress: false
+
+jobs:
+    preview:
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+        env:
+            TINYBIRD_URL: https://api.us-east.tinybird.co
+            TINYBIRD_BRANCH_NAME: starter_pr_${{ github.event.pull_request.number }}
+            VERCEL_ORG_ID: ${{ vars.VERCEL_TEAM_ID }}
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+              with:
+                  ref: ${{ github.event.pull_request.head.sha }}
+            - uses: ./.github/actions/setup
+            - name: Remove closed PR branch
+              if: github.event.action == 'closed'
+              run: make tinybird-clean
+              env:
+                  TINYBIRD_TOKEN: ${{ secrets.TINYBIRD_TOKEN }}
+            - name: Provision or synchronize the shared PR branch
+              if: github.event.action != 'closed'
+              run: make tinybird-preview
+              env:
+                  TINYBIRD_TOKEN: ${{ secrets.TINYBIRD_TOKEN }}
+            - name: Check production schema compatibility
+              if: github.event.action != 'closed'
+              run: make tinybird-check
+              env:
+                  TINYBIRD_TOKEN: ${{ secrets.TINYBIRD_TOKEN }}
+            - name: Configure both app previews with separate scoped credentials
+              if: github.event.action != 'closed'
+              env:
+                  WEBAPP_PROJECT: ${{ vars.VERCEL_PROJECT_ID }}
+                  WEBSITES_PROJECT: ${{ vars.VERCEL_WEBSITES_PROJECT_ID }}
+                  VERCEL_ACCESS_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}
+              run: |
+                  for app in webapp websites; do
+                      if [ "$app" = webapp ]; then
+                          export VERCEL_PROJECT_ID="$WEBAPP_PROJECT"
+                          credentials=.tinybird/reporting.env
+                      else
+                          export VERCEL_PROJECT_ID="$WEBSITES_PROJECT"
+                          credentials=.tinybird/collection.env
+                      fi
+                      [ -n "$VERCEL_PROJECT_ID" ] || continue
+                      while IFS='=' read -r key value; do
+                          printf '%s' "$value" | bun apps/webapp/node_modules/vercel/dist/index.js env add "$key" preview --git-branch "$GITHUB_HEAD_REF" --project "$VERCEL_PROJECT_ID" --scope "$VERCEL_ORG_ID" --force --yes --type config --token "$VERCEL_ACCESS_TOKEN"
+                      done < "$credentials"
+                  done

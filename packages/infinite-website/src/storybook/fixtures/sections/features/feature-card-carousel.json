@@ -1,0 +1,70 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Services",
+			"heading": "Everything your small business needs to thrive financially",
+			"description": "From day-to-day bookkeeping to high-level strategic planning, we provide a holistic suite of services designed to support your business at every stage."
+		},
+		"accessibility": { "carouselLabel": "Services", "indicatorsLabel": "Choose service" },
+		"features": [
+			{
+				"title": "Bookkeeping",
+				"description": "Monthly bookkeeping, organized statements, and financial clarity so you always know where your business stands."
+			},
+			{
+				"title": "Tax Planning",
+				"description": "Strategic tax planning and preparation to minimize your liability and maximize your returns year after year."
+			},
+			{
+				"title": "Payroll Services",
+				"description": "Comprehensive payroll management including direct deposits, tax withholdings, and compliance reporting."
+			},
+			{
+				"title": "Financial Analysis",
+				"description": "In-depth financial analysis and reporting to help you make informed decisions about your business growth."
+			},
+			{
+				"title": "Audit Support",
+				"description": "Professional audit preparation and support to ensure your business is always ready for any financial review."
+			},
+			{
+				"title": "Business Consulting",
+				"description": "Expert business consulting to help you navigate challenges and identify opportunities for growth and expansion."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "الخدمات",
+			"heading": "كل ما تحتاجه شركتك الصغيرة لتزدهر ماليًا",
+			"description": "من مسك الدفاتر اليومي إلى التخطيط الاستراتيجي رفيع المستوى، نقدّم مجموعة متكاملة من الخدمات المصممة لدعم عملك في كل مرحلة."
+		},
+		"accessibility": { "carouselLabel": "الخدمات", "indicatorsLabel": "اختر خدمة" },
+		"features": [
+			{
+				"title": "مسك الدفاتر",
+				"description": "مسك دفاتر شهري وكشوف منظمة ووضوح مالي ليكون لديك دائمًا تصور دقيق عن وضع عملك."
+			},
+			{
+				"title": "التخطيط الضريبي",
+				"description": "تخطيط وإعداد ضريبي استراتيجي لتقليل التزاماتك وزيادة عوائدك عامًا بعد عام."
+			},
+			{
+				"title": "خدمات الرواتب",
+				"description": "إدارة شاملة للرواتب تشمل الإيداع المباشر واستقطاعات الضرائب وتقارير الامتثال."
+			},
+			{
+				"title": "التحليل المالي",
+				"description": "تحليل وتقارير مالية معمقة لمساعدتك على اتخاذ قرارات مدروسة بشأن نمو عملك."
+			},
+			{
+				"title": "دعم التدقيق",
+				"description": "إعداد ودعم احترافي للتدقيق لضمان جاهزية عملك دائمًا لأي مراجعة مالية."
+			},
+			{
+				"title": "الاستشارات التجارية",
+				"description": "استشارات تجارية متخصصة لمساعدتك على تجاوز التحديات واغتنام فرص النمو والتوسع."
+			}
+		]
+	}
+}

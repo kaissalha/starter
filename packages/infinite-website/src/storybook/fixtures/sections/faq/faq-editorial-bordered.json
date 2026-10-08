@@ -1,0 +1,68 @@
+{
+	"en": {
+		"copy": {
+			"heading": "Frequently Asked Questions",
+			"description": "Common questions about what's included, how visits work, and how to get started."
+		},
+		"actions": [
+			{
+				"label": "See our blog",
+				"link": {
+					"kind": "anchor",
+					"anchor": "blog"
+				}
+			}
+		],
+		"items": [
+			{
+				"question": "What's included in a standard clean?",
+				"answer": "A standard visit covers kitchens, bathrooms, floors, surfaces, and tidy living spaces. We follow a consistent checklist so every room meets the same standard—and you can always add deep-clean extras when you need them."
+			},
+			{
+				"question": "Do you bring your own supplies?",
+				"answer": "Yes. Our teams arrive with professional-grade tools and cleaning products, so you don't need to provide or store equipment. Prefer a specific product brand? Just let us know when you book."
+			},
+			{
+				"question": "How do you handle keys and home access?",
+				"answer": "We use secure access options—lockboxes, key handoff, or codes you share with us—and only background-checked staff enter your home. Every visit is logged so you always know who was there."
+			},
+			{
+				"question": "What should I expect on the first visit?",
+				"answer": "We'll confirm your preferences, walk through priority rooms, and complete a thorough first clean. Afterward we'll share notes so recurring visits stay aligned with how you like your home kept."
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"heading": "الأسئلة الأكثر شيوعًا",
+			"description": "أسئلة شائعة حول ما تشمله الخدمة وكيف تتم الزيارات وكيف تبدأ."
+		},
+		"actions": [
+			{
+				"label": "اطلع على مدونتنا",
+				"link": {
+					"kind": "anchor",
+					"anchor": "blog"
+				}
+			}
+		],
+		"items": [
+			{
+				"question": "ما الذي تشمله خدمة التنظيف القياسية؟",
+				"answer": "تغطي الزيارة القياسية المطابخ والحمامات والأرضيات والأسطح ومساحات المعيشة. نتبع قائمة مراجعة ثابتة ليحقق كل غرفة المعيار نفسه، ويمكنك دائمًا إضافة خدمات التنظيف العميق عند الحاجة."
+			},
+			{
+				"question": "هل تحضرون مستلزماتكم الخاصة؟",
+				"answer": "نعم. تصل فرقنا بأدوات ومنتجات تنظيف احترافية، فلا تحتاج إلى توفير المعدات أو تخزينها. هل تفضل علامة منتج معينة؟ أخبرنا عند الحجز."
+			},
+			{
+				"question": "كيف تتعاملون مع المفاتيح والدخول إلى المنزل؟",
+				"answer": "نستخدم خيارات دخول آمنة، مثل صناديق المفاتيح أو تسليم المفتاح أو الرموز التي تشاركها معنا، ولا يدخل منزلك إلا موظفون تم التحقق من خلفياتهم. تُسجَّل كل زيارة لتعرف دائمًا من كان هناك."
+			},
+			{
+				"question": "ماذا أتوقع في الزيارة الأولى؟",
+				"answer": "سنؤكد تفضيلاتك ونتفقد الغرف ذات الأولوية وننجز تنظيفًا أول شاملًا. بعد ذلك سنشاركك ملاحظاتنا لتبقى الزيارات المتكررة متوافقة مع الطريقة التي تحب أن يكون عليها منزلك."
+			}
+		]
+	}
+}

@@ -1,0 +1,76 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage
+.workflow-data
+.workflow-vitest
+playwright-report
+test-results
+e2e/.auth
+.e2e
+
+# Turbo
+.turbo
+
+# AI evals
+.evals
+
+# Vercel
+.vercel
+
+# Build Outputs
+.swc
+.next/
+.next-e2e/
+out/
+build
+dist
+apps/websites/public/brand-fonts/
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+**/.evlog/
+
+# Misc
+.DS_Store
+*.pem
+
+# TypeScript
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# React Email
+**/.react-email/
+.react-email/
+
+# IDE
+.idea
+
+.playwright-mcp
+.devtools
+
+screenshots
+
+# Mastra local dev output
+.mastra
+
+# Duplication reports
+/reports/jscpd/
+
+# Tinybird generated resources and local branch credentials
+.tinybird/
+.tinyb

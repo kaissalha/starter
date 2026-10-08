@@ -1,0 +1,616 @@
+{
+	"en": {
+		"site": {
+			"name": "Nordic Edge"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "Nordic Edge navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Nordic Edge"
+					},
+					"navigation": [
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "Book now",
+							"link": {
+								"kind": "anchor",
+								"anchor": "banner-card-and-background-image"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "2026 Nordic Edge. All rights reserved.",
+						"addressLabel": "Address:",
+						"address": "Vancouver, British Columbia",
+						"contactLabel": "Contact:",
+						"contact": "(123) 456-7890\ninfo@nordicedge.com",
+						"brand": "Nordic Edge"
+					},
+					"navItems": [
+						{
+							"label": "Home",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "About",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "Services",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "Contact",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "Blog",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							}
+						}
+					],
+					"socialLinks": [],
+					"legalLinks": []
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Nordic Edge"
+					}
+				},
+				"sections": {
+					"banner-text-and-background-image": {
+						"copy": {
+							"kicker": "Vancouver's premium mobile sauna",
+							"heading": "Mobile Sauna & Cold Plunge — Delivered to Your Door",
+							"description": "Mobile sauna and cold plunge services designed for Vancouver professionals who demand better recovery."
+						},
+						"actions": [
+							{
+								"label": "Book your session",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "Mobile barrel sauna and hot tub overlooking a city skyline and snow-capped mountains."
+							}
+						]
+					},
+					"feature-three-card": {
+						"copy": {
+							"kicker": "What you get",
+							"heading": "Recovery that comes to you",
+							"description": "Mobile sauna and cold plunge experiences delivered to your Vancouver home or property. Physical recovery meets mental clarity in one premium session."
+						},
+						"media": [
+							{
+								"assetId": "5f548492-6f27-59da-a33a-7be6bc451fd2",
+								"alt": "Outdoor hot tub on a stone patio overlooking a city skyline and snow-capped mountains at sunset."
+							}
+						],
+						"items": [
+							{
+								"title": "Mobile sauna delivery",
+								"description": "Premium sauna arrives at your location. Heat therapy reduces muscle tension and improves circulation without leaving home."
+							},
+							{
+								"title": "Cold plunge immersion",
+								"description": "Controlled cold water exposure boosts recovery and mental resilience. Temperature managed for safety and maximum benefit."
+							}
+						]
+					},
+					"gallery-slideshow": {
+						"copy": {
+							"kicker": "Visual experience",
+							"heading": "See Nordic Edge\nin action",
+							"description": "Real recovery sessions captured. Mobile sauna and cold plunge setups bringing wellness to Vancouver professionals and weekend warriors."
+						},
+						"actions": [
+							{
+								"label": "Book your session",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "See Nordic Edge in action"
+						},
+						"media": [
+							{
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "Woman wrapped in a towel relaxes with eyes closed inside a warm, wood-paneled sauna."
+							},
+							{
+								"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+								"alt": "Steam rising from hot stones in a cozy wooden sauna with a bucket and towel."
+							},
+							{
+								"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+								"alt": "Hot tub with rippling water reflecting golden sunset light, overlooking a city and mountains."
+							}
+						]
+					},
+					"metrics-basic": {
+						"copy": {
+							"kicker": "Results that speak",
+							"heading": "Real recovery for\nVancouver professionals",
+							"description": "Nordic Edge clients experience measurable improvements in recovery time, sleep quality, and stress relief after their first session."
+						},
+						"actions": [
+							{
+								"label": "Book your first session",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "1–2",
+								"title": "Days faster recovery",
+								"description": "Faster recovery times for professionals"
+							},
+							{
+								"metric": "40%",
+								"title": "Better sleep quality",
+								"description": "Improved sleep quality for clients"
+							},
+							{
+								"metric": "50+",
+								"title": "Clients served",
+								"description": "Number of clients served by Nordic Edge"
+							},
+							{
+								"metric": "4.9",
+								"title": "Average session rating",
+								"description": "High average rating for sessions"
+							}
+						]
+					},
+					"testimonial-grid": {
+						"copy": {
+							"kicker": "Testimonials",
+							"heading": "See what people say"
+						},
+						"actions": [
+							{
+								"label": "See more testimonials",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "After just one session with Nordic Edge, my recovery time improved noticeably. The combination of heat and cold works exactly as promised.",
+								"name": "Marcus Reid",
+								"title": "Executive, Tech Sector",
+								"assetId": "05159906-7fc1-50a4-a2c8-f8beb79eef8b",
+								"alt": "Marcus Reid"
+							},
+							{
+								"quote": "As a weekend warrior, I was skeptical. But the mobile sauna and cold plunge setup is premium and the results are real. I book every two weeks now.",
+								"name": "Jennifer Walsh",
+								"title": "Entrepreneur, Fitness Enthusiast",
+								"assetId": "d81799c9-338c-565c-a096-9a23a74bbbda",
+								"alt": "Jennifer Walsh"
+							},
+							{
+								"quote": "The convenience of having this at my property in Vancouver is incredible. Professional service, real recovery benefits. Highly recommend for serious athletes.",
+								"name": "David Nakamura",
+								"title": "Investment Manager, Weekend Athlete",
+								"assetId": "4592078c-a3b2-5a75-907f-22f2c7b186f2",
+								"alt": "David Nakamura"
+							},
+							{
+								"quote": "Nordic Edge delivered exactly what they promised. The whole experience feels luxurious and the physical benefits are immediate.",
+								"name": "Amanda Chen",
+								"title": "Consulting Partner",
+								"assetId": "6dbd0b18-d130-5e2d-959e-e14c7700a11a",
+								"alt": "Amanda Chen"
+							}
+						]
+					},
+					"banner-card-and-background-image": {
+						"copy": {
+							"heading": "Recover like a Nordic athlete",
+							"description": "Book your mobile sauna and cold plunge experience in Vancouver. Premium wellness delivered to your home or event."
+						},
+						"media": [
+							{
+								"assetId": "ab90ac72-4d60-56b7-ab35-31ad7ce72e25",
+								"alt": "Modern wooden sauna interior with a bucket and towel, overlooking a scenic city at sunset."
+							}
+						],
+						"actions": [
+							{
+								"label": "Call to book",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678901"
+								}
+							},
+							{
+								"label": "Email us",
+								"link": {
+									"kind": "email",
+									"address": "info@nordicedge.com"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	},
+	"ar": {
+		"site": {
+			"name": "نورديك إيدج"
+		},
+		"layout": {
+			"header": {
+				"header": {
+					"accessibility": {
+						"navigationLabel": "نورديك إيدج التنقل",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "نورديك إيدج"
+					},
+					"navigation": [
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							},
+							"dropdown": []
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							},
+							"dropdown": []
+						}
+					],
+					"actions": [
+						{
+							"label": "احجز الآن",
+							"link": {
+								"kind": "anchor",
+								"anchor": "banner-card-and-background-image"
+							}
+						}
+					]
+				}
+			},
+			"footer": {
+				"footer": {
+					"copy": {
+						"copyright": "2026 نورديك إيدج. جميع الحقوق محفوظة.",
+						"addressLabel": "العنوان:",
+						"address": "فانكوفر، كولومبيا البريطانية",
+						"contactLabel": "للتواصل:",
+						"contact": "(123) 456-7890 info@nordicedge.com",
+						"brand": "نورديك إيدج"
+					},
+					"navItems": [
+						{
+							"label": "الرئيسية",
+							"link": {
+								"kind": "relative",
+								"path": "/"
+							}
+						},
+						{
+							"label": "من نحن",
+							"link": {
+								"kind": "relative",
+								"path": "/about"
+							}
+						},
+						{
+							"label": "الخدمات",
+							"link": {
+								"kind": "relative",
+								"path": "/services"
+							}
+						},
+						{
+							"label": "اتصل بنا",
+							"link": {
+								"kind": "relative",
+								"path": "/contact"
+							}
+						},
+						{
+							"label": "المدونة",
+							"link": {
+								"kind": "relative",
+								"path": "/blog"
+							}
+						}
+					],
+					"socialLinks": [],
+					"legalLinks": []
+				}
+			}
+		},
+		"pages": {
+			"home": {
+				"page": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "نورديك إيدج"
+					}
+				},
+				"sections": {
+					"banner-text-and-background-image": {
+						"copy": {
+							"kicker": "ساونا متنقلة فاخرة في فانكوفر",
+							"heading": "ساونا متنقلة وغطس بارد — حتى باب منزلك",
+							"description": "خدمات ساونا متنقلة وغطس بارد مصممة لمحترفي فانكوفر الذين يطلبون تعافياً أفضل."
+						},
+						"actions": [
+							{
+								"label": "احجز جلستك",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						],
+						"media": [
+							{
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "ساونا برميلية متنقلة وحوض ماء ساخن بإطلالة على أفق المدينة والجبال المكسوة بالثلج."
+							}
+						]
+					},
+					"feature-three-card": {
+						"copy": {
+							"kicker": "ما تحصل عليه",
+							"heading": "تعافٍ يأتي إليك",
+							"description": "تجارب ساونا متنقلة وغطس بارد تصل إلى منزلك أو عقارك في فانكوفر. التعافي الجسدي يلتقي بالصفاء الذهني في جلسة فاخرة واحدة."
+						},
+						"media": [
+							{
+								"assetId": "5f548492-6f27-59da-a33a-7be6bc451fd2",
+								"alt": "حوض ماء ساخن في الهواء الطلق على باحة حجرية بإطلالة على أفق المدينة والجبال المكسوة بالثلج عند الغروب."
+							}
+						],
+						"items": [
+							{
+								"title": "توصيل ساونا متنقلة",
+								"description": "تصل ساونا فاخرة إلى موقعك. يخفف العلاج بالحرارة توتر العضلات ويحسّن الدورة الدموية دون مغادرة المنزل."
+							},
+							{
+								"title": "الغطس في الماء البارد",
+								"description": "التعرض المنضبط للماء البارد يعزز التعافي والمرونة الذهنية. تُضبط الحرارة للأمان وتحقيق أقصى فائدة."
+							}
+						]
+					},
+					"gallery-slideshow": {
+						"copy": {
+							"kicker": "تجربة بصرية",
+							"heading": "شاهد نورديك إيدج\nفي العمل",
+							"description": "لقطات من جلسات تعافٍ حقيقية. تجهيزات ساونا متنقلة وغطس بارد تجلب العافية لمحترفي فانكوفر ورياضيي عطلة نهاية الأسبوع."
+						},
+						"actions": [
+							{
+								"label": "احجز جلستك",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						],
+						"accessibility": {
+							"carouselLabel": "شاهد نورديك إيدج في العمل"
+						},
+						"media": [
+							{
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "امرأة ملفوفة بمنشفة تسترخي مغمضة العينين داخل ساونا دافئة مكسوة بالخشب."
+							},
+							{
+								"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+								"alt": "بخار يتصاعد من أحجار ساخنة في ساونا خشبية دافئة مع دلو ومنشفة."
+							},
+							{
+								"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+								"alt": "حوض ماء ساخن بمياه متموجة تعكس ضوء الغروب الذهبي بإطلالة على المدينة والجبال."
+							}
+						]
+					},
+					"metrics-basic": {
+						"copy": {
+							"kicker": "نتائج تتحدث عن نفسها",
+							"heading": "تعافٍ حقيقي\nلمحترفي فانكوفر",
+							"description": "يلمس عملاء نورديك إيدج تحسناً ملموساً في زمن التعافي وجودة النوم وتخفيف التوتر بعد جلستهم الأولى."
+						},
+						"actions": [
+							{
+								"label": "احجز جلستك الأولى",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						],
+						"items": [
+							{
+								"metric": "1–2",
+								"title": "أيام أسرع في التعافي",
+								"description": "تعافٍ أسرع للمحترفين"
+							},
+							{
+								"metric": "40%",
+								"title": "جودة نوم أفضل",
+								"description": "جودة نوم محسّنة للعملاء"
+							},
+							{
+								"metric": "50+",
+								"title": "عملاء خدمناهم",
+								"description": "عدد العملاء الذين خدمتهم نورديك إيدج"
+							},
+							{
+								"metric": "4.9",
+								"title": "متوسط تقييم الجلسات",
+								"description": "تقييم مرتفع للجلسات في المتوسط"
+							}
+						]
+					},
+					"testimonial-grid": {
+						"copy": {
+							"kicker": "آراء العملاء",
+							"heading": "اطلع على آراء الناس"
+						},
+						"actions": [
+							{
+								"label": "عرض المزيد من الآراء",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						],
+						"testimonials": [
+							{
+								"quote": "بعد جلسة واحدة فقط مع نورديك إيدج، تحسن زمن تعافيّ بشكل ملحوظ. مزيج الحرارة والبرودة يعمل تماماً كما وُعد.",
+								"name": "ماركوس ريد",
+								"title": "مدير تنفيذي، قطاع التقنية",
+								"assetId": "05159906-7fc1-50a4-a2c8-f8beb79eef8b",
+								"alt": "ماركوس ريد"
+							},
+							{
+								"quote": "بصفتي رياضياً في عطلة نهاية الأسبوع، كنت متشككاً. لكن تجهيز الساونا المتنقلة والغطس البارد فاخر والنتائج حقيقية. أحجز الآن كل أسبوعين.",
+								"name": "جينيفر والش",
+								"title": "رائدة أعمال، شغوفة باللياقة",
+								"assetId": "d81799c9-338c-565c-a096-9a23a74bbbda",
+								"alt": "جينيفر والش"
+							},
+							{
+								"quote": "راحة وجود هذه الخدمة في عقاري بفانكوفر لا تُصدّق. خدمة احترافية وفوائد تعافٍ حقيقية. أنصح بها بشدة للرياضيين الجادين.",
+								"name": "ديفيد ناكامورا",
+								"title": "مدير استثمار، رياضي عطلة نهاية الأسبوع",
+								"assetId": "4592078c-a3b2-5a75-907f-22f2c7b186f2",
+								"alt": "ديفيد ناكامورا"
+							},
+							{
+								"quote": "قدمت نورديك إيدج بالضبط ما وعدت به. التجربة كلها فاخرة والفوائد الجسدية فورية.",
+								"name": "أماندا تشين",
+								"title": "شريكة استشارات",
+								"assetId": "6dbd0b18-d130-5e2d-959e-e14c7700a11a",
+								"alt": "أماندا تشين"
+							}
+						]
+					},
+					"banner-card-and-background-image": {
+						"copy": {
+							"heading": "تعافَ كرياضي نوردي",
+							"description": "احجز تجربة الساونا المتنقلة والغطس البارد في فانكوفر. عافية فاخرة تصل إلى منزلك أو فعاليتك."
+						},
+						"media": [
+							{
+								"assetId": "ab90ac72-4d60-56b7-ab35-31ad7ce72e25",
+								"alt": "داخل ساونا خشبية حديثة مع دلو ومنشفة بإطلالة على مدينة خلابة عند الغروب."
+							}
+						],
+						"actions": [
+							{
+								"label": "اتصل للحجز",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678901"
+								}
+							},
+							{
+								"label": "راسلنا",
+								"link": {
+									"kind": "email",
+									"address": "info@nordicedge.com"
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

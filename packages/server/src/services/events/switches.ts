@@ -1,0 +1,28 @@
+import { getFailFastRedis } from "@starter/cache";
+
+const readSwitches = async (keys: Array<string>) => {
+	const redis = getFailFastRedis();
+
+	if (!redis) {
+		return [];
+	}
+
+	try {
+		return await redis.mget(keys);
+	} catch {
+		return [];
+	}
+};
+
+export const isEventConsumerPaused = async ({ consumerKey }: { consumerKey: string }) => {
+	const [kind] = consumerKey.split(":");
+	const values = await readSwitches([`starter:events:paused:${kind}`, `starter:events:paused:${consumerKey}`]);
+
+	return values.includes("1");
+};
+
+export const isLegacyContactTriage = async () => {
+	const [value] = await readSwitches(["starter:events:legacy:contact_triage"]);
+
+	return value === "1";
+};

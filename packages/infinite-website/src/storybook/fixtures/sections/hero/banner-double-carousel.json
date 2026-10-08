@@ -1,0 +1,98 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "Pet photography",
+			"heading": "Capture the moments you wish could last forever",
+			"description": "We turn your dog's personality into timeless portraits—full of life, love, and the little details you never want to forget."
+		},
+		"leftItems": [
+			{
+				"assetId": "3af8d968-87f6-58df-9599-de950f1e8abf",
+				"alt": "Friends and dogs relaxing in a private jet"
+			},
+			{
+				"assetId": "5edfe123-ec41-531d-a822-58bd85360c01",
+				"alt": "Friends and their dogs boarding a white private jet"
+			},
+			{
+				"assetId": "3fa3ca2f-293b-549e-bafe-865651d4e218",
+				"alt": "Calm dog in a pet travel crate"
+			},
+			{
+				"assetId": "ebdc7fcc-7343-5364-92af-0f92bfcead79",
+				"alt": "Smiling man in sunglasses sitting with his golden retriever"
+			}
+		],
+		"rightItems": [
+			{
+				"assetId": "52556f37-89e2-5721-b329-068de9453e88",
+				"alt": "Dog waiting beside a travel crate at home"
+			},
+			{
+				"assetId": "a0ce3d3a-3d70-5864-b38f-41bbae51764d",
+				"alt": "Passengers and golden retrievers relax in the spacious cabin of a private jet"
+			},
+			{
+				"assetId": "724b0f97-dde6-54aa-8938-f8da08b1dd6a",
+				"alt": "Smiling woman in sunglasses holding a fluffy brown dog"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"label": "Book a session"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "تصوير الحيوانات الأليفة",
+			"heading": "التقط اللحظات التي تتمنى أن تدوم للأبد",
+			"description": "نحوّل شخصية كلبك إلى صور خالدة مليئة بالحياة والحب والتفاصيل الصغيرة التي لا تريد نسيانها."
+		},
+		"leftItems": [
+			{
+				"assetId": "3af8d968-87f6-58df-9599-de950f1e8abf",
+				"alt": "أصدقاء وكلاب يسترخون في طائرة خاصة"
+			},
+			{
+				"assetId": "5edfe123-ec41-531d-a822-58bd85360c01",
+				"alt": "أصدقاء وكلابهم يصعدون إلى طائرة خاصة بيضاء"
+			},
+			{
+				"assetId": "3fa3ca2f-293b-549e-bafe-865651d4e218",
+				"alt": "كلب هادئ في قفص سفر"
+			},
+			{
+				"assetId": "ebdc7fcc-7343-5364-92af-0f92bfcead79",
+				"alt": "رجل مبتسم يرتدي نظارة شمسية يجلس مع كلبه الغولدن ريتريفر"
+			}
+		],
+		"rightItems": [
+			{
+				"assetId": "52556f37-89e2-5721-b329-068de9453e88",
+				"alt": "كلب ينتظر بجانب قفص السفر في المنزل"
+			},
+			{
+				"assetId": "a0ce3d3a-3d70-5864-b38f-41bbae51764d",
+				"alt": "ركاب وكلاب غولدن ريتريفر يسترخون في مقصورة طائرة خاصة فسيحة"
+			},
+			{
+				"assetId": "724b0f97-dde6-54aa-8938-f8da08b1dd6a",
+				"alt": "امرأة مبتسمة ترتدي نظارة شمسية تحمل كلبا بنيا رقيقا الفراء"
+			}
+		],
+		"actions": [
+			{
+				"link": {
+					"kind": "anchor",
+					"anchor": "contact"
+				},
+				"label": "احجز جلسة"
+			}
+		]
+	}
+}

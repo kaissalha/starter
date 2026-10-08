@@ -1,0 +1,147 @@
+{
+	"name": "@starter/server",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"main": "./src/index.ts",
+	"types": "./src/index.ts",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"import": "./src/index.ts",
+			"default": "./src/index.ts"
+		},
+		"./api": {
+			"types": "./src/api/app.ts",
+			"import": "./src/api/app.ts",
+			"default": "./src/api/app.ts"
+		},
+		"./permissions": {
+			"types": "./src/utils/permissions.ts",
+			"import": "./src/utils/permissions.ts",
+			"default": "./src/utils/permissions.ts"
+		},
+		"./auth": {
+			"types": "./src/lib/auth.ts",
+			"import": "./src/lib/auth.ts",
+			"default": "./src/lib/auth.ts"
+		},
+		"./chat": {
+			"types": "./src/api/chat-stream.ts",
+			"import": "./src/api/chat-stream.ts",
+			"default": "./src/api/chat-stream.ts"
+		},
+		"./contracts": {
+			"types": "./src/contracts.ts",
+			"import": "./src/contracts.ts",
+			"default": "./src/contracts.ts"
+		},
+		"./link-pages": {
+			"types": "./src/services/ready-link-page.ts",
+			"import": "./src/services/ready-link-page.ts",
+			"default": "./src/services/ready-link-page.ts"
+		},
+		"./mcp": {
+			"types": "./src/api/mcp.ts",
+			"import": "./src/api/mcp.ts",
+			"default": "./src/api/mcp.ts"
+		},
+		"./website-host": {
+			"types": "./src/services/websites/website-host.ts",
+			"import": "./src/services/websites/website-host.ts",
+			"default": "./src/services/websites/website-host.ts"
+		},
+		"./websites": {
+			"types": "./src/services/websites/ready-website.ts",
+			"import": "./src/services/websites/ready-website.ts",
+			"default": "./src/services/websites/ready-website.ts"
+		},
+		"./blog-posts": {
+			"types": "./src/services/blog-posts/public.ts",
+			"import": "./src/services/blog-posts/public.ts",
+			"default": "./src/services/blog-posts/public.ts"
+		},
+		"./website-contact": {
+			"types": "./src/services/websites/contact-submission.ts",
+			"import": "./src/services/websites/contact-submission.ts",
+			"default": "./src/services/websites/contact-submission.ts"
+		},
+		"./analytics-collection": {
+			"types": "./src/services/analytics/collection.ts",
+			"import": "./src/services/analytics/collection.ts",
+			"default": "./src/services/analytics/collection.ts"
+		},
+		"./openui-chat.spec.json": "./src/ai/generated/openui-chat.spec.json"
+	},
+	"scripts": {
+		"generate:section-embeddings": "bun --env-file=../../apps/webapp/.env.local scripts/generate-section-reference-embeddings.ts && oxfmt src/services/websites/section-reference-embeddings.generated.json",
+		"eval:custom-section": "bun scripts/evals/custom-section/cli.ts",
+		"dev:mastra": "bunx mastra@1.27.2 dev --env ../../apps/webapp/.env.local",
+		"react-doctor": "react-doctor . --score --blocking error",
+		"test:integration": "vitest run --config vitest.integration.config.mts",
+		"typecheck": "tsc --noEmit --skipLibCheck"
+	},
+	"dependencies": {
+		"@better-auth/api-key": "^1.7.7",
+		"@better-auth/cimd": "^1.7.7",
+		"@better-auth/i18n": "^1.7.7",
+		"@better-auth/mcp": "^1.7.7",
+		"@mastra/ai-sdk": "^1.10.6",
+		"@mastra/core": "^1.74.0",
+		"@mastra/memory": "^1.35.0",
+		"@mastra/observability": "^1.18.3",
+		"@mastra/rag": "^2.6.6",
+		"@modelcontextprotocol/server": "^2.3.1",
+		"@openuidev/lang-core": "^0.3.1",
+		"@orpc/client": "2.0.0-beta.42",
+		"@orpc/openapi": "2.0.0-beta.42",
+		"@orpc/server": "2.0.0-beta.42",
+		"@orpc/zod": "2.0.0-beta.42",
+		"@starter/analytics": "workspace:*",
+		"@starter/cache": "workspace:*",
+		"@starter/db": "workspace:*",
+		"@starter/documents": "workspace:*",
+		"@starter/email": "workspace:*",
+		"@starter/infinite-brand": "workspace:*",
+		"@starter/infinite-links": "workspace:*",
+		"@starter/infinite-website": "workspace:*",
+		"@starter/observability": "workspace:*",
+		"@starter/pdf": "workspace:*",
+		"@starter/utils": "workspace:*",
+		"@vercel/blob": "^2.8.1",
+		"@vercel/functions": "^3.9.11",
+		"@vercel/sdk": "^1.28.40",
+		"ai": "7.0.130",
+		"ai-evaluation": "npm:ai@7.0.106",
+		"better-auth": "^1.7.7",
+		"drizzle-orm": "^1.0.0-rc.5",
+		"evlog": "^2.30.1",
+		"files-sdk": "^2.6.2",
+		"firecrawl": "^4.44.0",
+		"jsonrepair": "^3.15.0",
+		"next": "16.4.0",
+		"react-email": "^6.11.1",
+		"resend": "^6.32.1",
+		"resumable-stream": "^2.2.13",
+		"sharp": "^0.35.5",
+		"tldts": "^7.4.16",
+		"uuid": "^14.0.2",
+		"workflow": "5.1.0",
+		"zod": "4.6.5"
+	},
+	"devDependencies": {
+		"@mastra/pg": "^1.29.0",
+		"@orpc/json-schema": "2.0.0-beta.42",
+		"@starter/genui": "workspace:*",
+		"@starter/tsconfig": "workspace:*",
+		"@total-typescript/ts-reset": "^0.6.1",
+		"@types/node": "^26.6.4",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"@workflow/vitest": "5.0.2",
+		"typescript": "^7.0.2"
+	},
+	"peerDependencies": {
+		"react": "^19.2.3"
+	}
+}

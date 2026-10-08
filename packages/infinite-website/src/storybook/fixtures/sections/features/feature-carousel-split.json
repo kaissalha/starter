@@ -1,0 +1,92 @@
+{
+	"en": {
+		"copy": {
+			"kicker": "our process",
+			"heading": "How we work with our clients",
+			"description": "A simple, seamless process designed to deliver a cleaner home with less effort from you."
+		},
+		"accessibility": { "carouselLabel": "Our process" },
+		"features": [
+			{
+				"number": "1",
+				"title": "Tell us about your space",
+				"description": "Share a few details about your home, cleaning priorities, and preferred schedule. We'll learn exactly what you need before we get started.",
+				"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+				"alt": "Classic car interior with tan leather seats and wood trim"
+			},
+			{
+				"number": "2",
+				"title": "Receive your personalized quote",
+				"description": "We create a customized estimate based on your home's size, service requirements, and cleaning preferences.",
+				"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+				"alt": "Close-up of a tan leather seat with modern controls"
+			},
+			{
+				"number": "3",
+				"title": "Choose a convenient time",
+				"description": "Pick a day and arrival window that fits your routine. We'll confirm the booking and send a reminder before we arrive.",
+				"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+				"alt": "Classic car dashboard with a wooden steering wheel"
+			},
+			{
+				"number": "4",
+				"title": "Enjoy a thorough cleaning",
+				"description": "Our trained team arrives prepared with professional supplies and follows a consistent checklist for every room.",
+				"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+				"alt": "Open door of a green classic car showing a tan leather interior"
+			},
+			{
+				"number": "5",
+				"title": "Relax in a spotless home",
+				"description": "Return to a fresh, clean, and comfortable space without lifting a finger.",
+				"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+				"alt": "Green classic Range Rover in a dark workshop"
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"kicker": "طريقة عملنا",
+			"heading": "كيف نعمل مع عملائنا",
+			"description": "عملية بسيطة وسلسة مصممة لتقديم منزل أنظف بجهد أقل منك."
+		},
+		"accessibility": { "carouselLabel": "طريقة عملنا" },
+		"features": [
+			{
+				"number": "١",
+				"title": "أخبرنا عن مساحتك",
+				"description": "شاركنا بعض التفاصيل عن منزلك وأولويات التنظيف والجدول المفضل. سنتعرف على ما تحتاجه بدقة قبل أن نبدأ.",
+				"assetId": "782ce99a-69c1-52d5-8ce0-c6b978f1aa41",
+				"alt": "مقصورة سيارة كلاسيكية بمقاعد جلدية بنية وزخارف خشبية"
+			},
+			{
+				"number": "٢",
+				"title": "استلم عرض سعرك المخصص",
+				"description": "نعد تقديرًا مخصصًا بناءً على حجم منزلك ومتطلبات الخدمة وتفضيلات التنظيف.",
+				"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+				"alt": "صورة مقربة لمقعد جلدي بني بأزرار تحكم حديثة"
+			},
+			{
+				"number": "٣",
+				"title": "اختر وقتًا مناسبًا",
+				"description": "اختر يومًا ونافذة وصول تناسب روتينك. سنؤكد الحجز ونرسل تذكيرًا قبل وصولنا.",
+				"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+				"alt": "لوحة قيادة سيارة كلاسيكية بمقود خشبي"
+			},
+			{
+				"number": "٤",
+				"title": "استمتع بتنظيف شامل",
+				"description": "يصل فريقنا المدرب مجهزًا بمستلزمات احترافية ويتبع قائمة مراجعة ثابتة لكل غرفة.",
+				"assetId": "c1d10dee-bf69-52a5-ab4d-5f5c27d41455",
+				"alt": "باب مفتوح لسيارة كلاسيكية خضراء يظهر مقصورة جلدية بنية"
+			},
+			{
+				"number": "٥",
+				"title": "استرخِ في منزل نظيف تمامًا",
+				"description": "عد إلى مساحة منعشة ونظيفة ومريحة دون أن ترفع إصبعًا.",
+				"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+				"alt": "سيارة رينج روفر كلاسيكية خضراء في ورشة مظلمة"
+			}
+		]
+	}
+}

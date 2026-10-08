@@ -1,0 +1,4151 @@
+{
+	"assetBindings": {
+		"0480333f-8a92-5cca-aae0-c324fcf049f8": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/websites/uploaded-media/ChatGPT%20Image%20May%201%2C%202026%2C%2005_33_00%20PM-LVpPGhqDZ492XBeKfWrbdhk8DMWZQf.png"
+		},
+		"05159906-7fc1-50a4-a2c8-f8beb79eef8b": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/generated-content/headshots/749dd67b-6d38-476b-b9d4-b4bacd4c0cc2.png"
+		},
+		"4592078c-a3b2-5a75-907f-22f2c7b186f2": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/generated-content/headshots/71227d63-eac7-45f3-b33a-31e289b9d71d.png"
+		},
+		"5f548492-6f27-59da-a33a-7be6bc451fd2": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/websites/uploaded-media/ChatGPT%20Image%20May%201%2C%202026%2C%2005_31_57%20PM-hj2q3MmhK81zLo2dTngMTHv21XBXl8.png"
+		},
+		"6dbd0b18-d130-5e2d-959e-e14c7700a11a": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/generated-content/headshots/d375e62c-fb2a-49b5-99b6-02cfafc7df9d.png"
+		},
+		"9ca74eec-dbbb-5fe6-b496-a812c51bfd22": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/websites/uploaded-media/ChatGPT%20Image%20May%201%2C%202026%2C%2005_12_53%20PM-jMpj3c8OoiIUSKEFxV2rYpMpy6I6bP.png"
+		},
+		"ab90ac72-4d60-56b7-ab35-31ad7ce72e25": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/websites/uploaded-media/ChatGPT%20Image%20May%201%2C%202026%2C%2005_24_44%20PM-ceDwJGRoLG6zTqO6rgBH14bGNAfMU6.png"
+		},
+		"ab98ced5-0a98-51b5-b271-18cae8f8df09": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/websites/uploaded-media/ChatGPT%20Image%20May%201%2C%202026%2C%2005_40_05%20PM-JG8C8u16EOiocOt5OjAoTyWEaTYfLW.png"
+		},
+		"b3d0e48e-394d-5501-bb62-912026d407fc": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/websites/uploaded-media/ChatGPT%20Image%20May%201%2C%202026%2C%2005_44_46%20PM-wUjKJGlyw4n4XvUxo8FlX7wbO69Oc0.png"
+		},
+		"d81799c9-338c-565c-a096-9a23a74bbbda": {
+			"src": "https://rjdavx8ozyznxeyh.public.blob.vercel-storage.com/production/generated-content/headshots/0f40c9a2-b432-4d19-8972-7d118eeb6273.png"
+		}
+	},
+	"brand": {
+		"buttons": {
+			"style": "solid"
+		},
+		"colors": {
+			"background": "#fbf9f7",
+			"neutral": "#8b8d98",
+			"primary": "#d16702",
+			"secondary": "#938982",
+			"tertiary": "#d16702"
+		},
+		"corners": {
+			"style": "soft"
+		},
+		"defaultLocale": "en",
+		"locales": ["en", "ar"],
+		"schemaVersion": 1,
+		"typography": {
+			"body": {
+				"default": {
+					"fontId": "inter",
+					"weight": 400
+				},
+				"scripts": {
+					"Arab": {
+						"fontId": "noto-sans-arabic",
+						"weight": 400
+					}
+				}
+			},
+			"catalogVersion": 1,
+			"heading": {
+				"default": {
+					"fontId": "instrument-serif",
+					"weight": 400
+				},
+				"scripts": {
+					"Arab": {
+						"fontId": "noto-naskh-arabic",
+						"weight": 400
+					}
+				}
+			}
+		}
+	},
+	"content": {
+		"en": {
+			"pages": {
+				"588d886f-5633-5008-af71-7446af04ffec": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "Nordic Edge"
+					}
+				}
+			},
+			"sections": {
+				"42764945-8be1-5530-a55e-2d125554f1cc": {
+					"accessibility": {
+						"navigationLabel": "Nordic Edge navigation",
+						"mobileNavigationLabel": "Menu"
+					},
+					"copy": {
+						"header-main-brand": "Nordic Edge"
+					},
+					"navigation": {
+						"items": {
+							"52cf1968-9c66-5d0b-b1dc-87f983f91427": {
+								"label": "Services",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								},
+								"dropdown": {
+									"items": {},
+									"order": []
+								}
+							},
+							"53cf1afb-9b66-5b78-b0dc-866682f91294": {
+								"label": "About",
+								"link": {
+									"kind": "relative",
+									"path": "/about"
+								},
+								"dropdown": {
+									"items": {},
+									"order": []
+								}
+							},
+							"54cf1c8e-9e66-5031-afdc-84d385f9174d": {
+								"label": "Contact",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"dropdown": {
+									"items": {},
+									"order": []
+								}
+							}
+						},
+						"order": [
+							"52cf1968-9c66-5d0b-b1dc-87f983f91427",
+							"53cf1afb-9b66-5b78-b0dc-866682f91294",
+							"54cf1c8e-9e66-5031-afdc-84d385f9174d"
+						]
+					},
+					"actions": {
+						"items": {
+							"81efcaaf-b284-5402-aebf-efe8a22e449e": {
+								"label": "Book now",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						},
+						"order": ["81efcaaf-b284-5402-aebf-efe8a22e449e"]
+					}
+				},
+				"cb79acd5-2dbd-552c-8cf9-88e6abfc8e98": {
+					"copy": {
+						"copyright": "2026 Nordic Edge. All rights reserved.",
+						"addressLabel": "Address:",
+						"address": "Vancouver, British Columbia",
+						"contactLabel": "Contact:",
+						"contact": "(123) 456-7890\ninfo@nordicedge.com",
+						"brand": "Nordic Edge"
+					},
+					"navItems": {
+						"items": {
+							"5e7a06d9-2243-5c26-82d9-3cecd2cb204a": {
+								"label": "Home",
+								"link": {
+									"kind": "relative",
+									"path": "/"
+								}
+							},
+							"5d7a0546-2343-5db9-83d9-3e7fd3cb21dd": {
+								"label": "About",
+								"link": {
+									"kind": "relative",
+									"path": "/about"
+								}
+							},
+							"5c7a03b3-2043-5900-84d9-4012d0cb1d24": {
+								"label": "Services",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								}
+							},
+							"5b7a0220-2143-5a93-85d9-41a5d1cb1eb7": {
+								"label": "Contact",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								}
+							},
+							"627a0d25-2643-5272-bed9-36a0cecb19fe": {
+								"label": "Blog",
+								"link": {
+									"kind": "relative",
+									"path": "/blog"
+								}
+							}
+						},
+						"order": [
+							"5e7a06d9-2243-5c26-82d9-3cecd2cb204a",
+							"5d7a0546-2343-5db9-83d9-3e7fd3cb21dd",
+							"5c7a03b3-2043-5900-84d9-4012d0cb1d24",
+							"5b7a0220-2143-5a93-85d9-41a5d1cb1eb7",
+							"627a0d25-2643-5272-bed9-36a0cecb19fe"
+						]
+					},
+					"socialLinks": {
+						"items": {},
+						"order": []
+					},
+					"legalLinks": {
+						"items": {},
+						"order": []
+					}
+				},
+				"9e6db1b2-481d-5e7f-9167-613db46eb15b": {
+					"copy": {
+						"kicker": "Vancouver's premium mobile sauna",
+						"heading": "Mobile Sauna & Cold Plunge — Delivered to Your Door",
+						"description": "Mobile sauna and cold plunge services designed for Vancouver professionals who demand better recovery."
+					},
+					"actions": {
+						"items": {
+							"c7ba2368-5f36-5625-a3e0-2a87c5df0ea1": {
+								"label": "Book your session",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						},
+						"order": ["c7ba2368-5f36-5625-a3e0-2a87c5df0ea1"]
+					},
+					"media": {
+						"items": {
+							"6e864eb7-ac62-5ace-a72d-37a07c7844ba": {
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "Mobile barrel sauna and hot tub overlooking a city skyline and snow-capped mountains."
+							}
+						},
+						"order": ["6e864eb7-ac62-5ace-a72d-37a07c7844ba"]
+					}
+				},
+				"000d7fb7-78c2-5fc2-80a8-bf0069711b66": {
+					"copy": {
+						"kicker": "What you get",
+						"heading": "Recovery that comes to you",
+						"description": "Mobile sauna and cold plunge experiences delivered to your Vancouver home or property. Physical recovery meets mental clarity in one premium session."
+					},
+					"media": {
+						"items": {
+							"0fcc97b2-627d-5153-a90f-c0ad6045d687": {
+								"assetId": "5f548492-6f27-59da-a33a-7be6bc451fd2",
+								"alt": "Outdoor hot tub on a stone patio overlooking a city skyline and snow-capped mountains at sunset."
+							}
+						},
+						"order": ["0fcc97b2-627d-5153-a90f-c0ad6045d687"]
+					},
+					"items": {
+						"items": {
+							"1efcec12-718c-5aa3-9258-0cd19f1ec0b7": {
+								"title": "Mobile sauna delivery",
+								"description": "Premium sauna arrives at your location. Heat therapy reduces muscle tension and improves circulation without leaving home."
+							},
+							"1ffceda5-708c-5910-9158-0b3e9e1ebf24": {
+								"title": "Cold plunge immersion",
+								"description": "Controlled cold water exposure boosts recovery and mental resilience. Temperature managed for safety and maximum benefit."
+							}
+						},
+						"order": ["1efcec12-718c-5aa3-9258-0cd19f1ec0b7", "1ffceda5-708c-5910-9158-0b3e9e1ebf24"]
+					}
+				},
+				"a5d95b9a-2bda-5c4d-b0a6-b0d34ddf4251": {
+					"copy": {
+						"kicker": "Visual experience",
+						"heading": "See Nordic Edge\nin action",
+						"description": "Real recovery sessions captured. Mobile sauna and cold plunge setups bringing wellness to Vancouver professionals and weekend warriors."
+					},
+					"actions": {
+						"items": {
+							"3da2b00e-fb3d-5cdd-b36a-5997a88b3e21": {
+								"label": "Book your session",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						},
+						"order": ["3da2b00e-fb3d-5cdd-b36a-5997a88b3e21"]
+					},
+					"accessibility": {
+						"carouselLabel": "See Nordic Edge in action"
+					},
+					"media": {
+						"items": {
+							"5b673dad-35f6-5396-be59-d1709902083a": {
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "Woman wrapped in a towel relaxes with eyes closed inside a warm, wood-paneled sauna."
+							},
+							"5a673c1a-36f6-5529-bf59-d3039a0209cd": {
+								"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+								"alt": "Steam rising from hot stones in a cozy wooden sauna with a bucket and towel."
+							},
+							"59673a87-33f6-5070-8059-d49697020514": {
+								"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+								"alt": "Hot tub with rippling water reflecting golden sunset light, overlooking a city and mountains."
+							}
+						},
+						"order": [
+							"5b673dad-35f6-5396-be59-d1709902083a",
+							"5a673c1a-36f6-5529-bf59-d3039a0209cd",
+							"59673a87-33f6-5070-8059-d49697020514"
+						]
+					}
+				},
+				"aa9d9dd7-355c-5ce4-8a85-5942c85d9948": {
+					"copy": {
+						"kicker": "Results that speak",
+						"heading": "Real recovery for\nVancouver professionals",
+						"description": "Nordic Edge clients experience measurable improvements in recovery time, sleep quality, and stress relief after their first session."
+					},
+					"actions": {
+						"items": {
+							"cf9b0743-92b2-5ad4-ad33-69964b0bab78": {
+								"label": "Book your first session",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						},
+						"order": ["cf9b0743-92b2-5ad4-ad33-69964b0bab78"]
+					},
+					"items": {
+						"items": {
+							"6311f140-be6f-5d63-b2eb-0ce953df9537": {
+								"metric": "1–2",
+								"title": "Days faster recovery",
+								"description": "Faster recovery times for professionals"
+							},
+							"6411f2d3-bd6f-5bd0-b1eb-0b5652df93a4": {
+								"metric": "40%",
+								"title": "Better sleep quality",
+								"description": "Improved sleep quality for clients"
+							},
+							"6511f466-c06f-5089-b0eb-09c355df985d": {
+								"metric": "50+",
+								"title": "Clients served",
+								"description": "Number of clients served by Nordic Edge"
+							},
+							"6611f5f9-bf6f-5ef6-afeb-083054df96ca": {
+								"metric": "4.9",
+								"title": "Average session rating",
+								"description": "High average rating for sessions"
+							}
+						},
+						"order": [
+							"6311f140-be6f-5d63-b2eb-0ce953df9537",
+							"6411f2d3-bd6f-5bd0-b1eb-0b5652df93a4",
+							"6511f466-c06f-5089-b0eb-09c355df985d",
+							"6611f5f9-bf6f-5ef6-afeb-083054df96ca"
+						]
+					}
+				},
+				"63b40cb1-f40b-5be4-b58a-500220663600": {
+					"copy": {
+						"kicker": "Testimonials",
+						"heading": "See what people say"
+					},
+					"actions": {
+						"items": {
+							"ac61610b-bcbb-5fb6-b503-fb1850d1df42": {
+								"label": "See more testimonials",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						},
+						"order": ["ac61610b-bcbb-5fb6-b503-fb1850d1df42"]
+					},
+					"testimonials": {
+						"items": {
+							"2f2d3346-00a2-5441-be3d-80970d18eef5": {
+								"quote": "After just one session with Nordic Edge, my recovery time improved noticeably. The combination of heat and cold works exactly as promised.",
+								"name": "Marcus Reid",
+								"title": "Executive, Tech Sector",
+								"assetId": "05159906-7fc1-50a4-a2c8-f8beb79eef8b",
+								"alt": "Marcus Reid"
+							},
+							"302d34d9-ffa2-52ae-bd3d-7f040c18ed62": {
+								"quote": "As a weekend warrior, I was skeptical. But the mobile sauna and cold plunge setup is premium and the results are real. I book every two weeks now.",
+								"name": "Jennifer Walsh",
+								"title": "Entrepreneur, Fitness Enthusiast",
+								"assetId": "d81799c9-338c-565c-a096-9a23a74bbbda",
+								"alt": "Jennifer Walsh"
+							},
+							"2d2d3020-fea2-511b-803d-83bd0b18ebcf": {
+								"quote": "The convenience of having this at my property in Vancouver is incredible. Professional service, real recovery benefits. Highly recommend for serious athletes.",
+								"name": "David Nakamura",
+								"title": "Investment Manager, Weekend Athlete",
+								"assetId": "4592078c-a3b2-5a75-907f-22f2c7b186f2",
+								"alt": "David Nakamura"
+							},
+							"2e2d31b3-fda2-5f88-bf3d-822a0a18ea3c": {
+								"quote": "Nordic Edge delivered exactly what they promised. The whole experience feels luxurious and the physical benefits are immediate.",
+								"name": "Amanda Chen",
+								"title": "Consulting Partner",
+								"assetId": "6dbd0b18-d130-5e2d-959e-e14c7700a11a",
+								"alt": "Amanda Chen"
+							}
+						},
+						"order": [
+							"2f2d3346-00a2-5441-be3d-80970d18eef5",
+							"302d34d9-ffa2-52ae-bd3d-7f040c18ed62",
+							"2d2d3020-fea2-511b-803d-83bd0b18ebcf",
+							"2e2d31b3-fda2-5f88-bf3d-822a0a18ea3c"
+						]
+					}
+				},
+				"0dd802f1-3e60-5c30-8a38-37867acb784c": {
+					"copy": {
+						"heading": "Recover like a Nordic athlete",
+						"description": "Book your mobile sauna and cold plunge experience in Vancouver. Premium wellness delivered to your home or event."
+					},
+					"media": {
+						"items": {
+							"897d9178-b3ff-5405-9492-933f7c9babe1": {
+								"assetId": "ab90ac72-4d60-56b7-ab35-31ad7ce72e25",
+								"alt": "Modern wooden sauna interior with a bucket and towel, overlooking a scenic city at sunset."
+							}
+						},
+						"order": ["897d9178-b3ff-5405-9492-933f7c9babe1"]
+					},
+					"actions": {
+						"items": {
+							"d7a0992f-a9f8-5cf6-aaa2-f160f057b5b2": {
+								"label": "Call to book",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678901"
+								}
+							},
+							"d6a0979c-aaf8-5e89-aba2-f2f3f157b745": {
+								"label": "Email us",
+								"link": {
+									"kind": "email",
+									"address": "info@nordicedge.com"
+								}
+							}
+						},
+						"order": ["d7a0992f-a9f8-5cf6-aaa2-f160f057b5b2", "d6a0979c-aaf8-5e89-aba2-f2f3f157b745"]
+					}
+				}
+			},
+			"site": {
+				"name": "Nordic Edge"
+			}
+		},
+		"ar": {
+			"pages": {
+				"588d886f-5633-5008-af71-7446af04ffec": {
+					"route": {
+						"slug": "home"
+					},
+					"seo": {
+						"title": "نورديك إيدج"
+					}
+				}
+			},
+			"sections": {
+				"42764945-8be1-5530-a55e-2d125554f1cc": {
+					"accessibility": {
+						"navigationLabel": "نورديك إيدج التنقل",
+						"mobileNavigationLabel": "القائمة"
+					},
+					"copy": {
+						"header-main-brand": "نورديك إيدج"
+					},
+					"navigation": {
+						"items": {
+							"52cf1968-9c66-5d0b-b1dc-87f983f91427": {
+								"label": "الخدمات",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								},
+								"dropdown": {
+									"items": {}
+								}
+							},
+							"53cf1afb-9b66-5b78-b0dc-866682f91294": {
+								"label": "من نحن",
+								"link": {
+									"kind": "relative",
+									"path": "/about"
+								},
+								"dropdown": {
+									"items": {}
+								}
+							},
+							"54cf1c8e-9e66-5031-afdc-84d385f9174d": {
+								"label": "اتصل بنا",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								},
+								"dropdown": {
+									"items": {}
+								}
+							}
+						}
+					},
+					"actions": {
+						"items": {
+							"81efcaaf-b284-5402-aebf-efe8a22e449e": {
+								"label": "احجز الآن",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						}
+					}
+				},
+				"cb79acd5-2dbd-552c-8cf9-88e6abfc8e98": {
+					"copy": {
+						"copyright": "2026 نورديك إيدج. جميع الحقوق محفوظة.",
+						"addressLabel": "العنوان:",
+						"address": "فانكوفر، كولومبيا البريطانية",
+						"contactLabel": "للتواصل:",
+						"contact": "(123) 456-7890 info@nordicedge.com",
+						"brand": "نورديك إيدج"
+					},
+					"navItems": {
+						"items": {
+							"5e7a06d9-2243-5c26-82d9-3cecd2cb204a": {
+								"label": "الرئيسية",
+								"link": {
+									"kind": "relative",
+									"path": "/"
+								}
+							},
+							"5d7a0546-2343-5db9-83d9-3e7fd3cb21dd": {
+								"label": "من نحن",
+								"link": {
+									"kind": "relative",
+									"path": "/about"
+								}
+							},
+							"5c7a03b3-2043-5900-84d9-4012d0cb1d24": {
+								"label": "الخدمات",
+								"link": {
+									"kind": "relative",
+									"path": "/services"
+								}
+							},
+							"5b7a0220-2143-5a93-85d9-41a5d1cb1eb7": {
+								"label": "اتصل بنا",
+								"link": {
+									"kind": "relative",
+									"path": "/contact"
+								}
+							},
+							"627a0d25-2643-5272-bed9-36a0cecb19fe": {
+								"label": "المدونة",
+								"link": {
+									"kind": "relative",
+									"path": "/blog"
+								}
+							}
+						}
+					},
+					"socialLinks": {
+						"items": {}
+					},
+					"legalLinks": {
+						"items": {}
+					}
+				},
+				"9e6db1b2-481d-5e7f-9167-613db46eb15b": {
+					"copy": {
+						"kicker": "ساونا متنقلة فاخرة في فانكوفر",
+						"heading": "ساونا متنقلة وغطس بارد — حتى باب منزلك",
+						"description": "خدمات ساونا متنقلة وغطس بارد مصممة لمحترفي فانكوفر الذين يطلبون تعافياً أفضل."
+					},
+					"actions": {
+						"items": {
+							"c7ba2368-5f36-5625-a3e0-2a87c5df0ea1": {
+								"label": "احجز جلستك",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						}
+					},
+					"media": {
+						"items": {
+							"6e864eb7-ac62-5ace-a72d-37a07c7844ba": {
+								"assetId": "9ca74eec-dbbb-5fe6-b496-a812c51bfd22",
+								"alt": "ساونا برميلية متنقلة وحوض ماء ساخن بإطلالة على أفق المدينة والجبال المكسوة بالثلج."
+							}
+						}
+					}
+				},
+				"000d7fb7-78c2-5fc2-80a8-bf0069711b66": {
+					"copy": {
+						"kicker": "ما تحصل عليه",
+						"heading": "تعافٍ يأتي إليك",
+						"description": "تجارب ساونا متنقلة وغطس بارد تصل إلى منزلك أو عقارك في فانكوفر. التعافي الجسدي يلتقي بالصفاء الذهني في جلسة فاخرة واحدة."
+					},
+					"media": {
+						"items": {
+							"0fcc97b2-627d-5153-a90f-c0ad6045d687": {
+								"assetId": "5f548492-6f27-59da-a33a-7be6bc451fd2",
+								"alt": "حوض ماء ساخن في الهواء الطلق على باحة حجرية بإطلالة على أفق المدينة والجبال المكسوة بالثلج عند الغروب."
+							}
+						}
+					},
+					"items": {
+						"items": {
+							"1efcec12-718c-5aa3-9258-0cd19f1ec0b7": {
+								"title": "توصيل ساونا متنقلة",
+								"description": "تصل ساونا فاخرة إلى موقعك. يخفف العلاج بالحرارة توتر العضلات ويحسّن الدورة الدموية دون مغادرة المنزل."
+							},
+							"1ffceda5-708c-5910-9158-0b3e9e1ebf24": {
+								"title": "الغطس في الماء البارد",
+								"description": "التعرض المنضبط للماء البارد يعزز التعافي والمرونة الذهنية. تُضبط الحرارة للأمان وتحقيق أقصى فائدة."
+							}
+						}
+					}
+				},
+				"a5d95b9a-2bda-5c4d-b0a6-b0d34ddf4251": {
+					"copy": {
+						"kicker": "تجربة بصرية",
+						"heading": "شاهد نورديك إيدج\nفي العمل",
+						"description": "لقطات من جلسات تعافٍ حقيقية. تجهيزات ساونا متنقلة وغطس بارد تجلب العافية لمحترفي فانكوفر ورياضيي عطلة نهاية الأسبوع."
+					},
+					"actions": {
+						"items": {
+							"3da2b00e-fb3d-5cdd-b36a-5997a88b3e21": {
+								"label": "احجز جلستك",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						}
+					},
+					"accessibility": {
+						"carouselLabel": "شاهد نورديك إيدج في العمل"
+					},
+					"media": {
+						"items": {
+							"5b673dad-35f6-5396-be59-d1709902083a": {
+								"assetId": "b3d0e48e-394d-5501-bb62-912026d407fc",
+								"alt": "امرأة ملفوفة بمنشفة تسترخي مغمضة العينين داخل ساونا دافئة مكسوة بالخشب."
+							},
+							"5a673c1a-36f6-5529-bf59-d3039a0209cd": {
+								"assetId": "0480333f-8a92-5cca-aae0-c324fcf049f8",
+								"alt": "بخار يتصاعد من أحجار ساخنة في ساونا خشبية دافئة مع دلو ومنشفة."
+							},
+							"59673a87-33f6-5070-8059-d49697020514": {
+								"assetId": "ab98ced5-0a98-51b5-b271-18cae8f8df09",
+								"alt": "حوض ماء ساخن بمياه متموجة تعكس ضوء الغروب الذهبي بإطلالة على المدينة والجبال."
+							}
+						}
+					}
+				},
+				"aa9d9dd7-355c-5ce4-8a85-5942c85d9948": {
+					"copy": {
+						"kicker": "نتائج تتحدث عن نفسها",
+						"heading": "تعافٍ حقيقي\nلمحترفي فانكوفر",
+						"description": "يلمس عملاء نورديك إيدج تحسناً ملموساً في زمن التعافي وجودة النوم وتخفيف التوتر بعد جلستهم الأولى."
+					},
+					"actions": {
+						"items": {
+							"cf9b0743-92b2-5ad4-ad33-69964b0bab78": {
+								"label": "احجز جلستك الأولى",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						}
+					},
+					"items": {
+						"items": {
+							"6311f140-be6f-5d63-b2eb-0ce953df9537": {
+								"metric": "1–2",
+								"title": "أيام أسرع في التعافي",
+								"description": "تعافٍ أسرع للمحترفين"
+							},
+							"6411f2d3-bd6f-5bd0-b1eb-0b5652df93a4": {
+								"metric": "40%",
+								"title": "جودة نوم أفضل",
+								"description": "جودة نوم محسّنة للعملاء"
+							},
+							"6511f466-c06f-5089-b0eb-09c355df985d": {
+								"metric": "50+",
+								"title": "عملاء خدمناهم",
+								"description": "عدد العملاء الذين خدمتهم نورديك إيدج"
+							},
+							"6611f5f9-bf6f-5ef6-afeb-083054df96ca": {
+								"metric": "4.9",
+								"title": "متوسط تقييم الجلسات",
+								"description": "تقييم مرتفع للجلسات في المتوسط"
+							}
+						}
+					}
+				},
+				"63b40cb1-f40b-5be4-b58a-500220663600": {
+					"copy": {
+						"kicker": "آراء العملاء",
+						"heading": "اطلع على آراء الناس"
+					},
+					"actions": {
+						"items": {
+							"ac61610b-bcbb-5fb6-b503-fb1850d1df42": {
+								"label": "عرض المزيد من الآراء",
+								"link": {
+									"kind": "anchor",
+									"anchor": "banner-card-and-background-image"
+								}
+							}
+						}
+					},
+					"testimonials": {
+						"items": {
+							"2f2d3346-00a2-5441-be3d-80970d18eef5": {
+								"quote": "بعد جلسة واحدة فقط مع نورديك إيدج، تحسن زمن تعافيّ بشكل ملحوظ. مزيج الحرارة والبرودة يعمل تماماً كما وُعد.",
+								"name": "ماركوس ريد",
+								"title": "مدير تنفيذي، قطاع التقنية",
+								"assetId": "05159906-7fc1-50a4-a2c8-f8beb79eef8b",
+								"alt": "ماركوس ريد"
+							},
+							"302d34d9-ffa2-52ae-bd3d-7f040c18ed62": {
+								"quote": "بصفتي رياضياً في عطلة نهاية الأسبوع، كنت متشككاً. لكن تجهيز الساونا المتنقلة والغطس البارد فاخر والنتائج حقيقية. أحجز الآن كل أسبوعين.",
+								"name": "جينيفر والش",
+								"title": "رائدة أعمال، شغوفة باللياقة",
+								"assetId": "d81799c9-338c-565c-a096-9a23a74bbbda",
+								"alt": "جينيفر والش"
+							},
+							"2d2d3020-fea2-511b-803d-83bd0b18ebcf": {
+								"quote": "راحة وجود هذه الخدمة في عقاري بفانكوفر لا تُصدّق. خدمة احترافية وفوائد تعافٍ حقيقية. أنصح بها بشدة للرياضيين الجادين.",
+								"name": "ديفيد ناكامورا",
+								"title": "مدير استثمار، رياضي عطلة نهاية الأسبوع",
+								"assetId": "4592078c-a3b2-5a75-907f-22f2c7b186f2",
+								"alt": "ديفيد ناكامورا"
+							},
+							"2e2d31b3-fda2-5f88-bf3d-822a0a18ea3c": {
+								"quote": "قدمت نورديك إيدج بالضبط ما وعدت به. التجربة كلها فاخرة والفوائد الجسدية فورية.",
+								"name": "أماندا تشين",
+								"title": "شريكة استشارات",
+								"assetId": "6dbd0b18-d130-5e2d-959e-e14c7700a11a",
+								"alt": "أماندا تشين"
+							}
+						}
+					}
+				},
+				"0dd802f1-3e60-5c30-8a38-37867acb784c": {
+					"copy": {
+						"heading": "تعافَ كرياضي نوردي",
+						"description": "احجز تجربة الساونا المتنقلة والغطس البارد في فانكوفر. عافية فاخرة تصل إلى منزلك أو فعاليتك."
+					},
+					"media": {
+						"items": {
+							"897d9178-b3ff-5405-9492-933f7c9babe1": {
+								"assetId": "ab90ac72-4d60-56b7-ab35-31ad7ce72e25",
+								"alt": "داخل ساونا خشبية حديثة مع دلو ومنشفة بإطلالة على مدينة خلابة عند الغروب."
+							}
+						}
+					},
+					"actions": {
+						"items": {
+							"d7a0992f-a9f8-5cf6-aaa2-f160f057b5b2": {
+								"label": "اتصل للحجز",
+								"link": {
+									"kind": "phone",
+									"number": "+12345678901"
+								}
+							},
+							"d6a0979c-aaf8-5e89-aba2-f2f3f157b745": {
+								"label": "راسلنا",
+								"link": {
+									"kind": "email",
+									"address": "info@nordicedge.com"
+								}
+							}
+						}
+					}
+				}
+			},
+			"site": {
+				"name": "نورديك إيدج"
+			}
+		}
+	},
+	"logic": {},
+	"structure": {
+		"defaultLocale": "en",
+		"documentVersion": 1,
+		"locales": ["en", "ar"],
+		"structure": {
+			"layout": {
+				"footer": [
+					{
+						"anchor": "footer",
+						"category": "footer",
+						"contentId": "cb79acd5-2dbd-552c-8cf9-88e6abfc8e98",
+						"id": "b2c9eeab-c72c-56b2-8db0-e5e428ea50fe",
+						"root": {
+							"id": "bad0af15-5a41-5194-8236-f956bc35c810",
+							"layout": {},
+							"props": {
+								"fill": "canvas",
+								"children": [
+									{
+										"id": "60974329-6f2f-516e-aa9d-5b109118f6a2",
+										"layout": {
+											"inlineSize": "full",
+											"margin": {
+												"inlineEnd": "auto",
+												"inlineStart": "auto"
+											},
+											"maxInlineSize": "96rem",
+											"padding": {
+												"base": {
+													"blockEnd": "12sp",
+													"blockStart": "12sp",
+													"inlineEnd": "1.5rem",
+													"inlineStart": "1.5rem"
+												},
+												"compact": {
+													"blockEnd": "16sp",
+													"blockStart": "16sp",
+													"inlineEnd": "1.5rem",
+													"inlineStart": "1.5rem"
+												}
+											}
+										},
+										"props": {
+											"direction": "column",
+											"gap": "12sp",
+											"children": [
+												{
+													"id": "7f85a005-16cd-5018-8191-9fa24db82cd4",
+													"layout": {},
+													"props": {
+														"columns": {
+															"base": 1,
+															"compact": 2,
+															"wide": [
+																{
+																	"fraction": 1
+																},
+																"32rem"
+															]
+														},
+														"gap": "12sp",
+														"children": [
+															{
+																"id": "1b08d0b9-83e0-5eda-aac2-f7d4e6e6ecae",
+																"layout": {},
+																"props": {
+																	"direction": "column",
+																	"gap": "8sp",
+																	"children": [
+																		{
+																			"id": "518ddb35-e184-5a9c-acea-bdaec9e94c58",
+																			"props": {
+																				"appearance": "title-md",
+																				"tone": "primary",
+																				"content": {
+																					"$text": "/copy/brand"
+																				},
+																				"element": "p"
+																			},
+																			"type": "text"
+																		},
+																		{
+																			"id": "508dd9a2-e284-5c2f-adea-bf41cae94deb",
+																			"layout": {},
+																			"props": {
+																				"direction": "column",
+																				"gap": "6sp",
+																				"children": [
+																					{
+																						"id": "4541c5d4-3970-52d3-b679-e5eddea402f7",
+																						"layout": {},
+																						"props": {
+																							"direction": "column",
+																							"gap": "2sp",
+																							"children": [
+																								{
+																									"id": "f9af87ae-cf6a-52ef-bb72-7bb1992c050b",
+																									"props": {
+																										"appearance": "body-sm",
+																										"tone": "primary",
+																										"content": {
+																											"$text": "/copy/addressLabel"
+																										},
+																										"element": "p"
+																									},
+																									"type": "text"
+																								},
+																								{
+																									"id": "faaf8941-ce6a-515c-ba72-7a1e982c0378",
+																									"props": {
+																										"appearance": "body-sm",
+																										"tone": "muted",
+																										"content": {
+																											"$text": "/copy/address"
+																										},
+																										"element": "p"
+																									},
+																									"type": "text"
+																								}
+																							]
+																						},
+																						"type": "flex"
+																					},
+																					{
+																						"id": "4641c767-3870-5140-b579-e45adda40164",
+																						"layout": {},
+																						"props": {
+																							"direction": "column",
+																							"gap": "2sp",
+																							"children": [
+																								{
+																									"id": "eee57d5b-5758-51b2-add8-d31cd922bb1e",
+																									"props": {
+																										"appearance": "body-sm",
+																										"tone": "primary",
+																										"content": {
+																											"$text": "/copy/contactLabel"
+																										},
+																										"element": "p"
+																									},
+																									"type": "text"
+																								},
+																								{
+																									"id": "ede57bc8-5858-5345-aed8-d4afda22bcb1",
+																									"props": {
+																										"appearance": "body-sm",
+																										"tone": "muted",
+																										"content": {
+																											"$text": "/copy/contact"
+																										},
+																										"element": "p"
+																									},
+																									"type": "text"
+																								}
+																							]
+																						},
+																						"type": "flex"
+																					}
+																				]
+																			},
+																			"type": "flex"
+																		},
+																		{
+																			"id": "4f8dd80f-e384-5dc2-aaea-ba88cbe94f7e",
+																			"layout": {},
+																			"props": {
+																				"direction": "row",
+																				"gap": "2sp",
+																				"children": []
+																			},
+																			"type": "flex"
+																		}
+																	]
+																},
+																"type": "flex"
+															},
+															{
+																"id": "1a08cf26-84e1-506d-abc2-f967e7e6ee41",
+																"layout": {},
+																"props": {
+																	"autoFlow": "column",
+																	"columns": 2,
+																	"rows": [
+																		"max-content",
+																		"max-content",
+																		"max-content",
+																		"max-content",
+																		"max-content"
+																	],
+																	"children": [
+																		{
+																			"id": "f9c47a00-ef1e-5331-a220-b35b677122ed",
+																			"layout": {
+																				"inlineSize": "fit-content"
+																			},
+																			"props": {
+																				"fill": "transparent",
+																				"foreground": "primary",
+																				"radius": "none",
+																				"children": [
+																					{
+																						"id": "7c8d8e72-07ab-54bd-a360-34c7887742b1",
+																						"props": {
+																							"appearance": "body-sm",
+																							"tone": "current",
+																							"content": {
+																								"$text": "/navItems/items/5e7a06d9-2243-5c26-82d9-3cecd2cb204a/label"
+																							},
+																							"element": "span"
+																						},
+																						"type": "text"
+																					}
+																				],
+																				"href": {
+																					"$link": "/navItems/items/5e7a06d9-2243-5c26-82d9-3cecd2cb204a/link"
+																				}
+																			},
+																			"type": "action"
+																		},
+																		{
+																			"id": "fac47b93-ee1e-519e-a120-b1c86671215a",
+																			"layout": {
+																				"inlineSize": "fit-content"
+																			},
+																			"props": {
+																				"fill": "transparent",
+																				"foreground": "primary",
+																				"radius": "none",
+																				"children": [
+																					{
+																						"id": "4b6fb0af-a747-5f28-9ebc-412a7add9a1c",
+																						"props": {
+																							"appearance": "body-sm",
+																							"tone": "current",
+																							"content": {
+																								"$text": "/navItems/items/5d7a0546-2343-5db9-83d9-3e7fd3cb21dd/label"
+																							},
+																							"element": "span"
+																						},
+																						"type": "text"
+																					}
+																				],
+																				"href": {
+																					"$link": "/navItems/items/5d7a0546-2343-5db9-83d9-3e7fd3cb21dd/link"
+																				}
+																			},
+																			"type": "action"
+																		},
+																		{
+																			"id": "fbc47d26-ed1e-500b-a420-b68165711fc7",
+																			"layout": {
+																				"inlineSize": "fit-content"
+																			},
+																			"props": {
+																				"fill": "transparent",
+																				"foreground": "primary",
+																				"radius": "none",
+																				"children": [
+																					{
+																						"id": "79c5e400-e896-5317-8e3d-242de1440dbb",
+																						"props": {
+																							"appearance": "body-sm",
+																							"tone": "current",
+																							"content": {
+																								"$text": "/navItems/items/5c7a03b3-2043-5900-84d9-4012d0cb1d24/label"
+																							},
+																							"element": "span"
+																						},
+																						"type": "text"
+																					}
+																				],
+																				"href": {
+																					"$link": "/navItems/items/5c7a03b3-2043-5900-84d9-4012d0cb1d24/link"
+																				}
+																			},
+																			"type": "action"
+																		},
+																		{
+																			"id": "fcc47eb9-ec1e-5e78-a320-b4ee64711e34",
+																			"layout": {
+																				"inlineSize": "fit-content"
+																			},
+																			"props": {
+																				"fill": "transparent",
+																				"foreground": "primary",
+																				"radius": "none",
+																				"children": [
+																					{
+																						"id": "d18f4535-bc92-5cba-b2cf-2298c915d40e",
+																						"props": {
+																							"appearance": "body-sm",
+																							"tone": "current",
+																							"content": {
+																								"$text": "/navItems/items/5b7a0220-2143-5a93-85d9-41a5d1cb1eb7/label"
+																							},
+																							"element": "span"
+																						},
+																						"type": "text"
+																					}
+																				],
+																				"href": {
+																					"$link": "/navItems/items/5b7a0220-2143-5a93-85d9-41a5d1cb1eb7/link"
+																				}
+																			},
+																			"type": "action"
+																		},
+																		{
+																			"id": "fdc4804c-f31e-597d-a620-b9a763711ca1",
+																			"layout": {
+																				"inlineSize": "fit-content"
+																			},
+																			"props": {
+																				"fill": "transparent",
+																				"foreground": "primary",
+																				"radius": "none",
+																				"children": [
+																					{
+																						"id": "afc410b6-1853-5561-b327-de9bdb51764d",
+																						"props": {
+																							"appearance": "body-sm",
+																							"tone": "current",
+																							"content": {
+																								"$text": "/navItems/items/627a0d25-2643-5272-bed9-36a0cecb19fe/label"
+																							},
+																							"element": "span"
+																						},
+																						"type": "text"
+																					}
+																				],
+																				"href": {
+																					"$link": "/navItems/items/627a0d25-2643-5272-bed9-36a0cecb19fe/link"
+																				}
+																			},
+																			"type": "action"
+																		}
+																	]
+																},
+																"type": "grid"
+															}
+														]
+													},
+													"type": "grid"
+												},
+												{
+													"id": "7e859e72-17cd-51ab-8291-a1354eb82e67",
+													"layout": {
+														"blockSize": "1px",
+														"inlineSize": "full"
+													},
+													"props": {
+														"fill": "border",
+														"children": [],
+														"decorative": true
+													},
+													"type": "box"
+												},
+												{
+													"id": "7d859cdf-18cd-533e-bf91-9c7c4fb82ffa",
+													"layout": {
+														"padding": {
+															"blockStart": "8sp"
+														}
+													},
+													"props": {
+														"columns": {
+															"base": 1,
+															"compact": 2
+														},
+														"gap": "4sp",
+														"children": [
+															{
+																"id": "cb227423-7035-5f48-a8b5-54861a04703c",
+																"props": {
+																	"appearance": "body-sm",
+																	"tone": "primary",
+																	"content": {
+																		"$text": "/copy/copyright"
+																	},
+																	"element": "p"
+																},
+																"type": "text"
+															},
+															{
+																"id": "ca227290-7135-50db-a9b5-56191b0471cf",
+																"layout": {},
+																"props": {
+																	"direction": {
+																		"base": "column",
+																		"compact": "row"
+																	},
+																	"gap": "4sp",
+																	"justify": {
+																		"base": "start",
+																		"compact": "end"
+																	},
+																	"children": []
+																},
+																"type": "flex"
+															}
+														]
+													},
+													"type": "grid"
+												}
+											]
+										},
+										"type": "flex"
+									}
+								]
+							},
+							"type": "box"
+						},
+						"source": {
+							"pattern": "footer-info-grid"
+						}
+					}
+				],
+				"header": [
+					{
+						"anchor": "header",
+						"category": "header",
+						"contentId": "42764945-8be1-5530-a55e-2d125554f1cc",
+						"id": "b7f7d0fb-f406-5cfe-bfed-e548b27e98ca",
+						"root": {
+							"id": "7f840fa1-1d52-5d24-887b-376683762ee0",
+							"layout": {
+								"inlineSize": "full",
+								"inset": {
+									"blockStart": 0,
+									"inlineEnd": 0,
+									"inlineStart": 0
+								},
+								"position": "absolute",
+								"zIndex": 10
+							},
+							"props": {
+								"fill": "transparent",
+								"children": [
+									{
+										"id": "22da3f4d-4665-52de-86e6-b340b9de20d2",
+										"layout": {
+											"grow": 1,
+											"inlineSize": "full",
+											"margin": {
+												"inlineEnd": "auto",
+												"inlineStart": "auto"
+											},
+											"maxInlineSize": "96rem",
+											"padding": {
+												"base": {
+													"blockEnd": 0,
+													"blockStart": 0,
+													"inlineEnd": "1rem",
+													"inlineStart": "1rem"
+												},
+												"wide": {
+													"inlineEnd": "1.5rem",
+													"inlineStart": "1.5rem"
+												}
+											},
+											"position": "relative"
+										},
+										"props": {
+											"direction": "column",
+											"justify": "start",
+											"children": [
+												{
+													"id": "7f008391-7984-5f68-8e02-47b2e4d767a4",
+													"layout": {
+														"margin": {
+															"blockStart": "4sp"
+														},
+														"padding": {
+															"base": {
+																"blockEnd": "1sp",
+																"blockStart": "1sp",
+																"inlineEnd": "1sp",
+																"inlineStart": "1sp"
+															},
+															"wide": {
+																"blockEnd": "1sp",
+																"blockStart": "1sp",
+																"inlineEnd": "1sp",
+																"inlineStart": "4sp"
+															}
+														}
+													},
+													"props": {
+														"border": {
+															"color": "border",
+															"width": "1px"
+														},
+														"fill": "subtle",
+														"radius": "theme",
+														"actions": [
+															{
+																"id": "e161929b-f8a7-57be-89d2-cad887eeb502",
+																"layout": {
+																	"padding": {
+																		"blockEnd": "2sp",
+																		"blockStart": "2sp",
+																		"inlineEnd": "4sp",
+																		"inlineStart": "4sp"
+																	}
+																},
+																"props": {
+																	"fill": "action",
+																	"foreground": "action",
+																	"radius": "theme",
+																	"children": [
+																		{
+																			"id": "56168807-7e2f-54c8-a82f-919a89f33eb4",
+																			"props": {
+																				"appearance": "body-sm-em",
+																				"tone": "current",
+																				"content": {
+																					"$text": "/actions/items/81efcaaf-b284-5402-aebf-efe8a22e449e/label"
+																				},
+																				"element": "span"
+																			},
+																			"type": "text"
+																		}
+																	],
+																	"href": {
+																		"$link": "/actions/items/81efcaaf-b284-5402-aebf-efe8a22e449e/link"
+																	}
+																},
+																"type": "action"
+															}
+														],
+														"align": "center",
+														"brand": [
+															{
+																"id": "41443f39-cfc1-5b88-93f9-81dea49caaa4",
+																"layout": {
+																	"inlineSize": "max-content",
+																	"shrink": 0
+																},
+																"props": {
+																	"font": "body",
+																	"fontSize": {
+																		"base": "1.25rem",
+																		"compact": "1.5rem",
+																		"wide": "1.5625rem"
+																	},
+																	"tone": "primary",
+																	"weight": "theme",
+																	"content": {
+																		"$text": "/copy/header-main-brand"
+																	},
+																	"element": "span"
+																},
+																"type": "text"
+															}
+														],
+														"collapseAt": "medium",
+														"items": [
+															{
+																"href": {
+																	"$link": "/navigation/items/52cf1968-9c66-5d0b-b1dc-87f983f91427/link"
+																},
+																"id": "feb25648-cf1f-5e25-a813-1457f9f186d9",
+																"mobileTrigger": [
+																	{
+																		"id": "f5ae8876-847b-5017-b6a7-9a25debdd12b",
+																		"props": {
+																			"appearance": "heading-sm",
+																			"tone": "primary",
+																			"content": {
+																				"$text": "/navigation/items/52cf1968-9c66-5d0b-b1dc-87f983f91427/label"
+																			},
+																			"element": "span"
+																		},
+																		"type": "text"
+																	}
+																],
+																"trigger": [
+																	{
+																		"id": "99887bdc-d2dd-505d-b9f2-b1d30b7df081",
+																		"props": {
+																			"appearance": "body-sm",
+																			"tone": "muted",
+																			"content": {
+																				"$text": "/navigation/items/52cf1968-9c66-5d0b-b1dc-87f983f91427/label"
+																			},
+																			"element": "span"
+																		},
+																		"type": "text"
+																	}
+																]
+															},
+															{
+																"href": {
+																	"$link": "/navigation/items/53cf1afb-9b66-5b78-b0dc-866682f91294/link"
+																},
+																"id": "ffb257db-ce1f-5c92-a713-12c4f8f18546",
+																"mobileTrigger": [
+																	{
+																		"id": "17154409-2cbc-567c-9b8d-5fe232c3d6c0",
+																		"props": {
+																			"appearance": "heading-sm",
+																			"tone": "primary",
+																			"content": {
+																				"$text": "/navigation/items/53cf1afb-9b66-5b78-b0dc-866682f91294/label"
+																			},
+																			"element": "span"
+																		},
+																		"type": "text"
+																	}
+																],
+																"trigger": [
+																	{
+																		"id": "7f08ab97-69ee-5dd2-983a-af481e483d06",
+																		"props": {
+																			"appearance": "body-sm",
+																			"tone": "muted",
+																			"content": {
+																				"$text": "/navigation/items/53cf1afb-9b66-5b78-b0dc-866682f91294/label"
+																			},
+																			"element": "span"
+																		},
+																		"type": "text"
+																	}
+																]
+															},
+															{
+																"href": {
+																	"$link": "/navigation/items/54cf1c8e-9e66-5031-afdc-84d385f9174d/link"
+																},
+																"id": "00b2596e-cd1f-5aff-aa13-177df7f183b3",
+																"mobileTrigger": [
+																	{
+																		"id": "13908e5c-cb0c-56a9-9352-df53552a195d",
+																		"props": {
+																			"appearance": "heading-sm",
+																			"tone": "primary",
+																			"content": {
+																				"$text": "/navigation/items/54cf1c8e-9e66-5031-afdc-84d385f9174d/label"
+																			},
+																			"element": "span"
+																		},
+																		"type": "text"
+																	}
+																],
+																"trigger": [
+																	{
+																		"id": "65f61072-e622-5977-b9e5-5f698544d62b",
+																		"props": {
+																			"appearance": "body-sm",
+																			"tone": "muted",
+																			"content": {
+																				"$text": "/navigation/items/54cf1c8e-9e66-5031-afdc-84d385f9174d/label"
+																			},
+																			"element": "span"
+																		},
+																		"type": "text"
+																	}
+																]
+															}
+														],
+														"label": {
+															"$text": "/accessibility/navigationLabel"
+														},
+														"mobileLabel": {
+															"$text": "/accessibility/mobileNavigationLabel"
+														},
+														"popupAppearance": {
+															"border": {
+																"color": "border",
+																"width": "1px"
+															},
+															"fill": "canvas",
+															"radius": "theme",
+															"padding": {
+																"blockEnd": "0.5rem",
+																"blockStart": "0.5rem",
+																"inlineEnd": "0.5rem",
+																"inlineStart": "0.5rem"
+															}
+														},
+														"showMenuDivider": false
+													},
+													"type": "menu"
+												}
+											]
+										},
+										"type": "flex"
+									}
+								]
+							},
+							"type": "box"
+						},
+						"source": {
+							"pattern": "header-detached-transparent"
+						}
+					}
+				]
+			},
+			"pages": [
+				{
+					"home": true,
+					"id": "588d886f-5633-5008-af71-7446af04ffec",
+					"sections": [
+						{
+							"anchor": "banner-text-and-background-image",
+							"category": "hero",
+							"contentId": "9e6db1b2-481d-5e7f-9167-613db46eb15b",
+							"id": "1a92d894-5390-50d9-a0f4-542770adb145",
+							"root": {
+								"id": "6dacb6ac-9ed0-5711-bdd0-8047c936829d",
+								"layout": {
+									"minBlockSize": "viewport",
+									"overflow": "hidden",
+									"position": "relative"
+								},
+								"props": {
+									"fill": "subtle",
+									"foreground": "media",
+									"children": [
+										{
+											"id": "a7f25c16-b843-5f1d-87b6-573b792b2e01",
+											"layout": {
+												"blockSize": "full",
+												"inlineSize": "full",
+												"inset": {
+													"blockEnd": 0,
+													"blockStart": 0,
+													"inlineEnd": 0,
+													"inlineStart": 0
+												},
+												"position": "absolute"
+											},
+											"props": {
+												"fill": "subtle",
+												"radius": "none",
+												"fit": "cover",
+												"objectAlign": "center",
+												"overlay": {
+													"angle": 281,
+													"kind": "linear-gradient",
+													"stops": [
+														{
+															"opacity": 0.25,
+															"position": 25
+														},
+														{
+															"opacity": 0.6,
+															"position": 50
+														},
+														{
+															"opacity": 0.9,
+															"position": 90
+														}
+													]
+												},
+												"alt": {
+													"$text": "/media/items/6e864eb7-ac62-5ace-a72d-37a07c7844ba/alt"
+												},
+												"assetId": {
+													"$asset": "/media/items/6e864eb7-ac62-5ace-a72d-37a07c7844ba/assetId"
+												}
+											},
+											"type": "media"
+										},
+										{
+											"id": "a8f25da9-b743-5d8a-86b6-55a8782b2c6e",
+											"layout": {
+												"inlineSize": "full",
+												"margin": {
+													"inlineEnd": "auto",
+													"inlineStart": "auto"
+												},
+												"maxInlineSize": "96rem",
+												"minBlockSize": "viewport",
+												"padding": {
+													"base": {
+														"blockEnd": "20sp",
+														"blockStart": "20sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													},
+													"compact": {
+														"blockEnd": "24sp",
+														"blockStart": "24sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													}
+												},
+												"position": "relative"
+											},
+											"props": {
+												"direction": "column",
+												"justify": "center",
+												"children": [
+													{
+														"id": "2d4d3785-2878-58ac-9bea-3b0a4bcde118",
+														"layout": {
+															"inlineSize": "full",
+															"maxInlineSize": "42rem"
+														},
+														"props": {
+															"direction": "column",
+															"gap": "6sp",
+															"children": [
+																{
+																	"id": "96d8ef39-a5b9-5216-b3cb-292c4a2b91da",
+																	"props": {
+																		"direction": "column",
+																		"gap": "4sp",
+																		"children": [
+																			{
+																				"id": "6275beb5-d648-5cd0-942f-7b96b496139c",
+																				"layout": {
+																					"blockSize": "1.5rem"
+																				},
+																				"props": {
+																					"align": "center",
+																					"direction": "row",
+																					"justify": "start",
+																					"children": [
+																						{
+																							"id": "4b6d95c9-e61f-5362-94c4-f150c03d4f26",
+																							"props": {
+																								"align": "start",
+																								"appearance": "label-md",
+																								"tone": "media",
+																								"content": {
+																									"$text": "/copy/kicker"
+																								},
+																								"element": "span"
+																							},
+																							"type": "text"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			},
+																			{
+																				"id": "6175bd22-d748-5e63-952f-7d29b596152f",
+																				"props": {
+																					"align": "start",
+																					"appearance": "display-md",
+																					"font": "brand",
+																					"tone": "media",
+																					"content": {
+																						"$text": "/copy/heading"
+																					},
+																					"element": "h1"
+																				},
+																				"type": "text"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "95d8eda6-a6b9-53a9-b4cb-2abf4b2b936d",
+																	"props": {
+																		"direction": "column",
+																		"gap": "8sp",
+																		"children": [
+																			{
+																				"id": "0aac5d80-1d1c-5985-a0d4-5003c22fbc31",
+																				"props": {
+																					"align": "start",
+																					"appearance": "body-md",
+																					"tone": "media",
+																					"content": {
+																						"$text": "/copy/description"
+																					},
+																					"element": "p"
+																				},
+																				"type": "text"
+																			},
+																			{
+																				"id": "0bac5f13-1c1c-57f2-9fd4-4e70c12fba9e",
+																				"props": {
+																					"align": "stretch",
+																					"direction": {
+																						"base": "column",
+																						"compact": "row"
+																					},
+																					"gap": "4sp",
+																					"justify": {
+																						"base": "start",
+																						"compact": "start"
+																					},
+																					"wrap": "wrap",
+																					"children": [
+																						{
+																							"id": "9648732f-0886-54c4-b8cf-7e0227ed1a28",
+																							"layout": {
+																								"inlineSize": {
+																									"base": "full",
+																									"compact": "auto"
+																								},
+																								"padding": {
+																									"blockEnd": "2.5sp",
+																									"blockStart": "2.5sp",
+																									"inlineEnd": "5sp",
+																									"inlineStart": "5sp"
+																								}
+																							},
+																							"props": {
+																								"fill": "action",
+																								"foreground": "action",
+																								"radius": "theme",
+																								"children": [
+																									{
+																										"id": "1452c7d3-f42e-5cfe-aa40-69b470e1f08a",
+																										"props": {
+																											"align": "start",
+																											"appearance": "body-sm-em",
+																											"tone": "current",
+																											"content": {
+																												"$text": "/actions/items/c7ba2368-5f36-5625-a3e0-2a87c5df0ea1/label"
+																											},
+																											"element": "span"
+																										},
+																										"type": "text"
+																									}
+																								],
+																								"href": {
+																									"$link": "/actions/items/c7ba2368-5f36-5625-a3e0-2a87c5df0ea1/link"
+																								}
+																							},
+																							"type": "action"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "flex"
+													}
+												]
+											},
+											"type": "flex"
+										}
+									]
+								},
+								"type": "box"
+							},
+							"source": {
+								"pattern": "banner-text-and-background-image"
+							}
+						},
+						{
+							"anchor": "feature-three-card",
+							"category": "features",
+							"contentId": "000d7fb7-78c2-5fc2-80a8-bf0069711b66",
+							"id": "8c8af631-e239-5dc4-8ec0-ad8a5aff2de8",
+							"root": {
+								"id": "7f25ab07-7613-5a16-ba85-f5b432ac02aa",
+								"props": {
+									"fill": "canvas",
+									"children": [
+										{
+											"id": "1c8d73fb-2b14-54d0-b4f1-b28ebfe4dd4c",
+											"layout": {
+												"inlineSize": "full",
+												"margin": {
+													"inlineEnd": "auto",
+													"inlineStart": "auto"
+												},
+												"maxInlineSize": "96rem",
+												"padding": {
+													"base": {
+														"blockEnd": "16sp",
+														"blockStart": "16sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													},
+													"compact": {
+														"blockEnd": "20sp",
+														"blockStart": "20sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													}
+												}
+											},
+											"props": {
+												"direction": "column",
+												"gap": "12sp",
+												"children": [
+													{
+														"id": "7ba49ee7-9cf2-5b62-a64d-0a383a9e37b6",
+														"props": {
+															"align": {
+																"base": "stretch",
+																"wide": "end"
+															},
+															"direction": {
+																"base": "column",
+																"wide": "row"
+															},
+															"gap": {
+																"base": "4sp",
+																"compact": "8sp",
+																"wide": "12sp"
+															},
+															"children": [
+																{
+																	"id": "290b5bdb-f217-5a94-8c33-1c7a23b01870",
+																	"layout": {
+																		"inlineSize": {
+																			"base": "full",
+																			"wide": "66.6667%"
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"gap": "4sp",
+																		"children": [
+																			{
+																				"id": "185ad647-6e75-5c6e-a7f5-1dbc1289fc02",
+																				"props": {
+																					"appearance": "label-md",
+																					"font": "body",
+																					"tone": "muted",
+																					"content": {
+																						"$text": "/copy/kicker"
+																					},
+																					"element": "p"
+																				},
+																				"type": "text"
+																			},
+																			{
+																				"id": "175ad4b4-6f75-5e01-a8f5-1f4f1389fd95",
+																				"props": {
+																					"appearance": "display-sm",
+																					"font": "brand",
+																					"content": {
+																						"$text": "/copy/heading"
+																					},
+																					"element": "h2"
+																				},
+																				"type": "text"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "280b5a48-f317-5c27-8d33-1e0d24b01a03",
+																	"layout": {
+																		"inlineSize": {
+																			"base": "full",
+																			"wide": "33.3333%"
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"children": [
+																			{
+																				"id": "93b6e2aa-776c-5e1b-8d7f-32518bc1857f",
+																				"props": {
+																					"appearance": "body-md",
+																					"font": "body",
+																					"tone": "muted",
+																					"content": {
+																						"$text": "/copy/description"
+																					},
+																					"element": "p"
+																				},
+																				"type": "text"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "flex"
+													},
+													{
+														"id": "7aa49d54-9df2-5cf5-a74d-0bcb3b9e3949",
+														"props": {
+															"direction": {
+																"base": "column",
+																"wide": "row"
+															},
+															"gap": "3sp",
+															"children": [
+																{
+																	"id": "33d5662e-6408-5609-b61e-56d7acf06ba5",
+																	"layout": {
+																		"aspectRatio": {
+																			"height": 9,
+																			"width": 16
+																		},
+																		"inlineSize": {
+																			"base": "full",
+																			"wide": "66.6667%"
+																		}
+																	},
+																	"props": {
+																		"fill": "subtle",
+																		"radius": "theme",
+																		"fit": "cover",
+																		"alt": {
+																			"$text": "/media/items/0fcc97b2-627d-5153-a90f-c0ad6045d687/alt"
+																		},
+																		"assetId": {
+																			"$asset": "/media/items/0fcc97b2-627d-5153-a90f-c0ad6045d687/assetId"
+																		}
+																	},
+																	"type": "media"
+																},
+																{
+																	"id": "34d567c1-6308-5476-b51e-5544abf06a12",
+																	"layout": {
+																		"inlineSize": {
+																			"base": "full",
+																			"wide": "33.3333%"
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"gap": "3sp",
+																		"children": [
+																			{
+																				"id": "ab74876d-f797-5830-afb7-d67e8d2667e4",
+																				"layout": {
+																					"grow": 1,
+																					"padding": {
+																						"base": {
+																							"blockEnd": "8sp",
+																							"blockStart": "8sp",
+																							"inlineEnd": "8sp",
+																							"inlineStart": "8sp"
+																						}
+																					}
+																				},
+																				"props": {
+																					"direction": "column",
+																					"justify": "between",
+																					"border": {
+																						"color": "border",
+																						"width": 1
+																					},
+																					"fill": "canvas",
+																					"radius": "theme",
+																					"children": [
+																						{
+																							"id": "bd46d831-01d8-58c2-a415-c388f837f69e",
+																							"props": {
+																								"direction": "column",
+																								"gap": "2sp",
+																								"children": [
+																									{
+																										"id": "8e1f43bd-f5cb-5674-8820-f4eaaa688e28",
+																										"props": {
+																											"appearance": "heading-md",
+																											"font": "brand",
+																											"content": {
+																												"$text": "/items/items/1efcec12-718c-5aa3-9258-0cd19f1ec0b7/title"
+																											},
+																											"element": "h3"
+																										},
+																										"type": "text"
+																									},
+																									{
+																										"id": "8d1f422a-f6cb-5807-8920-f67dab688fbb",
+																										"props": {
+																											"appearance": "body-md",
+																											"font": "body",
+																											"tone": "muted",
+																											"content": {
+																												"$text": "/items/items/1efcec12-718c-5aa3-9258-0cd19f1ec0b7/description"
+																											},
+																											"element": "p"
+																										},
+																										"type": "text"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			},
+																			{
+																				"id": "aa7485da-f897-59c3-b0b7-d8118e266977",
+																				"layout": {
+																					"grow": 1,
+																					"padding": {
+																						"base": {
+																							"blockEnd": "8sp",
+																							"blockStart": "8sp",
+																							"inlineEnd": "8sp",
+																							"inlineStart": "8sp"
+																						}
+																					}
+																				},
+																				"props": {
+																					"direction": "column",
+																					"justify": "between",
+																					"border": {
+																						"color": "border",
+																						"width": 1
+																					},
+																					"fill": "canvas",
+																					"radius": "theme",
+																					"children": [
+																						{
+																							"id": "afad2f9c-e153-523f-88fa-621db841408b",
+																							"props": {
+																								"direction": "column",
+																								"gap": "2sp",
+																								"children": [
+																									{
+																										"id": "c60b6326-fb0d-5e83-8d26-a48192458c97",
+																										"props": {
+																											"appearance": "heading-md",
+																											"font": "brand",
+																											"content": {
+																												"$text": "/items/items/1ffceda5-708c-5910-9158-0b3e9e1ebf24/title"
+																											},
+																											"element": "h3"
+																										},
+																										"type": "text"
+																									},
+																									{
+																										"id": "c70b64b9-fa0d-5cf0-8c26-a2ee91458b04",
+																										"props": {
+																											"appearance": "body-md",
+																											"font": "body",
+																											"tone": "muted",
+																											"content": {
+																												"$text": "/items/items/1ffceda5-708c-5910-9158-0b3e9e1ebf24/description"
+																											},
+																											"element": "p"
+																										},
+																										"type": "text"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "flex"
+													}
+												]
+											},
+											"type": "flex"
+										}
+									]
+								},
+								"type": "box"
+							},
+							"source": {
+								"pattern": "feature-three-card"
+							}
+						},
+						{
+							"anchor": "gallery-slideshow",
+							"category": "gallery",
+							"contentId": "a5d95b9a-2bda-5c4d-b0a6-b0d34ddf4251",
+							"id": "5df9f104-8945-5947-8d0b-ebf56b813cdb",
+							"root": {
+								"id": "a80144ae-3990-53e1-a7c7-0fe7b25ba465",
+								"props": {
+									"fill": "canvas",
+									"children": [
+										{
+											"id": "7193d458-c5a2-518d-8381-fedb5f81c499",
+											"layout": {
+												"inlineSize": "full",
+												"margin": {
+													"inlineEnd": "auto",
+													"inlineStart": "auto"
+												},
+												"maxInlineSize": "96rem",
+												"padding": {
+													"base": {
+														"blockEnd": "16sp",
+														"blockStart": "16sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													},
+													"compact": {
+														"blockEnd": "20sp",
+														"blockStart": "20sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													}
+												}
+											},
+											"props": {
+												"direction": "column",
+												"gap": {
+													"base": "8sp",
+													"compact": "12sp"
+												},
+												"children": [
+													{
+														"id": "dd37a61a-01bc-54d1-a675-af47345ef015",
+														"props": {
+															"align": "center",
+															"direction": "column",
+															"gap": "4sp",
+															"children": [
+																{
+																	"id": "fd1f9ddc-44c9-56dd-8578-943b02c25629",
+																	"props": {
+																		"align": "center",
+																		"appearance": "label-md",
+																		"font": "body",
+																		"tone": "muted",
+																		"content": {
+																			"$text": "/copy/kicker"
+																		},
+																		"element": "span"
+																	},
+																	"type": "text"
+																},
+																{
+																	"id": "fe1f9f6f-43c9-554a-8478-92a801c25496",
+																	"props": {
+																		"align": "center",
+																		"direction": "column",
+																		"gap": "6sp",
+																		"children": [
+																			{
+																				"id": "026b1713-e5db-566c-92c0-020adb8d4c50",
+																				"layout": {
+																					"inlineSize": "full"
+																				},
+																				"props": {
+																					"direction": "column",
+																					"gap": "8sp",
+																					"children": [
+																						{
+																							"id": "96be1b2f-4c7e-5fd6-a26e-ae2c0bd939e2",
+																							"layout": {
+																								"margin": {
+																									"inlineEnd": "auto",
+																									"inlineStart": "auto"
+																								},
+																								"maxInlineSize": "36rem"
+																							},
+																							"props": {
+																								"align": "center",
+																								"appearance": "display-sm",
+																								"font": "brand",
+																								"tone": "primary",
+																								"content": {
+																									"$text": "/copy/heading"
+																								},
+																								"element": "h2"
+																							},
+																							"type": "text"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			},
+																			{
+																				"id": "016b1580-e6db-57ff-93c0-039ddc8d4de3",
+																				"layout": {
+																					"inlineSize": "full"
+																				},
+																				"props": {
+																					"align": {
+																						"base": "stretch",
+																						"compact": "center"
+																					},
+																					"direction": "column",
+																					"gap": "8sp",
+																					"children": [
+																						{
+																							"id": "c7dbf8f2-4579-5543-a3cc-01019ff08ddf",
+																							"layout": {
+																								"margin": {
+																									"inlineEnd": "auto",
+																									"inlineStart": "auto"
+																								},
+																								"maxInlineSize": "42rem"
+																							},
+																							"props": {
+																								"align": "center",
+																								"appearance": "body-md",
+																								"font": "body",
+																								"tone": "muted",
+																								"content": {
+																									"$text": "/copy/description"
+																								},
+																								"element": "p"
+																							},
+																							"type": "text"
+																						},
+																						{
+																							"id": "c8dbfa85-4479-53b0-a2cb-ff6e9ef08c4c",
+																							"props": {
+																								"align": {
+																									"base": "stretch",
+																									"compact": "center"
+																								},
+																								"direction": {
+																									"base": "column",
+																									"compact": "row"
+																								},
+																								"gap": "4sp",
+																								"justify": {
+																									"base": "start",
+																									"compact": "center"
+																								},
+																								"children": [
+																									{
+																										"id": "61462839-705f-5342-b1d6-4a18a99bf4b6",
+																										"layout": {
+																											"inlineSize": {
+																												"base": "full",
+																												"compact": "auto"
+																											},
+																											"padding": {
+																												"blockEnd": "2.5sp",
+																												"blockStart": "2.5sp",
+																												"inlineEnd": "5sp",
+																												"inlineStart": "5sp"
+																											}
+																										},
+																										"props": {
+																											"fill": "action",
+																											"foreground": "action",
+																											"radius": "theme",
+																											"children": [
+																												{
+																													"id": "408b39b5-1a00-5df4-81d1-9cda5ad05f70",
+																													"props": {
+																														"appearance": "body-sm-em",
+																														"font": "body",
+																														"tone": "current",
+																														"content": {
+																															"$text": "/actions/items/3da2b00e-fb3d-5cdd-b36a-5997a88b3e21/label"
+																														},
+																														"element": "span"
+																													},
+																													"type": "text"
+																												}
+																											],
+																											"href": {
+																												"$link": "/actions/items/3da2b00e-fb3d-5cdd-b36a-5997a88b3e21/link"
+																											}
+																										},
+																										"type": "action"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "flex"
+													},
+													{
+														"id": "de37a7ad-00bc-533e-a575-adb4335eee82",
+														"props": {
+															"autoplay": {
+																"delay": 5000
+															},
+															"controlGroups": [
+																{
+																	"align": "center",
+																	"controls": [
+																		{
+																			"active": {
+																				"blockSize": "2sp",
+																				"inlineSize": "2sp",
+																				"opacity": 1
+																			},
+																			"appearance": {
+																				"fill": "tint",
+																				"radius": "full",
+																				"padding": {
+																					"blockEnd": "2.5sp",
+																					"blockStart": "2.5sp",
+																					"inlineEnd": "2.5sp",
+																					"inlineStart": "2.5sp"
+																				}
+																			},
+																			"inactive": {
+																				"blockSize": "1.5sp",
+																				"inlineSize": "1.5sp",
+																				"opacity": 0.4
+																			},
+																			"kind": "indicators",
+																			"label": {
+																				"$text": "/accessibility/carouselLabel"
+																			},
+																			"spacing": "1.5sp"
+																		}
+																	],
+																	"id": "63b4f595-8dac-536e-a2de-deecf3da8542",
+																	"placement": "after"
+																}
+															],
+															"controlsGap": {
+																"base": "4sp",
+																"compact": "6sp",
+																"wide": "8sp"
+															},
+															"gap": "4sp",
+															"label": {
+																"$text": "/accessibility/carouselLabel"
+															},
+															"options": {
+																"align": "start",
+																"containScroll": false
+															},
+															"slideBasis": "100%",
+															"slides": [
+																{
+																	"id": "cb225cd4-7d48-555d-af3d-bf4fbf8b7251",
+																	"layout": {
+																		"aspectRatio": {
+																			"height": 7,
+																			"width": 14
+																		},
+																		"inlineSize": "full"
+																	},
+																	"props": {
+																		"fill": "subtle",
+																		"radius": "theme",
+																		"fit": "cover",
+																		"objectAlign": "center",
+																		"alt": {
+																			"$text": "/media/items/5b673dad-35f6-5396-be59-d1709902083a/alt"
+																		},
+																		"assetId": {
+																			"$asset": "/media/items/5b673dad-35f6-5396-be59-d1709902083a/assetId"
+																		}
+																	},
+																	"type": "media"
+																},
+																{
+																	"id": "cc225e67-7c48-53ca-ae3d-bdbcbe8b70be",
+																	"layout": {
+																		"aspectRatio": {
+																			"height": 7,
+																			"width": 14
+																		},
+																		"inlineSize": "full"
+																	},
+																	"props": {
+																		"fill": "subtle",
+																		"radius": "theme",
+																		"fit": "cover",
+																		"objectAlign": "center",
+																		"alt": {
+																			"$text": "/media/items/5a673c1a-36f6-5529-bf59-d3039a0209cd/alt"
+																		},
+																		"assetId": {
+																			"$asset": "/media/items/5a673c1a-36f6-5529-bf59-d3039a0209cd/assetId"
+																		}
+																	},
+																	"type": "media"
+																},
+																{
+																	"id": "cd225ffa-7b48-5237-b13d-c275bd8b6f2b",
+																	"layout": {
+																		"aspectRatio": {
+																			"height": 7,
+																			"width": 14
+																		},
+																		"inlineSize": "full"
+																	},
+																	"props": {
+																		"fill": "subtle",
+																		"radius": "theme",
+																		"fit": "cover",
+																		"objectAlign": "center",
+																		"alt": {
+																			"$text": "/media/items/59673a87-33f6-5070-8059-d49697020514/alt"
+																		},
+																		"assetId": {
+																			"$asset": "/media/items/59673a87-33f6-5070-8059-d49697020514/assetId"
+																		}
+																	},
+																	"type": "media"
+																}
+															],
+															"viewportLayout": {
+																"inlineSize": "full",
+																"margin": {
+																	"inlineEnd": 0,
+																	"inlineStart": 0
+																}
+															}
+														},
+														"type": "carousel"
+													}
+												]
+											},
+											"type": "flex"
+										}
+									]
+								},
+								"type": "box"
+							},
+							"source": {
+								"pattern": "gallery-slideshow"
+							}
+						},
+						{
+							"anchor": "metrics-basic",
+							"category": "metrics",
+							"contentId": "aa9d9dd7-355c-5ce4-8a85-5942c85d9948",
+							"id": "07dc5729-6227-5cd6-ba4a-458c9e891aea",
+							"root": {
+								"id": "ea6ceca5-203a-55ee-92a0-dab4aafbefa2",
+								"props": {
+									"fill": "canvas",
+									"children": [
+										{
+											"id": "27fed8d9-0b5e-5598-8e65-f18ef3fae7d4",
+											"layout": {
+												"inlineSize": "full",
+												"margin": {
+													"inlineEnd": "auto",
+													"inlineStart": "auto"
+												},
+												"maxInlineSize": "96rem",
+												"padding": {
+													"base": {
+														"blockEnd": "16sp",
+														"blockStart": "16sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													},
+													"compact": {
+														"blockEnd": "20sp",
+														"blockStart": "20sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													},
+													"wide": {
+														"blockEnd": "20sp",
+														"blockStart": "20sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													}
+												}
+											},
+											"props": {
+												"direction": "column",
+												"gap": "8sp",
+												"children": [
+													{
+														"id": "8e08c255-48ec-575a-8bf1-7738294d8dae",
+														"props": {
+															"direction": "column",
+															"gap": "4sp",
+															"children": [
+																{
+																	"id": "1af52e69-6b0b-5c1c-ab9e-737aeebb7f58",
+																	"props": {
+																		"appearance": "label-md",
+																		"font": "body",
+																		"tone": "muted",
+																		"content": {
+																			"$text": "/copy/kicker"
+																		},
+																		"element": "p"
+																	},
+																	"type": "text"
+																},
+																{
+																	"id": "19f52cd6-6c0b-5daf-ac9e-750defbb80eb",
+																	"props": {
+																		"direction": {
+																			"base": "column",
+																			"wide": "row"
+																		},
+																		"gap": {
+																			"base": "4sp",
+																			"compact": "8sp"
+																		},
+																		"justify": "between",
+																		"children": [
+																			{
+																				"id": "98b20d90-a036-5f53-8760-6751732e8bf7",
+																				"layout": {
+																					"inlineSize": {
+																						"base": "full",
+																						"wide": "50%"
+																					}
+																				},
+																				"props": {
+																					"direction": "column",
+																					"children": [
+																						{
+																							"id": "2da57f22-5ac0-506f-8fee-165dbe82700b",
+																							"layout": {
+																								"maxInlineSize": "36rem"
+																							},
+																							"props": {
+																								"appearance": "display-sm",
+																								"font": "brand",
+																								"content": {
+																									"$text": "/copy/heading"
+																								},
+																								"element": "h2"
+																							},
+																							"type": "text"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			},
+																			{
+																				"id": "99b20f23-9f36-5dc0-8660-65be722e8a64",
+																				"layout": {
+																					"inlineSize": {
+																						"base": "full",
+																						"wide": "50%"
+																					}
+																				},
+																				"props": {
+																					"direction": "column",
+																					"gap": "8sp",
+																					"children": [
+																						{
+																							"id": "8e904e1f-e2ae-5f32-8111-eec8fe79261e",
+																							"props": {
+																								"appearance": "body-md",
+																								"font": "body",
+																								"tone": "muted",
+																								"content": {
+																									"$text": "/copy/description"
+																								},
+																								"element": "p"
+																							},
+																							"type": "text"
+																						},
+																						{
+																							"id": "8d904c8c-e3ae-50c5-8211-f05bff7927b1",
+																							"props": {
+																								"direction": "row",
+																								"gap": "4sp",
+																								"wrap": "wrap",
+																								"children": [
+																									{
+																										"id": "80628cf6-ae9b-5579-a372-fbc739290a3d",
+																										"layout": {
+																											"inlineSize": {
+																												"base": "full",
+																												"compact": "auto"
+																											},
+																											"padding": {
+																												"base": {
+																													"blockEnd": "2.5sp",
+																													"blockStart": "2.5sp",
+																													"inlineEnd": "5sp",
+																													"inlineStart": "5sp"
+																												},
+																												"compact": {
+																													"blockEnd": "2.5sp",
+																													"blockStart": "2.5sp",
+																													"inlineEnd": "5sp",
+																													"inlineStart": "5sp"
+																												},
+																												"wide": {
+																													"blockEnd": "2.5sp",
+																													"blockStart": "2.5sp",
+																													"inlineEnd": "5sp",
+																													"inlineStart": "5sp"
+																												}
+																											}
+																										},
+																										"props": {
+																											"fill": "subtle",
+																											"foreground": "primary",
+																											"radius": "theme",
+																											"children": [
+																												{
+																													"id": "e9a379b0-36df-5ef5-9a2e-61bb70064e21",
+																													"props": {
+																														"appearance": "body-sm-em",
+																														"font": "body",
+																														"tone": "current",
+																														"content": {
+																															"$text": "/actions/items/cf9b0743-92b2-5ad4-ad33-69964b0bab78/label"
+																														},
+																														"element": "span"
+																													},
+																													"type": "text"
+																												}
+																											],
+																											"href": {
+																												"$link": "/actions/items/cf9b0743-92b2-5ad4-ad33-69964b0bab78/link"
+																											}
+																										},
+																										"type": "action"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "flex"
+													},
+													{
+														"id": "8d08c0c2-49ec-58ed-8cf1-78cb2a4d8f41",
+														"props": {
+															"columns": {
+																"base": 1,
+																"compact": 2,
+																"wide": 4
+															},
+															"gap": "4sp",
+															"children": [
+																{
+																	"id": "8e723e74-78a5-54b1-9589-add78c4355ed",
+																	"layout": {
+																		"padding": {
+																			"base": {
+																				"blockStart": "0sp"
+																			},
+																			"compact": {
+																				"blockStart": "0sp"
+																			},
+																			"wide": {
+																				"blockStart": "24sp"
+																			}
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"children": [
+																			{
+																				"id": "4b2c144e-6e71-513d-854d-4feb1d01cbb1",
+																				"layout": {
+																					"grow": 1
+																				},
+																				"props": {
+																					"direction": "row",
+																					"children": [
+																						{
+																							"id": "5ae4d7f8-7ede-5321-9928-a8f72c26363d",
+																							"layout": {
+																								"inlineSize": 1,
+																								"shrink": 0
+																							},
+																							"props": {
+																								"fill": "border",
+																								"children": [],
+																								"decorative": true
+																							},
+																							"type": "box"
+																						},
+																						{
+																							"id": "5be4d98b-7dde-518e-9828-a7642b2634aa",
+																							"layout": {
+																								"padding": {
+																									"base": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									},
+																									"compact": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									},
+																									"wide": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									}
+																								}
+																							},
+																							"props": {
+																								"direction": "column",
+																								"gap": "8sp",
+																								"children": [
+																									{
+																										"id": "a97c2797-9163-5738-9dec-8d1ec5db134c",
+																										"props": {
+																											"appearance": "heading-lg",
+																											"font": "body",
+																											"tone": "muted",
+																											"content": {
+																												"$text": "/items/items/6311f140-be6f-5d63-b2eb-0ce953df9537/metric"
+																											},
+																											"element": "p"
+																										},
+																										"type": "text"
+																									},
+																									{
+																										"id": "a87c2604-9263-58cb-9eec-8eb1c6db14df",
+																										"props": {
+																											"direction": "column",
+																											"gap": "2sp",
+																											"children": [
+																												{
+																													"id": "8fa98b3e-361e-5dd7-b667-6f3d23785c23",
+																													"props": {
+																														"appearance": "body-md-em",
+																														"font": "body",
+																														"content": {
+																															"$text": "/items/items/6311f140-be6f-5d63-b2eb-0ce953df9537/title"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												},
+																												{
+																													"id": "90a98cd1-351e-5c44-b567-6daa22785a90",
+																													"props": {
+																														"appearance": "body-sm",
+																														"font": "body",
+																														"tone": "muted",
+																														"content": {
+																															"$text": "/items/items/6311f140-be6f-5d63-b2eb-0ce953df9537/description"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												}
+																											]
+																										},
+																										"type": "flex"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "8f724007-77a5-531e-9489-ac448b43545a",
+																	"layout": {
+																		"padding": {
+																			"base": {
+																				"blockStart": "0sp"
+																			},
+																			"compact": {
+																				"blockStart": "0sp"
+																			},
+																			"wide": {
+																				"blockStart": "16sp"
+																			}
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"children": [
+																			{
+																				"id": "225dc2fb-0e0d-5ba8-a999-0b7e0f68231c",
+																				"layout": {
+																					"grow": 1
+																				},
+																				"props": {
+																					"direction": "row",
+																					"children": [
+																						{
+																							"id": "73e23be7-66f3-5d0a-9c95-f288641255a6",
+																							"layout": {
+																								"inlineSize": 1,
+																								"shrink": 0
+																							},
+																							"props": {
+																								"fill": "border",
+																								"children": [],
+																								"decorative": true
+																							},
+																							"type": "box"
+																						},
+																						{
+																							"id": "72e23a54-67f3-5e9d-9d95-f41b65125739",
+																							"layout": {
+																								"padding": {
+																									"base": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									},
+																									"compact": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									},
+																									"wide": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									}
+																								}
+																							},
+																							"props": {
+																								"direction": "column",
+																								"gap": "8sp",
+																								"children": [
+																									{
+																										"id": "292b4d2e-7506-5201-a4a4-24879ff276b5",
+																										"props": {
+																											"appearance": "heading-lg",
+																											"font": "body",
+																											"tone": "muted",
+																											"content": {
+																												"$text": "/items/items/6411f2d3-bd6f-5bd0-b1eb-0b5652df93a4/metric"
+																											},
+																											"element": "p"
+																										},
+																										"type": "text"
+																									},
+																									{
+																										"id": "2a2b4ec1-7406-506e-a3a4-22f49ef27522",
+																										"props": {
+																											"direction": "column",
+																											"gap": "2sp",
+																											"children": [
+																												{
+																													"id": "df226c6d-ae75-5d18-800f-29ce682a3054",
+																													"props": {
+																														"appearance": "body-md-em",
+																														"font": "body",
+																														"content": {
+																															"$text": "/items/items/6411f2d3-bd6f-5bd0-b1eb-0b5652df93a4/title"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												},
+																												{
+																													"id": "de226ada-af75-5eab-810f-2b61692a31e7",
+																													"props": {
+																														"appearance": "body-sm",
+																														"font": "body",
+																														"tone": "muted",
+																														"content": {
+																															"$text": "/items/items/6411f2d3-bd6f-5bd0-b1eb-0b5652df93a4/description"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												}
+																											]
+																										},
+																										"type": "flex"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "9072419a-76a5-518b-9789-b0fd8a4352c7",
+																	"layout": {
+																		"padding": {
+																			"base": {
+																				"blockStart": "0sp"
+																			},
+																			"compact": {
+																				"blockStart": "0sp"
+																			},
+																			"wide": {
+																				"blockStart": "8sp"
+																			}
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"children": [
+																			{
+																				"id": "d96a085c-4f5c-5f97-bb4f-53e175ce96bb",
+																				"layout": {
+																					"grow": 1
+																				},
+																				"props": {
+																					"direction": "row",
+																					"children": [
+																						{
+																							"id": "730d65e6-771c-57ab-ae69-518d57d7cca7",
+																							"layout": {
+																								"inlineSize": 1,
+																								"shrink": 0
+																							},
+																							"props": {
+																								"fill": "border",
+																								"children": [],
+																								"decorative": true
+																							},
+																							"type": "box"
+																						},
+																						{
+																							"id": "740d6779-761c-5618-ad69-4ffa56d7cb14",
+																							"layout": {
+																								"padding": {
+																									"base": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									},
+																									"compact": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									},
+																									"wide": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									}
+																								}
+																							},
+																							"props": {
+																								"direction": "column",
+																								"gap": "8sp",
+																								"children": [
+																									{
+																										"id": "12c7b4f5-d6a1-50da-87f1-d03c676fa5ee",
+																										"props": {
+																											"appearance": "heading-lg",
+																											"font": "body",
+																											"tone": "muted",
+																											"content": {
+																												"$text": "/items/items/6511f466-c06f-5089-b0eb-09c355df985d/metric"
+																											},
+																											"element": "p"
+																										},
+																										"type": "text"
+																									},
+																									{
+																										"id": "11c7b362-d7a1-526d-88f1-d1cf686fa781",
+																										"props": {
+																											"direction": "column",
+																											"gap": "2sp",
+																											"children": [
+																												{
+																													"id": "64ed1294-2a3f-5931-88ca-d9f39521472d",
+																													"props": {
+																														"appearance": "body-md-em",
+																														"font": "body",
+																														"content": {
+																															"$text": "/items/items/6511f466-c06f-5089-b0eb-09c355df985d/title"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												},
+																												{
+																													"id": "65ed1427-293f-579e-87ca-d8609421459a",
+																													"props": {
+																														"appearance": "body-sm",
+																														"font": "body",
+																														"tone": "muted",
+																														"content": {
+																															"$text": "/items/items/6511f466-c06f-5089-b0eb-09c355df985d/description"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												}
+																											]
+																										},
+																										"type": "flex"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "9172432d-75a5-5ff8-9689-af6a89435134",
+																	"layout": {
+																		"padding": {
+																			"base": {
+																				"blockStart": "0sp"
+																			},
+																			"compact": {
+																				"blockStart": "0sp"
+																			},
+																			"wide": {
+																				"blockStart": "0sp"
+																			}
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"children": [
+																			{
+																				"id": "882c7af1-2358-593a-8f34-e00c5da05d0e",
+																				"layout": {
+																					"grow": 1
+																				},
+																				"props": {
+																					"direction": "row",
+																					"children": [
+																						{
+																							"id": "50a4cb7d-1294-537c-90a8-5f76d9ec51b8",
+																							"layout": {
+																								"inlineSize": 1,
+																								"shrink": 0
+																							},
+																							"props": {
+																								"fill": "border",
+																								"children": [],
+																								"decorative": true
+																							},
+																							"type": "box"
+																						},
+																						{
+																							"id": "4fa4c9ea-1394-550f-91a8-6109daec534b",
+																							"layout": {
+																								"padding": {
+																									"base": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									},
+																									"compact": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									},
+																									"wide": {
+																										"inlineEnd": "6sp",
+																										"inlineStart": "6sp"
+																									}
+																								}
+																							},
+																							"props": {
+																								"direction": "column",
+																								"gap": "8sp",
+																								"children": [
+																									{
+																										"id": "4b3c778c-dd91-5b33-9887-3a65531c8557",
+																										"props": {
+																											"appearance": "heading-lg",
+																											"font": "body",
+																											"tone": "muted",
+																											"content": {
+																												"$text": "/items/items/6611f5f9-bf6f-5ef6-afeb-083054df96ca/metric"
+																											},
+																											"element": "p"
+																										},
+																										"type": "text"
+																									},
+																									{
+																										"id": "4c3c791f-dc91-59a0-9787-38d2521c83c4",
+																										"props": {
+																											"direction": "column",
+																											"gap": "2sp",
+																											"children": [
+																												{
+																													"id": "6e79aa63-1ba3-5a92-bfca-2fa48b4ee9fe",
+																													"props": {
+																														"appearance": "body-md-em",
+																														"font": "body",
+																														"content": {
+																															"$text": "/items/items/6611f5f9-bf6f-5ef6-afeb-083054df96ca/title"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												},
+																												{
+																													"id": "6d79a8d0-1ca3-5c25-80ca-31378c4eeb91",
+																													"props": {
+																														"appearance": "body-sm",
+																														"font": "body",
+																														"tone": "muted",
+																														"content": {
+																															"$text": "/items/items/6611f5f9-bf6f-5ef6-afeb-083054df96ca/description"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												}
+																											]
+																										},
+																										"type": "flex"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "grid"
+													}
+												]
+											},
+											"type": "flex"
+										}
+									]
+								},
+								"type": "box"
+							},
+							"source": {
+								"pattern": "metrics-basic"
+							}
+						},
+						{
+							"anchor": "testimonial-grid",
+							"category": "testimonials",
+							"contentId": "63b40cb1-f40b-5be4-b58a-500220663600",
+							"id": "ed5854cb-3c01-5cee-9873-9cfc4217c85a",
+							"root": {
+								"id": "3d6c8cfd-8fda-5074-8b85-8b4a7ac520b0",
+								"props": {
+									"fill": "canvas",
+									"children": [
+										{
+											"id": "ae2ca7e1-bbfc-5a4e-ae69-486ca92ada42",
+											"layout": {
+												"inlineSize": "full",
+												"margin": {
+													"inlineEnd": "auto",
+													"inlineStart": "auto"
+												},
+												"maxInlineSize": "96rem",
+												"padding": {
+													"base": {
+														"blockEnd": "12sp",
+														"blockStart": "12sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													},
+													"compact": {
+														"blockEnd": "16sp",
+														"blockStart": "16sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													}
+												},
+												"position": "relative"
+											},
+											"props": {
+												"direction": "column",
+												"gap": {
+													"base": "8sp",
+													"compact": "12sp"
+												},
+												"children": [
+													{
+														"id": "e41b8d8d-ca52-59f8-9077-95d62bb282f4",
+														"props": {
+															"align": {
+																"base": "stretch",
+																"wide": "end"
+															},
+															"direction": {
+																"base": "column",
+																"wide": "row"
+															},
+															"gap": {
+																"base": "4sp",
+																"compact": "8sp"
+															},
+															"justify": "between",
+															"children": [
+																{
+																	"id": "f91558d1-3fea-573a-9fe6-1890893849ce",
+																	"layout": {
+																		"inlineSize": {
+																			"base": "full",
+																			"wide": "50%"
+																		},
+																		"maxInlineSize": "36rem"
+																	},
+																	"props": {
+																		"direction": "column",
+																		"gap": "4sp",
+																		"children": [
+																			{
+																				"id": "5dea62dd-94e6-5d7c-8e09-1022785c3078",
+																				"props": {
+																					"appearance": "label-md",
+																					"font": "body",
+																					"tone": "muted",
+																					"content": {
+																						"$text": "/copy/kicker"
+																					},
+																					"element": "p"
+																				},
+																				"type": "text"
+																			},
+																			{
+																				"id": "5cea614a-95e6-5f0f-8f09-11b5795c320b",
+																				"props": {
+																					"appearance": "display-sm",
+																					"font": "brand",
+																					"tone": "primary",
+																					"content": {
+																						"$text": "/copy/heading"
+																					},
+																					"element": "h2"
+																				},
+																				"type": "text"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "f815573e-40ea-58cd-a0e6-1a238a384b61",
+																	"layout": {
+																		"inlineSize": {
+																			"base": "full",
+																			"wide": "50%"
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"gap": "8sp",
+																		"children": [
+																			{
+																				"id": "0f0e3b48-677f-5811-aef3-df1f388b900d",
+																				"layout": {
+																					"inlineSize": {
+																						"base": "full",
+																						"compact": "fit-content"
+																					},
+																					"padding": {
+																						"blockEnd": "2.5sp",
+																						"blockStart": "2.5sp",
+																						"inlineEnd": "5sp",
+																						"inlineStart": "5sp"
+																					}
+																				},
+																				"props": {
+																					"border": {
+																						"color": "current",
+																						"width": "1px"
+																					},
+																					"fill": "transparent",
+																					"radius": "theme",
+																					"children": [
+																						{
+																							"id": "ea31d5aa-87f8-521d-9cb7-bc633c842851",
+																							"props": {
+																								"appearance": "body-sm-em",
+																								"font": "body",
+																								"tone": "current",
+																								"content": {
+																									"$text": "/actions/items/ac61610b-bcbb-5fb6-b503-fb1850d1df42/label"
+																								},
+																								"element": "span"
+																							},
+																							"type": "text"
+																						}
+																					],
+																					"href": {
+																						"$link": "/actions/items/ac61610b-bcbb-5fb6-b503-fb1850d1df42/link"
+																					}
+																				},
+																				"type": "action"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "flex"
+													},
+													{
+														"id": "e31b8bfa-cb52-5b8b-9177-97692cb28487",
+														"props": {
+															"columns": {
+																"base": 1,
+																"wide": 2
+															},
+															"gap": "4sp",
+															"children": [
+																{
+																	"id": "938b443c-6bef-5d97-b50d-bc456069f87b",
+																	"layout": {
+																		"padding": {
+																			"base": {
+																				"blockEnd": "6sp",
+																				"blockStart": "6sp",
+																				"inlineEnd": "6sp",
+																				"inlineStart": "6sp"
+																			}
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"gap": "6sp",
+																		"fill": "tint",
+																		"radius": "theme",
+																		"children": [
+																			{
+																				"id": "d5c19546-f96e-51ab-8845-5ff991599467",
+																				"props": {
+																					"direction": "column",
+																					"gap": "2sp",
+																					"children": [
+																						{
+																							"id": "125281a0-9de0-58b7-9793-46759b38f45b",
+																							"props": {
+																								"name": "quote",
+																								"size": "1.5rem",
+																								"tone": "accent-text"
+																							},
+																							"type": "icon"
+																						},
+																						{
+																							"id": "13528333-9ce0-5724-9693-44e29a38f2c8",
+																							"props": {
+																								"appearance": "body-md",
+																								"font": "body",
+																								"tone": "muted",
+																								"content": {
+																									"$text": "/testimonials/items/2f2d3346-00a2-5441-be3d-80970d18eef5/quote"
+																								},
+																								"element": "p"
+																							},
+																							"type": "text"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			},
+																			{
+																				"id": "d6c196d9-f86e-5018-8745-5e66905992d4",
+																				"layout": {
+																					"margin": {
+																						"blockStart": "auto"
+																					}
+																				},
+																				"props": {
+																					"direction": "row",
+																					"gap": "4sp",
+																					"justify": "between",
+																					"children": [
+																						{
+																							"id": "bc145c55-5c78-5eda-be45-5840a602feae",
+																							"props": {
+																								"align": "center",
+																								"direction": "row",
+																								"gap": "3sp",
+																								"children": [
+																									{
+																										"id": "fff01c69-9253-5a9c-b76d-c6b20cdb2258",
+																										"layout": {
+																											"aspectRatio": {
+																												"height": 1,
+																												"width": 1
+																											},
+																											"blockSize": "10sp",
+																											"inlineSize": "10sp",
+																											"shrink": 0
+																										},
+																										"props": {
+																											"fill": "subtle",
+																											"radius": "theme",
+																											"fit": "cover",
+																											"alt": {
+																												"$text": "/testimonials/items/2f2d3346-00a2-5441-be3d-80970d18eef5/alt"
+																											},
+																											"assetId": {
+																												"$asset": "/testimonials/items/2f2d3346-00a2-5441-be3d-80970d18eef5/assetId"
+																											}
+																										},
+																										"type": "media"
+																									},
+																									{
+																										"id": "fef01ad6-9353-5c2f-b86d-c8450ddb23eb",
+																										"props": {
+																											"direction": "column",
+																											"children": [
+																												{
+																													"id": "9d353790-5fc8-52d3-88f9-43f99d1464f7",
+																													"props": {
+																														"appearance": "body-md",
+																														"font": "body",
+																														"tone": "primary",
+																														"content": {
+																															"$text": "/testimonials/items/2f2d3346-00a2-5441-be3d-80970d18eef5/name"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												},
+																												{
+																													"id": "9e353923-5ec8-5140-87f9-42669c146364",
+																													"props": {
+																														"appearance": "body-sm",
+																														"font": "body",
+																														"tone": "muted",
+																														"content": {
+																															"$text": "/testimonials/items/2f2d3346-00a2-5441-be3d-80970d18eef5/title"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												}
+																											]
+																										},
+																										"type": "flex"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "948b45cf-6aef-5c04-b40d-bab25f69f6e8",
+																	"layout": {
+																		"padding": {
+																			"base": {
+																				"blockEnd": "6sp",
+																				"blockStart": "6sp",
+																				"inlineEnd": "6sp",
+																				"inlineStart": "6sp"
+																			}
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"gap": "6sp",
+																		"fill": "tint",
+																		"radius": "theme",
+																		"children": [
+																			{
+																				"id": "d4fb75f3-3401-5d3e-a7e1-cf846676534a",
+																				"props": {
+																					"direction": "column",
+																					"gap": "2sp",
+																					"children": [
+																						{
+																							"id": "83bbad0f-44b6-5d48-a691-7fbe23da206c",
+																							"props": {
+																								"name": "quote",
+																								"size": "1.5rem",
+																								"tone": "accent-text"
+																							},
+																							"type": "icon"
+																						},
+																						{
+																							"id": "82bbab7c-45b6-5edb-a791-815124da21ff",
+																							"props": {
+																								"appearance": "body-md",
+																								"font": "body",
+																								"tone": "muted",
+																								"content": {
+																									"$text": "/testimonials/items/302d34d9-ffa2-52ae-bd3d-7f040c18ed62/quote"
+																								},
+																								"element": "p"
+																							},
+																							"type": "text"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			},
+																			{
+																				"id": "d3fb7460-3501-5ed1-a8e1-d117677654dd",
+																				"layout": {
+																					"margin": {
+																						"blockStart": "auto"
+																					}
+																				},
+																				"props": {
+																					"direction": "row",
+																					"gap": "4sp",
+																					"justify": "between",
+																					"children": [
+																						{
+																							"id": "6155a952-9392-54dd-abfe-642b32930841",
+																							"props": {
+																								"align": "center",
+																								"direction": "row",
+																								"gap": "3sp",
+																								"children": [
+																									{
+																										"id": "c1fea924-eee1-5841-835f-d8371a7590ed",
+																										"layout": {
+																											"aspectRatio": {
+																												"height": 1,
+																												"width": 1
+																											},
+																											"blockSize": "10sp",
+																											"inlineSize": "10sp",
+																											"shrink": 0
+																										},
+																										"props": {
+																											"fill": "subtle",
+																											"radius": "theme",
+																											"fit": "cover",
+																											"alt": {
+																												"$text": "/testimonials/items/302d34d9-ffa2-52ae-bd3d-7f040c18ed62/alt"
+																											},
+																											"assetId": {
+																												"$asset": "/testimonials/items/302d34d9-ffa2-52ae-bd3d-7f040c18ed62/assetId"
+																											}
+																										},
+																										"type": "media"
+																									},
+																									{
+																										"id": "c2feaab7-ede1-56ae-825f-d6a419758f5a",
+																										"props": {
+																											"direction": "column",
+																											"children": [
+																												{
+																													"id": "965b7bcb-9c3b-5a58-afb0-c75ebe75441c",
+																													"props": {
+																														"appearance": "body-md",
+																														"font": "body",
+																														"tone": "primary",
+																														"content": {
+																															"$text": "/testimonials/items/302d34d9-ffa2-52ae-bd3d-7f040c18ed62/name"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												},
+																												{
+																													"id": "955b7a38-9d3b-5beb-b0b0-c8f1bf7545af",
+																													"props": {
+																														"appearance": "body-sm",
+																														"font": "body",
+																														"tone": "muted",
+																														"content": {
+																															"$text": "/testimonials/items/302d34d9-ffa2-52ae-bd3d-7f040c18ed62/title"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												}
+																											]
+																										},
+																										"type": "flex"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "958b4762-6def-50bd-b30d-b91f6269fba1",
+																	"layout": {
+																		"padding": {
+																			"base": {
+																				"blockEnd": "6sp",
+																				"blockStart": "6sp",
+																				"inlineEnd": "6sp",
+																				"inlineStart": "6sp"
+																			}
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"gap": "6sp",
+																		"fill": "tint",
+																		"radius": "theme",
+																		"children": [
+																			{
+																				"id": "60460e94-51d7-59a1-9351-6a636275c34d",
+																				"props": {
+																					"direction": "column",
+																					"gap": "2sp",
+																					"children": [
+																						{
+																							"id": "d259886e-0f07-5d4d-a1db-cb5fa09c4f91",
+																							"props": {
+																								"name": "quote",
+																								"size": "1.5rem",
+																								"tone": "accent-text"
+																							},
+																							"type": "icon"
+																						},
+																						{
+																							"id": "d3598a01-0e07-5bba-a0db-c9cc9f9c4dfe",
+																							"props": {
+																								"appearance": "body-md",
+																								"font": "body",
+																								"tone": "muted",
+																								"content": {
+																									"$text": "/testimonials/items/2d2d3020-fea2-511b-803d-83bd0b18ebcf/quote"
+																								},
+																								"element": "p"
+																							},
+																							"type": "text"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			},
+																			{
+																				"id": "61461027-50d7-580e-9251-68d06175c1ba",
+																				"layout": {
+																					"margin": {
+																						"blockStart": "auto"
+																					}
+																				},
+																				"props": {
+																					"direction": "row",
+																					"gap": "4sp",
+																					"justify": "between",
+																					"children": [
+																						{
+																							"id": "db50ea1b-ca37-52b8-8dc4-7762ce02e4fc",
+																							"props": {
+																								"align": "center",
+																								"direction": "row",
+																								"gap": "3sp",
+																								"children": [
+																									{
+																										"id": "dfc9e687-26a3-5dfa-a910-9e949dd5d606",
+																										"layout": {
+																											"aspectRatio": {
+																												"height": 1,
+																												"width": 1
+																											},
+																											"blockSize": "10sp",
+																											"inlineSize": "10sp",
+																											"shrink": 0
+																										},
+																										"props": {
+																											"fill": "subtle",
+																											"radius": "theme",
+																											"fit": "cover",
+																											"alt": {
+																												"$text": "/testimonials/items/2d2d3020-fea2-511b-803d-83bd0b18ebcf/alt"
+																											},
+																											"assetId": {
+																												"$asset": "/testimonials/items/2d2d3020-fea2-511b-803d-83bd0b18ebcf/assetId"
+																											}
+																										},
+																										"type": "media"
+																									},
+																									{
+																										"id": "dec9e4f4-27a3-5f8d-aa10-a0279ed5d799",
+																										"props": {
+																											"direction": "column",
+																											"children": [
+																												{
+																													"id": "0e650fce-b7f6-5ed1-93bd-9a1bb7851915",
+																													"props": {
+																														"appearance": "body-md",
+																														"font": "body",
+																														"tone": "primary",
+																														"content": {
+																															"$text": "/testimonials/items/2d2d3020-fea2-511b-803d-83bd0b18ebcf/name"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												},
+																												{
+																													"id": "0f651161-b6f6-5d3e-92bd-9888b6851782",
+																													"props": {
+																														"appearance": "body-sm",
+																														"font": "body",
+																														"tone": "muted",
+																														"content": {
+																															"$text": "/testimonials/items/2d2d3020-fea2-511b-803d-83bd0b18ebcf/title"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												}
+																											]
+																										},
+																										"type": "flex"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																},
+																{
+																	"id": "968b48f5-6cef-5f2a-b20d-b78c6169fa0e",
+																	"layout": {
+																		"padding": {
+																			"base": {
+																				"blockEnd": "6sp",
+																				"blockStart": "6sp",
+																				"inlineEnd": "6sp",
+																				"inlineStart": "6sp"
+																			}
+																		}
+																	},
+																	"props": {
+																		"direction": "column",
+																		"gap": "6sp",
+																		"fill": "tint",
+																		"radius": "theme",
+																		"children": [
+																			{
+																				"id": "d2378a09-9987-5acc-9010-3df61da638b8",
+																				"props": {
+																					"direction": "column",
+																					"gap": "2sp",
+																					"children": [
+																						{
+																							"id": "fadd8565-86b9-5836-913f-dcb0774b2ffa",
+																							"props": {
+																								"name": "quote",
+																								"size": "1.5rem",
+																								"tone": "accent-text"
+																							},
+																							"type": "icon"
+																						},
+																						{
+																							"id": "f9dd83d2-87b9-59c9-923f-de43784b318d",
+																							"props": {
+																								"appearance": "body-md",
+																								"font": "body",
+																								"tone": "muted",
+																								"content": {
+																									"$text": "/testimonials/items/2e2d31b3-fda2-5f88-bf3d-822a0a18ea3c/quote"
+																								},
+																								"element": "p"
+																							},
+																							"type": "text"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			},
+																			{
+																				"id": "d1378876-9a87-5c5f-9110-3f891ea63a4b",
+																				"layout": {
+																					"margin": {
+																						"blockStart": "auto"
+																					}
+																				},
+																				"props": {
+																					"direction": "row",
+																					"gap": "4sp",
+																					"justify": "between",
+																					"children": [
+																						{
+																							"id": "5b7b0430-0237-5aa3-b0a2-5de5a1366a57",
+																							"props": {
+																								"align": "center",
+																								"direction": "row",
+																								"gap": "3sp",
+																								"children": [
+																									{
+																										"id": "fbcd9cc2-3940-589f-8621-e91936246d6b",
+																										"layout": {
+																											"aspectRatio": {
+																												"height": 1,
+																												"width": 1
+																											},
+																											"blockSize": "10sp",
+																											"inlineSize": "10sp",
+																											"shrink": 0
+																										},
+																										"props": {
+																											"fill": "subtle",
+																											"radius": "theme",
+																											"fit": "cover",
+																											"alt": {
+																												"$text": "/testimonials/items/2e2d31b3-fda2-5f88-bf3d-822a0a18ea3c/alt"
+																											},
+																											"assetId": {
+																												"$asset": "/testimonials/items/2e2d31b3-fda2-5f88-bf3d-822a0a18ea3c/assetId"
+																											}
+																										},
+																										"type": "media"
+																									},
+																									{
+																										"id": "fccd9e55-3840-570c-8521-e78635246bd8",
+																										"props": {
+																											"direction": "column",
+																											"children": [
+																												{
+																													"id": "47188269-ec7e-5476-ae5b-c2e0d532c49a",
+																													"props": {
+																														"appearance": "body-md",
+																														"font": "body",
+																														"tone": "primary",
+																														"content": {
+																															"$text": "/testimonials/items/2e2d31b3-fda2-5f88-bf3d-822a0a18ea3c/name"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												},
+																												{
+																													"id": "461880d6-ed7e-5609-af5b-c473d632c62d",
+																													"props": {
+																														"appearance": "body-sm",
+																														"font": "body",
+																														"tone": "muted",
+																														"content": {
+																															"$text": "/testimonials/items/2e2d31b3-fda2-5f88-bf3d-822a0a18ea3c/title"
+																														},
+																														"element": "p"
+																													},
+																													"type": "text"
+																												}
+																											]
+																										},
+																										"type": "flex"
+																									}
+																								]
+																							},
+																							"type": "flex"
+																						}
+																					]
+																				},
+																				"type": "flex"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "grid"
+													}
+												]
+											},
+											"type": "flex"
+										}
+									]
+								},
+								"type": "box"
+							},
+							"source": {
+								"pattern": "testimonial-grid"
+							}
+						},
+						{
+							"anchor": "banner-card-and-background-image",
+							"category": "hero",
+							"contentId": "0dd802f1-3e60-5c30-8a38-37867acb784c",
+							"id": "71b9bfe3-40cf-5ff2-bccf-28c8bb97ad9e",
+							"root": {
+								"id": "49c48321-5c0b-5a8c-9814-6a1af2be55d8",
+								"layout": {
+									"minBlockSize": "viewport",
+									"position": "relative"
+								},
+								"props": {
+									"fill": "transparent",
+									"foreground": "media",
+									"children": [
+										{
+											"id": "8c29b1cd-3965-56f6-a3e3-29dc5111a29a",
+											"layout": {
+												"blockSize": "full",
+												"inlineSize": "full",
+												"inset": {
+													"blockEnd": 0,
+													"blockStart": 0,
+													"inlineEnd": 0,
+													"inlineStart": 0
+												},
+												"position": "absolute"
+											},
+											"props": {
+												"fill": "subtle",
+												"radius": "none",
+												"fit": "cover",
+												"objectAlign": "center",
+												"overlay": {
+													"kind": "scrim",
+													"strength": "medium"
+												},
+												"alt": {
+													"$text": "/media/items/897d9178-b3ff-5405-9492-933f7c9babe1/alt"
+												},
+												"assetId": {
+													"$asset": "/media/items/897d9178-b3ff-5405-9492-933f7c9babe1/assetId"
+												}
+											},
+											"type": "media"
+										},
+										{
+											"id": "8b29b03a-3a65-5889-a4e3-2b6f5211a42d",
+											"layout": {
+												"grow": 1,
+												"inlineSize": "full",
+												"margin": {
+													"inlineEnd": "auto",
+													"inlineStart": "auto"
+												},
+												"maxInlineSize": "96rem",
+												"minBlockSize": "viewport",
+												"padding": {
+													"base": {
+														"blockEnd": "8sp",
+														"blockStart": "8sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													},
+													"compact": {
+														"blockEnd": "10sp",
+														"blockStart": "10sp",
+														"inlineEnd": "1.5rem",
+														"inlineStart": "1.5rem"
+													}
+												},
+												"position": "relative"
+											},
+											"props": {
+												"align": "end",
+												"direction": "row",
+												"justify": "start",
+												"children": [
+													{
+														"id": "4d87387c-f704-58e5-a661-7b13c264edf1",
+														"layout": {
+															"inlineSize": {
+																"base": "full",
+																"compact": "auto"
+															},
+															"maxInlineSize": "600px",
+															"padding": {
+																"base": {
+																	"blockEnd": "6sp",
+																	"blockStart": "6sp",
+																	"inlineEnd": "6sp",
+																	"inlineStart": "6sp"
+																},
+																"compact": {
+																	"blockEnd": "8sp",
+																	"blockStart": "8sp",
+																	"inlineEnd": "8sp",
+																	"inlineStart": "8sp"
+																}
+															}
+														},
+														"props": {
+															"direction": "column",
+															"gap": "4sp",
+															"fill": "canvas",
+															"foreground": "primary",
+															"radius": "theme",
+															"children": [
+																{
+																	"id": "3aa6e886-6cbf-5a19-8450-872f2056147d",
+																	"props": {
+																		"align": "start",
+																		"appearance": "heading-lg",
+																		"font": "brand",
+																		"tone": "primary",
+																		"content": {
+																			"$text": "/copy/heading"
+																		},
+																		"element": "h1"
+																	},
+																	"type": "text"
+																},
+																{
+																	"id": "3ba6ea19-6bbf-5886-8350-859c1f5612ea",
+																	"props": {
+																		"align": "start",
+																		"appearance": "body-md",
+																		"tone": "muted",
+																		"content": {
+																			"$text": "/copy/description"
+																		},
+																		"element": "p"
+																	},
+																	"type": "text"
+																},
+																{
+																	"id": "38a6e560-6abf-56f3-8650-8a551e561157",
+																	"props": {
+																		"align": "stretch",
+																		"direction": {
+																			"base": "column",
+																			"compact": "row"
+																		},
+																		"gap": "4sp",
+																		"justify": {
+																			"base": "start",
+																			"compact": "start"
+																		},
+																		"wrap": "wrap",
+																		"children": [
+																			{
+																				"id": "3c374c52-2aef-500f-a79b-0669653b926b",
+																				"layout": {
+																					"inlineSize": {
+																						"base": "full",
+																						"compact": "auto"
+																					},
+																					"padding": {
+																						"blockEnd": "2.5sp",
+																						"blockStart": "2.5sp",
+																						"inlineEnd": "5sp",
+																						"inlineStart": "5sp"
+																					}
+																				},
+																				"props": {
+																					"fill": "action",
+																					"foreground": "action",
+																					"radius": "theme",
+																					"children": [
+																						{
+																							"id": "36ca8224-164e-5c33-9dbe-b94501863877",
+																							"props": {
+																								"align": "start",
+																								"appearance": "body-sm-em",
+																								"tone": "current",
+																								"content": {
+																									"$text": "/actions/items/d7a0992f-a9f8-5cf6-aaa2-f160f057b5b2/label"
+																								},
+																								"element": "span"
+																							},
+																							"type": "text"
+																						}
+																					],
+																					"href": {
+																						"$link": "/actions/items/d7a0992f-a9f8-5cf6-aaa2-f160f057b5b2/link"
+																					}
+																				},
+																				"type": "action"
+																			},
+																			{
+																				"id": "3d374de5-29ef-5e7c-a69b-04d6643b90d8",
+																				"layout": {
+																					"inlineSize": {
+																						"base": "full",
+																						"compact": "auto"
+																					},
+																					"padding": {
+																						"blockEnd": "2.5sp",
+																						"blockStart": "2.5sp",
+																						"inlineEnd": "5sp",
+																						"inlineStart": "5sp"
+																					}
+																				},
+																				"props": {
+																					"fill": "subtle",
+																					"foreground": "primary",
+																					"radius": "theme",
+																					"children": [
+																						{
+																							"id": "75abb919-0a0d-5a86-8897-1590356fc39a",
+																							"props": {
+																								"align": "start",
+																								"appearance": "body-sm-em",
+																								"tone": "current",
+																								"content": {
+																									"$text": "/actions/items/d6a0979c-aaf8-5e89-aba2-f2f3f157b745/label"
+																								},
+																								"element": "span"
+																							},
+																							"type": "text"
+																						}
+																					],
+																					"href": {
+																						"$link": "/actions/items/d6a0979c-aaf8-5e89-aba2-f2f3f157b745/link"
+																					}
+																				},
+																				"type": "action"
+																			}
+																		]
+																	},
+																	"type": "flex"
+																}
+															]
+														},
+														"type": "flex"
+													}
+												]
+											},
+											"type": "flex"
+										}
+									]
+								},
+								"type": "box"
+							},
+							"source": {
+								"pattern": "banner-card-and-background-image"
+							}
+						}
+					]
+				}
+			]
+		}
+	},
+	"templateId": "nordic-edge"
+}

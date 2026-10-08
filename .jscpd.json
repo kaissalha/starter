@@ -1,0 +1,29 @@
+{
+	"path": ["."],
+	"format": ["typescript", "tsx", "javascript", "jsx", "css", "sql"],
+	"crossFormats": "js-ts",
+	"mode": "weak",
+	"minLines": 5,
+	"minTokens": 50,
+	"maxLines": 100000,
+	"maxSize": "10mb",
+	"ignore": [
+		"**/node_modules/**",
+		"**/*.d.ts",
+		"**/.next/**",
+		"**/.next-e2e/**",
+		"**/dist/**",
+		"**/build/**",
+		"**/storybook-static/**",
+		"**/.well-known/workflow/**",
+		"packages/db/src/db/migrations/**",
+		"packages/infinite-website/src/sections/**",
+		"packages/server/src/ai/generated/**",
+		"tools/oxlint/anti-slop/**",
+		"packages/documents/src/viewer/**"
+	],
+	"baseline": ".jscpd-baseline.json",
+	"reporters": ["json", "html"],
+	"output": "reports/jscpd",
+	"pattern": "{apps,packages,tools,e2e}/**/*"
+}

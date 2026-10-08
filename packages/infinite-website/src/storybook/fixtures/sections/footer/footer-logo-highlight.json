@@ -1,0 +1,136 @@
+{
+	"en": {
+		"copy": {
+			"copyright": "© 2025 Florora. All rights reserved.",
+			"address": "123 Oak Street, Springfield, IL 62701",
+			"brand": "Florora"
+		},
+		"navItems": [
+			{
+				"label": "Home",
+				"link": {
+					"kind": "relative",
+					"path": "/"
+				}
+			},
+			{
+				"label": "Services",
+				"link": {
+					"kind": "relative",
+					"path": "/services"
+				}
+			},
+			{
+				"label": "About",
+				"link": {
+					"kind": "relative",
+					"path": "/about"
+				}
+			},
+			{
+				"label": "Contact",
+				"link": {
+					"kind": "relative",
+					"path": "/contact"
+				}
+			},
+			{
+				"label": "Blog",
+				"link": {
+					"kind": "relative",
+					"path": "/blog"
+				}
+			}
+		],
+		"socialLinks": [
+			{
+				"label": "Facebook",
+				"link": {
+					"kind": "external",
+					"url": "https://facebook.com"
+				}
+			},
+			{
+				"label": "X",
+				"link": {
+					"kind": "external",
+					"url": "https://x.com"
+				}
+			},
+			{
+				"label": "Instagram",
+				"link": {
+					"kind": "external",
+					"url": "https://instagram.com"
+				}
+			}
+		]
+	},
+	"ar": {
+		"copy": {
+			"copyright": "© 2025 فلورورا. جميع الحقوق محفوظة.",
+			"address": "123 شارع البلوط، سبرينغفيلد، إلينوي 62701",
+			"brand": "فلورورا"
+		},
+		"navItems": [
+			{
+				"label": "الرئيسية",
+				"link": {
+					"kind": "relative",
+					"path": "/"
+				}
+			},
+			{
+				"label": "الخدمات",
+				"link": {
+					"kind": "relative",
+					"path": "/services"
+				}
+			},
+			{
+				"label": "من نحن",
+				"link": {
+					"kind": "relative",
+					"path": "/about"
+				}
+			},
+			{
+				"label": "تواصل معنا",
+				"link": {
+					"kind": "relative",
+					"path": "/contact"
+				}
+			},
+			{
+				"label": "المدونة",
+				"link": {
+					"kind": "relative",
+					"path": "/blog"
+				}
+			}
+		],
+		"socialLinks": [
+			{
+				"label": "فيسبوك",
+				"link": {
+					"kind": "external",
+					"url": "https://facebook.com"
+				}
+			},
+			{
+				"label": "إكس",
+				"link": {
+					"kind": "external",
+					"url": "https://x.com"
+				}
+			},
+			{
+				"label": "إنستغرام",
+				"link": {
+					"kind": "external",
+					"url": "https://instagram.com"
+				}
+			}
+		]
+	}
+}
