@@ -202,7 +202,7 @@ export const ChatMessageParts = ({
 		parts.flatMap((part) => (part.type === "file" ? [`${part.mediaType}\u0000${part.filename ?? ""}`] : []))
 	);
 
-	const visibleParts = getVisibleMessageParts({ isStreaming, isUser, parts }).filter(
+	const visibleParts = getVisibleMessageParts({ isUser, parts }).filter(
 		(part) =>
 			part.type !== "data-attachment" ||
 			!renderedFileAttachments.has(`${part.data.mediaType}\u0000${part.data.filename}`)

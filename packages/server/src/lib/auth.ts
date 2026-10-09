@@ -22,7 +22,6 @@ import { apikeys, db, members, schema, users } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
 import { getBaseURL } from "@starter/utils";
 
-import type { OrganizationAIShutdownLease } from "../services/chat-stream-state";
 import {
 	authPermissionHook,
 	getOrganizationRole,
@@ -44,8 +43,6 @@ const lastActiveOrganizationCookieName = "starter.last_active_organization";
 const organizationResultSchema = z.compile(z.object({ id: z.string() }));
 
 const emailBodySchema = z.compile(z.object({ email: z.string() }));
-
-const organizationAIShutdownLeases = new WeakMap<object, OrganizationAIShutdownLease>();
 
 const loggerErrorSchema = z.compile(
 	z
@@ -256,21 +253,8 @@ const authOptions = {
 		organization({
 			ac: organizationAccessControl,
 			organizationHooks: {
-				afterDeleteOrganization: async ({ organization: deletedOrganization }, context) => {
-					if (!context) {
-						return;
-					}
-
-					const lease = organizationAIShutdownLeases.get(context);
-
-					if (!lease) {
-						return;
-					}
-
-					const [{ runOrganizationPurge }, { clearOrganizationAIShutdown }] = await Promise.all([
-						import("../services/organization-purge"),
-						import("../services/chat-stream-state"),
-					]);
+				afterDeleteOrganization: async ({ organization: deletedOrganization }) => {
+					const { runOrganizationPurge } = await import("../services/organization-purge");
 
 					try {
 						await runOrganizationPurge({ organizationId: deletedOrganization.id });
@@ -280,18 +264,6 @@ const authOptions = {
 							message: "Failed to purge organization data",
 							organizationId: deletedOrganization.id,
 						});
-					}
-
-					try {
-						await clearOrganizationAIShutdown({ lease });
-					} catch (error) {
-						await log.error({
-							error: serializeLogError(error),
-							message: "Failed to clear organization AI shutdown marker",
-							organizationId: deletedOrganization.id,
-						});
-					} finally {
-						organizationAIShutdownLeases.delete(context);
 					}
 				},
 				afterRemoveMember: async ({ member, organization: removedFrom }) => {
@@ -316,31 +288,10 @@ const authOptions = {
 					}
 				},
 				beforeCreateInvitation: async ({ invitation }) => validateTeamRole(invitation.role),
-				beforeDeleteOrganization: async ({ organization: deletedOrganization }, context) => {
-					if (!context) {
-						throw new Error("Organization deletion context is required");
-					}
+				beforeDeleteOrganization: async ({ organization: deletedOrganization }) => {
+					const { snapshotOrganizationPurge } = await import("../services/organization-purge");
 
-					const [
-						{ stopOrganizationAIActivity },
-						{ snapshotOrganizationPurge },
-						{ clearOrganizationAIShutdown },
-					] = await Promise.all([
-						import("../services/organization-ai-data"),
-						import("../services/organization-purge"),
-						import("../services/chat-stream-state"),
-					]);
-
-					const lease = await stopOrganizationAIActivity({ organizationId: deletedOrganization.id });
-
-					try {
-						await snapshotOrganizationPurge({ organizationId: deletedOrganization.id });
-					} catch (error) {
-						await clearOrganizationAIShutdown({ lease });
-						throw error;
-					}
-
-					organizationAIShutdownLeases.set(context, lease);
+					await snapshotOrganizationPurge({ organizationId: deletedOrganization.id });
 				},
 				beforeRemoveMember: async ({ member }) => validateTeamRole(member.role),
 				beforeUpdateMemberRole: async ({ member, newRole }) => {

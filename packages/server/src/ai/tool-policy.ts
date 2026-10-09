@@ -133,6 +133,7 @@ export const getDashboardActiveTools = (
 
 	const active = [
 		"skill",
+		"addNumbers",
 		"askUserQuestions",
 		"retrieveKnowledge",
 		"webSearch",

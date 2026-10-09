@@ -11,20 +11,11 @@ import { requireOrganizationPermission } from "../../src/services/permissions";
 import { authTestHelpers, testAuth } from "../helpers/auth";
 
 const mocks = vi.hoisted(() => ({
-	clearOrganizationAIShutdown: vi.fn(async () => undefined),
 	deleteOrganizationAIData: vi.fn(async (_input: { organizationId: string }) => undefined),
 }));
 
 vi.mock("../../src/services/organization-ai-data", () => ({
 	deleteOrganizationAIData: mocks.deleteOrganizationAIData,
-	stopOrganizationAIActivity: async ({ organizationId }: { organizationId: string }) => ({
-		organizationId,
-		token: "lease",
-	}),
-}));
-
-vi.mock("../../src/services/chat-stream-state", () => ({
-	clearOrganizationAIShutdown: mocks.clearOrganizationAIShutdown,
 }));
 
 vi.mock("@starter/email", async () => (await import("../helpers/email")).emailPackageMock);
@@ -259,7 +250,6 @@ describe("Better Auth test helpers", () => {
 
 			expect(purge?.completedAt).not.toBeNull();
 			expect(mocks.deleteOrganizationAIData).toHaveBeenCalledExactlyOnceWith({ organizationId });
-			expect(mocks.clearOrganizationAIShutdown).toHaveBeenCalledOnce();
 		} finally {
 			await db.delete(organizationPurges).where(eq(organizationPurges.organizationId, organizationId));
 		}

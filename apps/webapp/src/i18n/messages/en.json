@@ -542,6 +542,7 @@
 						"dismissed": "Questions dismissed"
 					},
 					"actions": {
+						"addNumbers": "Add numbers",
 						"askUserQuestions": "Questions",
 						"getDocument": "Document details",
 						"inspectTable": "Table details",
@@ -569,7 +570,6 @@
 				}
 			},
 			"errors": {
-				"alreadySubmitted": "That decision was already sent. Showing the latest state.",
 				"approvalExpired": "That approval expired. Review the request and try again.",
 				"continuationMismatch": "The request changed before your answer arrived. Review it and try again.",
 				"generic": "Something went wrong. Review the request and try again."

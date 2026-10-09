@@ -41,6 +41,14 @@ const questionSchema = z.object({
 const text = (value: string | undefined) => value?.trim() || undefined;
 
 export const assistantTools = {
+	addNumbers: createTool({
+		description: "Add two numbers. Requires the user's approval before it runs.",
+		execute: async ({ a, b }) => ({ sum: a + b }),
+		id: "add-numbers",
+		inputSchema: z.compile(z.strictObject({ a: z.number(), b: z.number() })),
+		outputSchema: z.compile(z.object({ sum: z.number() })),
+		requireApproval: true,
+	}),
 	askUserQuestions: createTool({
 		description:
 			"Ask up to 4 short essential questions in one form, then stop and wait for the answers. Aim for one round, never more than two per user request, including skipped or dismissed forms. Inspect available information first, batch missing decisions, and use a second round only for a remaining blocker. Never repeat answered questions or ask when a reasonable default exists. Prefer concrete options; add allowOther for custom answers. Keep accompanying text brief.",

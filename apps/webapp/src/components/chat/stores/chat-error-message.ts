@@ -5,11 +5,10 @@ const serverErrorSchema = z.compile(z.object({ error: z.object({ message: z.stri
 const knownErrors = [
 	["Assistant continuation does not match", "continuationMismatch"],
 	["Resolve the pending assistant request", "continuationMismatch"],
-	["This approval expired", "approvalExpired"],
-	["This assistant continuation has already been submitted", "alreadySubmitted"],
+	["This approval is no longer pending", "approvalExpired"],
 ] as const;
 
-export type ChatErrorKey = "alreadySubmitted" | "approvalExpired" | "continuationMismatch" | "generic";
+export type ChatErrorKey = "approvalExpired" | "continuationMismatch" | "generic";
 
 const extractMessage = (rawMessage: string) => {
 	if (!rawMessage.trimStart().startsWith("{")) {

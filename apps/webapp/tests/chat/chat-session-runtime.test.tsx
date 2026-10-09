@@ -49,7 +49,7 @@ const createChatStore = () =>
 	}));
 
 const renderRuntime = (store: ReturnType<typeof createChatStore>) =>
-	render(<ChatSessionRuntime autoResume={false} chatId='chat-1' initialMessages={[]} store={store} />);
+	render(<ChatSessionRuntime chatId='chat-1' initialMessages={[]} store={store} />);
 
 const getSendMessage = (store: ReturnType<typeof createChatStore>) => {
 	const sendMessage = store.getState().actions?.sendMessage;
@@ -108,7 +108,6 @@ describe("ChatSessionRuntime", () => {
 
 		const runtime = render(
 			<ChatSessionRuntime
-				autoResume={false}
 				chatId='chat-1'
 				initialMessages={initialMessages}
 				onDataChange={onDataChange}
@@ -147,7 +146,6 @@ describe("ChatSessionRuntime", () => {
 		];
 		runtime.rerender(
 			<ChatSessionRuntime
-				autoResume={false}
 				chatId='chat-1'
 				initialMessages={initialMessages}
 				onDataChange={onDataChange}
@@ -159,7 +157,6 @@ describe("ChatSessionRuntime", () => {
 		chatMocks.state.messages = [...chatMocks.state.messages];
 		runtime.rerender(
 			<ChatSessionRuntime
-				autoResume={false}
 				chatId='chat-1'
 				initialMessages={initialMessages}
 				onDataChange={onDataChange}
@@ -207,13 +204,7 @@ describe("ChatSessionRuntime", () => {
 		const library = vi.fn();
 
 		const runtime = render(
-			<ChatSessionRuntime
-				autoResume={false}
-				chatId='chat-1'
-				initialMessages={[]}
-				onDataChange={{ library }}
-				store={store}
-			/>
+			<ChatSessionRuntime chatId='chat-1' initialMessages={[]} onDataChange={{ library }} store={store} />
 		);
 
 		expect(library).not.toHaveBeenCalled();
@@ -233,13 +224,7 @@ describe("ChatSessionRuntime", () => {
 			},
 		];
 		runtime.rerender(
-			<ChatSessionRuntime
-				autoResume={false}
-				chatId='chat-1'
-				initialMessages={[]}
-				onDataChange={{ library }}
-				store={store}
-			/>
+			<ChatSessionRuntime chatId='chat-1' initialMessages={[]} onDataChange={{ library }} store={store} />
 		);
 		await waitFor(() => expect(library).toHaveBeenCalledOnce());
 	});
@@ -320,11 +305,43 @@ describe("ChatSessionRuntime", () => {
 		expect(accepted).not.toHaveBeenCalled();
 
 		chatMocks.state.status = "streaming";
-		runtime.rerender(<ChatSessionRuntime autoResume={false} chatId='chat-1' initialMessages={[]} store={store} />);
+		runtime.rerender(<ChatSessionRuntime chatId='chat-1' initialMessages={[]} store={store} />);
 
 		await expect(send).resolves.toBeUndefined();
 		expect(accepted).toHaveBeenCalledOnce();
 		response.resolve();
+	});
+
+	it("reports a new chat once its first stream starts and never for an existing chat", () => {
+		const onChatCreated = vi.fn();
+		const store = createChatStore();
+
+		const runtime = (chatId: string, initialMessages: Array<DashboardChatUIMessage>) => (
+			<ChatSessionRuntime
+				chatId={chatId}
+				initialMessages={initialMessages}
+				onChatCreated={onChatCreated}
+				store={store}
+			/>
+		);
+
+		const view = render(runtime("chat-1", []));
+
+		for (const status of ["streaming", "ready", "streaming"] as const) {
+			chatMocks.state.status = status;
+			view.rerender(runtime("chat-1", []));
+		}
+
+		expect(onChatCreated).toHaveBeenCalledExactlyOnceWith("chat-1");
+
+		render(runtime("chat-2", [{ id: "m1", parts: [{ text: "Hi", type: "text" }], role: "user" }]));
+		expect(onChatCreated).toHaveBeenCalledOnce();
+	});
+
+	it("enables the AI SDK's built-in stream resumption", () => {
+		render(<ChatSessionRuntime chatId='chat-1' initialMessages={[]} store={createChatStore()} />);
+
+		expect(chatMocks.useChat).toHaveBeenCalledWith(expect.objectContaining({ id: "chat-1", resume: true }));
 	});
 });
 

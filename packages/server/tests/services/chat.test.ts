@@ -26,7 +26,6 @@ import {
 	chatMessageIdExists,
 	convertChatMessagesForUI,
 	createChat,
-	expireChatToolApprovals,
 	getChat,
 	getChatWithMessages,
 	getChats,
@@ -86,7 +85,7 @@ describe("chat service", () => {
 			role: "assistant",
 		};
 
-		await persistChatQuestionAnswers({
+		const answered = await persistChatQuestionAnswers({
 			message: {
 				id: "assistant",
 				parts: [
@@ -102,6 +101,8 @@ describe("chat service", () => {
 			},
 			persistedMessages: [persisted],
 		});
+
+		expect(answered).toBe(1);
 		const [updated] = memory.updateMessages.mock.calls[0][0].messages;
 		expect(updated.content.metadata).toEqual(persisted.content.metadata);
 		expect(updated.content.parts[0]).toEqual(persisted.content.parts[0]);
@@ -245,72 +246,6 @@ describe("chat service", () => {
 				role: "user",
 			}),
 		]);
-	});
-
-	it("persists missing-snapshot approvals as terminal tool errors", async () => {
-		const message = {
-			content: {
-				format: 2 as const,
-				metadata: {
-					pendingToolApprovals: {
-						"tool-call": { runId: "missing-run", toolCallId: "tool-call" },
-						"valid-call": { runId: "valid-run", toolCallId: "valid-call" },
-					},
-				},
-				parts: [
-					{
-						toolInvocation: {
-							args: { revision: "revision-1" },
-							state: "call" as const,
-							toolCallId: "tool-call",
-							toolName: "buildWebsite",
-						},
-						type: "tool-invocation" as const,
-					},
-				],
-			},
-			createdAt: new Date("2026-01-01T00:00:00.000Z"),
-			id: "assistant-message",
-			resourceId: organizationId,
-			role: "assistant" as const,
-			threadId: thread.id,
-		} satisfies MastraDBMessage;
-
-		await expireChatToolApprovals({ message, toolCallIds: ["tool-call"] });
-
-		expect(memory.updateMessages).toHaveBeenCalledWith({
-			messages: [
-				expect.objectContaining({
-					content: expect.objectContaining({
-						metadata: {
-							pendingToolApprovals: {
-								"valid-call": { runId: "valid-run", toolCallId: "valid-call" },
-							},
-						},
-						parts: [
-							expect.objectContaining({
-								toolInvocation: expect.objectContaining({
-									errorText: "This approval expired before Mastra could resume it. Please try again.",
-									state: "output-error",
-								}),
-							}),
-						],
-					}),
-					id: message.id,
-				}),
-			],
-		});
-
-		memory.updateMessages.mockClear();
-		await expireChatToolApprovals({ message, toolCallIds: ["tool-call", "valid-call"] });
-
-		expect(memory.updateMessages).toHaveBeenCalledWith({
-			messages: [
-				expect.objectContaining({
-					content: expect.objectContaining({ metadata: { pendingToolApprovals: {} } }),
-				}),
-			],
-		});
 	});
 
 	it("does not recall messages for an inaccessible thread", async () => {

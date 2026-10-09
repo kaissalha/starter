@@ -1,4 +1,5 @@
 const toolNames = [
+	"addNumbers",
 	"askUserQuestions",
 	"createLibraryDocument",
 	"editLibraryDocument",

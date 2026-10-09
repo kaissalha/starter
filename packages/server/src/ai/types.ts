@@ -1,6 +1,6 @@
 import { RequestContext } from "@mastra/core/request-context";
 import type { Tool as MastraTool } from "@mastra/core/tools";
-import { isToolUIPart, type UIMessage } from "ai";
+import type { UIMessage } from "ai";
 import { z } from "zod";
 
 import type { dashboardChatTools } from "./tools";
@@ -44,14 +44,10 @@ export const createDashboardChatRequestContext = (values: AppContext) =>
 	]);
 
 export type BaseCustomUIDataTypes = {
-	"append-message": string;
 	attachment: {
 		fileId: string;
 		filename: string;
 		mediaType: string;
-	};
-	"chat-created": {
-		chatId: string;
 	};
 	error: {
 		message: string;
@@ -74,72 +70,5 @@ type InferMastraUITool<Tool> =
 export type DashboardChatTools = {
 	[Name in keyof typeof dashboardChatTools]: InferMastraUITool<(typeof dashboardChatTools)[Name]>;
 };
-
-// oxlint-disable-next-line typescript/no-explicit-any
-export type BaseChatUIMessage = UIMessage<any, any, any>;
-
-const toolPartStateSchema = z.compile(z.looseObject({ state: z.string() }));
-
-const normalizeTransientPartFields = <Part extends BaseChatUIMessage["parts"][number]>(part: Part): Part => {
-	const normalized = structuredClone(part);
-
-	if (normalized.type === "text") {
-		delete normalized.state;
-		normalized.text = normalized.text.trim();
-	}
-
-	if ("providerMetadata" in normalized) {
-		delete normalized.providerMetadata;
-	}
-
-	if (isToolUIPart(normalized)) {
-		delete normalized.callProviderMetadata;
-
-		if (normalized.toolMetadata) {
-			delete normalized.toolMetadata.__mastraObservability;
-
-			if (Object.keys(normalized.toolMetadata).length === 0) {
-				delete normalized.toolMetadata;
-			}
-		}
-
-		if ("resultProviderMetadata" in normalized) {
-			delete normalized.resultProviderMetadata;
-		}
-	}
-
-	if (
-		isToolUIPart(normalized) &&
-		normalized.state === "approval-responded" &&
-		normalized.approval.reason === undefined
-	) {
-		delete normalized.approval.reason;
-	}
-
-	return normalized;
-};
-
-export const withoutTransientToolParts = <Message extends BaseChatUIMessage>(
-	messages: Array<Message>,
-	{ keepErrors = false }: { keepErrors?: boolean } = {}
-): Array<Message> =>
-	messages.flatMap<Message>((message) => {
-		const parts = message.parts
-			.filter(
-				(part) =>
-					part.type !== "reasoning" &&
-					part.type !== "tool-skill" &&
-					part.type !== "tool-skill_read" &&
-					part.type !== "step-start" &&
-					!(
-						!keepErrors &&
-						part.type.startsWith("tool-") &&
-						toolPartStateSchema.safeParse(part).data?.state === "output-error"
-					)
-			)
-			.map(normalizeTransientPartFields);
-
-		return parts.length > 0 ? [{ ...message, parts }] : [];
-	});
 
 export type DashboardChatUIMessage = UIMessage<{ createdAt?: string }, BaseCustomUIDataTypes, DashboardChatTools>;

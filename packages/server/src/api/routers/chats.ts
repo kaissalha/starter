@@ -1,10 +1,9 @@
 import { openapi } from "@orpc/openapi";
 import { z } from "zod";
 
-import { getChat, getChats } from "../../services/chat";
-import { cancelStream } from "../../services/chat-stream-state";
+import { convertChatMessagesForUI, getChat, getChatMessages, getChats } from "../../services/chat";
+import { cancelChatStream } from "../../services/chat-stream-state";
 import { organizationPermission, authedWithOrganization } from "../base";
-import { getReconciledChatMessages } from "../chat-approvals";
 
 export const uiMessageSchema = z.compile(
 	z
@@ -90,7 +89,7 @@ const cancelStreamProcedure = authedWithOrganization
 			throw errors.FORBIDDEN({ message: "Access to chat forbidden" });
 		}
 
-		await cancelStream({ chatId, organizationId: context.organizationId });
+		await cancelChatStream({ chatId, organizationId: context.organizationId });
 	});
 
 const messages = authedWithOrganization
@@ -104,8 +103,10 @@ const messages = authedWithOrganization
 		})
 	)
 	.input(z.compile(z.object({ chatId: chatIdSchema })))
-	.handler(({ context, input }) =>
-		getReconciledChatMessages({ chatId: input.chatId, organizationId: context.organizationId })
+	.handler(async ({ context, input }) =>
+		convertChatMessagesForUI(
+			await getChatMessages({ chatId: input.chatId, organizationId: context.organizationId })
+		)
 	);
 
 export const chats = {

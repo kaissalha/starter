@@ -214,6 +214,7 @@ describe("dashboard tool policy", () => {
 	it("starts with only shared tools and skill loading", () => {
 		expect(getDashboardActiveTools([])).toEqual([
 			"skill",
+			"addNumbers",
 			"askUserQuestions",
 			"retrieveKnowledge",
 			"webSearch",

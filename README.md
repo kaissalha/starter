@@ -68,8 +68,8 @@ store and exposes `initializeMastraStorage`, which the expand-migration script a
 application migration touches Mastra data. Tenant boundaries that a foreign key would otherwise enforce live in
 application services: chats are owned by their organization, message ids are unique across threads, deleting a file
 removes its knowledge vectors, and deleting an organization removes its threads and vectors through Mastra's APIs.
-Application tables do not duplicate Mastra-owned messages or memory; Redis stores only short-lived stream ownership,
-cancellation, resumption, and continuation claims. Observational memory remains thread-scoped so one organization
+Application tables do not duplicate Mastra-owned messages or memory; Redis stores only each chat's short-lived active
+stream id, used to resume and stop it. Observational memory remains thread-scoped so one organization
 member's personal profile is never promoted into shared working memory.
 
 The dashboard streams that agent through Mastra's supported

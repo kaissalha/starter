@@ -59,7 +59,7 @@ const shouldShowThinkingIndicator = ({
 	}
 
 	if (lastPart.type === "text") {
-		return true;
+		return !lastPart.text.trim();
 	}
 
 	if (lastPart.type === "reasoning") {

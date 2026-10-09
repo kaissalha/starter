@@ -1,30 +1,27 @@
 "use client";
 
-import { useCallback, useEffect, useEffectEvent, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useEffectEvent, useMemo, useRef } from "react";
 
 import { useChat } from "@ai-sdk/react";
-import { type DataUIPart, DefaultChatTransport, isToolUIPart } from "ai";
+import { DefaultChatTransport, isToolUIPart } from "ai";
 import { useTranslations } from "next-intl";
 import { v4 as uuidv4 } from "uuid";
 import type { StoreApi } from "zustand/vanilla";
 
 import { useOrganizationPermissions } from "@/hooks/use-organization-permissions";
 import { client } from "@/lib/api-client";
-import type { BaseCustomUIDataTypes, DashboardChatUIMessage as BaseChatUIMessage } from "@starter/server";
+import type { DashboardChatUIMessage as BaseChatUIMessage } from "@starter/server";
 
 import { classifyChatError } from "./chat-error-message";
 import type { ChatSessionState } from "./chat-session-store";
 import { chatToolDataChanges, type ChatDataDomain } from "./chat-tool-data-changes";
 import { shouldSendChatContinuation } from "./should-send-chat-continuation";
 import { trimContinuationEcho } from "./trim-continuation-echo";
-import { useAutoResume } from "./use-auto-resume";
 
 export type ChatSessionRuntimeConfig = {
-	autoResume?: boolean;
 	chatId: string;
 	library?: { assetId?: string };
 	onChatCreated?: (chatId: string) => void;
-	onData?: (dataPart: DataUIPart<BaseCustomUIDataTypes>) => void;
 	onDataChange?: Partial<Record<ChatDataDomain, () => void>>;
 };
 
@@ -50,21 +47,20 @@ const listCompletedToolResults = ({ messages }: { messages: Array<BaseChatUIMess
 	);
 
 export const ChatSessionRuntime = ({
-	autoResume = true,
 	chatId,
 	initialMessages,
 	library,
 	onChatCreated,
-	onData,
 	onDataChange,
 	store,
 }: ChatSessionRuntimeProps) => {
-	const [resumeDataParts, setResumeDataParts] = useState<Array<DataUIPart<BaseCustomUIDataTypes>>>([]);
 	const pendingSend = useRef<PendingSend | undefined>(undefined);
 
 	const reportedToolCallIds = useRef(
 		new Set(listCompletedToolResults({ messages: initialMessages }).map(({ toolCallId }) => toolCallId))
 	);
+
+	const reportedChatCreated = useRef(initialMessages.length > 0);
 
 	const reportDataChanges = useEffectEvent((domains: Set<ChatDataDomain>) => {
 		for (const domain of domains) {
@@ -126,17 +122,6 @@ export const ChatSessionRuntime = ({
 		generateId: () => uuidv4(),
 		id: chatId,
 		messages: initialMessages,
-		onData: (dataPart) => {
-			if (dataPart.type === "data-append-message") {
-				setResumeDataParts([dataPart]);
-			}
-
-			if (dataPart.type === "data-chat-created") {
-				onChatCreated?.(dataPart.data.chatId);
-			}
-
-			onData?.(dataPart);
-		},
 
 		onError: rejectPendingSend,
 
@@ -162,6 +147,7 @@ export const ChatSessionRuntime = ({
 			resolvePendingSend();
 		},
 
+		resume: true,
 		sendAutomaticallyWhen: (options) => can("workspace.write") && shouldSendChatContinuation(options),
 		transport,
 	});
@@ -224,15 +210,21 @@ export const ChatSessionRuntime = ({
 		return new Error("key" in classified ? t(classified.key) : classified.message);
 	}, [error, t]);
 
-	useAutoResume({ autoResume, data: resumeDataParts, initialMessages, resumeStream, setMessages });
-
 	useEffect(() => {
 		store.setState({ error: displayError, messages: trimContinuationEcho(messages), status });
 	}, [store, messages, status, displayError]);
 
+	const reportChatCreated = useEffectEvent(() => {
+		if (!reportedChatCreated.current) {
+			reportedChatCreated.current = true;
+			onChatCreated?.(chatId);
+		}
+	});
+
 	useEffect(() => {
 		if (status === "streaming") {
 			resolvePendingSend();
+			reportChatCreated();
 		}
 	}, [resolvePendingSend, status]);
 

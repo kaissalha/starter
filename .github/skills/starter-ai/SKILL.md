@@ -50,7 +50,7 @@ supported Mastra AI SDK UI transport while the app needs AI SDK-native tool appr
 - Derive `organizationId` from the authenticated server session. Use it as the Mastra memory resource and as a
   request-context metadata filter for every knowledge query; Mastra storage does not replace authorization.
 - Mastra Postgres memory is the sole chat/message/memory store. The application database must not duplicate that state.
-  Redis owns only ephemeral stream resumption, cancellation, and continuation deduplication.
+  Redis owns only the ephemeral active-stream id used for resumption and stop.
 - Tenant boundaries are application-level because Mastra tables carry no foreign keys: `createChat` rejects ids owned
   by another organization, `chatMessageIdExists` checks ids across every thread, `deleteFile` removes a file's
   vectors, and `deleteOrganizationAIData` removes an organization's threads and vectors on deletion.
@@ -60,13 +60,12 @@ supported Mastra AI SDK UI transport while the app needs AI SDK-native tool appr
   tool's request context so it overrides any model input. The tool returns empty results on any error, so the knowledge
   store and query embedding model record failures and the retrieval tool rethrows them. Keep the organization filter
   authoritative, return sources for citations, and never expose raw cross-tenant vector access to the model.
-- Require native tool approval for consequential side effects. Continue approvals through the supported Mastra AI SDK
-  adapter and validate the submitted assistant state against the exact persisted pending message before execution.
-- Validate approval continuations by tool-call identity, not message position: each submitted approval or answer must
-  target a pending persisted tool call with identical approval id and input. Build the resumed message only from
-  persisted parts, since persistence adds parts the client never sees (memory `data-*`, reasoning, retried drafts).
-- Wait for indexed attachments before creating a new thread or claiming its stream. Keep continuation claims
-  organization- and chat-scoped and at-most-once.
+- Require native tool approval for consequential side effects. Every turn, including approval responses, goes through
+  `handleChatStream`, which resumes approved or declined runs with `agent.resumeStream`; before that, confirm each
+  submitted `runId::toolCallId` approval id belongs to a run Mastra lists as suspended on this chat and organization.
+- `askUserQuestions` answers are written into the persisted tool call before the turn continues; reject a submission
+  that answers nothing pending. Concurrent submissions on one chat are not locked.
+- Wait for indexed attachments before creating a new thread or starting its stream.
 - Keep model modules imported by workflows free of Node-only development middleware.
 
 ## Evals

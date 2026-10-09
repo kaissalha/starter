@@ -1,7 +1,6 @@
 import { toAISdkMessages } from "@mastra/ai-sdk/ui";
-import type { MastraDBMessage } from "@mastra/core/agent";
+import { MessageList, type MastraDBMessage } from "@mastra/core/agent";
 import { validateUIMessages } from "ai";
-import { z } from "zod";
 
 import { pool } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
@@ -74,6 +73,20 @@ export const createChat = async ({
 	} finally {
 		client.release();
 	}
+};
+
+export const saveChatUserMessage = async ({
+	chatId,
+	message,
+	organizationId,
+}: {
+	chatId: string;
+	message: DashboardChatUIMessage;
+	organizationId: string;
+}) => {
+	await dashboardChatMemory.saveMessages({
+		messages: new MessageList({ resourceId: organizationId, threadId: chatId }).add(message, "input").get.all.db(),
+	});
 };
 
 export const chatMessageIdExists = async (id: string) => {
@@ -179,10 +192,6 @@ export const getChatWithMessages = async ({
 export const getChatMessages = async ({ chatId, organizationId }: { chatId: string; organizationId: string }) =>
 	(await getChatWithMessages({ chatId, organizationId }))?.messages ?? [];
 
-const expiredApprovalError = "This approval expired before Mastra could resume it. Please try again.";
-
-const pendingToolApprovalsSchema = z.compile(z.record(z.string(), z.looseObject({ toolCallId: z.string() })));
-
 export const persistChatQuestionAnswers = async ({
 	message,
 	persistedMessages,
@@ -239,55 +248,6 @@ export const persistChatQuestionAnswers = async ({
 	if (updates.length > 0) {
 		await dashboardChatMemory.updateMessages({ messages: updates });
 	}
-};
 
-export const expireChatToolApprovals = async ({
-	message,
-	toolCallIds,
-}: {
-	message: MastraDBMessage;
-	toolCallIds: Array<string>;
-}) => {
-	const expiredToolCallIds = new Set(toolCallIds);
-	const pendingToolApprovals = pendingToolApprovalsSchema.safeParse(message.content.metadata?.pendingToolApprovals);
-
-	const remainingApprovals = pendingToolApprovals.success
-		? Object.fromEntries(
-				Object.entries(pendingToolApprovals.data).filter(
-					([, value]) => !expiredToolCallIds.has(value.toolCallId)
-				)
-			)
-		: undefined;
-
-	const metadata = { ...message.content.metadata };
-
-	if (remainingApprovals && Object.keys(remainingApprovals).length > 0) {
-		metadata.pendingToolApprovals = remainingApprovals;
-	} else {
-		metadata.pendingToolApprovals = {};
-	}
-
-	await dashboardChatMemory.updateMessages({
-		messages: [
-			{
-				content: {
-					...message.content,
-					metadata,
-					parts: message.content.parts.map((part) =>
-						part.type === "tool-invocation" && expiredToolCallIds.has(part.toolInvocation.toolCallId)
-							? {
-									...part,
-									toolInvocation: {
-										...part.toolInvocation,
-										errorText: expiredApprovalError,
-										state: "output-error" as const,
-									},
-								}
-							: part
-					),
-				},
-				id: message.id,
-			},
-		],
-	});
+	return updates.length;
 };

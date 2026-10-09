@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ChatMessage } from "@/components/chat/message/chat-message";
+import { ChatMessage, ChatMessageById } from "@/components/chat/message/chat-message";
 import { ChatMessageParts } from "@/components/chat/message/chat-message-parts";
 import { OpenUIBlock } from "@/components/chat/openui/openui-block";
 import type { DashboardChatUIMessage as BaseChatUIMessage } from "@starter/server";
@@ -21,6 +21,7 @@ const chatSession: { busy: boolean; messages: Array<BaseChatUIMessage> } = vi.ho
 
 vi.mock("@/components/chat/stores/chat-session-store", () => ({
 	selectChatSessionBusy: () => chatSession.busy,
+	useChatMessage: (messageId: string) => chatSession.messages.find(({ id }) => id === messageId),
 	useChatSession: <T,>(
 		selector: (state: {
 			actions: { addToolApprovalResponse: typeof addToolApprovalResponse; sendMessage: typeof sendMessage };
@@ -96,7 +97,7 @@ describe("ChatMessageParts", () => {
 		expect(screen.getByRole("button", { name: "deny" }).hasAttribute("disabled")).toBe(role === "member");
 		expect(addToolApprovalResponse).not.toHaveBeenCalled();
 	});
-	it("keeps interrupted assistant prose hidden after streaming stops", () => {
+	it("keeps a stopped answer's partial prose visible", () => {
 		const { container } = render(
 			<ChatMessageParts
 				isStreaming={false}
@@ -106,10 +107,10 @@ describe("ChatMessageParts", () => {
 			/>
 		);
 
-		expect(container.textContent).toBe("");
+		expect(container.textContent).toContain("Maybe I should guess a schema");
 	});
 
-	it("buffers prose until completion and omits tool-working text from history and copying", async () => {
+	it("streams the answer while omitting tool-working text from history and copying", async () => {
 		const user = userEvent.setup();
 
 		const parts: BaseChatUIMessage["parts"] = [
@@ -123,7 +124,7 @@ describe("ChatMessageParts", () => {
 		);
 
 		expect(screen.queryByText("Maybe I should guess the saveLinkPage schema.")).toBeNull();
-		expect(screen.queryByText("Here is the final answer.")).toBeNull();
+		expect(screen.getByText("Here is the final answer.")).toBeInTheDocument();
 		rerender(<ChatMessage message={{ id: "buffered", parts, role: "assistant" }} />);
 		expect(screen.queryByText("Maybe I should guess the saveLinkPage schema.")).toBeNull();
 		expect(screen.getByText("Here is the final answer.")).toBeInTheDocument();
@@ -166,7 +167,7 @@ describe("ChatMessageParts", () => {
 				/>
 			);
 
-			expect(screen.queryByText("Added Anas to your contacts.") !== null).toBe(!isStreaming);
+			expect(screen.getByText("Added Anas to your contacts.")).toBeInTheDocument();
 			expect(container.textContent).not.toMatch(/Internal|UUID|Private|skill|reasoning/u);
 			expect(container.querySelector("details")).not.toBeInTheDocument();
 		}
@@ -270,6 +271,23 @@ describe("ChatMessageParts", () => {
 		).toEqual(["searching", "composing"]);
 
 		expect(container.querySelectorAll("canvas[aria-hidden='true']")).toHaveLength(2);
+	});
+
+	it("replaces the thinking indicator with the answer once its text starts streaming", () => {
+		chatSession.messages = [
+			{ id: "streaming", parts: [{ state: "streaming", text: "", type: "text" }], role: "assistant" },
+		];
+		const { container, rerender } = render(<ChatMessageById isStreaming messageId='streaming' />);
+
+		expect(container.querySelector("[data-thinking-orb-state]")).toBeInTheDocument();
+
+		chatSession.messages = [
+			{ id: "streaming", parts: [{ state: "streaming", text: "Here is", type: "text" }], role: "assistant" },
+		];
+		rerender(<ChatMessageById isStreaming messageId='streaming' />);
+
+		expect(container.querySelector("[data-thinking-orb-state]")).not.toBeInTheDocument();
+		expect(container.textContent).toContain("Here is");
 	});
 
 	it("uses the composing orb while awaiting the next assistant part", () => {

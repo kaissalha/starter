@@ -143,6 +143,7 @@ describe("ai tools", () => {
 				.map(([name]) => name)
 				.toSorted()
 		).toEqual([
+			"addNumbers",
 			"createLibraryDocument",
 			"editLibraryDocument",
 			"generateLibraryImage",

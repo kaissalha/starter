@@ -34,7 +34,7 @@ vi.mock("../../src/mastra", () => ({
 import { db, files } from "@starter/db";
 import { knowledgeEmbeddingDimensions, knowledgeIndexName } from "@starter/db/mastra";
 
-import { hasPendingAssistantContinuation } from "../../src/api/chat-stream-validation";
+import { hasPendingAssistantRequest } from "../../src/api/chat-stream-context";
 import { knowledgeVector, upsertKnowledgeChunks } from "../../src/mastra/knowledge";
 import { createDashboardWorkingMemoryProcessor, dashboardChatMemory, mastraStorage } from "../../src/mastra/memory";
 import {
@@ -42,8 +42,8 @@ import {
 	ChatOwnershipConflictError,
 	convertChatMessagesForUI,
 	createChat,
-	expireChatToolApprovals,
 	getChatMessages,
+	saveChatUserMessage,
 	getChats,
 	persistChatQuestionAnswers,
 } from "../../src/services/chat";
@@ -491,6 +491,34 @@ const loadUIMessages = async ({ chatId, organizationId }: { chatId: string; orga
 	convertChatMessagesForUI(await getChatMessages({ chatId, organizationId }));
 
 describe("Mastra persisted chat shapes", () => {
+	it("keeps a user message saved before streaming visible on reload and stored once", async () => {
+		const organization = await createTestOrganization({ name: "Mastra Early User Message" });
+		const chatId = uuidv4();
+		const message = { id: uuidv4(), parts: [{ text: "Hello", type: "text" as const }], role: "user" as const };
+		const agent = await createChatAgent(new MastraLanguageModelV2Mock({ doStream: textStream("Hi there.") }));
+
+		try {
+			await createChat({ id: chatId, organizationId: organization.id, title: "Early" });
+			await saveChatUserMessage({ chatId, message, organizationId: organization.id });
+
+			await expect(loadUIMessages({ chatId, organizationId: organization.id })).resolves.toMatchObject([
+				{ id: message.id, parts: [{ text: "Hello", type: "text" }], role: "user" },
+			]);
+
+			const result = await agent.stream([message], { memory: { resource: organization.id, thread: chatId } });
+			await result.consumeStream();
+
+			const messages = await loadUIMessages({ chatId, organizationId: organization.id });
+
+			expect(messages.map(({ id, role }) => ({ id, role }))).toEqual([
+				{ id: message.id, role: "user" },
+				{ id: expect.any(String), role: "assistant" },
+			]);
+		} finally {
+			await cleanupOrganizationData(organization.id);
+		}
+	}, 20_000);
+
 	it("keeps the approval metadata and states the chat service rewrites", async () => {
 		const organization = await createTestOrganization({ name: "Mastra Approval Shapes" });
 		const chatId = uuidv4();
@@ -507,11 +535,10 @@ describe("Mastra persisted chat shapes", () => {
 			const result = await streamTurn({ agent, chatId, organizationId: organization.id, text: "Publish it" });
 
 			expect(await result.finishReason).toBe("suspended");
-			await expect(
-				agent.listSuspendedRuns({ resourceId: organization.id, threadId: chatId })
-			).resolves.toMatchObject({
-				runs: [{ toolCalls: [expect.objectContaining({ requiresApproval: true, toolCallId })] }],
-			});
+			const { runs } = await agent.listSuspendedRuns({ resourceId: organization.id, threadId: chatId });
+			expect(runs).toMatchObject([
+				{ toolCalls: [expect.objectContaining({ requiresApproval: true, toolCallId })] },
+			]);
 
 			const persisted = await getChatMessages({ chatId, organizationId: organization.id });
 			const pending = persisted.at(-1);
@@ -524,28 +551,14 @@ describe("Mastra persisted chat shapes", () => {
 			const [, pendingUI] = await loadUIMessages({ chatId, organizationId: organization.id });
 
 			expect(pendingUI?.parts.filter(isToolUIPart)).toEqual([
-				expect.objectContaining({ state: "approval-requested", toolCallId, type: "tool-publishBrand" }),
-			]);
-			expect(hasPendingAssistantContinuation(pendingUI)).toBe(true);
-
-			if (!pending) {
-				throw new Error("Expected a persisted assistant message");
-			}
-
-			await expireChatToolApprovals({ message: pending, toolCallIds: [toolCallId] });
-
-			const [, expiredUI] = await loadUIMessages({ chatId, organizationId: organization.id });
-			const expiredPersisted = (await getChatMessages({ chatId, organizationId: organization.id })).at(-1);
-
-			expect(expiredPersisted?.content.metadata?.pendingToolApprovals).toEqual({});
-			expect(expiredUI?.parts.filter(isToolUIPart)).toEqual([
 				expect.objectContaining({
-					errorText: "This approval expired before Mastra could resume it. Please try again.",
-					state: "output-error",
+					approval: expect.objectContaining({ id: `${runs[0]?.runId}::${toolCallId}` }),
+					state: "approval-requested",
 					toolCallId,
+					type: "tool-publishBrand",
 				}),
 			]);
-			expect(hasPendingAssistantContinuation(expiredUI)).toBe(false);
+			expect(hasPendingAssistantRequest(pendingUI)).toBe(true);
 		} finally {
 			await cleanupOrganizationData(organization.id);
 		}
@@ -578,7 +591,7 @@ describe("Mastra persisted chat shapes", () => {
 			expect(askedUI?.parts.filter(isToolUIPart)).toEqual([
 				expect.objectContaining({ state: "input-available", toolCallId, type: "tool-askUserQuestions" }),
 			]);
-			expect(hasPendingAssistantContinuation(askedUI)).toBe(true);
+			expect(hasPendingAssistantRequest(askedUI)).toBe(true);
 
 			if (!askedUI) {
 				throw new Error("Expected a persisted assistant message");
@@ -606,7 +619,7 @@ describe("Mastra persisted chat shapes", () => {
 					type: "tool-askUserQuestions",
 				}),
 			]);
-			expect(hasPendingAssistantContinuation(answeredUI)).toBe(false);
+			expect(hasPendingAssistantRequest(answeredUI)).toBe(false);
 		} finally {
 			await cleanupOrganizationData(organization.id);
 		}
@@ -640,7 +653,7 @@ describe("Mastra persisted chat shapes", () => {
 			expect(uiMessages.map(({ role }) => role)).toEqual(["user", "assistant"]);
 			expect(uiMessages.flatMap(({ parts }) => parts.map(({ type }) => type))).toEqual(["text", "text"]);
 			expect(JSON.stringify(uiMessages)).not.toContain("Acme Roasters");
-			expect(hasPendingAssistantContinuation(uiMessages.at(-1))).toBe(false);
+			expect(hasPendingAssistantRequest(uiMessages.at(-1))).toBe(false);
 		} finally {
 			await cleanupOrganizationData(organization.id);
 		}

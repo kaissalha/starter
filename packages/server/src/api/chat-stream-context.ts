@@ -1,6 +1,6 @@
 import type { ClassifierQuestions } from "@mastra/core/classifier";
 import { ORPCError } from "@orpc/client";
-import { isTextUIPart } from "ai";
+import { isToolUIPart } from "ai";
 import { z } from "zod";
 
 import { decisionClassifiers, evaluateDecision } from "../ai/decisions";
@@ -121,17 +121,6 @@ export const resolveOwnedChatAttachments = async ({
 	return { ...message, parts };
 };
 
-export const getMessageText = (message: DashboardChatUIMessage) =>
-	message.parts
-		.reduce<Array<string>>((texts, part) => {
-			if (isTextUIPart(part)) {
-				texts.push(part.text);
-			}
-
-			return texts;
-		}, [])
-		.join(" ");
-
 export const getIndexedAttachments = (message: DashboardChatUIMessage) =>
 	message.parts.flatMap((part) => {
 		if (part.type !== "data-attachment") {
@@ -178,11 +167,6 @@ export const loadChatTurnContext = ({
 		.filter(Boolean)
 		.join("\n\n");
 };
-
-export const hasRecentImageAttachment = (messages: Array<DashboardChatUIMessage>) =>
-	messages
-		.slice(-3)
-		.some((message) => message.parts.some((part) => part.type === "file" && part.mediaType.startsWith("image/")));
 
 const textPartSchema = z.compile(z.looseObject({ text: z.string(), type: z.literal("text") }));
 
@@ -264,5 +248,68 @@ export const resolveDashboardRoute = ({
 		modelTier,
 		needsKnowledge: (decision?.answers.needsKnowledge.probability ?? 0) >= 0.7,
 		routedSkill: route?.skill ?? null,
+	};
+};
+
+export const hasPendingAssistantRequest = (message: DashboardChatUIMessage | undefined) =>
+	message?.role === "assistant" &&
+	message.parts.some(
+		(part) =>
+			isToolUIPart(part) &&
+			(part.state === "approval-requested" ||
+				(part.type === "tool-askUserQuestions" && part.state === "input-available"))
+	);
+
+const safeStreamErrorNames = new Set(["AI_InvalidToolInputError", "AI_NoSuchToolError"]);
+
+const streamErrorTextLimit = 2000;
+
+const genericStreamError = "An error occurred.";
+
+export const describeSafeStreamError = (cause: unknown): string => {
+	if (cause instanceof z.ZodError) {
+		return z.prettifyError(cause).slice(0, streamErrorTextLimit);
+	}
+
+	if (cause instanceof Error) {
+		if (cause.cause !== undefined) {
+			const nested = describeSafeStreamError(cause.cause);
+
+			if (nested !== genericStreamError) {
+				return nested;
+			}
+		}
+
+		if (safeStreamErrorNames.has(cause.name)) {
+			return cause.message.slice(0, streamErrorTextLimit);
+		}
+	}
+
+	return genericStreamError;
+};
+
+export const resolveLibraryAssetBinding = async ({
+	assetId,
+	organizationId,
+}: {
+	assetId: string | undefined;
+	organizationId: string;
+}) => {
+	if (!assetId) {
+		return undefined;
+	}
+
+	const file = await getFile({ fileId: assetId, organizationId });
+
+	if (!file || file.deletedAt) {
+		throw new ORPCError("BAD_REQUEST", { message: "Library asset not found." });
+	}
+
+	return {
+		editable: file.content !== null,
+		fileId: file.id,
+		groupId: file.versionGroupId ?? file.id,
+		kind: file.kind,
+		name: file.title ?? file.name,
 	};
 };

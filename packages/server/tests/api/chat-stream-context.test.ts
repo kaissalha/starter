@@ -7,7 +7,12 @@ vi.mock("../../src/ai/decisions", async (importOriginal) => ({
 
 import { dashboardSkills } from "../../src/ai/skills";
 import type { DashboardChatUIMessage } from "../../src/ai/types";
-import { loadChatTurnContext, resolveDashboardRoute } from "../../src/api/chat-stream-context";
+import {
+	describeSafeStreamError,
+	hasPendingAssistantRequest,
+	loadChatTurnContext,
+	resolveDashboardRoute,
+} from "../../src/api/chat-stream-context";
 
 type Decision = NonNullable<Parameters<typeof resolveDashboardRoute>[0]["decision"]>;
 
@@ -88,5 +93,43 @@ describe("pre-turn dashboard routing", () => {
 
 		expect(attached).toContain("attached indexed document IDs");
 		expect(attached).not.toContain("likely depends on the organization's indexed documents");
+	});
+});
+
+describe("chat turn guards", () => {
+	it("exposes expected tool input failures without leaking arbitrary errors", () => {
+		const inputError = new Error("Invalid tool input");
+		inputError.name = "AI_InvalidToolInputError";
+
+		expect(describeSafeStreamError(new Error("wrapped", { cause: inputError }))).toBe("Invalid tool input");
+		expect(describeSafeStreamError(new Error("private database failure"))).toBe("An error occurred.");
+	});
+
+	it("detects unresolved approval and question requests", () => {
+		const approval: DashboardChatUIMessage["parts"][number] = {
+			approval: { id: "run-1::tool-call" },
+			input: {
+				assetId: "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d330",
+				edits: [],
+				updatedAt: "2026-08-22T12:00:00.000Z",
+			},
+			state: "approval-requested",
+			toolCallId: "tool-call",
+			type: "tool-editLibraryDocument",
+		};
+
+		const question: DashboardChatUIMessage["parts"][number] = {
+			input: { questions: [{ id: "tone", options: [{ id: "warm", title: "Warm" }], title: "Which tone?" }] },
+			state: "input-available",
+			toolCallId: "question-call",
+			type: "tool-askUserQuestions",
+		};
+
+		expect(hasPendingAssistantRequest({ id: "a", parts: [approval], role: "assistant" })).toBe(true);
+		expect(hasPendingAssistantRequest({ id: "b", parts: [question], role: "assistant" })).toBe(true);
+		expect(
+			hasPendingAssistantRequest({ id: "c", parts: [{ text: "Done", type: "text" }], role: "assistant" })
+		).toBe(false);
+		expect(hasPendingAssistantRequest(undefined)).toBe(false);
 	});
 });

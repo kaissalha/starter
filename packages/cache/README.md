@@ -92,8 +92,8 @@ if (await lock.acquire()) {
 `acquire` sets the key only when it is free and returns whether this lock now owns it. `extend` and `release` act only
 while the key still holds this lock's `token`, so an expired owner can never extend or release someone else's lock.
 The token is a random UUID by default; pass `token` to act on a lock acquired elsewhere, for example a lease handed
-between requests. Lock calls throw on Redis errors. `packages/server/src/services/chat-stream-state.ts` uses locks for
-the organization AI shutdown lease and chat message/continuation claims.
+between requests. Lock calls throw on Redis errors. `packages/server/src/services/chat-stream-state.ts` uses a lock's
+owner-checked `release` so a finishing chat stream clears its active-stream id only while it is still the active one.
 
 Durations (`lease`, `window`) accept `ms`, `s`, `m`, `h`, or `d`, with or without a space: `"500ms"`, `"30 s"`,
 `"7 d"`.
