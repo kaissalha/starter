@@ -34,6 +34,7 @@ vi.mock("../../src/mastra", () => ({
 import { db, files } from "@starter/db";
 import { knowledgeEmbeddingDimensions, knowledgeIndexName } from "@starter/db/mastra";
 
+import { assistantTools } from "../../src/ai/tools/assistant";
 import { hasPendingAssistantRequest } from "../../src/api/chat-stream-context";
 import { knowledgeVector, upsertKnowledgeChunks } from "../../src/mastra/knowledge";
 import { createDashboardWorkingMemoryProcessor, dashboardChatMemory, mastraStorage } from "../../src/mastra/memory";
@@ -45,7 +46,6 @@ import {
 	getChatMessages,
 	saveChatUserMessage,
 	getChats,
-	persistChatQuestionAnswers,
 } from "../../src/services/chat";
 import { deleteOrganizationAIData } from "../../src/services/organization-ai-data";
 import {
@@ -447,11 +447,7 @@ const createChatAgent = async (model: MastraLanguageModelV2Mock) => {
 		model,
 		name: "Chat Shape Agent",
 		tools: {
-			askUserQuestions: createTool({
-				description: "Ask the user.",
-				id: "ask-user-questions",
-				inputSchema: z.object({ questions: z.array(z.string()) }),
-			}),
+			askUserQuestions: assistantTools.askUserQuestions,
 			publishBrand: createTool({
 				description: "Publish the brand.",
 				execute: async ({ revision }) => ({ revision }),
@@ -485,6 +481,15 @@ const streamTurn = async ({
 	await result.consumeStream();
 
 	return result;
+};
+
+const startSuspendedTurn = async (turn: Parameters<typeof streamTurn>[0]) => {
+	await createChat({ id: turn.chatId, organizationId: turn.organizationId });
+	const result = await streamTurn(turn);
+
+	expect(await result.finishReason).toBe("suspended");
+
+	return (await turn.agent.listSuspendedRuns({ resourceId: turn.organizationId, threadId: turn.chatId })).runs;
 };
 
 const loadUIMessages = async ({ chatId, organizationId }: { chatId: string; organizationId: string }) =>
@@ -531,11 +536,13 @@ describe("Mastra persisted chat shapes", () => {
 		);
 
 		try {
-			await createChat({ id: chatId, organizationId: organization.id, title: "Approval" });
-			const result = await streamTurn({ agent, chatId, organizationId: organization.id, text: "Publish it" });
+			const runs = await startSuspendedTurn({
+				agent,
+				chatId,
+				organizationId: organization.id,
+				text: "Publish it",
+			});
 
-			expect(await result.finishReason).toBe("suspended");
-			const { runs } = await agent.listSuspendedRuns({ resourceId: organization.id, threadId: chatId });
 			expect(runs).toMatchObject([
 				{ toolCalls: [expect.objectContaining({ requiresApproval: true, toolCallId })] },
 			]);
@@ -564,28 +571,38 @@ describe("Mastra persisted chat shapes", () => {
 		}
 	}, 20_000);
 
-	it("keeps the client tool states the chat service completes with user answers", async () => {
+	it("suspends a question until its answers resume the run", async () => {
 		const organization = await createTestOrganization({ name: "Mastra Question Shapes" });
 		const chatId = uuidv4();
 		const toolCallId = "question-call";
 
+		const responses = [
+			toolCallStream({
+				input: { questions: [{ id: "plan", title: "Which plan?" }] },
+				toolCallId,
+				toolName: "askUserQuestions",
+			}),
+			textStream("Pro it is."),
+		];
+
 		const agent = await createChatAgent(
-			new MastraLanguageModelV2Mock({
-				doStream: toolCallStream({
-					input: { questions: ["Which plan?"] },
-					toolCallId,
-					toolName: "askUserQuestions",
-				}),
-			})
+			new MastraLanguageModelV2Mock({ doStream: async () => responses.shift() ?? textStream("") })
 		);
 
 		const output = { answers: [{ question: "Which plan?", questionId: "plan", selectedOptions: ["Pro"] }] };
 
 		try {
-			await createChat({ id: chatId, organizationId: organization.id, title: "Questions" });
-			await streamTurn({ agent, chatId, organizationId: organization.id, text: "Set me up" });
+			const runs = await startSuspendedTurn({
+				agent,
+				chatId,
+				organizationId: organization.id,
+				text: "Set me up",
+			});
 
-			const persisted = await getChatMessages({ chatId, organizationId: organization.id });
+			expect(runs).toMatchObject([
+				{ toolCalls: [expect.objectContaining({ toolCallId, toolName: "askUserQuestions" })] },
+			]);
+
 			const [, askedUI] = await loadUIMessages({ chatId, organizationId: organization.id });
 
 			expect(askedUI?.parts.filter(isToolUIPart)).toEqual([
@@ -593,25 +610,17 @@ describe("Mastra persisted chat shapes", () => {
 			]);
 			expect(hasPendingAssistantRequest(askedUI)).toBe(true);
 
-			if (!askedUI) {
-				throw new Error("Expected a persisted assistant message");
-			}
-
-			await persistChatQuestionAnswers({
-				message: {
-					...askedUI,
-					parts: askedUI.parts.map((part) =>
-						part.type === "tool-askUserQuestions" && part.state === "input-available"
-							? { ...part, output, state: "output-available" as const }
-							: part
-					),
-				},
-				persistedMessages: persisted,
+			const resumed = await agent.resumeStream(output, {
+				memory: { resource: organization.id, thread: chatId },
+				runId: runs[0]?.runId,
+				toolCallId,
 			});
 
-			const [, answeredUI] = await loadUIMessages({ chatId, organizationId: organization.id });
+			await resumed.consumeStream();
 
-			expect(answeredUI?.parts.filter(isToolUIPart)).toEqual([
+			const answeredUI = await loadUIMessages({ chatId, organizationId: organization.id });
+
+			expect(answeredUI.flatMap(({ parts }) => parts.filter(isToolUIPart))).toEqual([
 				expect.objectContaining({
 					output,
 					state: "output-available",
@@ -619,7 +628,13 @@ describe("Mastra persisted chat shapes", () => {
 					type: "tool-askUserQuestions",
 				}),
 			]);
-			expect(hasPendingAssistantRequest(answeredUI)).toBe(false);
+			expect(answeredUI.at(-1)?.parts).toContainEqual(
+				expect.objectContaining({ text: "Pro it is.", type: "text" })
+			);
+			expect(answeredUI.some(hasPendingAssistantRequest)).toBe(false);
+			await expect(
+				agent.listSuspendedRuns({ resourceId: organization.id, threadId: chatId })
+			).resolves.toMatchObject({ runs: [] });
 		} finally {
 			await cleanupOrganizationData(organization.id);
 		}

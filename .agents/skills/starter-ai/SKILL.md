@@ -65,8 +65,9 @@ supported Mastra AI SDK UI transport while the app needs AI SDK-native tool appr
 - Require native tool approval for consequential side effects. Every turn, including approval responses, goes through
   `handleChatStream`, which resumes approved or declined runs with `agent.resumeStream`; before that, confirm each
   submitted `runId::toolCallId` approval id belongs to a run Mastra lists as suspended on this chat and organization.
-- `askUserQuestions` answers are written into the persisted tool call before the turn continues; reject a submission
-  that answers nothing pending. Concurrent submissions on one chat are not locked.
+- `askUserQuestions` suspends with `suspend()`; the client sends `resume: { toolCallId, data }` and the server resumes
+  it through `handleChatStream` only when Mastra lists that tool call as suspended on this chat. Concurrent submissions
+  on one chat are not locked.
 - Wait for indexed attachments before creating a new thread or starting its stream.
 - Keep model modules imported by workflows free of Node-only development middleware.
 

@@ -1,4 +1,3 @@
-import type { MastraDBMessage } from "@mastra/core/agent";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const memory = vi.hoisted(() => ({
@@ -29,7 +28,6 @@ import {
 	getChat,
 	getChatWithMessages,
 	getChats,
-	persistChatQuestionAnswers,
 } from "../../src/services/chat";
 
 const organizationId = "org-1";
@@ -46,73 +44,6 @@ const thread = {
 const threadPage = { hasMore: false, page: 0, perPage: 20, threads: [thread], total: 1 };
 
 describe("chat service", () => {
-	it("persists question answers before recall without changing other parts or metadata", async () => {
-		const questions = { questions: [{ freeText: true, id: "tone", title: "Which tone?" }] };
-
-		const output = {
-			answers: [{ otherText: "Warm", question: "Which tone?", questionId: "tone", selectedOptions: [] }],
-		};
-
-		const persisted: MastraDBMessage = {
-			content: {
-				format: 2,
-				metadata: { retained: true },
-				parts: [
-					{ text: "Choose a tone.", type: "text" },
-					{
-						toolInvocation: {
-							args: questions,
-							state: "call",
-							toolCallId: "question",
-							toolName: "askUserQuestions",
-						},
-						type: "tool-invocation",
-					},
-					{
-						toolInvocation: {
-							args: {},
-							result: { name: "Brand" },
-							state: "result",
-							toolCallId: "read",
-							toolName: "getBrand",
-						},
-						type: "tool-invocation",
-					},
-				],
-			},
-			createdAt: new Date(),
-			id: "assistant",
-			role: "assistant",
-		};
-
-		const answered = await persistChatQuestionAnswers({
-			message: {
-				id: "assistant",
-				parts: [
-					{
-						input: questions,
-						output,
-						state: "output-available",
-						toolCallId: "question",
-						type: "tool-askUserQuestions",
-					},
-				],
-				role: "assistant",
-			},
-			persistedMessages: [persisted],
-		});
-
-		expect(answered).toBe(1);
-		const [updated] = memory.updateMessages.mock.calls[0][0].messages;
-		expect(updated.content.metadata).toEqual(persisted.content.metadata);
-		expect(updated.content.parts[0]).toEqual(persisted.content.parts[0]);
-		expect(updated.content.parts[2]).toEqual(persisted.content.parts[2]);
-		const [reloaded] = await convertChatMessagesForUI([{ ...persisted, ...updated }]);
-		expect(reloaded.parts).toContainEqual(
-			expect.objectContaining({ output, state: "output-available", toolCallId: "question" })
-		);
-		expect(persisted.content.parts[1]).toMatchObject({ toolInvocation: { state: "call" } });
-	});
 	beforeEach(() => {
 		vi.resetAllMocks();
 		database.client.query.mockResolvedValue({ rows: [] });

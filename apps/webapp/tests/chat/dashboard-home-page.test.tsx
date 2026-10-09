@@ -4,14 +4,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import type { StoreApi } from "zustand/vanilla";
 
 import {
 	DashboardHomePage,
 	DashboardNewHomePage,
 } from "@/app/[locale]/dashboard/(home)/components/dashboard-home-page";
-import type { ChatSessionRuntimeConfig } from "@/components/chat/stores/chat-session-runtime";
-import type { ChatSessionState } from "@/components/chat/stores/chat-session-store";
+import type { ChatSessionConfig, ChatSessionState } from "@/components/chat/stores/chat-session-store";
 
 import { mockOrganizationPermissions } from "../mocks/organization-permissions";
 
@@ -25,25 +23,47 @@ vi.mock("@/lib/api-client", () => ({
 	apiClient: { chats: { list: { key: () => ["chats"] } } },
 }));
 
-vi.mock("@/components/chat/stores/chat-session-runtime", () => ({
-	ChatSessionRuntime: ({
-		chatId,
-		onChatCreated,
-		store,
-	}: ChatSessionRuntimeConfig & { store: StoreApi<ChatSessionState> }) => (
-		<button
-			onClick={() => {
-				store.setState({
-					messages: [{ id: "message", parts: [{ text: "Hello", type: "text" }], role: "user" }],
-				});
-				onChatCreated?.(chatId);
-			}}
-			type='button'
-		>
-			Create {chatId}
-		</button>
-	),
-}));
+vi.mock("@/components/chat/stores/chat-session-store", async () => {
+	const { createContext, useContext, useState } = await import("react");
+	const message = { id: "message", parts: [{ text: "Hello", type: "text" as const }], role: "user" as const };
+	const CreatedContext = createContext(false);
+
+	return {
+		ChatSessionProvider: ({
+			children,
+			initialMessages = [],
+			runtime,
+		}: {
+			children: ReactNode;
+			initialMessages?: Array<object>;
+			runtime: ChatSessionConfig;
+		}) => {
+			const [created, setCreated] = useState(initialMessages.length > 0);
+
+			return (
+				<CreatedContext.Provider value={created}>
+					<button
+						onClick={() => {
+							setCreated(true);
+							runtime.onChatCreated?.(runtime.chatId);
+						}}
+						type='button'
+					>
+						Create {runtime.chatId}
+					</button>
+					{children}
+				</CreatedContext.Provider>
+			);
+		},
+		useChatSession: <T,>(selector: (state: ChatSessionState) => T) =>
+			selector({
+				actions: undefined,
+				error: undefined,
+				messages: useContext(CreatedContext) ? [message] : [],
+				status: "ready",
+			}),
+	};
+});
 
 vi.mock("@/components/chat/chat-history-button", () => ({ ChatHistoryButton: () => null }));
 

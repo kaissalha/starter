@@ -79,17 +79,15 @@ const toToolOutput = ({
 
 export const ChatAskUserQuestionsPanel = ({ questions, toolCallId }: PendingAskUserQuestions) => {
 	const t = useTranslations("components.chat.chatInput.clarify");
-	const addToolOutput = useChatSession((state) => state.actions?.addToolOutput);
+	const answerQuestions = useChatSession((state) => state.actions?.answerQuestions);
 
 	const submitOutput = useCallback(
-		(answers: Answers, dismissed: boolean) => {
-			addToolOutput?.({
-				output: toToolOutput({ answers, dismissed, questions }),
-				tool: "askUserQuestions",
-				toolCallId,
-			});
+		async (answers: Answers, dismissed: boolean) => {
+			try {
+				await answerQuestions?.({ output: toToolOutput({ answers, dismissed, questions }), toolCallId });
+			} catch {}
 		},
-		[addToolOutput, questions, toolCallId]
+		[answerQuestions, questions, toolCallId]
 	);
 
 	return (

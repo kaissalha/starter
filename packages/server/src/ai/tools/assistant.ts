@@ -38,6 +38,27 @@ const questionSchema = z.object({
 	title: z.string().describe("The question text."),
 });
 
+const askUserAnswersSchema = z.compile(
+	z.object({
+		answers: z.array(
+			z.object({
+				otherText: z
+					.string()
+					.optional()
+					.describe("Free-form text the user typed ('other' or freeText answers)."),
+				question: z.string(),
+				questionId: z.string(),
+				selectedOptions: z.array(z.string()).describe("Titles of the option(s) the user selected."),
+				skipped: z.boolean().optional().describe("True when the user skipped the question."),
+			})
+		),
+		dismissed: z
+			.boolean()
+			.optional()
+			.describe("True when the user closed the form without answering; proceed with sensible defaults."),
+	})
+);
+
 const text = (value: string | undefined) => value?.trim() || undefined;
 
 export const assistantTools = {
@@ -52,30 +73,14 @@ export const assistantTools = {
 	askUserQuestions: createTool({
 		description:
 			"Ask up to 4 short essential questions in one form, then stop and wait for the answers. Aim for one round, never more than two per user request, including skipped or dismissed forms. Inspect available information first, batch missing decisions, and use a second round only for a remaining blocker. Never repeat answered questions or ask when a reasonable default exists. Prefer concrete options; add allowOther for custom answers. Keep accompanying text brief.",
+		execute: async ({ questions }, { agent }) => agent?.resumeData ?? (await agent?.suspend({ questions })),
 		id: "ask-user-questions",
 		inputSchema: z.compile(
 			z.object({ questions: z.array(questionSchema).min(1).max(4).describe("The questions to ask, in order.") })
 		),
-		outputSchema: z.compile(
-			z.object({
-				answers: z.array(
-					z.object({
-						otherText: z
-							.string()
-							.optional()
-							.describe("Free-form text the user typed ('other' or freeText answers)."),
-						question: z.string(),
-						questionId: z.string(),
-						selectedOptions: z.array(z.string()).describe("Titles of the option(s) the user selected."),
-						skipped: z.boolean().optional().describe("True when the user skipped the question."),
-					})
-				),
-				dismissed: z
-					.boolean()
-					.optional()
-					.describe("True when the user closed the form without answering; proceed with sensible defaults."),
-			})
-		),
+		outputSchema: askUserAnswersSchema,
+		resumeSchema: askUserAnswersSchema,
+		suspendSchema: z.compile(z.object({ questions: z.array(questionSchema) })),
 	}),
 	getDocument: createTool({
 		description:

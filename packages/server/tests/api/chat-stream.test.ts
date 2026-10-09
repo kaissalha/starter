@@ -17,7 +17,6 @@ const mocks = vi.hoisted(() => ({
 	getFile: vi.fn(),
 	handleChatStream: vi.fn(),
 	listSuspendedRuns: vi.fn(),
-	persistChatQuestionAnswers: vi.fn(),
 	requireOrganizationPermission: vi.fn(),
 	resolveSession: vi.fn(),
 	resumeExistingStream: vi.fn(),
@@ -65,7 +64,6 @@ vi.mock("../../src/services/chat", () => ({
 	convertChatMessagesForUI: mocks.convertChatMessagesForUI,
 	createChat: mocks.createChat,
 	getChatWithMessages: mocks.getChatWithMessages,
-	persistChatQuestionAnswers: mocks.persistChatQuestionAnswers,
 	saveChatUserMessage: mocks.saveChatUserMessage,
 }));
 
@@ -98,7 +96,11 @@ const userMessage = {
 } satisfies DashboardChatUIMessage;
 
 const request = (
-	body: { library?: { assetId?: string }; message: DashboardChatUIMessage } = { message: userMessage }
+	body: {
+		library?: { assetId?: string };
+		message: DashboardChatUIMessage;
+		resume?: { data: Record<string, Array<object>>; toolCallId: string };
+	} = { message: userMessage }
 ) =>
 	new Request(`https://example.com/api/chats/${chatId}/stream`, {
 		body: JSON.stringify(body),
@@ -170,7 +172,6 @@ describe("chat stream handlers", () => {
 		mocks.getChatWithMessages.mockResolvedValue(null);
 		mocks.handleChatStream.mockResolvedValue(new ReadableStream({ start: (controller) => controller.close() }));
 		mocks.listSuspendedRuns.mockResolvedValue({ runs: [] });
-		mocks.persistChatQuestionAnswers.mockResolvedValue(1);
 		mocks.requireOrganizationPermission.mockResolvedValue("owner");
 		mocks.waitForFilesReady.mockResolvedValue(undefined);
 		mocks.waitUntil.mockImplementation((task: Promise<unknown>) => task);
@@ -439,7 +440,6 @@ describe("chat stream handlers", () => {
 		expect(mocks.listSuspendedRuns).toHaveBeenCalledWith({ resourceId: organizationId, threadId: chatId });
 		expect(agentParams().messages).toEqual([approvedMessage]);
 		expect(agentParams().requestContext.get("approvalContinuation")).toBe(true);
-		expect(mocks.persistChatQuestionAnswers).not.toHaveBeenCalled();
 		expect(mocks.saveChatUserMessage).not.toHaveBeenCalled();
 	});
 
@@ -473,21 +473,28 @@ describe("chat stream handlers", () => {
 		expect(mocks.handleChatStream).not.toHaveBeenCalled();
 	});
 
-	it("persists question answers before continuing and refuses answers with nothing pending", async () => {
+	it("resumes a suspended question with the submitted answers and refuses unknown questions", async () => {
+		const data = { answers: [{ question: "Which tone?", questionId: "tone", selectedOptions: ["Warm"] }] };
 		persistAs([pendingQuestion]);
-
-		await (await handleCreateChatStream(request({ message: answeredQuestion }), { chatId })).text();
-
-		expect(mocks.persistChatQuestionAnswers).toHaveBeenCalledWith({
-			message: answeredQuestion,
-			persistedMessages: [{ id: pendingQuestion.id }],
+		mocks.listSuspendedRuns.mockResolvedValue({
+			runs: [{ runId: "run-7", toolCalls: [{ toolCallId: "question-call", toolName: "askUserQuestions" }] }],
 		});
-		expect(mocks.persistChatQuestionAnswers.mock.invocationCallOrder[0]).toBeLessThan(
-			mocks.handleChatStream.mock.invocationCallOrder[0] ?? 0
-		);
+
+		await (
+			await handleCreateChatStream(
+				request({ message: answeredQuestion, resume: { data, toolCallId: "question-call" } }),
+				{ chatId }
+			)
+		).text();
+
+		expect(agentParams()).toMatchObject({ resumeData: data, runId: "run-7", toolCallId: "question-call" });
 
 		mocks.handleChatStream.mockClear();
-		mocks.persistChatQuestionAnswers.mockResolvedValueOnce(0);
+		await expect(
+			handleCreateChatStream(request({ message: answeredQuestion, resume: { data, toolCallId: "other-call" } }), {
+				chatId,
+			})
+		).rejects.toMatchObject({ code: "BAD_REQUEST" });
 		await expect(handleCreateChatStream(request({ message: answeredQuestion }), { chatId })).rejects.toMatchObject({
 			code: "BAD_REQUEST",
 		});

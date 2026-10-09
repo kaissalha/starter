@@ -24,7 +24,6 @@ import {
 	convertChatMessagesForUI,
 	createChat,
 	getChatWithMessages,
-	persistChatQuestionAnswers,
 	saveChatUserMessage,
 } from "../services/chat";
 import {
@@ -51,10 +50,13 @@ import { uiMessageSchema } from "./routers/chats";
 
 const chatIdSchema = z.compile(z.uuid());
 
+const jsonSchema = z.json();
+
 const requestBodySchema = z.compile(
 	z.object({
 		library: z.strictObject({ assetId: z.uuid().optional() }).optional(),
 		message: uiMessageSchema,
+		resume: z.strictObject({ data: z.record(z.string(), jsonSchema), toolCallId: z.string().min(1) }).optional(),
 	})
 );
 
@@ -128,11 +130,13 @@ const validateSubmittedMessage = async ({
 	message,
 	organizationId,
 	persistedMessages,
+	resume,
 }: {
 	chatId: string;
 	message: DashboardChatUIMessage;
 	organizationId: string;
 	persistedMessages: Array<DashboardChatUIMessage>;
+	resume?: { data: Record<string, z.infer<typeof jsonSchema>>; toolCallId: string };
 }) => {
 	if (message.role === "system") {
 		throw badRequest("System messages cannot be submitted by clients.");
@@ -147,16 +151,36 @@ const validateSubmittedMessage = async ({
 			throw badRequest("Chat message id has already been used.");
 		}
 
-		return;
+		return undefined;
 	}
 
+	const mismatch = badRequest("Assistant continuation does not match the pending request.");
+
 	if (!hasPendingAssistantRequest(persistedMessages.at(-1))) {
-		throw badRequest("Assistant continuation does not match the pending request.");
+		throw mismatch;
 	}
 
 	const { runs } = await mastra
 		.getAgentById("dashboard-chat-agent")
 		.listSuspendedRuns({ resourceId: organizationId, threadId: chatId });
+
+	if (resume) {
+		const run = runs.find(({ toolCalls }) =>
+			toolCalls.some(
+				({ toolCallId, toolName }) => toolCallId === resume.toolCallId && toolName === "askUserQuestions"
+			)
+		);
+
+		if (!run) {
+			throw mismatch;
+		}
+
+		return { resumeData: resume.data, runId: run.runId, toolCallId: resume.toolCallId };
+	}
+
+	if (!lastAssistantMessageIsCompleteWithApprovalResponses({ messages: [message] })) {
+		throw mismatch;
+	}
 
 	const suspended = new Set(
 		runs.flatMap(({ runId, toolCalls }) => toolCalls.map(({ toolCallId }) => `${runId}::${toolCallId}`))
@@ -169,6 +193,8 @@ const validateSubmittedMessage = async ({
 	) {
 		throw badRequest("This approval is no longer pending.");
 	}
+
+	return undefined;
 };
 
 export const handleCreateChatStream = async (request: Request, params: { chatId: string }) => {
@@ -197,11 +223,16 @@ export const handleCreateChatStream = async (request: Request, params: { chatId:
 	]);
 
 	const message = await resolveOwnedChatAttachments({ message: submittedMessage, organizationId });
-	const storedMessages = existingChat?.messages ?? [];
-	const persistedMessages = await convertChatMessagesForUI(storedMessages);
+	const persistedMessages = await convertChatMessagesForUI(existingChat?.messages ?? []);
 	const approvalContinuation = lastAssistantMessageIsCompleteWithApprovalResponses({ messages: [message] });
 
-	await validateSubmittedMessage({ chatId, message, organizationId, persistedMessages });
+	const resume = await validateSubmittedMessage({
+		chatId,
+		message,
+		organizationId,
+		persistedMessages,
+		resume: body.resume,
+	});
 
 	try {
 		await waitForFilesReady({
@@ -231,11 +262,6 @@ export const handleCreateChatStream = async (request: Request, params: { chatId:
 
 	if (message.role === "user") {
 		await saveChatUserMessage({ chatId, message, organizationId });
-	} else if (
-		!approvalContinuation &&
-		(await persistChatQuestionAnswers({ message, persistedMessages: storedMessages })) === 0
-	) {
-		throw badRequest("Assistant continuation does not match the pending request.");
 	}
 
 	const uiMessages = [
@@ -301,6 +327,7 @@ export const handleCreateChatStream = async (request: Request, params: { chatId:
 				context: context ? [{ content: context, role: "system" }] : undefined,
 				memory: { resource: organizationId, thread: chatId },
 				messages: [message],
+				...resume,
 				requestContext: createDashboardChatRequestContext({
 					approvalContinuation,
 					chatId,
