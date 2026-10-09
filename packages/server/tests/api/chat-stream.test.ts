@@ -206,7 +206,6 @@ describe("chat stream handlers", () => {
 		expect(agentParams()).toMatchObject({
 			memory: { resource: organizationId, thread: chatId },
 			messages: [userMessage],
-			savePerStep: true,
 		});
 		await vi.waitFor(() => expect(mocks.clearActiveChatStream).toHaveBeenCalled());
 		const streamId = mocks.setActiveChatStream.mock.calls[0]?.[0].streamId;
@@ -444,6 +443,17 @@ describe("chat stream handlers", () => {
 		expect(mocks.saveChatUserMessage).not.toHaveBeenCalled();
 	});
 
+	it("resumes an approval Mastra stored under a different message id than it streamed", async () => {
+		persistAs([{ ...pendingApproval, id: "stored-step-message" }]);
+		mocks.listSuspendedRuns.mockResolvedValue({
+			runs: [{ runId: "run-1", toolCalls: [{ toolCallId: "mutation-call" }] }],
+		});
+
+		await (await handleCreateChatStream(request({ message: approvedMessage }), { chatId })).text();
+
+		expect(agentParams().messages).toEqual([approvedMessage]);
+	});
+
 	it("rejects approvals that are not pending on this chat", async () => {
 		persistAs([pendingApproval]);
 		mocks.listSuspendedRuns.mockResolvedValue({
@@ -455,9 +465,10 @@ describe("chat stream handlers", () => {
 			message: "This approval is no longer pending.",
 		});
 
-		persistAs([{ ...pendingApproval, id: "older-message" }]);
+		persistAs([{ id: "assistant-message", parts: [{ text: "Done", type: "text" }], role: "assistant" }]);
 		await expect(handleCreateChatStream(request({ message: approvedMessage }), { chatId })).rejects.toMatchObject({
 			code: "BAD_REQUEST",
+			message: "Assistant continuation does not match the pending request.",
 		});
 		expect(mocks.handleChatStream).not.toHaveBeenCalled();
 	});

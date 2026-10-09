@@ -150,7 +150,7 @@ const validateSubmittedMessage = async ({
 		return;
 	}
 
-	if (message.id !== persistedMessages.at(-1)?.id) {
+	if (!hasPendingAssistantRequest(persistedMessages.at(-1))) {
 		throw badRequest("Assistant continuation does not match the pending request.");
 	}
 
@@ -238,7 +238,10 @@ export const handleCreateChatStream = async (request: Request, params: { chatId:
 		throw badRequest("Assistant continuation does not match the pending request.");
 	}
 
-	const uiMessages = [...persistedMessages.filter(({ id }) => id !== message.id), message];
+	const uiMessages = [
+		...(message.role === "assistant" ? persistedMessages.slice(0, -1) : persistedMessages),
+		message,
+	];
 
 	const hasImageAttachment = uiMessages
 		.slice(-3)
@@ -308,7 +311,6 @@ export const handleCreateChatStream = async (request: Request, params: { chatId:
 					userId: user.id,
 					useVisionModel: hasImageAttachment,
 				}),
-				savePerStep: true,
 				serverless: { waitUntil },
 			},
 			version: "v7",
