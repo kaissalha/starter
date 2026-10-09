@@ -1,9 +1,10 @@
-import type { ToolObserve } from "@mastra/core/tools";
 import {
-	experimental_evaluate as evaluate,
-	type Experimental_EvaluationModel,
-	type Experimental_EvaluationQuestion,
-} from "ai-evaluation";
+	Classifier,
+	type ClassifierQuestions,
+	type ClassifierState,
+	type EvaluationModelResult,
+	MastraEvaluationModel,
+} from "@mastra/core/classifier";
 import { createHash } from "node:crypto";
 import { z } from "zod";
 
@@ -12,13 +13,11 @@ import { log, serializeLogError } from "@starter/observability";
 
 import { models } from "../mastra/models";
 
-type EvaluationModel = Exclude<Experimental_EvaluationModel, string>;
+type DecisionModelOptions = Parameters<MastraEvaluationModel["doEvaluate"]>[0];
 
-type EvaluationCallOptions = Parameters<EvaluationModel["doEvaluate"]>[0];
+type EvaluationModel = ConstructorParameters<typeof MastraEvaluationModel>[0];
 
-type EvaluationCallResult = Awaited<ReturnType<EvaluationModel["doEvaluate"]>>;
-
-export type DecisionState = EvaluationCallOptions["state"];
+export type DecisionState = ClassifierState;
 
 export const decisionPolicies = {
 	background: { deadlineMs: 8000, maxRetries: 1 },
@@ -68,12 +67,12 @@ const getMemoClient = () => {
 };
 
 const memoKey = ({
-	functionId,
+	classifierId,
 	modelId,
 	questions,
 	state,
-}: { functionId: string; modelId: string } & Pick<EvaluationCallOptions, "questions" | "state">) =>
-	`decision:v1:${functionId}:${createHash("sha256")
+}: { classifierId: string; modelId: string } & Pick<DecisionModelOptions, "questions" | "state">) =>
+	`decision:v1:${classifierId}:${createHash("sha256")
 		.update(JSON.stringify([modelId, questions, state]))
 		.digest("hex")}`;
 
@@ -87,7 +86,7 @@ const readMemoizedAnswers = async (key: string) => {
 	}
 };
 
-const writeMemoizedAnswers = async (key: string, answers: EvaluationCallResult["answers"]) => {
+const writeMemoizedAnswers = async (key: string, answers: EvaluationModelResult["answers"]) => {
 	try {
 		await getMemoClient()?.set(key, JSON.stringify(answers), "EX", memoTtlSeconds);
 	} catch {
@@ -98,7 +97,7 @@ const writeMemoizedAnswers = async (key: string, answers: EvaluationCallResult["
 const isConsistentAnswerSet = ({
 	answers,
 	questions,
-}: Pick<EvaluationCallOptions, "questions"> & Pick<EvaluationCallResult, "answers">) =>
+}: Pick<DecisionModelOptions, "questions"> & Pick<EvaluationModelResult, "answers">) =>
 	Object.keys(questions).length === Object.keys(answers).length &&
 	Object.entries(questions).every(([id, question]) => {
 		const answer = answers[id];
@@ -118,54 +117,97 @@ const isConsistentAnswerSet = ({
 		return answer.type === "boolean" && answer.probability >= 0 && answer.probability <= 1;
 	});
 
-const memoizeEvaluationModel = ({
-	functionId,
-	model,
-	onHit,
-}: {
-	functionId: string;
-	model: EvaluationModel;
-	onHit: () => void;
-}): EvaluationModel => ({
+export const decisionModel: EvaluationModel = {
 	doEvaluate: async (options) => {
-		const key = memoKey({ functionId, modelId: model.modelId, questions: options.questions, state: options.state });
+		const result = await models.decision.model.doDecide(options);
+
+		const answers = Object.fromEntries(
+			Object.entries(result.answers).map(([id, answer]) => {
+				if (answer.type === "refusal") {
+					throw new Error(`Decision model refused question ${id}`);
+				}
+
+				return [id, answer];
+			})
+		);
+
+		return { ...result, answers };
+	},
+	modelId: models.decision.model.modelId,
+	provider: models.decision.model.provider,
+	specificationVersion: "v4",
+	supportedQuestionTypes: models.decision.model.supportedQuestionTypes,
+};
+
+class MemoizedDecisionModel extends MastraEvaluationModel {
+	readonly #classifierId: string;
+
+	constructor(classifierId: string) {
+		super(decisionModel);
+		this.#classifierId = classifierId;
+	}
+
+	override async doEvaluate(options: DecisionModelOptions): Promise<EvaluationModelResult> {
+		const key = memoKey({
+			classifierId: this.#classifierId,
+			modelId: this.modelId,
+			questions: options.questions,
+			state: options.state,
+		});
+
 		const answers = await readMemoizedAnswers(key);
 
 		if (answers) {
-			onHit();
-
 			return { answers, warnings: [] };
 		}
 
-		const result = await model.doEvaluate(options);
+		const result = await super.doEvaluate(options);
 
 		if (isConsistentAnswerSet({ answers: result.answers, questions: options.questions })) {
 			await writeMemoizedAnswers(key, result.answers);
 		}
 
 		return result;
-	},
-	modelId: model.modelId,
-	provider: model.provider,
-	specificationVersion: "v4",
-	supportedQuestionTypes: model.supportedQuestionTypes,
-});
+	}
+}
 
-export const evaluateDecision = async <const Questions extends Record<string, Experimental_EvaluationQuestion>>({
+const createDecisionClassifier = (id: string, { memoize = false }: { memoize?: boolean } = {}) =>
+	new Classifier({ id, model: memoize ? new MemoizedDecisionModel(id) : decisionModel });
+
+export const decisionClassifiers = {
+	dashboardRoute: createDecisionClassifier("dashboard-route", { memoize: true }),
+	documentCategory: createDecisionClassifier("document-category", { memoize: true }),
+	knowledgeCoverage: createDecisionClassifier("knowledge-coverage"),
+	knowledgeRelevance: createDecisionClassifier("knowledge-relevance"),
+	mediaRelevance: createDecisionClassifier("media-semantic-search"),
+	observationGate: createDecisionClassifier("observation-gate"),
+	webRelevance: createDecisionClassifier("web-relevance"),
+};
+
+export type DecisionClassifier = (typeof decisionClassifiers)[keyof typeof decisionClassifiers];
+
+export const decisionPolicyOptions = ({
 	abortSignal,
-	functionId,
-	memoize = false,
-	model = models.decision.model,
-	observe,
+	policy,
+}: {
+	abortSignal?: AbortSignal;
+	policy: DecisionPolicy;
+}) => {
+	const { deadlineMs, maxRetries } = decisionPolicies[policy];
+	const deadline = AbortSignal.timeout(deadlineMs);
+
+	return { abortSignal: abortSignal ? AbortSignal.any([abortSignal, deadline]) : deadline, maxRetries };
+};
+
+export const evaluateDecision = async <const Questions extends ClassifierQuestions>({
+	abortSignal,
+	classifier,
 	policy = "interactive",
 	questions,
 	state,
 }: {
 	abortSignal?: AbortSignal;
-	functionId: string;
-	memoize?: boolean;
-	model?: EvaluationModel;
-	observe?: Pick<ToolObserve, "span">;
+	classifier: DecisionClassifier;
 	policy?: DecisionPolicy;
 	questions: Questions;
 	state: DecisionState;
@@ -174,42 +216,25 @@ export const evaluateDecision = async <const Questions extends Record<string, Ex
 	const startedAt = performance.now();
 
 	if (JSON.stringify(state).length + JSON.stringify(questions).length > decisionStateCharacterBudget) {
-		await log.info({ functionId, message: "Decision skipped: context budget exceeded", policy });
+		await log.info({ classifierId: classifier.id, message: "Decision skipped: context budget exceeded", policy });
 
 		return null;
 	}
 
-	const { deadlineMs, maxRetries } = decisionPolicies[policy];
-	const memo = { hit: false };
-
 	try {
-		const deadline = AbortSignal.timeout(deadlineMs);
+		const result = await classifier.evaluate({
+			...decisionPolicyOptions({ abortSignal, policy }),
+			questions,
+			state,
+		});
 
-		const run = () =>
-			evaluate({
-				abortSignal: abortSignal ? AbortSignal.any([abortSignal, deadline]) : deadline,
-				maxRetries,
-				model: memoize
-					? memoizeEvaluationModel({
-							functionId,
-							model,
-							onHit: () => {
-								memo.hit = true;
-							},
-						})
-					: model,
-				questions,
-				state,
-			});
-
-		const result = await (observe ? observe.span(functionId, run) : run());
 		const answers = Object.values(result.answers);
+
 		await log.info({
-			cached: memo.hit,
+			classifierId: classifier.id,
 			elapsedMs: performance.now() - startedAt,
-			functionId,
 			message: "Decision evaluation completed",
-			model: model.modelId,
+			model: result.response.modelId,
 			policy,
 			probabilitiesMissing: answers.filter((answer) => answer.type !== "boolean" && !answer.probabilities).length,
 			questionCount: answers.length,
@@ -221,10 +246,10 @@ export const evaluateDecision = async <const Questions extends Record<string, Ex
 	} catch (error) {
 		abortSignal?.throwIfAborted();
 		await log.warn({
+			classifierId: classifier.id,
 			elapsedMs: performance.now() - startedAt,
 			error: serializeLogError(error),
 			errorType: error instanceof Error ? error.name : "UnknownError",
-			functionId,
 			message: "Decision evaluation unavailable; using existing fallback",
 			policy,
 		});

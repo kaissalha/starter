@@ -5,7 +5,6 @@ const mocks = vi.hoisted(() => ({
 	createFile: vi.fn(),
 	deleteFile: vi.fn(),
 	deleteUploadedMedia: vi.fn(),
-	findFileByUrl: vi.fn(),
 	getFile: vi.fn(),
 	markFileFailed: vi.fn(),
 	resolveSession: vi.fn(),
@@ -24,8 +23,8 @@ vi.mock("../../src/lib/auth", () => ({ resolveSession: mocks.resolveSession }));
 vi.mock("../../src/services/storage", () => ({
 	createFile: mocks.createFile,
 	deleteFile: mocks.deleteFile,
-	findFileByUrl: mocks.findFileByUrl,
 	getFile: mocks.getFile,
+	getFileUrl: async () => null,
 	markFileFailed: mocks.markFileFailed,
 	setFileIngestRunId: mocks.setFileIngestRunId,
 }));
@@ -39,7 +38,10 @@ vi.mock("../../src/lib/blob-storage", () => ({ uploadBufferToBlob: vi.fn() }));
 
 vi.mock("@starter/documents/extraction", () => ({ isSupportedRagFile: vi.fn() }));
 
-vi.mock("../../src/workflows/ingest-file", () => ({ startIngestFile: mocks.startIngestFile }));
+vi.mock("../../src/workflows/ingest-file", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../src/workflows/ingest-file")>()),
+	startIngestFile: mocks.startIngestFile,
+}));
 
 import { apiRouter } from "../../src/api/app";
 

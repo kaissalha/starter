@@ -4,22 +4,29 @@ const mocks = vi.hoisted(() => ({
 	chunk: vi.fn(),
 	downloadBlob: vi.fn(),
 	evaluateDecision: vi.fn(),
+	fromMarkdown: vi.fn(),
 	fromText: vi.fn(),
-	generateText: vi.fn(),
+	generate: vi.fn(),
 	logError: vi.fn(),
 	markFileFailed: vi.fn(),
 }));
 
-vi.mock("ai", async (importOriginal) => ({
-	...(await importOriginal<typeof import("ai")>()),
-	generateText: mocks.generateText,
+vi.mock("../../src/workflows/ingest-file/agents", () => ({
+	documentClassifierAgent: { generate: mocks.generate },
+	imageClassifierAgent: { generate: mocks.generate },
 }));
 
 vi.mock("../../src/mastra/knowledge", () => ({ deleteKnowledgeFile: vi.fn(), upsertKnowledgeChunks: vi.fn() }));
 
-vi.mock("../../src/ai/decisions", () => ({ evaluateDecision: mocks.evaluateDecision }));
+vi.mock("../../src/ai/decisions", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
+	evaluateDecision: mocks.evaluateDecision,
+}));
 
-vi.mock("@mastra/rag", () => ({ MDocument: { fromText: mocks.fromText } }));
+vi.mock("@mastra/rag", async (importOriginal) => ({
+	...(await importOriginal<typeof import("@mastra/rag")>()),
+	MDocument: { fromMarkdown: mocks.fromMarkdown, fromText: mocks.fromText },
+}));
 
 vi.mock("@starter/observability", () => ({ log: { error: mocks.logError } }));
 
@@ -65,6 +72,21 @@ describe("file ingestion Mastra steps", () => {
 		mocks.chunk.mockResolvedValue([...chunks, chunks[0]]);
 		await expect(chunkContent({ text: "Source" })).rejects.toThrow("Document exceeds the ingestion chunk limit");
 	});
+	it("splits markdown on its own structure and plain text recursively", async () => {
+		mocks.fromMarkdown.mockReturnValue({ chunk: mocks.chunk });
+		mocks.chunk.mockResolvedValue([{ id_: "chunk", metadata: { startIndex: 0 }, text: "# Title" }]);
+
+		await chunkContent({ contentType: "text/markdown; charset=utf-8", text: "# Title" });
+		expect(mocks.fromMarkdown).toHaveBeenCalledWith("# Title");
+		expect(mocks.chunk).toHaveBeenLastCalledWith(
+			expect.objectContaining({ language: "markdown", strategy: "recursive" })
+		);
+
+		await chunkContent({ contentType: "text/plain", text: "Plain" });
+		expect(mocks.fromText).toHaveBeenCalledWith("Plain");
+		expect(mocks.chunk).toHaveBeenLastCalledWith(expect.objectContaining({ language: undefined }));
+	});
+
 	it("chunks PDF pages independently and keeps each page number", async () => {
 		mocks.fromText.mockImplementation((text: string) => ({
 			chunk: async () => [{ id_: text, metadata: { startIndex: 0 }, text }],
@@ -91,14 +113,14 @@ describe("file ingestion Mastra steps", () => {
 			kind: "text" as const,
 			name: "brief.txt",
 			source: null,
-			url: "https://blob.example.com/brief.txt",
+			storageKey: "development/organization-1/knowledge/brief.txt",
 		};
 
 		mocks.downloadBlob.mockResolvedValue({ body: Buffer.from("Private source") });
 		await expect(extractDocumentText(file)).resolves.toEqual({ pages: [], text: "Private source" });
 		expect(mocks.downloadBlob).toHaveBeenCalledWith({
 			access: "private",
-			url: file.url,
+			key: file.storageKey,
 		});
 		mocks.downloadBlob.mockRejectedValueOnce(new Error("File exceeds the ingestion byte limit"));
 		await expect(
@@ -107,13 +129,13 @@ describe("file ingestion Mastra steps", () => {
 				organizationId: "organization-1",
 			})
 		).rejects.toThrow("File exceeds the ingestion byte limit");
-		expect(mocks.generateText).not.toHaveBeenCalled();
+		expect(mocks.generate).not.toHaveBeenCalled();
 	});
 
 	it("classifies documents with structured output inside an untrusted boundary", async () => {
 		const classification = { date: null, language: "en", summary: "Summary", tags: [], title: "Title" };
-		mocks.generateText.mockResolvedValue({ output: classification });
-		mocks.evaluateDecision.mockResolvedValue({ answers: { category: { choice: "invoice" } } });
+		mocks.generate.mockResolvedValue({ object: classification });
+		mocks.evaluateDecision.mockResolvedValue({ answers: { category: { choice: "invoice", type: "choice" } } });
 
 		await expect(classifyDocument({ organizationId: "organization-1", text: invoiceText })).resolves.toEqual({
 			...classification,
@@ -121,21 +143,26 @@ describe("file ingestion Mastra steps", () => {
 			ocrText: null,
 		});
 
-		expect(mocks.generateText).toHaveBeenCalledWith(
-			expect.objectContaining({ prompt: `<untrusted-document>\n${invoiceText}\n</untrusted-document>` })
+		expect(mocks.generate).toHaveBeenCalledWith(
+			`<untrusted-document>\n${invoiceText}\n</untrusted-document>`,
+			expect.objectContaining({ structuredOutput: expect.objectContaining({ schema: expect.anything() }) })
 		);
 		expect(mocks.evaluateDecision).toHaveBeenCalledWith(
-			expect.objectContaining({ memoize: true, policy: "background", state: invoiceText })
+			expect.objectContaining({
+				classifier: expect.objectContaining({ id: "document-category" }),
+				policy: "background",
+				state: invoiceText,
+			})
 		);
 	});
 	it("samples long documents and skips category evaluation for very short text", async () => {
 		mocks.evaluateDecision.mockClear();
-		mocks.generateText.mockResolvedValue({ output: { summary: "Summary", tags: [], title: "Title" } });
+		mocks.generate.mockResolvedValue({ object: { summary: "Summary", tags: [], title: "Title" } });
 		await expect(classifyDocument({ organizationId: "organization-1", text: "Document" })).resolves.toMatchObject({
 			documentCategory: "unknown",
 		});
 		expect(mocks.evaluateDecision).not.toHaveBeenCalled();
-		mocks.evaluateDecision.mockResolvedValue({ answers: { category: { choice: "report" } } });
+		mocks.evaluateDecision.mockResolvedValue({ answers: { category: { choice: "report", type: "choice" } } });
 		const longText = `${"Opening ".repeat(600)}${"Closing ".repeat(300)}`;
 		await classifyDocument({ organizationId: "organization-1", text: longText });
 		const state = mocks.evaluateDecision.mock.calls[0]?.[0].state;
@@ -144,7 +171,7 @@ describe("file ingestion Mastra steps", () => {
 	});
 	it("preserves required metadata when optional document labeling is unavailable", async () => {
 		mocks.evaluateDecision.mockResolvedValue(null);
-		mocks.generateText.mockResolvedValue({ output: { summary: "Summary", tags: ["finance"], title: "Report" } });
+		mocks.generate.mockResolvedValue({ object: { summary: "Summary", tags: ["finance"], title: "Report" } });
 		await expect(classifyDocument({ organizationId: "organization-1", text: "Document" })).resolves.toMatchObject({
 			documentCategory: "unknown",
 			summary: "Summary",

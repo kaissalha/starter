@@ -98,7 +98,7 @@ integration only during Node development and writes captures to `apps/webapp/.de
 alone with `bun --cwd apps/webapp run dev:ai`. Mastra agent traces remain available in Mastra Studio.
 DevTools registers through the application’s `ai` package. The webapp TypeScript path pins its undeclared `ai` type import
 to that same package so Bun hoisting cannot select a different SDK version.
-The separate `ai-evaluation` alias stays confined to server evaluation features.
+Model-graded decisions and runtime scorers use Mastra classifiers over the gateway's decision model.
 
 ## Commands
 

@@ -7,9 +7,9 @@ type MediaRow = {
 	metadata: { altText?: string };
 	name: string;
 	sizeBytes: number;
+	storageKey: string;
 	summary: string | null;
 	title: string | null;
-	url: string;
 };
 
 const mocks = vi.hoisted(() => ({
@@ -48,6 +48,12 @@ vi.mock("../../src/services/permissions", () => ({}));
 
 vi.mock("../../src/services/storage", () => ({}));
 
+vi.mock("../../src/services/documents", () => ({}));
+
+vi.mock("../../src/lib/blob-storage", () => ({
+	getPublicBlobUrl: async (key: string) => `https://example.com/${key}`,
+}));
+
 import { listUploadedMedia } from "../../src/services/media";
 
 const row = (id: string, name: string, title?: string): MediaRow => ({
@@ -57,9 +63,9 @@ const row = (id: string, name: string, title?: string): MediaRow => ({
 	metadata: { altText: `${name} alt` },
 	name,
 	sizeBytes: 10,
+	storageKey: name,
 	summary: null,
 	title: title ?? null,
-	url: `https://example.com/${name}`,
 });
 
 beforeEach(() => {
@@ -82,7 +88,10 @@ describe("semantic uploaded media search", () => {
 		expect(result.nextOffset).toBeNull();
 		expect(mocks.queries.map(({ limit }) => limit)).toEqual([31, 20]);
 		expect(mocks.rankRelevantCandidates).toHaveBeenCalledWith(
-			expect.objectContaining({ functionId: "media-semantic-search", query: "coffee" })
+			expect.objectContaining({
+				classifier: expect.objectContaining({ id: "media-semantic-search" }),
+				query: "coffee",
+			})
 		);
 	});
 	it("stays model-free for filename matches and plain queries", async () => {

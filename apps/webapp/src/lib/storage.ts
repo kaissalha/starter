@@ -1,30 +1,19 @@
-import type { PutBlobResult } from "@vercel/blob";
-import { upload } from "@vercel/blob/client";
+import { createFilesClient } from "files-sdk/client";
 
-import type { ClientUploadPayload } from "@starter/documents";
+import { client } from "@/lib/api-client";
+import type { UploadPurpose } from "@starter/documents";
 
-type UploadFromClientOptions = {
+type UploadFileOptions = {
 	file: File;
-	handleUploadUrl: string;
-	onUploadProgress?: (event: { percentage: number }) => void;
-	pathname: string;
-	payload: ClientUploadPayload;
+	onProgress?: (percentage: number) => void;
+	organizationId: string;
+	purpose: UploadPurpose;
 	signal?: AbortSignal;
 };
 
-export const uploadFromClient = async ({
-	file,
-	handleUploadUrl,
-	onUploadProgress,
-	pathname,
-	payload,
-	signal,
-}: UploadFromClientOptions): Promise<PutBlobResult> =>
-	upload(pathname, file, {
-		abortSignal: signal,
-		access: payload.access,
-		clientPayload: JSON.stringify(payload),
-		handleUploadUrl,
-		multipart: file.size > 5 * 1024 * 1024,
-		onUploadProgress,
-	});
+export const uploadFile = async ({ file, onProgress, organizationId, purpose, signal }: UploadFileOptions) => {
+	const files = createFilesClient({ endpoint: `/api/files?${new URLSearchParams({ organizationId, purpose })}` });
+	const { key } = await files.upload(file, { onProgress: ({ fraction }) => onProgress?.(fraction * 100), signal });
+
+	return client.media.register({ key, name: file.name, purpose }, { signal });
+};

@@ -21,7 +21,7 @@ vi.mock("ai", async (importOriginal) => {
 			provider: "gateway",
 		});
 
-	return { ...actual, gateway: Object.assign(languageModel, { image: vi.fn() }) };
+	return { ...actual, gateway: Object.assign(languageModel, { decisionModel: vi.fn(), image: vi.fn() }) };
 });
 
 const { models } = await import("../../src/mastra/models");

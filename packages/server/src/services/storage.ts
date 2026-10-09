@@ -1,9 +1,10 @@
+import { waitUntil } from "@vercel/functions";
 import { and, desc, eq, inArray, isNull, lt, ne, sql } from "drizzle-orm";
-import { getRun } from "workflow/api";
 
 import {
 	db,
 	type FileAccess,
+	type FileRecord,
 	type FileKind,
 	type FileMetadata,
 	type FileRagStatus,
@@ -15,7 +16,7 @@ import {
 import { detectKind } from "@starter/documents";
 
 import { FILE_PROCESSING_FAILED_CODE } from "../constants/upload";
-import { deleteBlob } from "../lib/blob-storage";
+import { deleteBlob, getPublicBlobUrl } from "../lib/blob-storage";
 
 export const createFile = async (params: {
 	access?: FileAccess;
@@ -29,8 +30,8 @@ export const createFile = async (params: {
 	ragStatus?: FileRagStatus;
 	sizeBytes?: number | null;
 	sourceType?: FileSourceType;
+	storageKey?: string | null;
 	uploadedBy?: string | null;
-	url?: string | null;
 	versionGroupId?: string | null;
 }) => {
 	const [file] = await db
@@ -47,13 +48,13 @@ export const createFile = async (params: {
 			ragStatus: params.ragStatus ?? "none",
 			sizeBytes: params.sizeBytes ?? null,
 			sourceType: params.sourceType ?? "upload",
+			storageKey: params.storageKey ?? null,
 			uploadedBy: params.uploadedBy ?? null,
-			url: params.url ?? null,
 			versionGroupId: params.versionGroupId ?? null,
 		})
 		.onConflictDoNothing({
-			target: [files.organizationId, files.url],
-			where: sql`${files.url} is not null and ${files.deletedAt} is null`,
+			target: [files.organizationId, files.storageKey],
+			where: sql`${files.storageKey} is not null and ${files.deletedAt} is null`,
 		})
 		.returning();
 
@@ -61,8 +62,14 @@ export const createFile = async (params: {
 		return { created: true, file };
 	}
 
-	const existing = params.url
-		? await findFileByUrl({ organizationId: params.organizationId, url: params.url })
+	const existing = params.storageKey
+		? await db.query.files.findFirst({
+				where: {
+					deletedAt: { isNull: true },
+					organizationId: params.organizationId,
+					storageKey: params.storageKey,
+				},
+			})
 		: undefined;
 
 	if (!existing) {
@@ -82,10 +89,15 @@ export const getFile = async ({ fileId, organizationId }: { fileId: string; orga
 	return file ?? null;
 };
 
-export const findFileByUrl = async ({ organizationId, url }: { organizationId: string; url: string }) =>
-	db.query.files.findFirst({
-		where: { deletedAt: { isNull: true }, organizationId, url },
-	});
+export const getFileUrl = async (file: Pick<FileRecord, "access" | "id" | "organizationId" | "storageKey">) => {
+	if (!file.storageKey) {
+		return null;
+	}
+
+	return file.access === "public"
+		? getPublicBlobUrl(file.storageKey)
+		: `/api/media?${new URLSearchParams({ fileId: file.id, organizationId: file.organizationId })}`;
+};
 
 export const setFileIngestRunId = async ({
 	fileId,
@@ -102,6 +114,27 @@ export const setFileIngestRunId = async ({
 		.where(and(eq(files.id, fileId), eq(files.organizationId, organizationId)));
 };
 
+const staleIngestAfterMs = 5 * 60 * 1000;
+
+const abandonIngestAfterMs = 30 * 60 * 1000;
+
+const activeIngestRunStatuses = new Set(["pending", "running", "waiting"]);
+
+const restartStalledIngestRun = async (runId: string) => {
+	const { mastra } = await import("../mastra");
+	const workflow = mastra.getWorkflow("ingestFileWorkflow");
+	const state = await workflow.getWorkflowRunById(runId, { withNestedWorkflows: false });
+
+	if (!state || !activeIngestRunStatuses.has(state.status)) {
+		return false;
+	}
+
+	const run = await workflow.createRun({ runId });
+	waitUntil(run.restart());
+
+	return true;
+};
+
 export const failStalePendingFiles = async ({
 	fileIds,
 	organizationId,
@@ -110,14 +143,14 @@ export const failStalePendingFiles = async ({
 	organizationId: string;
 }) => {
 	const stale = await db
-		.select({ id: files.id, ingestRunId: files.ingestRunId })
+		.select({ createdAt: files.createdAt, id: files.id, ingestRunId: files.ingestRunId })
 		.from(files)
 		.where(
 			and(
 				eq(files.organizationId, organizationId),
 				eq(files.ragStatus, "pending"),
 				isNull(files.deletedAt),
-				lt(files.updatedAt, new Date(Date.now() - 5 * 60 * 1000).toISOString()),
+				lt(files.updatedAt, new Date(Date.now() - staleIngestAfterMs).toISOString()),
 				fileIds ? inArray(files.id, fileIds) : undefined
 			)
 		)
@@ -125,11 +158,14 @@ export const failStalePendingFiles = async ({
 
 	await Promise.all(
 		stale.map(async (file) => {
-			if (file.ingestRunId) {
+			if (file.ingestRunId && Date.parse(file.createdAt) > Date.now() - abandonIngestAfterMs) {
 				try {
-					const run = getRun(file.ingestRunId);
+					if (await restartStalledIngestRun(file.ingestRunId)) {
+						await db
+							.update(files)
+							.set({ updatedAt: new Date().toISOString() })
+							.where(and(eq(files.id, file.id), eq(files.organizationId, organizationId)));
 
-					if ((await run.exists) && ["pending", "running"].includes(await run.status)) {
 						return;
 					}
 				} catch {
@@ -227,8 +263,8 @@ export const deleteFile = async ({
 		return false;
 	}
 
-	if (file.sourceType === "upload" && file.url) {
-		await deleteBlob({ access: file.access, url: file.url });
+	if (file.storageKey) {
+		await deleteBlob({ access: file.access, key: file.storageKey });
 	}
 
 	const now = new Date().toISOString();

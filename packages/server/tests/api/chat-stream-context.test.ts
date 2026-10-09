@@ -1,6 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("../../src/ai/decisions", () => ({ evaluateDecision: vi.fn() }));
+vi.mock("../../src/ai/decisions", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
+	evaluateDecision: vi.fn(),
+}));
 
 import { dashboardSkills } from "../../src/ai/skills";
 import type { DashboardChatUIMessage } from "../../src/ai/types";

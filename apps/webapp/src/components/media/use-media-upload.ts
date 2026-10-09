@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useAuthSession } from "@/components/auth/auth-session-context";
-import { client } from "@/lib/api-client";
-import { uploadFromClient } from "@/lib/storage";
+import { uploadFile } from "@/lib/storage";
 import { isUploadAllowed, mediaContentTypes, uploadPolicies } from "@starter/documents";
 
 export type UploadedMedia = {
@@ -47,42 +46,28 @@ export const useMediaUpload = ({ kind, purpose }: { kind?: "image" | "video"; pu
 		setError(null);
 
 		try {
-			const blob = await uploadFromClient({
+			const registered = await uploadFile({
 				file,
-				handleUploadUrl: "/api/media",
-				onUploadProgress: ({ percentage }) => setProgress(percentage),
-				pathname: `organizations/${organizationId}/media/${crypto.randomUUID()}-${file.name}`,
-				payload: {
-					access: "public",
-					maxFileSizeMb: uploadPolicies[uploadPurpose].maxFileSizeMb,
-					name: file.name,
-					organizationId,
-					purpose: uploadPurpose,
-				},
+				onProgress: setProgress,
+				organizationId,
+				purpose: uploadPurpose,
 				signal: controller.signal,
 			});
 
-			setProgress(100);
-			const started = Date.now();
-
-			while (Date.now() - started < 60_000) {
-				const registered = await client.documents.findUpload({ url: blob.url }, { signal: controller.signal });
-
-				if (registered) {
-					return {
-						contentType: file.type,
-						id: registered.id,
-						kind: mediaKind,
-						name: file.name,
-						sizeBytes: file.size,
-						url: blob.url,
-					};
-				}
-
-				await new Promise((resolve) => setTimeout(resolve, 500));
+			if (!registered.url) {
+				throw new Error("Uploaded media has no public URL");
 			}
 
-			throw new Error("Upload registration timed out");
+			setProgress(100);
+
+			return {
+				contentType: file.type,
+				id: registered.id,
+				kind: mediaKind,
+				name: file.name,
+				sizeBytes: file.size,
+				url: registered.url,
+			};
 		} catch {
 			if (!controller.signal.aborted) {
 				setError("failed");

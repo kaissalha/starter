@@ -4,7 +4,7 @@ import { Memory } from "@mastra/memory";
 import { pool } from "@starter/db";
 import { createMastraStore } from "@starter/db/mastra";
 
-import { evaluateDecision } from "../ai/decisions";
+import { decisionClassifiers, evaluateDecision } from "../ai/decisions";
 import {
 	dashboardChatObservationInstructions,
 	dashboardChatReflectionInstructions,
@@ -23,7 +23,7 @@ export const dashboardChatMemory = new Memory({
 			hooks: {
 				beforeObservation: async ({ messages }) => {
 					const decision = await evaluateDecision({
-						functionId: "observation-gate",
+						classifier: decisionClassifiers.observationGate,
 						policy: "background",
 						questions: {
 							containsDurableFacts: {

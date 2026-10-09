@@ -39,7 +39,7 @@ export const { onRequestError, register } = defineNodeInstrumentation(async () =
 			await assertRequiredConfig({
 				app: "webapp",
 				enforce: false,
-				names: ["BETTER_AUTH_SECRET", "CRON_SECRET", "DATABASE_URL", "REDIS_URL"],
+				names: ["BETTER_AUTH_SECRET", "CRON_SECRET", "DATABASE_URL", "FILES_API_SECRET", "REDIS_URL"],
 			});
 		},
 	};

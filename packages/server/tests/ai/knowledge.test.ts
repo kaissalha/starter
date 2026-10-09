@@ -12,13 +12,24 @@ const { requireOrganizationPermission } = vi.hoisted(() => ({ requireOrganizatio
 
 const { evaluateDecision } = vi.hoisted(() => ({ evaluateDecision: vi.fn() }));
 
-vi.mock("../../src/ai/decisions", () => ({ evaluateDecision }));
+vi.mock("../../src/ai/decisions", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
+	evaluateDecision,
+}));
 
 vi.mock("@mastra/pg", () => ({
 	PgVector: class {
-		deleteVectors = vectorStoreMocks.deleteVectors;
-		query = vectorStoreMocks.query;
-		upsert = vectorStoreMocks.upsert;
+		deleteVectors(...args: Array<unknown>) {
+			return vectorStoreMocks.deleteVectors(...args);
+		}
+
+		query(...args: Array<unknown>) {
+			return vectorStoreMocks.query(...args);
+		}
+
+		upsert(...args: Array<unknown>) {
+			return vectorStoreMocks.upsert(...args);
+		}
 	},
 	PostgresStore: class {},
 }));
@@ -101,7 +112,9 @@ describe("Mastra knowledge retrieval", () => {
 				score: 0.7,
 			},
 		]);
-		evaluateDecision.mockResolvedValueOnce({ answers: { c0: { score: 1 }, c1: { score: 3 } } });
+		evaluateDecision.mockResolvedValueOnce({
+			answers: { c0: { score: 1, type: "score" }, c1: { score: 3, type: "score" } },
+		});
 
 		const result = await execute({
 			fileIds: [readyFileId],
@@ -129,14 +142,20 @@ describe("Mastra knowledge retrieval", () => {
 			{ id: "c", metadata: { fileId: readyFileId, organizationId, text: "C" }, score: 0.79 },
 		]);
 		evaluateDecision
-			.mockResolvedValueOnce({ answers: { c0: { score: 0 }, c1: { score: 1 }, c2: { score: 3 } } })
-			.mockResolvedValueOnce({ answers: { answersQuery: { probability: 0.1 } } });
+			.mockResolvedValueOnce({
+				answers: {
+					c0: { score: 0, type: "score" },
+					c1: { score: 1, type: "score" },
+					c2: { score: 3, type: "score" },
+				},
+			})
+			.mockResolvedValueOnce({ answers: { answersQuery: { probability: 0.1, type: "boolean" } } });
 		await expect(execute({ queryText: "which?", topK: 3 })).resolves.toMatchObject({
 			sources: [{ id: "c" }, { id: "b" }, { id: "a" }],
 			suggestion: "widen",
 		});
 		expect(evaluateDecision).toHaveBeenCalledTimes(2);
-		expect(evaluateDecision.mock.calls[1]?.[0]).toMatchObject({ functionId: "knowledge-coverage" });
+		expect(evaluateDecision.mock.calls[1]?.[0].classifier.id).toBe("knowledge-coverage");
 	});
 	it("keeps vector order for a wide spread and omits widening at the maximum topK or without a decision", async () => {
 		stubEmbeddingGateway();
@@ -146,7 +165,7 @@ describe("Mastra knowledge retrieval", () => {
 			{ id: "b", metadata: { fileId: readyFileId, organizationId, text: "B" }, score: 0.6 },
 			{ id: "c", metadata: { fileId: readyFileId, organizationId, text: "C" }, score: 0.5 },
 		]);
-		evaluateDecision.mockResolvedValueOnce({ answers: { answersQuery: { probability: 0.1 } } });
+		evaluateDecision.mockResolvedValueOnce({ answers: { answersQuery: { probability: 0.1, type: "boolean" } } });
 		const capped = await execute({ queryText: "which?", topK: 20 });
 		expect(capped).toMatchObject({ sources: [{ id: "a" }, { id: "b" }, { id: "c" }] });
 		expect(capped).not.toMatchObject({ suggestion: "widen" });
@@ -212,12 +231,21 @@ describe("Mastra knowledge retrieval", () => {
 				model: "google/gemini-embedding-2",
 			}),
 		]);
-		expect(vectorStoreMocks.query).toHaveBeenCalledWith({
-			filter: { organizationId },
-			indexName: "knowledge",
-			queryVector: [0],
-			topK: 1,
-		});
+		expect(vectorStoreMocks.query).toHaveBeenCalledWith(
+			expect.objectContaining({ filter: { organizationId }, indexName: "knowledge", queryVector: [0], topK: 1 })
+		);
+	});
+
+	it("surfaces vector store and embedding outages instead of reporting no matches", async () => {
+		stubEmbeddingGateway();
+		vectorStoreMocks.query.mockRejectedValueOnce(new Error("database unavailable"));
+		await expect(execute({ queryText: "tenant knowledge", topK: 1 })).rejects.toThrow("database unavailable");
+
+		vi.stubGlobal(
+			"fetch",
+			vi.fn(async () => new Response("rejected", { status: 400 }))
+		);
+		await expect(execute({ queryText: "tenant knowledge", topK: 1 })).rejects.toMatchObject({ statusCode: 400 });
 	});
 
 	it("restricts explicit attachment retrieval before the vector query", async () => {

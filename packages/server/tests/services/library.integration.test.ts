@@ -2,7 +2,12 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { db, fileTagAssignments, fileTags, files } from "@starter/db";
 
-vi.mock("../../src/lib/blob-storage", () => ({ deleteBlob: vi.fn(), uploadBufferToBlob: vi.fn() }));
+vi.mock("../../src/lib/blob-storage", () => ({
+	deleteBlob: vi.fn(),
+	getPublicBlobUrl: async (key: string) => `https://cdn.example.com/${key}`,
+	getStorageKeyPrefix: vi.fn(),
+	uploadBufferToBlob: vi.fn(),
+}));
 
 vi.mock("../../src/services/documents", () => ({ startFileIngestion: vi.fn() }));
 
@@ -32,7 +37,7 @@ describe("library assets", () => {
 				kind: "image",
 				name: "Storefront",
 				organizationId: owner.id,
-				url: "https://example.com/storefront.png",
+				storageKey: "storefront.png",
 			})
 			.returning();
 
@@ -80,7 +85,7 @@ describe("library assets", () => {
 					metadata: { altText: "A barista pouring latte art", ocrText: "OPEN DAILY" },
 					name: "IMG_0001.png",
 					organizationId: owner.id,
-					url: "https://example.com/a.png",
+					storageKey: "a.png",
 				},
 				{
 					content: "# Price list\n\nHedge trimming costs 40 dollars.",

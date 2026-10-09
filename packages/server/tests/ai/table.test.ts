@@ -40,7 +40,7 @@ describe("inspect table tool", () => {
 			deletedAt: null,
 			name: "sales.csv",
 			ragStatus: "ready",
-			url: "https://example.com/sales.csv",
+			storageKey: "sales.csv",
 		});
 		mocks.downloadBlob.mockResolvedValue({ body: Buffer.from("name,amount") });
 		mocks.readTabularFile.mockResolvedValue([
@@ -92,7 +92,7 @@ describe("inspect table tool", () => {
 			deletedAt: null,
 			name: "sales.csv",
 			ragStatus: "pending",
-			url: "https://example.com/sales.csv",
+			storageKey: "sales.csv",
 		});
 		await expect(execute({ fileId }, { observe: noopObserve, requestContext })).rejects.toThrow(
 			"Table file is not available"
@@ -110,7 +110,7 @@ describe("inspect table tool", () => {
 			deletedAt: null,
 			name: "sales.xlsx",
 			ragStatus: "ready",
-			url: "https://example.com/sales.xlsx",
+			storageKey: "sales.xlsx",
 		});
 		mocks.readTabularFile.mockResolvedValueOnce([
 			{ rows: [["item"], ["A"]], sheet: "Sales" },

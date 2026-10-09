@@ -7,7 +7,10 @@ const mocks = vi.hoisted(() => ({
 	search: vi.fn(),
 }));
 
-vi.mock("../../src/ai/decisions", () => ({ evaluateDecision: mocks.evaluateDecision }));
+vi.mock("../../src/ai/decisions", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
+	evaluateDecision: mocks.evaluateDecision,
+}));
 
 vi.mock("../../src/services/permissions", () => ({
 	requireOrganizationPermission: mocks.requireOrganizationPermission,
@@ -15,6 +18,7 @@ vi.mock("../../src/services/permissions", () => ({
 
 vi.mock("../../src/lib/firecrawl", () => ({ firecrawl: { search: mocks.search } }));
 
+import { decisionClassifiers } from "../../src/ai/decisions";
 import { rankRelevantCandidates, relevanceRank } from "../../src/ai/relevance";
 import { dashboardSkills, loadDashboardRoute } from "../../src/ai/skills";
 import { assistantTools } from "../../src/ai/tools/assistant";
@@ -24,6 +28,8 @@ const context = () => ({
 	observe: noopObserve,
 	requestContext: createDashboardChatRequestContext({ organizationId: "org", userId: "user" }),
 });
+
+const classifier = decisionClassifiers.webRelevance;
 
 const webSearch = assistantTools.webSearch.execute;
 
@@ -51,7 +57,9 @@ describe("bounded decision tools", () => {
 				{ markdown: "Contrary evidence", title: "Evidence", url: "https://example.com/b" },
 			],
 		});
-		mocks.evaluateDecision.mockResolvedValue({ answers: { c0: { score: 1 }, c1: { score: 3 } } });
+		mocks.evaluateDecision.mockResolvedValue({
+			answers: { c0: { score: 1, type: "score" }, c1: { score: 3, type: "score" } },
+		});
 		await expect(webSearch({ query: "claim", rerank: true }, context())).resolves.toMatchObject({
 			results: [
 				{ text: "Contrary evidence", url: "https://example.com/b" },
@@ -60,23 +68,25 @@ describe("bounded decision tools", () => {
 		});
 	});
 	it("ranks by top-level probability mass instead of interpolated score magnitude", () => {
-		expect(relevanceRank({ probabilities: { "0": 0.1, "1": 0.2, "2": 0.4, "3": 0.3 }, score: 1.9 })).toBeCloseTo(
-			0.7
-		);
-		expect(relevanceRank({ probabilities: { "0": 0, "1": 0.9, "2": 0.1, "3": 0 }, score: 1.1 })).toBeCloseTo(0.1);
-		expect(relevanceRank({ score: 3 })).toBe(1);
+		expect(
+			relevanceRank({ probabilities: { "0": 0.1, "1": 0.2, "2": 0.4, "3": 0.3 }, score: 1.9, type: "score" })
+		).toBeCloseTo(0.7);
+		expect(
+			relevanceRank({ probabilities: { "0": 0, "1": 0.9, "2": 0.1, "3": 0 }, score: 1.1, type: "score" })
+		).toBeCloseTo(0.1);
+		expect(relevanceRank({ score: 3, type: "score" })).toBe(1);
 		expect(relevanceRank(undefined)).toBe(0);
 	});
 	it("leaves simple/default searches model-free and retains order on unavailable ranking", async () => {
 		const candidates = ["one", "two"];
 		await expect(
-			rankRelevantCandidates({ candidates, functionId: "test", query: "request", text: (value) => value })
-		).resolves.toBe(candidates);
+			rankRelevantCandidates({ candidates, classifier, query: "request", text: (value) => value })
+		).resolves.toEqual(candidates);
 		mocks.evaluateDecision.mockClear();
 		await expect(
 			rankRelevantCandidates({
 				candidates: ["one"],
-				functionId: "test",
+				classifier,
 				query: "request",
 				text: (value) => value,
 			})

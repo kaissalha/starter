@@ -31,9 +31,11 @@ export { handleDataRetention, handleOrganizationPurgeCron } from "./cron";
 
 export { handleEventDispatch, handleEventRetention } from "./events";
 
+export { handleFilesRequest } from "./files";
+
 export { handleGetLibraryDocumentPdf } from "./library";
 
-export { handleGetMedia, handleMediaUpload } from "./media";
+export { handleGetMedia } from "./media";
 
 export const openApiSpecPath = "/openapi.json";
 

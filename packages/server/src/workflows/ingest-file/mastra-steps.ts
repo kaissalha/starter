@@ -1,16 +1,9 @@
-import { generateText, Output } from "ai";
-
-import { evaluateDecision } from "../../ai/decisions";
-import {
-	fileClassificationSchema,
-	fileClassificationSystemPrompt,
-	imageClassificationSchema,
-	imageClassificationSystemPrompt,
-	documentCategoryQuestion,
-} from "../../ai/prompts";
+import { decisionClassifiers, evaluateDecision } from "../../ai/decisions";
+import { documentCategoryQuestion, fileClassificationSchema, imageClassificationSchema } from "../../ai/prompts";
 import { downloadBlob } from "../../lib/blob-storage";
 import { deleteKnowledgeFile, upsertKnowledgeChunks } from "../../mastra/knowledge";
 import { models } from "../../mastra/models";
+import { documentClassifierAgent, imageClassifierAgent } from "./agents";
 import type { FileClassification, IngestChunk, IngestFile } from "./steps";
 
 const classificationTimeout = () => AbortSignal.timeout(120_000);
@@ -26,23 +19,17 @@ export const classifyDocument = async ({
 	organizationId: string;
 	text: string;
 }): Promise<FileClassification> => {
-	"use step";
-
 	const [generated, classification] = await Promise.all([
-		generateText({
+		documentClassifierAgent.generate(`<untrusted-document>\n${text.slice(0, 12_000)}\n</untrusted-document>`, {
 			abortSignal: classificationTimeout(),
-			maxRetries: 2,
-			model: models.cheapFast.model,
-			output: Output.object({ schema: fileClassificationSchema }),
-			prompt: `<untrusted-document>\n${text.slice(0, 12_000)}\n</untrusted-document>`,
+			modelSettings: { maxRetries: 2 },
 			providerOptions: models.cheapFast.providerOptions,
-			system: fileClassificationSystemPrompt,
+			structuredOutput: { schema: fileClassificationSchema },
 		}),
 		text.trim().length < documentCategoryMinimumCharacters
 			? null
 			: evaluateDecision({
-					functionId: "document-category",
-					memoize: true,
+					classifier: decisionClassifiers.documentCategory,
 					policy: "background",
 					questions: { category: documentCategoryQuestion },
 					state: sampleDocumentText(text),
@@ -50,7 +37,7 @@ export const classifyDocument = async ({
 	]);
 
 	return {
-		...generated.output,
+		...generated.object,
 		documentCategory: classification?.answers.category.choice ?? "unknown",
 		ocrText: null,
 	};
@@ -62,18 +49,14 @@ export const classifyImage = async ({
 	file: IngestFile;
 	organizationId: string;
 }): Promise<FileClassification> => {
-	"use step";
-
-	if (!file.url) {
+	if (!file.storageKey) {
 		return { date: null, language: null, ocrText: null, summary: null, tags: [], title: file.name };
 	}
 
-	const { body } = await downloadBlob({ access: file.access, url: file.url });
+	const { body } = await downloadBlob({ access: file.access, key: file.storageKey });
 
-	const { output } = await generateText({
-		abortSignal: classificationTimeout(),
-		maxRetries: 2,
-		messages: [
+	const { object } = await imageClassifierAgent.generate(
+		[
 			{
 				content: [
 					{ text: "Analyze this image and extract metadata and any visible text.", type: "text" },
@@ -82,17 +65,17 @@ export const classifyImage = async ({
 				role: "user",
 			},
 		],
-		model: models.vision.model,
-		output: Output.object({ schema: imageClassificationSchema }),
-		system: imageClassificationSystemPrompt,
-	});
+		{
+			abortSignal: classificationTimeout(),
+			modelSettings: { maxRetries: 2 },
+			structuredOutput: { schema: imageClassificationSchema },
+		}
+	);
 
-	return output;
+	return object;
 };
 
 export const clearChunks = async ({ fileId, organizationId }: { fileId: string; organizationId: string }) => {
-	"use step";
-
 	await deleteKnowledgeFile({ fileId, organizationId });
 };
 
@@ -109,8 +92,6 @@ export const embedAndInsertChunks = async ({
 	organizationId: string;
 	source: string | null;
 }) => {
-	"use step";
-
 	await upsertKnowledgeChunks({ chunks, fileId, fileName, organizationId, source });
 
 	return chunks.length;

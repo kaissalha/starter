@@ -1,8 +1,8 @@
-import { MDocument } from "@mastra/rag";
+import { Language, MDocument } from "@mastra/rag";
 import { z } from "zod";
 
 import type { FileMetadata } from "@starter/db";
-import { getExtensionFromFilename, MAX_INGEST_TEXT_LENGTH } from "@starter/documents";
+import { getExtensionFromFilename, MAX_INGEST_TEXT_LENGTH, normalizeContentType } from "@starter/documents";
 import { extractFileText } from "@starter/documents/extraction";
 import { log } from "@starter/observability";
 
@@ -20,7 +20,7 @@ export type IngestFile = {
 	kind: "audio" | "document" | "image" | "other" | "text" | "video";
 	name: string;
 	source: string | null;
-	url: string | null;
+	storageKey: string | null;
 };
 
 export type FileClassification = {
@@ -34,8 +34,6 @@ export type FileClassification = {
 };
 
 export const loadIngestFile = async (fileId: string, organizationId: string): Promise<IngestFile | null> => {
-	"use step";
-
 	const file = await getFile({ fileId, organizationId });
 
 	if (!file) {
@@ -47,19 +45,17 @@ export const loadIngestFile = async (fileId: string, organizationId: string): Pr
 		contentType: file.contentType,
 		kind: file.kind,
 		name: file.name,
-		source: file.metadata.sourceUrl?.trim() || file.url,
-		url: file.url,
+		source: file.metadata.sourceUrl?.trim() || null,
+		storageKey: file.storageKey,
 	};
 };
 
 export const extractDocumentText = async (file: IngestFile) => {
-	"use step";
-
-	if (!file.url) {
+	if (!file.storageKey) {
 		return { pages: [], text: "" };
 	}
 
-	const { body } = await downloadBlob({ access: file.access, url: file.url });
+	const { body } = await downloadBlob({ access: file.access, key: file.storageKey });
 
 	const extracted = await extractFileText({
 		buffer: body,
@@ -74,14 +70,14 @@ export const extractDocumentText = async (file: IngestFile) => {
 };
 
 export const chunkContent = async ({
+	contentType,
 	pages = [],
 	text,
 }: {
+	contentType?: string;
 	pages?: Array<{ pageNumber: number; text: string }>;
 	text: string;
 }) => {
-	"use step";
-
 	if (text.length > MAX_INGEST_TEXT_LENGTH) {
 		throw new Error("Document exceeds the ingestion text limit");
 	}
@@ -91,9 +87,14 @@ export const chunkContent = async ({
 
 	const sections: Array<{ pageNumber?: number; text: string }> = pages.length ? pages : [{ text }];
 
+	const markdown = contentType !== undefined && normalizeContentType(contentType) === "text/markdown";
+
 	for (const section of sections) {
-		const pageChunks = await MDocument.fromText(section.text).chunk({
+		const document = markdown ? MDocument.fromMarkdown(section.text) : MDocument.fromText(section.text);
+
+		const pageChunks = await document.chunk({
 			addStartIndex: true,
+			language: markdown ? Language.MARKDOWN : undefined,
 			maxSize: 2000,
 			overlap: 200,
 			strategy: "recursive",
@@ -128,8 +129,6 @@ export const applyEnrichment = async ({
 	fileId: string;
 	organizationId: string;
 }) => {
-	"use step";
-
 	await applyFileEnrichment({
 		docDate: docDateSchema.safeParse(classification.date).data ?? null,
 		fileId,
@@ -153,8 +152,6 @@ export const applyEnrichment = async ({
 };
 
 export const markReady = async ({ fileId, organizationId }: { fileId: string; organizationId: string }) => {
-	"use step";
-
 	await markFileReady({ fileId, organizationId });
 };
 
@@ -167,8 +164,6 @@ export const markFailed = async ({
 	fileId: string;
 	organizationId: string;
 }) => {
-	"use step";
-
 	log.error({ cause, fileId, message: "File ingestion failed", organizationId });
 
 	await markFileFailed({ error: FILE_PROCESSING_FAILED_CODE, fileId, organizationId });

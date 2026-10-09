@@ -1,4 +1,5 @@
 import { Agent, type MastraDBMessage } from "@mastra/core/agent";
+import { Classifier } from "@mastra/core/classifier";
 import { createScorer, type ScorerRunInputForAgent, type ScorerRunOutputForAgent } from "@mastra/core/evals";
 import { RequestContext } from "@mastra/core/request-context";
 import { z } from "zod";
@@ -7,7 +8,7 @@ import { createDashboardWorkingMemoryProcessor, dashboardChatMemory } from "../m
 import { models } from "../mastra/models";
 import { requireOrganizationPermission } from "../services/permissions";
 import { hasOrganizationPermission } from "../utils/permissions";
-import { evaluateDecision } from "./decisions";
+import { decisionModel, decisionPolicyOptions } from "./decisions";
 import {
 	dashboardChatCurrentUserPrompt,
 	dashboardChatSystemPrompt,
@@ -80,13 +81,63 @@ const getSuccessfulToolResults = ({ output }: AgentScorerRun) =>
 		)
 	);
 
-const requireEvaluation = <Evaluation>(evaluation: Evaluation | null, message: string) => {
-	if (!evaluation) {
-		throw new Error(message);
-	}
+const scorerEvaluationOptions = () => decisionPolicyOptions({ policy: "background" });
 
-	return evaluation;
-};
+const responseRelevanceClassifier = new Classifier({
+	id: "dashboard-response-relevance",
+	model: decisionModel,
+	questions: {
+		relevance: {
+			criteria: [
+				"Unrelated or misses the request",
+				"Partially addresses the request",
+				"Directly addresses the request",
+			],
+			instructions: dashboardResponseRelevanceInstructions,
+			type: "score",
+		},
+	},
+});
+
+const claimedActionClassifier = new Classifier({
+	id: "dashboard-claimed-action",
+	model: decisionModel,
+	questions: {
+		falseClaim: { instructions: dashboardClaimedActionInstructions, type: "boolean" },
+	},
+});
+
+const embeddedInstructionsClassifier = new Classifier({
+	id: "dashboard-embedded-instructions",
+	model: decisionModel,
+	questions: {
+		followed: { instructions: dashboardEmbeddedInstructionsInstructions, type: "boolean" },
+	},
+});
+
+const groundedClaimsClassifier = new Classifier({
+	id: "dashboard-grounded-claims",
+	model: decisionModel,
+	questions: {
+		unsupported: { instructions: dashboardGroundedClaimsInstructions, type: "boolean" },
+	},
+});
+
+const localeClassifier = new Classifier({
+	id: "dashboard-locale-match",
+	model: decisionModel,
+	questions: {
+		locale: {
+			criteria: {
+				matches: "The response prose is written in the language of the locale",
+				mismatch: "The response prose is written in a different language than the locale",
+				unclear: "The response has no natural-language prose to judge",
+			},
+			instructions: dashboardLocaleMatchInstructions,
+			type: "choice",
+		},
+	},
+});
 
 export const dashboardResponseRelevanceScorer = createScorer({
 	description: "Sample response relevance to identify missed requests in Mastra traces; never authorizes actions.",
@@ -96,25 +147,10 @@ export const dashboardResponseRelevanceScorer = createScorer({
 	.analyze(async ({ run }) => {
 		const { request, response } = getRequiredRunTexts(run);
 
-		const evaluation = requireEvaluation(
-			await evaluateDecision({
-				functionId: "dashboard-response-relevance",
-				policy: "background",
-				questions: {
-					relevance: {
-						criteria: [
-							"Unrelated or misses the request",
-							"Partially addresses the request",
-							"Directly addresses the request",
-						],
-						instructions: dashboardResponseRelevanceInstructions,
-						type: "score",
-					},
-				},
-				state: { request, response },
-			}),
-			"Response relevance evaluation unavailable"
-		);
+		const evaluation = await responseRelevanceClassifier.evaluate({
+			...scorerEvaluationOptions(),
+			state: { request, response },
+		});
 
 		return { relevance: evaluation.answers.relevance.score / 2 };
 	})
@@ -138,15 +174,10 @@ export const dashboardClaimedActionScorer = createScorer({
 			throw new Error("Claimed action scoring requires assistant text");
 		}
 
-		const evaluation = requireEvaluation(
-			await evaluateDecision({
-				functionId: "dashboard-claimed-action",
-				policy: "background",
-				questions: { falseClaim: { instructions: dashboardClaimedActionInstructions, type: "boolean" } },
-				state: { executedTools: getSuccessfulToolResults(run).map(({ toolName }) => toolName), response },
-			}),
-			"Claimed action evaluation unavailable"
-		);
+		const evaluation = await claimedActionClassifier.evaluate({
+			...scorerEvaluationOptions(),
+			state: { executedTools: getSuccessfulToolResults(run).map(({ toolName }) => toolName), response },
+		});
 
 		return { falseClaim: evaluation.answers.falseClaim.probability };
 	})
@@ -174,15 +205,10 @@ export const dashboardEmbeddedInstructionsScorer = createScorer({
 			return { followed: 0 };
 		}
 
-		const evaluation = requireEvaluation(
-			await evaluateDecision({
-				functionId: "dashboard-embedded-instructions",
-				policy: "background",
-				questions: { followed: { instructions: dashboardEmbeddedInstructionsInstructions, type: "boolean" } },
-				state: { request, response, toolOutputs },
-			}),
-			"Embedded instruction evaluation unavailable"
-		);
+		const evaluation = await embeddedInstructionsClassifier.evaluate({
+			...scorerEvaluationOptions(),
+			state: { request, response, toolOutputs },
+		});
 
 		return { followed: evaluation.answers.followed.probability };
 	})
@@ -214,15 +240,10 @@ export const dashboardGroundedClaimsScorer = createScorer({
 			toolName,
 		}));
 
-		const evaluation = requireEvaluation(
-			await evaluateDecision({
-				functionId: "dashboard-grounded-claims",
-				policy: "background",
-				questions: { unsupported: { instructions: dashboardGroundedClaimsInstructions, type: "boolean" } },
-				state: { evidenceIncomplete, request, response, toolOutputs },
-			}),
-			"Grounded claims evaluation unavailable"
-		);
+		const evaluation = await groundedClaimsClassifier.evaluate({
+			...scorerEvaluationOptions(),
+			state: { evidenceIncomplete, request, response, toolOutputs },
+		});
 
 		return { unsupported: evaluation.answers.unsupported.probability };
 	})
@@ -251,25 +272,10 @@ export const dashboardLocaleScorer = createScorer({
 
 		const { request, response } = getRequiredRunTexts(run);
 
-		const evaluation = requireEvaluation(
-			await evaluateDecision({
-				functionId: "dashboard-locale-match",
-				policy: "background",
-				questions: {
-					locale: {
-						criteria: {
-							matches: "The response prose is written in the language of the locale",
-							mismatch: "The response prose is written in a different language than the locale",
-							unclear: "The response has no natural-language prose to judge",
-						},
-						instructions: dashboardLocaleMatchInstructions,
-						type: "choice",
-					},
-				},
-				state: { locale, request, response },
-			}),
-			"Locale evaluation unavailable"
-		);
+		const evaluation = await localeClassifier.evaluate({
+			...scorerEvaluationOptions(),
+			state: { locale, request, response },
+		});
 
 		return { choice: evaluation.answers.locale.choice };
 	})

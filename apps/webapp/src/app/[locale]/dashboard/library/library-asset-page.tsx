@@ -239,7 +239,7 @@ const LibraryAssetPreview = ({ asset, fileUrl }: { asset: LibraryAssetDetail; fi
 const detailsSidebarStyle: CSSPropertiesWithVariables = { "--sidebar-width-details": "26rem" };
 
 const LibraryAssetView = ({ asset, onConflict }: { asset: LibraryAssetDetail; onConflict: () => void }) => {
-	const { can, organizationId } = useOrganizationPermissions();
+	const { can } = useOrganizationPermissions();
 	const t = useTranslations("library");
 	const tCommon = useTranslations("common");
 	const router = useRouter();
@@ -256,11 +256,7 @@ const LibraryAssetView = ({ asset, onConflict }: { asset: LibraryAssetDetail; on
 		},
 	});
 
-	const mediaUrl =
-		asset.url && asset.access === "private" && organizationId
-			? `/api/media?${new URLSearchParams({ organizationId, url: asset.url })}`
-			: asset.url;
-
+	const mediaUrl = asset.url;
 	const fileUrl = asset.editable ? `/api/library/${asset.id}/pdf?download` : mediaUrl;
 	const writable = can("workspace.write");
 	const viewerKind = getDocumentViewerKind(asset.contentType);

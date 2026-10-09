@@ -1,76 +1,26 @@
-import { get as getVercelBlob } from "@vercel/blob";
-import { handleUpload, type HandleUploadBody, type HandleUploadOptions } from "@vercel/blob/client";
-import { Files } from "files-sdk";
+import { Files, FilesError } from "files-sdk";
 import { vercelBlob } from "files-sdk/vercel-blob";
 import { v4 as uuidv4 } from "uuid";
-import { z } from "zod";
 
 import {
 	getExtensionFromMediaType,
 	MAX_INGEST_FILE_SIZE_BYTES,
 	type MediaAccess,
-	mediaAccessValues,
+	type UploadPurpose,
 } from "@starter/documents";
 import { log, serializeLogError } from "@starter/observability";
 
-import { parseJsonRecord } from "../utils/json";
-
-const blobAccessPayloadSchema = z.compile(
-	z.object({
-		access: z.enum(mediaAccessValues).default("public"),
-	})
-);
-
-type PutBase64Options = {
-	access?: MediaAccess;
-	prefix?: string;
-};
-
-type HandleClientUploadOptions = {
-	body: HandleUploadBody;
-	onBeforeGenerateToken: HandleUploadOptions["onBeforeGenerateToken"];
-	onUploadCompleted?: HandleUploadOptions["onUploadCompleted"];
-	request: Request;
-};
-
-type GetBlobOptions = {
-	access: MediaAccess;
-	ifNoneMatch?: string;
-	pathname: string;
-};
+type BlobReference = { access: MediaAccess; key: string };
 
 export type BlobUploadResult = {
 	contentType: string;
 	key: string;
 	size: number;
-	url: string | null;
 };
 
 export type GetBlobResult =
 	| { etag: string; status: 304 }
 	| { contentType: string; etag?: string; size: number; status: 200; stream: ReadableStream<Uint8Array> };
-
-const readAccessFromHandleUploadBody = (body: HandleUploadBody): MediaAccess => {
-	if (body.type === "blob.generate-client-token") {
-		const payload = parseJsonRecord(body.payload.clientPayload);
-		const access = blobAccessPayloadSchema.safeParse(payload);
-
-		return access.success ? access.data.access : "public";
-	}
-
-	const payload = parseJsonRecord(body.payload.tokenPayload);
-	const access = blobAccessPayloadSchema.safeParse(payload);
-
-	return access.success ? access.data.access : "public";
-};
-
-const getPathKey = (value: string) => {
-	try {
-		return decodeURIComponent(new URL(value).pathname).replace(/^\/+/, "");
-	} catch {
-		return value.replace(/^\/+/, "");
-	}
-};
 
 const getBlobTokenForAccess = (access: MediaAccess): string | undefined => {
 	if (access === "public") {
@@ -94,9 +44,11 @@ const getBlobTokenForAccess = (access: MediaAccess): string | undefined => {
 	return privateToken;
 };
 
+const normalizeEntityTag = (value: string) => value.replace(/^W\//, "").replaceAll('"', "");
+
 const filesClients: Partial<Record<MediaAccess, Files>> = {};
 
-const getFilesClient = (access: MediaAccess): Files => {
+export const getFilesClient = (access: MediaAccess): Files => {
 	const cached = filesClients[access];
 
 	if (cached) {
@@ -115,26 +67,26 @@ const getFilesClient = (access: MediaAccess): Files => {
 	return client;
 };
 
-export const uploadBufferToBlob = async (
-	buffer: Buffer,
-	mediaType: string,
-	options: PutBase64Options = {}
-): Promise<BlobUploadResult> => {
-	const access = options.access ?? "public";
-	const ext = getExtensionFromMediaType({ mediaType });
-	const key = `${process.env.VERCEL_ENV ?? "development"}/${options.prefix ?? ""}${uuidv4()}.${ext}`;
+export const getStorageKeyPrefix = ({ organizationId, purpose }: { organizationId: string; purpose: UploadPurpose }) =>
+	`${process.env.VERCEL_ENV ?? "development"}/${organizationId}/${purpose}/`;
+
+export const uploadBufferToBlob = async ({
+	access,
+	buffer,
+	mediaType,
+	prefix,
+}: {
+	access: MediaAccess;
+	buffer: Buffer;
+	mediaType: string;
+	prefix: string;
+}): Promise<BlobUploadResult> => {
+	const key = `${prefix}${uuidv4()}.${getExtensionFromMediaType({ mediaType })}`;
 
 	try {
-		const files = getFilesClient(access);
-		const uploaded = await files.upload(key, buffer, { contentType: mediaType });
+		const uploaded = await getFilesClient(access).upload(key, buffer, { contentType: mediaType });
 
-		return {
-			contentType: uploaded.contentType,
-
-			key: uploaded.key,
-			size: uploaded.size,
-			url: access === "public" ? await files.url(uploaded.key) : null,
-		};
+		return { contentType: uploaded.contentType, key: uploaded.key, size: uploaded.size };
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : "Unknown error";
 
@@ -150,63 +102,52 @@ export const uploadBufferToBlob = async (
 	}
 };
 
-export const uploadBase64ToBlob = (
-	base64Data: string,
-	mediaType: string,
-	options: PutBase64Options = {}
-): Promise<BlobUploadResult> => uploadBufferToBlob(Buffer.from(base64Data, "base64"), mediaType, options);
+export const getPublicBlobUrl = (key: string) => getFilesClient("public").url(key);
 
-export const handleClientUpload = async ({
-	body,
-	onBeforeGenerateToken,
-	onUploadCompleted,
-	request,
-}: HandleClientUploadOptions) => {
-	const access = readAccessFromHandleUploadBody(body);
+export const getBlob = async ({
+	access,
+	ifNoneMatch,
+	key,
+}: BlobReference & { ifNoneMatch?: string }): Promise<GetBlobResult | null> => {
+	try {
+		const stored = await getFilesClient(access).head(key);
 
-	return handleUpload({
-		body,
-		onBeforeGenerateToken,
-		onUploadCompleted,
-		request,
-		token: getBlobTokenForAccess(access),
-	});
+		if (ifNoneMatch && stored.etag && normalizeEntityTag(ifNoneMatch) === normalizeEntityTag(stored.etag)) {
+			return { etag: stored.etag, status: 304 };
+		}
+
+		return {
+			contentType: stored.type,
+			etag: stored.etag,
+			size: stored.size,
+			status: 200,
+			stream: stored.stream(),
+		};
+	} catch (error) {
+		if (error instanceof FilesError && error.code === "NotFound") {
+			return null;
+		}
+
+		throw error;
+	}
 };
 
-export const getBlob = async ({ access, ifNoneMatch, pathname }: GetBlobOptions): Promise<GetBlobResult | null> => {
-	const key = pathname.replace(/^\/+/, "");
+export const headBlob = async ({ access, key }: BlobReference) => {
+	try {
+		const stored = await getFilesClient(access).head(key);
 
-	if (!key) {
-		return null;
+		return { contentType: stored.type, size: stored.size };
+	} catch (error) {
+		if (error instanceof FilesError && error.code === "NotFound") {
+			return null;
+		}
+
+		throw error;
 	}
-
-	const result = await getVercelBlob(key, { access, ifNoneMatch, token: getBlobTokenForAccess(access) });
-
-	if (!result) {
-		return null;
-	}
-
-	if (result.statusCode === 304) {
-		return { etag: result.blob.etag, status: 304 };
-	}
-
-	return {
-		contentType: result.blob.contentType,
-		etag: result.blob.etag,
-		size: result.blob.size,
-		status: 200,
-		stream: result.stream,
-	};
 };
 
-export const getBlobSize = async ({ access, url }: { access: MediaAccess; url: string }) => {
-	const stored = await getFilesClient(access).head(getPathKey(url));
-
-	return stored.size;
-};
-
-export const downloadBlob = async ({ access, url }: { access: MediaAccess; url: string }) => {
-	const blob = await getBlob({ access, pathname: getPathKey(url) });
+export const downloadBlob = async ({ access, key }: BlobReference) => {
+	const blob = await getBlob({ access, key });
 
 	if (!blob || blob.status !== 200) {
 		throw new Error("Blob not found");
@@ -235,6 +176,6 @@ export const downloadBlob = async ({ access, url }: { access: MediaAccess; url: 
 	};
 };
 
-export const deleteBlob = async ({ access, url }: { access: MediaAccess; url: string }) => {
-	await getFilesClient(access).delete(getPathKey(url));
+export const deleteBlob = async ({ access, key }: BlobReference) => {
+	await getFilesClient(access).delete(key);
 };

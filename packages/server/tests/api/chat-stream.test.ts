@@ -39,7 +39,10 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock("@vercel/functions", () => ({ waitUntil: mocks.waitUntil }));
 
-vi.mock("../../src/ai/decisions", () => ({ evaluateDecision: mocks.evaluateDecision }));
+vi.mock("../../src/ai/decisions", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
+	evaluateDecision: mocks.evaluateDecision,
+}));
 
 vi.mock("@starter/cache", () => ({ createTCPRedisClient: vi.fn(() => ({})) }));
 
@@ -99,6 +102,8 @@ vi.mock("../../src/services/chat-stream-state", () => ({
 
 vi.mock("../../src/services/storage", () => ({
 	getFile: mocks.getFile,
+	getFileUrl: async ({ storageKey }: { storageKey?: string }) =>
+		storageKey ? `https://blob.example.com/${storageKey}` : null,
 	waitForFilesReady: mocks.waitForFilesReady,
 }));
 
@@ -189,7 +194,7 @@ describe("chat stream HTTP handlers", () => {
 			deletedAt: null,
 			id: fileId,
 			name: "brief.txt",
-			url: "https://blob.example.com/brief.txt",
+			storageKey: "brief.txt",
 		}));
 		mocks.resolvePersistedAssistantContinuationClaim.mockReturnValue(undefined);
 		mocks.waitUntil.mockImplementation((task: Promise<unknown>) => task);
@@ -376,8 +381,7 @@ describe("chat stream HTTP handlers", () => {
 
 		expect(mocks.evaluateDecision).toHaveBeenCalledWith(
 			expect.objectContaining({
-				functionId: "dashboard-route",
-				memoize: true,
+				classifier: expect.objectContaining({ id: "dashboard-route" }),
 				state: { request: "Help me" },
 			})
 		);
@@ -534,7 +538,7 @@ describe("chat stream HTTP handlers", () => {
 			deletedAt: null,
 			id: fileId,
 			name: "brief.pdf",
-			url,
+			storageKey: "brief.pdf",
 		});
 
 		const pdfMessage: DashboardChatUIMessage = {

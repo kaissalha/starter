@@ -8,10 +8,10 @@ import { checkRateLimit } from "@starter/cache";
 import { db, fileTagAssignments, fileTags, files, organizations, type FileRecord } from "@starter/db";
 
 import { createLogoGenerationPrompt } from "../ai/prompts";
-import { uploadBufferToBlob } from "../lib/blob-storage";
+import { getPublicBlobUrl, getStorageKeyPrefix, uploadBufferToBlob } from "../lib/blob-storage";
 import { models } from "../mastra/models";
 import { startFileIngestion } from "./documents";
-import { createFile, deleteFile, getFile } from "./storage";
+import { createFile, deleteFile, getFile, getFileUrl } from "./storage";
 
 export class LibraryError extends Error {
 	code: "CONFLICT" | "NOT_EDITABLE" | "NOT_FOUND" | "RATE_LIMITED";
@@ -166,9 +166,9 @@ const latestVersionFilter = sql`not exists (select 1 from ${files} as "newer_ver
 const versionCountColumn = sql<number>`(select count(*)::int from ${files} as "newer_versions" where ${newerVersions.organizationId} = ${files.organizationId} and ${groupKey(newerVersions)} = ${groupKey(files)} and ${newerVersions.deletedAt} is null)`;
 
 const isGenerating = (file: FileRecord) =>
-	Boolean(file.metadata.generation) && file.url === null && file.ragStatus !== "failed";
+	Boolean(file.metadata.generation) && file.storageKey === null && file.ragStatus !== "failed";
 
-const toLibraryAsset = (file: FileRecord, versionCount = 1) => ({
+const toLibraryAsset = async (file: FileRecord, versionCount = 1) => ({
 	access: file.access,
 	contentType: file.contentType,
 	createdAt: file.createdAt,
@@ -183,7 +183,7 @@ const toLibraryAsset = (file: FileRecord, versionCount = 1) => ({
 	status: file.ragStatus,
 	summary: file.summary,
 	updatedAt: file.updatedAt,
-	url: file.url,
+	url: await getFileUrl(file),
 	versionCount,
 	width: file.metadata.width ?? null,
 });
@@ -210,7 +210,7 @@ export const listLibraryAssets = async ({
 	const scope = and(
 		eq(files.organizationId, organizationId),
 		isNull(files.deletedAt),
-		or(isNotNull(files.url), isNotNull(files.content), generatedFilter),
+		or(isNotNull(files.storageKey), isNotNull(files.content), generatedFilter),
 		input.versions === "latest" ? latestVersionFilter : undefined,
 		input.query
 			? or(
@@ -252,16 +252,18 @@ export const listLibraryAssets = async ({
 
 	return {
 		counts: totals ?? { all: 0, document: 0, image: 0, video: 0 },
-		items: rows.slice(0, pageSize).map(({ file, versionCount }) => toLibraryAsset(file, versionCount)),
+		items: await Promise.all(
+			rows.slice(0, pageSize).map(({ file, versionCount }) => toLibraryAsset(file, versionCount))
+		),
 		nextOffset: rows.length > pageSize ? input.offset + pageSize : null,
 	};
 };
 
-const toLibraryAssetDetail = (
+const toLibraryAssetDetail = async (
 	file: FileRecord,
 	{ tags = [], versions = [] }: { tags?: Array<string>; versions?: Array<FileRecord> } = {}
 ) => ({
-	...toLibraryAsset(file, Math.max(versions.length, 1)),
+	...(await toLibraryAsset(file, Math.max(versions.length, 1))),
 	category: file.metadata.documentCategory ?? null,
 	content: file.content,
 	docDate: file.docDate,
@@ -271,13 +273,15 @@ const toLibraryAssetDetail = (
 	groupId: file.versionGroupId ?? file.id,
 	language: file.language,
 	tags,
-	versions: versions.map((version) => ({
-		createdAt: version.createdAt,
-		generating: isGenerating(version),
-		id: version.id,
-		status: version.ragStatus,
-		url: version.url,
-	})),
+	versions: await Promise.all(
+		versions.map(async (version) => ({
+			createdAt: version.createdAt,
+			generating: isGenerating(version),
+			id: version.id,
+			status: version.ragStatus,
+			url: await getFileUrl(version),
+		}))
+	),
 });
 
 export const getLibraryAsset = async ({ assetId, organizationId }: { assetId: string; organizationId: string }) => {
@@ -412,11 +416,11 @@ export const deleteLibraryAsset = ({ actor, assetId }: { actor: LibraryActor; as
 	deleteFile({ deletedBy: actor.userId, fileId: assetId, organizationId: actor.organizationId });
 
 const loadSourceImage = async (file: FileRecord) => {
-	if (file.kind !== "image" || file.access !== "public" || !file.url) {
+	if (file.kind !== "image" || file.access !== "public" || !file.storageKey) {
 		throw new LibraryError("NOT_EDITABLE", "Only library images can be edited.");
 	}
 
-	const response = await fetch(file.url, { signal: AbortSignal.timeout(30_000) });
+	const response = await fetch(await getPublicBlobUrl(file.storageKey), { signal: AbortSignal.timeout(30_000) });
 	const body = response.ok ? new Uint8Array(await response.arrayBuffer()) : null;
 
 	if (!body || body.byteLength > maxSourceImageBytes) {
@@ -447,9 +451,11 @@ const finishLibraryImage = async ({
 
 	const body = transform ? await transform(image.uint8Array) : Buffer.from(image.uint8Array);
 
-	const blob = await uploadBufferToBlob(body, image.mediaType, {
+	const blob = await uploadBufferToBlob({
 		access: "public",
-		prefix: `organizations/${actor.organizationId}/library/`,
+		buffer: body,
+		mediaType: image.mediaType,
+		prefix: getStorageKeyPrefix({ organizationId: actor.organizationId, purpose: "image" }),
 	});
 
 	const [file] = await db
@@ -457,8 +463,8 @@ const finishLibraryImage = async ({
 		.set({
 			contentType: image.mediaType,
 			sizeBytes: blob.size,
+			storageKey: blob.key,
 			updatedAt: new Date().toISOString(),
-			url: blob.url,
 		})
 		.where(and(eq(files.id, fileId), eq(files.organizationId, actor.organizationId)))
 		.returning();
@@ -513,7 +519,7 @@ export const generateLibraryImage = async ({
 			},
 		});
 
-		return toLibraryAsset(generated);
+		return await toLibraryAsset(generated);
 	} catch (error) {
 		await deleteFile({ deletedBy: actor.userId, fileId: file.id, organizationId: actor.organizationId });
 		throw error;
@@ -587,7 +593,7 @@ export const generateLibraryLogo = async ({
 			transform: trimLogo,
 		});
 
-		return toLibraryAsset(generated);
+		return await toLibraryAsset(generated);
 	} catch (error) {
 		await deleteFile({ deletedBy: actor.userId, fileId: file.id, organizationId: actor.organizationId });
 		throw error;

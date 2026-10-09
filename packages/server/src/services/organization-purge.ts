@@ -11,15 +11,7 @@ const BLOB_BATCH_SIZE = 25;
 
 const MAX_ATTEMPTS = 20;
 
-type PurgeBlob = { access: "private" | "public"; url: string };
-
-const isBlobUrl = (url: string) => {
-	try {
-		return new URL(url).hostname.endsWith(".blob.vercel-storage.com");
-	} catch {
-		return false;
-	}
-};
+type PurgeBlob = { access: "private" | "public"; key: string };
 
 const listUploadBlobs = async ({
 	afterId,
@@ -29,20 +21,19 @@ const listUploadBlobs = async ({
 	organizationId: string;
 }): Promise<Array<PurgeBlob>> => {
 	const rows = await db
-		.select({ access: files.access, id: files.id, url: files.url })
+		.select({ access: files.access, id: files.id, key: files.storageKey })
 		.from(files)
 		.where(
 			and(
 				eq(files.organizationId, organizationId),
-				eq(files.sourceType, "upload"),
-				isNotNull(files.url),
+				isNotNull(files.storageKey),
 				afterId ? gt(files.id, afterId) : undefined
 			)
 		)
 		.orderBy(asc(files.id))
 		.limit(PAGE_SIZE);
 
-	const blobs = rows.flatMap(({ access, url }) => (url && isBlobUrl(url) ? [{ access, url }] : []));
+	const blobs = rows.flatMap(({ access, key }) => (key ? [{ access, key }] : []));
 	const lastId = rows.at(-1)?.id;
 
 	return rows.length < PAGE_SIZE || !lastId
@@ -59,20 +50,10 @@ const summarizeFailures = (failures: Record<string, Array<unknown>>) =>
 		)
 		.join(" ");
 
-export const snapshotOrganizationPurge = async ({
-	logo,
-	organizationId,
-}: {
-	logo: string | null;
-	organizationId: string;
-}) => {
-	const blobs = await listUploadBlobs({ organizationId });
-
-	const logoBlobs: Array<PurgeBlob> = logo && isBlobUrl(logo) ? [{ access: "public", url: logo }] : [];
-
+export const snapshotOrganizationPurge = async ({ organizationId }: { organizationId: string }) => {
 	const values = {
 		attempts: 0,
-		blobs: [...blobs, ...logoBlobs],
+		blobs: await listUploadBlobs({ organizationId }),
 		completedAt: null,
 		lastError: null,
 		updatedAt: new Date().toISOString(),

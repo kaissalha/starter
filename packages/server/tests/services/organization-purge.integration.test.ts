@@ -29,24 +29,20 @@ vi.mock("../../src/services/organization-ai-data", () => ({
 
 const organizationIds: Array<string> = [];
 
-const blobHost = "https://store.public.blob.vercel-storage.com";
-
 const createWorkspace = async () => {
 	const organizationId = randomUUID();
 	organizationIds.push(organizationId);
 	await db.insert(organizations).values({
 		id: organizationId,
-		logo: `${blobHost}/organizations/${organizationId}/logo.png`,
 		name: "Purge test",
 		slug: organizationId,
 	});
 	const file = { contentType: "image/png", name: "file.png", organizationId };
 	await db.insert(files).values([
-		{ ...file, url: `${blobHost}/${organizationId}/public.png` },
-		{ ...file, access: "private", url: `https://store.private.blob.vercel-storage.com/${organizationId}/doc.pdf` },
-		{ ...file, deletedAt: new Date().toISOString(), url: `${blobHost}/${organizationId}/deleted.png` },
-		{ ...file, sourceType: "url", url: `${blobHost}/${organizationId}/linked.png` },
-		{ ...file, url: `https://example.com/${organizationId}/external.png` },
+		{ ...file, storageKey: `${organizationId}/public.png` },
+		{ ...file, access: "private", storageKey: `${organizationId}/doc.pdf` },
+		{ ...file, deletedAt: new Date().toISOString(), storageKey: `${organizationId}/deleted.png` },
+		{ ...file, sourceType: "text" },
 	]);
 
 	return { organizationId };
@@ -62,12 +58,7 @@ const readPurge = async (organizationId: string) => {
 };
 
 const deleteWorkspace = async (organizationId: string) => {
-	const [organization] = await db
-		.select({ logo: organizations.logo })
-		.from(organizations)
-		.where(eq(organizations.id, organizationId));
-
-	await snapshotOrganizationPurge({ logo: organization?.logo ?? null, organizationId });
+	await snapshotOrganizationPurge({ organizationId });
 	await db.delete(organizations).where(eq(organizations.id, organizationId));
 };
 
@@ -84,22 +75,18 @@ afterEach(async () => {
 });
 
 describe("organization purge", () => {
-	it("snapshots upload blobs and the logo", async () => {
+	it("snapshots every stored object, including soft-deleted files", async () => {
 		const { organizationId } = await createWorkspace();
 
-		await snapshotOrganizationPurge({
-			logo: `${blobHost}/organizations/${organizationId}/logo.png`,
-			organizationId,
-		});
+		await snapshotOrganizationPurge({ organizationId });
 
 		const purge = await readPurge(organizationId);
-		expect(purge?.blobs).toHaveLength(4);
+		expect(purge?.blobs).toHaveLength(3);
 		expect(purge?.blobs).toEqual(
 			expect.arrayContaining([
-				{ access: "public", url: `${blobHost}/${organizationId}/public.png` },
-				{ access: "private", url: `https://store.private.blob.vercel-storage.com/${organizationId}/doc.pdf` },
-				{ access: "public", url: `${blobHost}/${organizationId}/deleted.png` },
-				{ access: "public", url: `${blobHost}/organizations/${organizationId}/logo.png` },
+				{ access: "public", key: `${organizationId}/public.png` },
+				{ access: "private", key: `${organizationId}/doc.pdf` },
+				{ access: "public", key: `${organizationId}/deleted.png` },
 			])
 		);
 		expect(purge?.completedAt).toBeNull();
@@ -107,13 +94,13 @@ describe("organization purge", () => {
 
 	it("resets an existing snapshot instead of duplicating it", async () => {
 		const { organizationId } = await createWorkspace();
-		await snapshotOrganizationPurge({ logo: null, organizationId });
+		await snapshotOrganizationPurge({ organizationId });
 		await db
 			.update(organizationPurges)
 			.set({ attempts: 3, completedAt: new Date().toISOString(), lastError: "blobs:1:Error" })
 			.where(eq(organizationPurges.organizationId, organizationId));
 
-		await snapshotOrganizationPurge({ logo: null, organizationId });
+		await snapshotOrganizationPurge({ organizationId });
 
 		const rows = await db
 			.select()
@@ -126,7 +113,7 @@ describe("organization purge", () => {
 
 	it("refuses to purge a live organization", async () => {
 		const { organizationId } = await createWorkspace();
-		await snapshotOrganizationPurge({ logo: null, organizationId });
+		await snapshotOrganizationPurge({ organizationId });
 
 		expect(await runOrganizationPurge({ organizationId })).toEqual({ completed: false });
 		expect(mocks.deleteOrganizationAIData).not.toHaveBeenCalled();
@@ -141,11 +128,8 @@ describe("organization purge", () => {
 		expect(await runOrganizationPurge({ organizationId })).toEqual({ completed: true });
 
 		expect(mocks.deleteOrganizationAIData).toHaveBeenCalledWith({ organizationId });
-		expect(mocks.deleteBlob).toHaveBeenCalledTimes(4);
-		expect(mocks.deleteBlob).toHaveBeenCalledWith({
-			access: "private",
-			url: `https://store.private.blob.vercel-storage.com/${organizationId}/doc.pdf`,
-		});
+		expect(mocks.deleteBlob).toHaveBeenCalledTimes(3);
+		expect(mocks.deleteBlob).toHaveBeenCalledWith({ access: "private", key: `${organizationId}/doc.pdf` });
 		expect(await readPurge(organizationId)).toMatchObject({
 			blobs: [],
 			lastError: null,
@@ -156,10 +140,10 @@ describe("organization purge", () => {
 	it("keeps only failed blobs and resumes on the next run", async () => {
 		const { organizationId } = await createWorkspace();
 		await deleteWorkspace(organizationId);
-		const failingUrl = `${blobHost}/${organizationId}/public.png`;
-		mocks.deleteBlob.mockImplementation(async ({ url }: { url: string }) => {
-			if (url === failingUrl) {
-				throw new Error(`failed ${url}`);
+		const failingKey = `${organizationId}/public.png`;
+		mocks.deleteBlob.mockImplementation(async ({ key }: { key: string }) => {
+			if (key === failingKey) {
+				throw new Error(`failed ${key}`);
 			}
 		});
 
@@ -168,7 +152,7 @@ describe("organization purge", () => {
 		const failed = await readPurge(organizationId);
 		expect(failed).toMatchObject({
 			attempts: 1,
-			blobs: [{ access: "public", url: failingUrl }],
+			blobs: [{ access: "public", key: failingKey }],
 			completedAt: null,
 		});
 		expect(failed?.lastError).toBe("blobs:1:Error");
@@ -176,7 +160,7 @@ describe("organization purge", () => {
 		mocks.deleteBlob.mockClear();
 
 		expect(await runOrganizationPurge({ organizationId })).toEqual({ completed: true });
-		expect(mocks.deleteBlob).toHaveBeenCalledExactlyOnceWith({ access: "public", url: failingUrl });
+		expect(mocks.deleteBlob).toHaveBeenCalledExactlyOnceWith({ access: "public", key: failingKey });
 	});
 
 	it("sweeps pending purges, cancels stale live ones and reports exhausted ones", async () => {
@@ -185,7 +169,7 @@ describe("organization purge", () => {
 		const exhausted = await createWorkspace();
 		await deleteWorkspace(pending.organizationId);
 		await deleteWorkspace(exhausted.organizationId);
-		await snapshotOrganizationPurge({ logo: null, organizationId: stale.organizationId });
+		await snapshotOrganizationPurge({ organizationId: stale.organizationId });
 		await db
 			.update(organizationPurges)
 			.set({ updatedAt: new Date(Date.now() - 25 * 60 * 60 * 1000).toISOString() })

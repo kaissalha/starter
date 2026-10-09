@@ -7,7 +7,7 @@ export const organizationPurges = pgTable(
 	"organization_purges",
 	{
 		attempts: integer("attempts").notNull().default(0),
-		blobs: jsonb("blobs").$type<Array<{ access: "private" | "public"; url: string }>>().notNull().default([]),
+		blobs: jsonb("blobs").$type<Array<{ access: "private" | "public"; key: string }>>().notNull().default([]),
 		completedAt: timestamp("completed_at", { mode: "string", withTimezone: true }),
 		lastError: text("last_error"),
 		organizationId: text("organization_id").primaryKey(),

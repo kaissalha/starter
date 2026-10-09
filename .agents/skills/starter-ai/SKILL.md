@@ -13,18 +13,24 @@ description: Implement or review prompts, models, agents, tools, retrieval, memo
 - `packages/server/src/mastra` is four modules: `models.ts` (one model registry shared by agents, memory, and AI SDK
   calls), `memory.ts` (Postgres store and the dashboard `Memory`), `knowledge.ts` (pgvector store, the retrieval tool,
   and chunk upsert/delete), and `index.ts` (the single `Mastra` instance with every agent, storage, vectors, and
-  observability). Instantiate infrastructure once at module level; do not add `globalThis` singletons or lazy
+  observability, plus the decision classifiers and the `ingest-file` workflow and its classifier agents). Instantiate
+  infrastructure once at module level; do not add `globalThis` singletons or lazy
   index-creation state. The `mastra` schema and knowledge index are created by `bun --filter @starter/db migrate`
   through `initializeMastraStorage`.
 - `packages/server/src/ai` is flat: `agent.ts` (the single dashboard agent and its runtime scorers), `skills.ts`
   (the `library`, `notifications`, and `visualization` domain skills, skill routing, and the generated OpenUI prompt),
-  `prompts.ts` (every prompt and prompt-owned schema), `tool-policy.ts` (per-step tool gating), `decisions.ts` and
-  `relevance.ts` (model-graded decisions and relevance ranking), `types.ts` (request context and UI message types), and
+  `prompts.ts` (every prompt and prompt-owned schema), `tool-policy.ts` (per-step tool gating), `decisions.ts` (Mastra
+  `Classifier` instances over the gateway decision model, with deadlines, memoization, and null fallbacks) and
+  `relevance.ts` (Mastra `rerankWithScorer` over a batching classifier `RelevanceScoreProvider`), `types.ts` (request context and UI message types), and
   `tools/` with one module per domain exporting a `{domain}Tools` map (`assistant`, `library`, `notifications`,
   `table`), composed with the knowledge retrieval tool in `tools/index.ts`. The request context guarantees
   `organizationId` and `userId`; tools read them without re-checking.
-- Durable workflows such as `ingest-file` may call AI SDK generation through the central model registry; do not
-  construct a second agent, model, memory, retrieval, or observability stack around them.
+- `ingest-file` is a Mastra workflow (`createWorkflow`/`createStep`) registered on the `Mastra` instance, snapshotted to
+  Mastra Postgres storage, run under `waitUntil`, and recovered with `run.restart()` by the stale-file sweep. Its
+  classification runs through Mastra agents with `structuredOutput`. Image generation is the only direct AI SDK call,
+  because Mastra has no image API. Do not construct a second model, memory, retrieval, or observability stack.
+- Make every model-graded judgement a Mastra `Classifier` (registered in `decisionClassifiers`, or constructor-configured
+  for a runtime scorer); never call the decision model directly.
 - `packages/genui/src/library.ts` is the executable OpenUI renderer contract. Regenerate the server spec with
   `bun run openui:generate` whenever it changes; never maintain a handwritten duplicate.
 
@@ -50,8 +56,12 @@ supported Mastra AI SDK UI transport while the app needs AI SDK-native tool appr
   vectors, and `deleteOrganizationAIData` removes an organization's threads and vectors on deletion.
 - Knowledge vectors carry no visibility state. Retrieval keeps a file-backed result only while its file row is ready
   and not deleted (`listRetrievableFileIds`); indexing checks file ownership before upserting.
-- Use Mastra's vector query tool and pgvector store for retrieval. Keep the organization filter authoritative, return
-  sources for citations, and never expose raw cross-tenant vector access to the model.
+- Retrieve through Mastra's `createVectorQueryTool` over the `PgVector` store, with the organization filter set in the
+  tool's request context so it overrides any model input. The tool returns empty results on any error, so the knowledge
+  store and query embedding model record failures and the retrieval tool rethrows them. Keep the organization filter
+  authoritative, return sources for citations, and never expose raw cross-tenant vector access to the model.
+- Chunk with `MDocument` using the recursive strategy, structure-aware for markdown, and store chunk text in vector
+  metadata as `text`.
 - Require native tool approval for consequential side effects. Continue approvals through the supported Mastra AI SDK
   adapter and validate the submitted assistant state against the exact persisted pending message before execution.
 - Validate approval continuations by tool-call identity, not message position: each submitted approval or answer must

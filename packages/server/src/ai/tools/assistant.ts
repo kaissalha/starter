@@ -6,6 +6,7 @@ import { firecrawl } from "../../lib/firecrawl";
 import { listUploadedMedia, mediaListInputSchema } from "../../services/media";
 import { requireOrganizationPermission } from "../../services/permissions";
 import { getFile, listKnowledgeDocuments } from "../../services/storage";
+import { decisionClassifiers } from "../decisions";
 import { rankRelevantCandidates } from "../relevance";
 import { appContextSchema } from "../types";
 
@@ -157,7 +158,7 @@ export const assistantTools = {
 							rankRelevantCandidates({
 								abortSignal,
 								candidates: results,
-								functionId: "web-relevance",
+								classifier: decisionClassifiers.webRelevance,
 								query,
 								text: ({ description, text: excerpt, title }) =>
 									[title, description, excerpt].filter(Boolean).join("\n"),

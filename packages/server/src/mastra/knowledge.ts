@@ -1,30 +1,75 @@
-import { createTool } from "@mastra/core/tools";
+import { ModelRouterEmbeddingModel } from "@mastra/core/llm";
+import { RequestContext } from "@mastra/core/request-context";
+import { createTool, type ToolObserve } from "@mastra/core/tools";
+import type { VectorFilter } from "@mastra/core/vector/filter";
+import { PgVector } from "@mastra/pg";
+import { createVectorQueryTool } from "@mastra/rag";
 import { attachDatabasePool } from "@vercel/functions";
+import { embedMany } from "ai";
+import { AsyncLocalStorage } from "node:async_hooks";
 import { z } from "zod";
 
 import { databaseUrl } from "@starter/db";
-import { createKnowledgeVector, knowledgeIndexName } from "@starter/db/mastra";
+import { knowledgeIndexName, knowledgeVectorId, mastraSchemaName } from "@starter/db/mastra";
 
-import { evaluateDecision } from "../ai/decisions";
-import { rankRelevantCandidates } from "../ai/relevance";
+import { decisionClassifiers, evaluateDecision } from "../ai/decisions";
+import { rerankQueryResults } from "../ai/relevance";
 import { requireOrganizationPermission } from "../services/permissions";
 import { getFile, listRetrievableFileIds } from "../services/storage";
-import { knowledgeEmbeddingModel, knowledgeEmbeddingProviderOptions } from "./models";
+import { knowledgeEmbeddingModel, knowledgeEmbeddingModelConfig, knowledgeEmbeddingProviderOptions } from "./models";
 
-export const knowledgeVector = createKnowledgeVector({ connectionString: databaseUrl, max: 5 });
+const knowledgeQueryFailures = new AsyncLocalStorage<Array<Error>>();
+
+const recordQueryFailure = (error: Error) => {
+	knowledgeQueryFailures.getStore()?.push(error);
+};
+
+class KnowledgeVector extends PgVector {
+	override async query(params: Parameters<PgVector["query"]>[0]) {
+		try {
+			return await super.query(params);
+		} catch (error) {
+			if (error instanceof Error) {
+				recordQueryFailure(error);
+			}
+
+			throw error;
+		}
+	}
+}
+
+class KnowledgeQueryEmbeddingModel extends ModelRouterEmbeddingModel {
+	override async doEmbed(args: Parameters<ModelRouterEmbeddingModel["doEmbed"]>[0]) {
+		try {
+			return await super.doEmbed(args);
+		} catch (error) {
+			if (error instanceof Error) {
+				recordQueryFailure(error);
+			}
+
+			throw error;
+		}
+	}
+}
+
+export const knowledgeVector = new KnowledgeVector({
+	connectionString: databaseUrl,
+	id: knowledgeVectorId,
+	max: 5,
+	schemaName: mastraSchemaName,
+});
+
+const knowledgeVectorQueryTool = createVectorQueryTool({
+	id: "knowledge-vector-query",
+	indexName: knowledgeIndexName,
+	model: new KnowledgeQueryEmbeddingModel(knowledgeEmbeddingModelConfig),
+	providerOptions: knowledgeEmbeddingProviderOptions,
+	vectorStore: knowledgeVector,
+});
 
 if (process.env.NODE_ENV !== "test") {
 	attachDatabasePool(knowledgeVector.pool);
 }
-
-const embed = async (values: Array<string>) => {
-	const { embeddings } = await knowledgeEmbeddingModel.doEmbed({
-		providerOptions: knowledgeEmbeddingProviderOptions,
-		values,
-	});
-
-	return embeddings;
-};
 
 const knowledgeRequestContextSchema = z.compile(
 	z.looseObject({ organizationId: z.string().min(1), userId: z.string().min(1) })
@@ -42,7 +87,44 @@ const sourceMetadataSchema = z.compile(
 	})
 );
 
+const vectorSourcesSchema = z.compile(
+	z.array(z.object({ id: z.string(), metadata: z.record(z.string(), z.unknown()).optional(), score: z.number() }))
+);
+
 const autoRerankScoreSpread = 0.05;
+
+const queryKnowledgeVectors = async ({
+	filter,
+	observe,
+	queryText,
+	topK,
+}: {
+	filter: VectorFilter;
+	observe: ToolObserve;
+	queryText: string;
+	topK: number;
+}) => {
+	const failures: Array<Error> = [];
+
+	const result = await knowledgeQueryFailures.run(failures, () =>
+		knowledgeVectorQueryTool.execute?.(
+			{ queryText, topK },
+			{ observe, requestContext: new RequestContext([["filter", filter]]) }
+		)
+	);
+
+	const [failure] = failures;
+
+	if (failure) {
+		throw failure;
+	}
+
+	if (!result || "error" in result) {
+		throw new Error("Knowledge vector query failed");
+	}
+
+	return vectorSourcesSchema.parse(result.sources);
+};
 
 const maxRetrievedTextCharacters = 24_000;
 
@@ -58,65 +140,60 @@ export const retrieveKnowledgeTool = createTool({
 			throw new Error("Requested files are not ready for retrieval");
 		}
 
-		const [queryVector] = await embed([queryText]);
+		const results = await observe.span("knowledge-vector-query", () =>
+			queryKnowledgeVectors({
+				filter: requestedFileIds ? { fileId: { $in: requestedFileIds }, organizationId } : { organizationId },
+				observe,
+				queryText,
+				topK,
+			})
+		);
 
-		if (!queryVector) {
-			throw new Error("Knowledge query embedding failed");
-		}
+		const matchedFileIds = [
+			...new Set(
+				results.flatMap(({ metadata }) => {
+					const { fileId } = sourceMetadataSchema.parse(metadata ?? {});
 
-		const results = await knowledgeVector.query({
-			filter: requestedFileIds ? { fileId: { $in: requestedFileIds }, organizationId } : { organizationId },
-			indexName: knowledgeIndexName,
-			queryVector,
-			topK,
-		});
-
-		const matches = results.map(({ id, metadata, score }) => ({
-			id,
-			score,
-			...sourceMetadataSchema.parse(metadata ?? {}),
-		}));
-
-		const matchedFileIds = [...new Set(matches.flatMap(({ fileId }) => (fileId ? [fileId] : [])))];
+					return fileId ? [fileId] : [];
+				})
+			),
+		];
 
 		const readyFileIds = new Set(
 			matchedFileIds.length > 0 ? await listRetrievableFileIds({ fileIds: matchedFileIds, organizationId }) : []
 		);
 
-		const sources = matches
-			.filter(
-				(match) => match.organizationId === organizationId && !!match.fileId && readyFileIds.has(match.fileId)
-			)
-			.map(({ fileId, fileName, id, pageNumber, score, text }) => ({
-				fileId,
-				fileName,
-				id,
-				pageNumber,
-				score,
-				text: text.slice(0, 6000),
-			}));
+		const authorized = results.filter(({ metadata }) => {
+			const source = sourceMetadataSchema.parse(metadata ?? {});
 
-		const scores = sources.map(({ score }) => score);
+			return source.organizationId === organizationId && !!source.fileId && readyFileIds.has(source.fileId);
+		});
 
-		const ranked =
-			rerank || (sources.length >= 3 && Math.max(...scores) - Math.min(...scores) < autoRerankScoreSpread)
+		const scores = authorized.map(({ score }) => score);
+
+		const reranked =
+			rerank || (authorized.length >= 3 && Math.max(...scores) - Math.min(...scores) < autoRerankScoreSpread)
 				? await observe.span("knowledge-relevance", () =>
-						rankRelevantCandidates({
+						rerankQueryResults({
 							abortSignal,
-							candidates: sources,
-							functionId: "knowledge-relevance",
+							classifier: decisionClassifiers.knowledgeRelevance,
 							query: queryText,
-							text: ({ fileName, text }) => `${fileName ?? ""}\n${text}`,
+							results: authorized,
 						})
 					)
-				: sources;
+				: authorized;
+
+		const ranked = reranked.map(({ id, metadata, score }) => {
+			const { fileId, fileName, pageNumber, text } = sourceMetadataSchema.parse(metadata ?? {});
+
+			return { fileId, fileName, id, pageNumber, score, text: text.slice(0, 6000) };
+		});
 
 		const coverage =
 			ranked.length > 0
 				? await evaluateDecision({
 						abortSignal,
-						functionId: "knowledge-coverage",
-						observe,
+						classifier: decisionClassifiers.knowledgeCoverage,
 						questions: {
 							answersQuery: {
 								instructions:
@@ -214,7 +291,13 @@ export const upsertKnowledgeChunks = async ({
 			startChar: chunk.startChar,
 			text: chunk.content,
 		})),
-		vectors: await embed(chunks.map(({ content }) => content)),
+		vectors: (
+			await embedMany({
+				model: knowledgeEmbeddingModel,
+				providerOptions: knowledgeEmbeddingProviderOptions,
+				values: chunks.map(({ content }) => content),
+			})
+		).embeddings,
 	});
 };
 

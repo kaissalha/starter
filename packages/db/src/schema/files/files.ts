@@ -82,11 +82,11 @@ export const files = pgTable(
 		sizeBytes: bigint("size_bytes", { mode: "number" }),
 		sourceType: fileSourceType("source_type").notNull().default("upload"),
 
+		storageKey: text("storage_key"),
 		summary: text("summary"),
 		title: text("title"),
 		uploadedBy: text("uploaded_by").references(() => users.id, { onDelete: "set null" }),
 
-		url: text("url"),
 		versionGroupId: uuid("version_group_id"),
 		...timeFields,
 		...deletedFields,
@@ -105,10 +105,9 @@ export const files = pgTable(
 		index("files_org_created_at_idx").on(table.organizationId, table.createdAt),
 		index("files_org_version_group_idx").on(table.organizationId, table.versionGroupId),
 		index("files_content_hash_idx").on(table.contentHash),
-		index("files_url_idx").on(table.url),
-		uniqueIndex("files_org_url_unique")
-			.on(table.organizationId, table.url)
-			.where(sql`${table.url} is not null and ${table.deletedAt} is null`),
+		uniqueIndex("files_org_storage_key_unique")
+			.on(table.organizationId, table.storageKey)
+			.where(sql`${table.storageKey} is not null and ${table.deletedAt} is null`),
 		index("files_fts_idx").using("gin", table.fts.asc().nullsLast().op("tsvector_ops")),
 	]
 );

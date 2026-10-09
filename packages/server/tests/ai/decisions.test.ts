@@ -1,5 +1,20 @@
-import type { Experimental_EvaluationModel } from "ai-evaluation";
 import { afterEach, describe, expect, it, vi } from "vitest";
+
+import type { models } from "../../src/mastra/models";
+
+type DoDecide = (typeof models)["decision"]["model"]["doDecide"];
+
+type DecisionAnswers = Awaited<ReturnType<DoDecide>>["answers"];
+
+const decisionModel = vi.hoisted(() => ({
+	doDecide: vi.fn<DoDecide>(),
+	modelId: "test-decision",
+	provider: "test",
+	specificationVersion: "v4" as const,
+	supportedQuestionTypes: ["boolean" as const, "choice" as const, "score" as const],
+}));
+
+vi.mock("../../src/mastra/models", () => ({ models: { decision: { model: decisionModel } } }));
 
 const redis = vi.hoisted(() => {
 	const store = new Map<string, string>();
@@ -21,7 +36,7 @@ const redis = vi.hoisted(() => {
 
 vi.mock("@starter/cache", () => ({ createTCPRedisClient: vi.fn(() => redis.client) }));
 
-import { evaluateDecision } from "../../src/ai/decisions";
+import { decisionClassifiers, evaluateDecision } from "../../src/ai/decisions";
 
 const questions = {
 	route: {
@@ -31,25 +46,21 @@ const questions = {
 	},
 };
 
-const createModel = (doEvaluate: Exclude<Experimental_EvaluationModel, string>["doEvaluate"]) => ({
-	doEvaluate,
-	modelId: "test-decision",
-	provider: "test",
-	specificationVersion: "v4" as const,
-	supportedQuestionTypes: ["choice" as const],
-});
+const decided = (answers: DecisionAnswers) => ({ answers, warnings: [] });
 
-const createPendingEvaluation = () =>
-	vi.fn<Exclude<Experimental_EvaluationModel, string>["doEvaluate"]>(
-		({ abortSignal }) =>
-			new Promise<never>((_resolve, reject) => {
-				abortSignal?.addEventListener("abort", () => reject(abortSignal.reason), { once: true });
-			})
-	);
+const classifier = decisionClassifiers.knowledgeCoverage;
+
+const memoizedClassifier = decisionClassifiers.dashboardRoute;
+
+const pendingDecision: DoDecide = ({ abortSignal }) =>
+	new Promise<never>((_resolve, reject) => {
+		abortSignal?.addEventListener("abort", () => reject(abortSignal.reason), { once: true });
+	});
 
 describe("bounded decision evaluation", () => {
 	afterEach(() => {
 		vi.restoreAllMocks();
+		decisionModel.doDecide.mockReset();
 		vi.useRealTimers();
 		vi.unstubAllEnvs();
 		redis.store.clear();
@@ -58,13 +69,10 @@ describe("bounded decision evaluation", () => {
 	it("uses the background policy deadline when requested", async () => {
 		const timeout = vi.spyOn(AbortSignal, "timeout");
 
-		const doEvaluate = vi
-			.fn()
-			.mockResolvedValue({ answers: { route: { choice: "none", type: "choice" } }, warnings: [] });
+		decisionModel.doDecide.mockResolvedValue(decided({ route: { choice: "none", type: "choice" } }));
 
 		const result = await evaluateDecision({
-			functionId: "test",
-			model: createModel(doEvaluate),
+			classifier,
 			policy: "background",
 			questions,
 			state: { text: "test" },
@@ -74,145 +82,93 @@ describe("bounded decision evaluation", () => {
 		expect(timeout).toHaveBeenCalledWith(8000);
 	});
 
-	it("memoizes consistent answers per function and skips the provider on a hit", async () => {
+	it("memoizes consistent answers per memoized classifier and skips the provider on a hit", async () => {
 		vi.stubEnv("REDIS_URL", "redis://memo.test:6379");
+		decisionModel.doDecide.mockResolvedValue(decided({ route: { choice: "website", type: "choice" } }));
 
-		const doEvaluate = vi
-			.fn()
-			.mockResolvedValue({ answers: { route: { choice: "website", type: "choice" } }, warnings: [] });
-
-		const request = { functionId: "memo", memoize: true, model: createModel(doEvaluate), questions, state: "same" };
+		const request = { classifier: memoizedClassifier, questions, state: "same" };
 		await evaluateDecision(request);
 		const second = await evaluateDecision(request);
 		expect(second?.answers.route.choice).toBe("website");
-		expect(doEvaluate).toHaveBeenCalledOnce();
-		expect([...redis.store.keys()][0]).toMatch(/^decision:v1:memo:/u);
-		await evaluateDecision({ ...request, functionId: "other" });
+		expect(decisionModel.doDecide).toHaveBeenCalledOnce();
+		expect([...redis.store.keys()][0]).toMatch(/^decision:v1:dashboard-route:/u);
+		await evaluateDecision({ ...request, classifier });
 		await evaluateDecision({ ...request, state: "different" });
-		expect(doEvaluate).toHaveBeenCalledTimes(3);
+		expect(decisionModel.doDecide).toHaveBeenCalledTimes(3);
 	});
 
 	it("never memoizes answers that fail the question contract", async () => {
 		vi.stubEnv("REDIS_URL", "redis://memo.test:6379");
 
-		const doEvaluate = vi
-			.fn()
-			.mockResolvedValue({ answers: { route: { choice: "invented", type: "choice" } }, warnings: [] });
+		decisionModel.doDecide.mockResolvedValue(decided({ route: { choice: "invented", type: "choice" } }));
 
-		expect(
-			await evaluateDecision({
-				functionId: "memo",
-				memoize: true,
-				model: createModel(doEvaluate),
-				questions,
-				state: "s",
-			})
-		).toBeNull();
+		expect(await evaluateDecision({ classifier: memoizedClassifier, questions, state: "s" })).toBeNull();
 		expect(redis.store.size).toBe(0);
 	});
 
 	it("returns a valid finite answer without retries", async () => {
-		const doEvaluate = vi
-			.fn()
-			.mockResolvedValue({ answers: { route: { choice: "website", type: "choice" } }, warnings: [] });
+		decisionModel.doDecide.mockResolvedValue(decided({ route: { choice: "website", type: "choice" } }));
 
-		const result = await evaluateDecision({
-			functionId: "test",
-			model: createModel(doEvaluate),
-			questions,
-			state: "test",
-		});
+		const result = await evaluateDecision({ classifier, questions, state: "test" });
 
 		expect(result?.answers.route.choice).toBe("website");
-		expect(doEvaluate).toHaveBeenCalledOnce();
+		expect(decisionModel.doDecide).toHaveBeenCalledOnce();
 	});
 
 	it.each([
-		{ answers: { route: { choice: "invented", type: "choice" } }, warnings: [] },
-		{ answers: { route: { score: 1, type: "score" } }, warnings: [] },
-		{ answers: {}, warnings: [] },
-	])("rejects invalid provider answers", async (response) => {
-		const result = await evaluateDecision({
-			functionId: "test",
-			model: createModel(vi.fn().mockResolvedValue(response)),
-			questions,
-			state: "test",
-		});
+		decided({ route: { choice: "invented", type: "choice" } }),
+		decided({ route: { score: 1, type: "score" } }),
+		decided({ route: { type: "refusal" } }),
+		decided({}),
+	])("rejects invalid or refused provider answers", async (response) => {
+		decisionModel.doDecide.mockResolvedValue(response);
 
-		expect(result).toBeNull();
+		expect(await evaluateDecision({ classifier, questions, state: "test" })).toBeNull();
 	});
 
 	it("skips oversized state before calling a provider", async () => {
-		const doEvaluate = vi.fn();
-		expect(
-			await evaluateDecision({
-				functionId: "test",
-				model: createModel(doEvaluate),
-				questions,
-				state: "x".repeat(32_001),
-			})
-		).toBeNull();
-		expect(doEvaluate).not.toHaveBeenCalled();
+		expect(await evaluateDecision({ classifier, questions, state: "x".repeat(32_001) })).toBeNull();
+		expect(decisionModel.doDecide).not.toHaveBeenCalled();
 	});
 
 	it("falls back on provider failure", async () => {
-		const doEvaluate = vi.fn().mockRejectedValue(new Error("provider unavailable"));
-		expect(
-			await evaluateDecision({ functionId: "test", model: createModel(doEvaluate), questions, state: "test" })
-		).toBeNull();
-		expect(doEvaluate).toHaveBeenCalledOnce();
+		decisionModel.doDecide.mockRejectedValue(new Error("provider unavailable"));
+		expect(await evaluateDecision({ classifier, questions, state: "test" })).toBeNull();
+		expect(decisionModel.doDecide).toHaveBeenCalledOnce();
 	});
 
 	it("propagates caller cancellation instead of returning a decision fallback", async () => {
 		const controller = new AbortController();
 		controller.abort();
-		const doEvaluate = vi.fn();
 		await expect(
-			evaluateDecision({
-				abortSignal: controller.signal,
-				functionId: "test",
-				model: createModel(doEvaluate),
-				questions,
-				state: "test",
-			})
+			evaluateDecision({ abortSignal: controller.signal, classifier, questions, state: "test" })
 		).rejects.toThrow("aborted");
-		expect(doEvaluate).not.toHaveBeenCalled();
+		expect(decisionModel.doDecide).not.toHaveBeenCalled();
 	});
 
 	it("aborts an in-flight provider at the two-second deadline without retrying", async () => {
 		const deadline = new AbortController();
 		const timeout = vi.spyOn(AbortSignal, "timeout").mockReturnValue(deadline.signal);
-		const doEvaluate = createPendingEvaluation();
+		decisionModel.doDecide.mockImplementation(pendingDecision);
 
-		const pending = evaluateDecision({
-			functionId: "test",
-			model: createModel(doEvaluate),
-			questions,
-			state: "test",
-		});
+		const pending = evaluateDecision({ classifier, questions, state: "test" });
 
-		await vi.waitFor(() => expect(doEvaluate).toHaveBeenCalledOnce());
+		await vi.waitFor(() => expect(decisionModel.doDecide).toHaveBeenCalledOnce());
 		expect(timeout).toHaveBeenCalledWith(2000);
 		deadline.abort(new DOMException("Decision deadline elapsed", "TimeoutError"));
 		await expect(pending).resolves.toBeNull();
-		expect(doEvaluate).toHaveBeenCalledOnce();
+		expect(decisionModel.doDecide).toHaveBeenCalledOnce();
 	});
 
 	it("propagates caller cancellation while a provider request is in flight", async () => {
 		const controller = new AbortController();
-		const doEvaluate = createPendingEvaluation();
+		decisionModel.doDecide.mockImplementation(pendingDecision);
 
-		const pending = evaluateDecision({
-			abortSignal: controller.signal,
-			functionId: "test",
-			model: createModel(doEvaluate),
-			questions,
-			state: "test",
-		});
+		const pending = evaluateDecision({ abortSignal: controller.signal, classifier, questions, state: "test" });
 
-		await vi.waitFor(() => expect(doEvaluate).toHaveBeenCalledOnce());
+		await vi.waitFor(() => expect(decisionModel.doDecide).toHaveBeenCalledOnce());
 		controller.abort(new DOMException("User cancelled the request", "AbortError"));
 		await expect(pending).rejects.toThrow("User cancelled the request");
-		expect(doEvaluate).toHaveBeenCalledOnce();
+		expect(decisionModel.doDecide).toHaveBeenCalledOnce();
 	});
 });

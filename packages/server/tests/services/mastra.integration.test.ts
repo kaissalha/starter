@@ -9,16 +9,26 @@ import { v4 as uuidv4 } from "uuid";
 import { describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 
-const mocks = vi.hoisted(() => ({ deleteBlob: vi.fn(), getRun: vi.fn() }));
+const mocks = vi.hoisted(() => {
+	const restart = vi.fn(async () => undefined);
+
+	return {
+		createRun: vi.fn(async () => ({ restart })),
+		deleteBlob: vi.fn(),
+		getWorkflowRunById: vi.fn(),
+		restart,
+	};
+});
 
 vi.mock("../../src/lib/blob-storage", async (importOriginal) => ({
 	...(await importOriginal<typeof import("../../src/lib/blob-storage")>()),
 	deleteBlob: mocks.deleteBlob,
 }));
 
-vi.mock("workflow/api", async (importOriginal) => ({
-	...(await importOriginal<typeof import("workflow/api")>()),
-	getRun: mocks.getRun,
+vi.mock("../../src/mastra", () => ({
+	mastra: {
+		getWorkflow: () => ({ createRun: mocks.createRun, getWorkflowRunById: mocks.getWorkflowRunById }),
+	},
 }));
 
 import { db, files } from "@starter/db";
@@ -41,7 +51,7 @@ import { deleteOrganizationAIData } from "../../src/services/organization-ai-dat
 import {
 	createFile,
 	deleteFile,
-	findFileByUrl,
+	getFile,
 	listKnowledgeDocuments,
 	listRetrievableFileIds,
 	waitForFilesReady,
@@ -68,7 +78,15 @@ const createMessage = ({
 	threadId,
 });
 
-const insertReadyFile = async ({ id, organizationId, url }: { id: string; organizationId: string; url?: string }) => {
+const insertReadyFile = async ({
+	id,
+	organizationId,
+	storageKey,
+}: {
+	id: string;
+	organizationId: string;
+	storageKey?: string;
+}) => {
 	await db.insert(files).values({
 		contentType: "text/plain",
 		id,
@@ -76,7 +94,7 @@ const insertReadyFile = async ({ id, organizationId, url }: { id: string; organi
 		name: `${id}.txt`,
 		organizationId,
 		ragStatus: "ready",
-		url,
+		storageKey,
 	});
 };
 
@@ -145,16 +163,13 @@ describe("Mastra persistence", () => {
 	it("removes knowledge vectors when a file is deleted and refuses to index it again", async () => {
 		const organization = await createTestOrganization({ name: "Mastra File Deletion" });
 		const fileId = uuidv4();
-		const url = `https://example.com/${fileId}`;
+		const storageKey = `${fileId}.txt`;
 		const vectorId = uuidv4();
 		const queryVector = unitVector(0);
 		const knowledge = knowledgeVector;
 
 		try {
-			await insertReadyFile({ id: fileId, organizationId: organization.id, url });
-			await expect(findFileByUrl({ organizationId: organization.id, url })).resolves.toMatchObject({
-				id: fileId,
-			});
+			await insertReadyFile({ id: fileId, organizationId: organization.id, storageKey });
 			await knowledge.upsert({
 				ids: [vectorId],
 				indexName: knowledgeIndexName,
@@ -166,10 +181,12 @@ describe("Mastra persistence", () => {
 				listRetrievableFileIds({ fileIds: [fileId], organizationId: organization.id })
 			).resolves.toEqual([fileId]);
 			await expect(deleteFile({ fileId, organizationId: organization.id })).resolves.toBe(true);
-			expect(mocks.deleteBlob).toHaveBeenCalledExactlyOnceWith({ access: "public", url });
+			expect(mocks.deleteBlob).toHaveBeenCalledExactlyOnceWith({ access: "public", key: storageKey });
 			await expect(deleteFile({ fileId, organizationId: organization.id })).resolves.toBe(false);
 			expect(mocks.deleteBlob).toHaveBeenCalledTimes(1);
-			await expect(findFileByUrl({ organizationId: organization.id, url })).resolves.toBeUndefined();
+			await expect(getFile({ fileId, organizationId: organization.id })).resolves.toMatchObject({
+				deletedAt: expect.any(String),
+			});
 			await expect(listKnowledgeDocuments({ offset: 0, organizationId: organization.id })).resolves.toMatchObject(
 				{
 					documents: [],
@@ -201,13 +218,13 @@ describe("Mastra persistence", () => {
 		}
 	});
 
-	it("enforces one live file per organization and url", async () => {
+	it("enforces one live file per organization and storage key", async () => {
 		const organizationA = await createTestOrganization({ name: "Mastra File Url A" });
 		const organizationB = await createTestOrganization({ name: "Mastra File Url B" });
-		const url = `https://blob.example.com/${uuidv4()}.png`;
+		const storageKey = `${uuidv4()}.png`;
 
 		const register = (organizationId: string) =>
-			createFile({ contentType: "image/png", name: "image.png", organizationId, url });
+			createFile({ contentType: "image/png", name: "image.png", organizationId, storageKey });
 
 		try {
 			const first = await register(organizationA.id);
@@ -228,23 +245,28 @@ describe("Mastra persistence", () => {
 		}
 	});
 
-	it("fails stale pending files but keeps fresh and actively running ones", async () => {
+	it("restarts stalled Mastra ingest runs once, and fails missing, finished or abandoned ones", async () => {
 		const organization = await createTestOrganization({ name: "Mastra Stale Pending Files" });
 		const staleAt = new Date(Date.now() - 10 * 60 * 1000).toISOString();
-		const [noRun, activeRun, goneRun, fresh, waited] = [uuidv4(), uuidv4(), uuidv4(), uuidv4(), uuidv4()];
-		mocks.getRun.mockImplementation((runId: string) => ({
-			exists: Promise.resolve(runId === "run-active"),
-			status: Promise.resolve("running"),
-		}));
+		const abandonedAt = new Date(Date.now() - 40 * 60 * 1000).toISOString();
+		const [noRun, activeRun, goneRun, fresh, waited, abandoned] = Array.from({ length: 6 }, () => uuidv4());
+
+		const runStatuses = new Map([
+			["run-active", { status: "running" }],
+			["run-done", { status: "failed" }],
+		]);
+
+		mocks.getWorkflowRunById.mockImplementation(async (runId: string) => runStatuses.get(runId) ?? null);
 
 		try {
 			await db.insert(files).values(
 				[
 					{ id: noRun, updatedAt: staleAt },
 					{ id: activeRun, ingestRunId: "run-active", updatedAt: staleAt },
-					{ id: goneRun, ingestRunId: "run-gone", updatedAt: staleAt },
+					{ id: goneRun, ingestRunId: "run-done", updatedAt: staleAt },
 					{ id: fresh },
 					{ id: waited, updatedAt: staleAt },
+					{ createdAt: abandonedAt, id: abandoned, ingestRunId: "run-active", updatedAt: staleAt },
 				].map(({ id, ...values }) => ({
 					...values,
 					contentType: "text/plain",
@@ -268,8 +290,13 @@ describe("Mastra persistence", () => {
 
 			expect(statuses.get(noRun)).toEqual({ processingError: "PROCESSING_FAILED", ragStatus: "failed" });
 			expect(statuses.get(activeRun)?.ragStatus).toBe("pending");
+			expect(mocks.createRun).toHaveBeenCalledExactlyOnceWith({ runId: "run-active" });
+			expect(mocks.restart).toHaveBeenCalledOnce();
 			expect(statuses.get(goneRun)?.ragStatus).toBe("failed");
+			expect(statuses.get(abandoned)?.ragStatus).toBe("failed");
 			expect(statuses.get(fresh)?.ragStatus).toBe("pending");
+			await listKnowledgeDocuments({ offset: 0, organizationId: organization.id });
+			expect(mocks.restart).toHaveBeenCalledOnce();
 			await expect(
 				waitForFilesReady({ fileIds: [waited], organizationId: organization.id, timeoutMs: 5000 })
 			).rejects.toThrow(`Failed to index ${waited}.txt`);

@@ -8,7 +8,7 @@ import {
 	documentSchema,
 	toDocumentResponse,
 } from "../../services/documents";
-import { deleteFile, findFileByUrl, getFile } from "../../services/storage";
+import { deleteFile, getFile } from "../../services/storage";
 import { organizationPermission, authedWithOrganization } from "../base";
 
 const create = authedWithOrganization
@@ -56,15 +56,6 @@ const get = authedWithOrganization
 		return toDocumentResponse(file);
 	});
 
-const findUpload = authedWithOrganization
-	.input(z.compile(z.object({ url: z.url() })))
-	.output(documentSchema.nullable())
-	.handler(async ({ context, input }) => {
-		const file = await findFileByUrl({ organizationId: context.organizationId, url: input.url });
-
-		return file ? toDocumentResponse(file) : null;
-	});
-
 const remove = authedWithOrganization
 	.use(organizationPermission("delete"))
 	.meta(
@@ -98,6 +89,5 @@ const remove = authedWithOrganization
 export const documents = {
 	create,
 	delete: remove,
-	findUpload,
 	get,
 };

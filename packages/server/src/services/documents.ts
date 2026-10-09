@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { FILE_PROCESSING_FAILED_CODE } from "../constants/upload";
 import { startIngestFile } from "../workflows/ingest-file";
-import { createFile, getFile, markFileFailed, setFileIngestRunId } from "./storage";
+import { createFile, getFile, getFileUrl, markFileFailed, setFileIngestRunId } from "./storage";
 
 export const documentSchema = z.compile(
 	z
@@ -36,7 +36,7 @@ export const createDocumentResponseSchema = z.compile(
 		.meta({ id: "CreateDocumentResponse" })
 );
 
-export const toDocumentResponse = (file: NonNullable<Awaited<ReturnType<typeof getFile>>>) => ({
+export const toDocumentResponse = async (file: NonNullable<Awaited<ReturnType<typeof getFile>>>) => ({
 	access: file.access,
 	contentType: file.contentType,
 	createdAt: file.createdAt,
@@ -51,7 +51,7 @@ export const toDocumentResponse = (file: NonNullable<Awaited<ReturnType<typeof g
 	summary: file.summary,
 	title: file.title,
 	updatedAt: file.updatedAt,
-	url: file.url,
+	url: await getFileUrl(file),
 });
 
 export const startFileIngestion = async (input: { fileId: string; organizationId: string; text?: string }) => {
@@ -104,10 +104,9 @@ export const createDocument = async ({
 		ragStatus: "pending",
 		sourceType: "text",
 		uploadedBy: userId,
-		url: null,
 	});
 
 	const run = await startFileIngestion({ fileId: fileRecord.id, organizationId, text });
 
-	return { document: toDocumentResponse(fileRecord), runId: run.runId };
+	return { document: await toDocumentResponse(fileRecord), runId: run.runId };
 };

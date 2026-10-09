@@ -4,7 +4,11 @@ import {
 	deleteUploadedMedia,
 	listUploadedMedia,
 	mediaListInputSchema,
+	registeredUploadSchema,
+	registerUpload,
+	registerUploadInputSchema,
 	uploadedMediaSchema,
+	UploadRejectedError,
 } from "../../services/media";
 import { authedWithOrganization, organizationPermission } from "../base";
 
@@ -34,4 +38,25 @@ const remove = authedWithOrganization
 		return { id: input.mediaId };
 	});
 
-export const media = { delete: remove, list };
+const register = authedWithOrganization
+	.use(organizationPermission("write"))
+	.errors({ BAD_REQUEST: { message: "The upload was rejected." } })
+	.input(registerUploadInputSchema)
+	.output(registeredUploadSchema)
+	.handler(async ({ context, errors, input }) => {
+		try {
+			return await registerUpload({
+				input,
+				organizationId: context.organizationId,
+				userId: context.session.user.id,
+			});
+		} catch (error) {
+			if (error instanceof UploadRejectedError) {
+				throw errors.BAD_REQUEST({ message: error.message });
+			}
+
+			throw error;
+		}
+	});
+
+export const media = { delete: remove, list, register };

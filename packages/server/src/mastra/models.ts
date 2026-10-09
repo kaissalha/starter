@@ -1,6 +1,5 @@
 import { ModelRouterEmbeddingModel } from "@mastra/core/llm";
 import { gateway, wrapLanguageModel, type LanguageModelMiddleware } from "ai";
-import { gateway as evaluationGateway } from "ai-evaluation";
 import type { RequestLogger } from "evlog";
 import { createAIMiddleware } from "evlog/ai";
 
@@ -40,7 +39,7 @@ export const models = {
 		model: languageModel("deepseek/deepseek-v4-flash"),
 		providerOptions: { gateway: { models: ["google/gemini-3.6-flash"], only: ["baseten", "vertex"] } },
 	},
-	decision: { model: evaluationGateway.evaluationModel("typesafe-ai/jev") },
+	decision: { model: gateway.decisionModel("typesafe-ai/jev") },
 	image: { model: gateway.image("openai/gpt-image-2") },
 	logo: {
 		model: gateway.image("openai/gpt-image-1.5"),
@@ -49,11 +48,13 @@ export const models = {
 	vision: { model: languageModel("google/gemini-3.6-flash") },
 };
 
-export const knowledgeEmbeddingModel = new ModelRouterEmbeddingModel({
+export const knowledgeEmbeddingModelConfig = {
 	apiKey: process.env.AI_GATEWAY_API_KEY,
 	modelId: "google/gemini-embedding-2",
 	providerId: "vercel",
 	url: "https://ai-gateway.vercel.sh/v1",
-});
+};
+
+export const knowledgeEmbeddingModel = new ModelRouterEmbeddingModel(knowledgeEmbeddingModelConfig);
 
 export const knowledgeEmbeddingProviderOptions = { vercel: { dimensions: knowledgeEmbeddingDimensions } };

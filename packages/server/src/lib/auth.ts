@@ -334,10 +334,7 @@ const authOptions = {
 					const lease = await stopOrganizationAIActivity({ organizationId: deletedOrganization.id });
 
 					try {
-						await snapshotOrganizationPurge({
-							logo: deletedOrganization.logo ?? null,
-							organizationId: deletedOrganization.id,
-						});
+						await snapshotOrganizationPurge({ organizationId: deletedOrganization.id });
 					} catch (error) {
 						await clearOrganizationAIShutdown({ lease });
 						throw error;

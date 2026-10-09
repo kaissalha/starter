@@ -8,7 +8,8 @@ File-format knowledge shared by the apps and the server. It owns no storage, per
 | `@starter/documents/extraction` | Node                | PDF, DOCX, XLSX, CSV, HTML, XML, and text extraction with size and archive limits            |
 | `@starter/documents/viewer`     | React (client only) | PDF, DOCX, and XLSX viewers and their label provider                                         |
 
-`uploadPolicies` is the single source for upload content types, size limits, and Blob access. The server's
-`/api/media` handler enforces it and the webapp upload hooks validate against it before uploading.
+`uploadPolicies` is the single source for upload content types, size limits, and storage access. The server's
+`/api/files` gateway and `media.register` procedure enforce it, and the webapp upload hooks validate against it before
+uploading.
 
 The viewers are vendored adapters around `@embedpdf/*` and `@extend-ai/*`; they are excluded from Oxlint and jscpd.

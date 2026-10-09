@@ -18,7 +18,7 @@ export const tableTools = {
 			const organizationId = requestContext.get("organizationId");
 			const file = await getFile({ fileId, organizationId });
 
-			if (!file || file.deletedAt || file.ragStatus !== "ready" || !file.url) {
+			if (!file || file.deletedAt || file.ragStatus !== "ready" || !file.storageKey) {
 				throw new Error("Table file is not available");
 			}
 
@@ -33,7 +33,7 @@ export const tableTools = {
 				throw new Error("File is not a CSV or XLSX table");
 			}
 
-			const { body } = await downloadBlob({ access: file.access, url: file.url });
+			const { body } = await downloadBlob({ access: file.access, key: file.storageKey });
 			const sheets = await readTabularFile({ buffer: body, extension, mimeType: file.contentType });
 			const selected = sheet ? sheets.find((item) => item.sheet === sheet) : sheets[0];
 

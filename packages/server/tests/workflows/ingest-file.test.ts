@@ -24,12 +24,24 @@ import { MAX_INGEST_TEXT_LENGTH } from "@starter/documents";
 
 import { ingestFileWorkflow } from "../../src/workflows/ingest-file";
 
+const runIngest = async (inputData: { fileId: string; organizationId: string; text?: string }) => {
+	const run = await ingestFileWorkflow.createRun();
+	const result = await run.start({ inputData });
+
+	if (result.status === "failed") {
+		throw result.error;
+	}
+
+	return result;
+};
+
 const file = {
 	access: "private" as const,
 	contentType: "text/plain",
 	kind: "text" as const,
 	name: "brief.txt",
-	url: null,
+	source: null,
+	storageKey: null,
 };
 
 const classification = {
@@ -58,7 +70,7 @@ describe("file ingestion workflow", () => {
 
 	it("rejects oversized inline source before classification or embedding", async () => {
 		await expect(
-			ingestFileWorkflow({
+			runIngest({
 				fileId: "file-1",
 				organizationId: "org-1",
 				text: "a".repeat(MAX_INGEST_TEXT_LENGTH + 1),
@@ -79,7 +91,7 @@ describe("file ingestion workflow", () => {
 		mastraSteps.embedAndInsertChunks.mockImplementation(
 			() => groups[Math.floor((mastraSteps.embedAndInsertChunks.mock.calls.length - 1) / 3)]?.promise
 		);
-		const pending = ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
+		const pending = runIngest({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
 		await vi.waitFor(() => expect(mastraSteps.embedAndInsertChunks).toHaveBeenCalledTimes(3));
 		groups[0]?.resolve(20);
 		await vi.waitFor(() => expect(mastraSteps.embedAndInsertChunks).toHaveBeenCalledTimes(6));
@@ -98,7 +110,7 @@ describe("file ingestion workflow", () => {
 		mastraSteps.embedAndInsertChunks
 			.mockRejectedValueOnce(new Error("embedding failed"))
 			.mockReturnValueOnce(indexing.promise);
-		const pending = ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
+		const pending = runIngest({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
 		await vi.waitFor(() => expect(mastraSteps.embedAndInsertChunks).toHaveBeenCalledTimes(3));
 		expect(mastraSteps.clearChunks).toHaveBeenCalledOnce();
 		indexing.resolve(20);
@@ -109,7 +121,7 @@ describe("file ingestion workflow", () => {
 	});
 
 	it("classifies text, replaces chunks in bounded batches, and marks the file ready", async () => {
-		await ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
+		await runIngest({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
 
 		expect(mastraSteps.classifyDocument).toHaveBeenCalledWith({ organizationId: "org-1", text: "Source text" });
 		expect(steps.applyEnrichment).toHaveBeenCalledWith({
@@ -126,18 +138,18 @@ describe("file ingestion workflow", () => {
 	});
 	it("passes extracted PDF pages to chunking while classifying the full text", async () => {
 		const source = { pages: [{ pageNumber: 2, text: "Second page" }], text: "Second page" };
-		steps.loadIngestFile.mockResolvedValue({ ...file, kind: "document", url: "https://blob.example/pdf" });
+		steps.loadIngestFile.mockResolvedValue({ ...file, kind: "document", storageKey: "org-1/knowledge/brief.pdf" });
 		steps.extractDocumentText.mockResolvedValue(source);
-		await ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1" });
+		await runIngest({ fileId: "file-1", organizationId: "org-1" });
 		expect(mastraSteps.classifyDocument).toHaveBeenCalledWith({ organizationId: "org-1", text: source.text });
-		expect(steps.chunkContent).toHaveBeenCalledWith(source);
+		expect(steps.chunkContent).toHaveBeenCalledWith({ ...source, contentType: file.contentType });
 	});
 
 	it("enriches images without creating text chunks", async () => {
 		steps.loadIngestFile.mockResolvedValue({ ...file, contentType: "image/png", kind: "image" });
 		mastraSteps.classifyImage.mockResolvedValue(classification);
 
-		await ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1" });
+		await runIngest({ fileId: "file-1", organizationId: "org-1" });
 
 		expect(mastraSteps.classifyImage).toHaveBeenCalledWith({
 			file: { ...file, contentType: "image/png", kind: "image" },
@@ -150,7 +162,7 @@ describe("file ingestion workflow", () => {
 	it("indexes while enrichment is pending, but waits for both before readiness", async () => {
 		const enrichment = Promise.withResolvers<typeof classification>();
 		mastraSteps.classifyDocument.mockReturnValueOnce(enrichment.promise);
-		const pending = ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
+		const pending = runIngest({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
 		await vi.waitFor(() => expect(mastraSteps.embedAndInsertChunks).toHaveBeenCalledTimes(3));
 		expect(steps.markReady).not.toHaveBeenCalled();
 		enrichment.resolve(classification);
@@ -162,7 +174,7 @@ describe("file ingestion workflow", () => {
 		const indexing = Promise.withResolvers<number>();
 		mastraSteps.embedAndInsertChunks.mockReturnValueOnce(indexing.promise);
 		mastraSteps.classifyDocument.mockRejectedValueOnce(new Error("enrichment failed"));
-		const pending = ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
+		const pending = runIngest({ fileId: "file-1", organizationId: "org-1", text: "Source text" });
 		await vi.waitFor(() => expect(mastraSteps.embedAndInsertChunks).toHaveBeenCalledTimes(3));
 		expect(mastraSteps.clearChunks).toHaveBeenCalledOnce();
 		expect(steps.markFailed).not.toHaveBeenCalled();
@@ -175,16 +187,19 @@ describe("file ingestion workflow", () => {
 	it("returns quietly when the organization-scoped file no longer exists", async () => {
 		steps.loadIngestFile.mockResolvedValue(null);
 
-		await expect(ingestFileWorkflow({ fileId: "missing", organizationId: "org-1" })).resolves.toBeUndefined();
+		await expect(runIngest({ fileId: "missing", organizationId: "org-1" })).resolves.toMatchObject({
+			result: { status: "missing" },
+			status: "success",
+		});
 		expect(steps.markReady).not.toHaveBeenCalled();
 	});
 
 	it("records a safe failure state and rethrows the workflow error", async () => {
 		mastraSteps.classifyDocument.mockRejectedValue(new Error("classification failed"));
 
-		await expect(
-			ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1", text: "Source text" })
-		).rejects.toThrow("classification failed");
+		await expect(runIngest({ fileId: "file-1", organizationId: "org-1", text: "Source text" })).rejects.toThrow(
+			"classification failed"
+		);
 
 		expect(steps.markFailed).toHaveBeenCalledWith({
 			cause: "classification failed",
@@ -200,9 +215,9 @@ describe("file ingestion workflow", () => {
 			.mockResolvedValueOnce(undefined)
 			.mockRejectedValueOnce(new Error("database unavailable"));
 
-		await expect(
-			ingestFileWorkflow({ fileId: "file-1", organizationId: "org-1", text: "Source text" })
-		).rejects.toThrow("embedding failed");
+		await expect(runIngest({ fileId: "file-1", organizationId: "org-1", text: "Source text" })).rejects.toThrow(
+			"embedding failed"
+		);
 
 		expect(steps.markReady).not.toHaveBeenCalled();
 		expect(steps.markFailed).toHaveBeenCalledWith({

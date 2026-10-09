@@ -2,10 +2,21 @@ import { and, desc, eq, ilike, inArray, isNull } from "drizzle-orm";
 import { z } from "zod";
 
 import { db, files } from "@starter/db";
-import { mediaContentTypes, uploadPolicies } from "@starter/documents";
+import {
+	detectKind,
+	getExtensionFromFilename,
+	mediaContentTypes,
+	normalizeContentType,
+	uploadPolicies,
+	uploadPurposes,
+} from "@starter/documents";
+import { log, serializeLogError } from "@starter/observability";
 
+import { decisionClassifiers } from "../ai/decisions";
 import { rankRelevantCandidates } from "../ai/relevance";
-import { deleteFile } from "./storage";
+import { deleteBlob, getPublicBlobUrl, getStorageKeyPrefix, headBlob } from "../lib/blob-storage";
+import { startFileIngestion } from "./documents";
+import { createFile, deleteFile, getFileUrl } from "./storage";
 
 export const mediaListInputSchema = z.compile(
 	z.object({
@@ -56,9 +67,9 @@ const queryUploadedMedia = ({
 			metadata: files.metadata,
 			name: files.name,
 			sizeBytes: files.sizeBytes,
+			storageKey: files.storageKey,
 			summary: files.summary,
 			title: files.title,
-			url: files.url,
 		})
 		.from(files)
 		.where(
@@ -78,8 +89,12 @@ const queryUploadedMedia = ({
 		.offset(offset);
 
 const projectUploadedMedia = (rows: Awaited<ReturnType<typeof queryUploadedMedia>>) =>
-	rows.flatMap(({ kind, metadata: _metadata, summary: _summary, title: _title, url, ...row }) =>
-		(kind === "image" || kind === "video") && url ? [{ ...row, kind, url }] : []
+	Promise.all(
+		rows.flatMap(({ kind, metadata: _metadata, storageKey, summary: _summary, title: _title, ...row }) =>
+			(kind === "image" || kind === "video") && storageKey
+				? [(async () => ({ ...row, kind, url: await getPublicBlobUrl(storageKey) }))()]
+				: []
+		)
 	);
 
 export const listUploadedMedia = async ({
@@ -106,16 +121,19 @@ export const listUploadedMedia = async ({
 		const ranked = await rankRelevantCandidates({
 			abortSignal,
 			candidates,
-			functionId: "media-semantic-search",
+			classifier: decisionClassifiers.mediaRelevance,
 			query,
 			text: ({ metadata, name, summary, title }) =>
 				[title, name, summary, metadata.altText, metadata.ocrText].filter(Boolean).join("\n"),
 		});
 
-		return { items: projectUploadedMedia(ranked), nextOffset: null };
+		return { items: await projectUploadedMedia(ranked), nextOffset: null };
 	}
 
-	return { items: projectUploadedMedia(rows).slice(0, 30), nextOffset: rows.length > 30 ? offset + 30 : null };
+	return {
+		items: await projectUploadedMedia(rows.slice(0, 30)),
+		nextOffset: rows.length > 30 ? offset + 30 : null,
+	};
 };
 
 export const getUploadedMedia = async ({ fileId, organizationId }: { fileId: string; organizationId: string }) => {
@@ -123,7 +141,7 @@ export const getUploadedMedia = async ({ fileId, organizationId }: { fileId: str
 		where: { access: "public", deletedAt: { isNull: true }, id: fileId, organizationId },
 	});
 
-	const parsed = uploadedMediaSchema.safeParse(row);
+	const parsed = uploadedMediaSchema.safeParse(row && { ...row, url: await getFileUrl(row) });
 
 	if (!parsed.success || !row || !mediaContentTypes.includes(row.contentType) || row.sourceType !== "upload") {
 		throw new Error("Uploaded media not found");
@@ -150,31 +168,92 @@ export const deleteUploadedMedia = async ({
 	return deleteFile({ deletedBy: userId, fileId, organizationId });
 };
 
-export const findUnownedMediaUrls = async ({
-	organizationId,
-	urls,
+export const registerUploadInputSchema = z.compile(
+	z.strictObject({
+		key: z
+			.string()
+			.max(255)
+			.regex(/^[\w-]+(?:\.[\w-]+)*$/),
+		name: z.string().trim().min(1).max(255),
+		purpose: z.enum(uploadPurposes),
+	})
+);
+
+export const registeredUploadSchema = z.compile(z.strictObject({ id: z.uuid(), url: z.string().nullable() }));
+
+export class UploadRejectedError extends Error {}
+
+const rejectUpload = async ({
+	access,
+	key,
+	message,
 }: {
-	organizationId: string;
-	urls: Array<string>;
+	access: "private" | "public";
+	key: string;
+	message: string;
 }) => {
-	if (urls.length === 0) {
-		return [];
+	try {
+		await deleteBlob({ access, key });
+	} catch (error) {
+		await log.warn({ error: serializeLogError(error), message: "Rejected upload Blob cleanup failed" });
 	}
 
-	const rows = await db
-		.select({ url: files.url })
-		.from(files)
-		.where(
-			and(
-				eq(files.organizationId, organizationId),
-				eq(files.access, "public"),
-				inArray(files.kind, ["image", "video"]),
-				isNull(files.deletedAt),
-				inArray(files.url, urls)
-			)
-		);
+	return new UploadRejectedError(message);
+};
 
-	const owned = new Set(rows.map(({ url }) => url));
+export const registerUpload = async ({
+	input: { name, purpose, ...input },
+	organizationId,
+	userId,
+}: {
+	input: z.infer<typeof registerUploadInputSchema>;
+	organizationId: string;
+	userId: string;
+}) => {
+	const policy = uploadPolicies[purpose];
+	const key = `${getStorageKeyPrefix({ organizationId, purpose })}${input.key}`;
+	const stored = await headBlob({ access: policy.access, key });
 
-	return urls.filter((url) => !owned.has(url));
+	if (!stored) {
+		throw new UploadRejectedError("The upload was not found.");
+	}
+
+	const contentType = normalizeContentType(stored.contentType);
+
+	const kind = detectKind({
+		extension: getExtensionFromFilename({ filename: name }) ?? undefined,
+		mediaType: contentType,
+	});
+
+	const indexable = purpose === "knowledge";
+
+	if (
+		!policy.contentTypes.includes(contentType) ||
+		(indexable && kind !== "image" && kind !== "document" && kind !== "text")
+	) {
+		throw await rejectUpload({ access: policy.access, key, message: "Unsupported upload type." });
+	}
+
+	if (stored.size > policy.maxFileSizeMb * 1024 * 1024) {
+		throw await rejectUpload({ access: policy.access, key, message: "Uploaded file exceeds its size limit." });
+	}
+
+	const { created, file } = await createFile({
+		access: policy.access,
+		contentType,
+		kind,
+		name,
+		organizationId,
+		ragStatus: indexable ? "pending" : "none",
+		sizeBytes: stored.size,
+		sourceType: "upload",
+		storageKey: key,
+		uploadedBy: userId,
+	});
+
+	if (indexable && created) {
+		await startFileIngestion({ fileId: file.id, organizationId });
+	}
+
+	return { id: file.id, url: await getFileUrl(file) };
 };

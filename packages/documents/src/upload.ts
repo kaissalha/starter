@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 import { detectKind, getExtensionFromFilename } from "./file";
 
 export const mediaAccessValues = ["public", "private"] as const;
@@ -56,22 +54,6 @@ export const uploadPolicies = {
 	UploadPurpose,
 	{ access: MediaAccess; contentTypes: ReadonlyArray<string>; maxFileSizeMb: number }
 >;
-
-export const uploadClientPayloadSchema = z.compile(
-	z.object({
-		access: z.enum(mediaAccessValues).default("public"),
-		maxFileSizeMb: z
-			.number()
-			.positive()
-			.max(5 * 1024)
-			.optional(),
-		name: z.string().trim().min(1).max(255).optional(),
-		organizationId: z.string().min(1),
-		purpose: z.enum(uploadPurposes).optional(),
-	})
-);
-
-export type ClientUploadPayload = z.infer<typeof uploadClientPayloadSchema>;
 
 export const normalizeContentType = (mediaType: string) =>
 	mediaType.split(";")[0]?.trim().toLowerCase() || "application/octet-stream";

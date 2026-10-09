@@ -14,7 +14,7 @@ import {
 } from "@/components/chat/chat-attachments";
 import type { UploadedMedia } from "@/components/media/use-media-upload";
 import { client } from "@/lib/api-client";
-import { uploadFromClient } from "@/lib/storage";
+import { uploadFile } from "@/lib/storage";
 import { isKnowledgeFile } from "@starter/documents";
 
 type MutableReference<Value> = { value: Value };
@@ -96,44 +96,6 @@ const getAttachmentUploadMode = ({
 	return "unsupported";
 };
 
-const uploadKnowledgeBaseDocument = async ({
-	file,
-	organizationId,
-	signal,
-}: {
-	file: File;
-	organizationId: string;
-	signal?: AbortSignal;
-}) => {
-	const blob = await uploadFromClient({
-		file,
-		handleUploadUrl: "/api/media",
-		pathname: `knowledge/${organizationId}/${crypto.randomUUID()}-${file.name}`,
-		payload: {
-			access: "private",
-			maxFileSizeMb: CHAT_ATTACHMENT_MAX_SIZE_BYTES / 1024 / 1024,
-			name: file.name,
-			organizationId,
-			purpose: "knowledge",
-		},
-		signal,
-	});
-
-	const startedAt = Date.now();
-
-	while (Date.now() - startedAt < 10_000) {
-		const document = await client.documents.findUpload({ url: blob.url }, { signal });
-
-		if (document) {
-			return document;
-		}
-
-		await new Promise((resolve) => setTimeout(resolve, 250));
-	}
-
-	throw new Error("Uploaded document was not registered");
-};
-
 const pollKnowledgeBaseStatus = async ({
 	fileId,
 	signal,
@@ -187,7 +149,7 @@ const startKnowledgeBaseUploadTask = ({
 	abortControllers.set(attachment.id, controller);
 
 	const fileIdPromise = (async () => {
-		const uploaded = await uploadKnowledgeBaseDocument({ file, organizationId, signal: controller.signal });
+		const uploaded = await uploadFile({ file, organizationId, purpose: "knowledge", signal: controller.signal });
 
 		updateAttachment(attachment.id, {
 			fileId: uploaded.id,

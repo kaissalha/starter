@@ -5,7 +5,10 @@ const { search } = vi.hoisted(() => ({ search: vi.fn() }));
 
 const { decision } = vi.hoisted(() => ({ decision: vi.fn() }));
 
-vi.mock("../../src/ai/decisions", () => ({ evaluateDecision: decision }));
+vi.mock("../../src/ai/decisions", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
+	evaluateDecision: decision,
+}));
 
 const { listKnowledgeDocuments } = vi.hoisted(() => ({ listKnowledgeDocuments: vi.fn() }));
 

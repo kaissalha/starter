@@ -334,7 +334,7 @@ describe("sampled response relevance scorer", () => {
 	it.each([0, 1, 2])(
 		"records normalized ordinal relevance %i without including system instructions",
 		async (score) => {
-			using provider = vi.spyOn(models.decision.model, "doEvaluate").mockResolvedValue({
+			using provider = vi.spyOn(models.decision.model, "doDecide").mockResolvedValue({
 				answers: { relevance: { score, type: "score" } },
 				warnings: [],
 			});
@@ -351,11 +351,9 @@ describe("sampled response relevance scorer", () => {
 	);
 
 	it("does not convert an unavailable evaluator into a passing score", async () => {
-		using provider = vi.spyOn(models.decision.model, "doEvaluate").mockRejectedValue(new Error("Unavailable"));
+		using provider = vi.spyOn(models.decision.model, "doDecide").mockRejectedValue(new Error("Unavailable"));
 
-		await expect(dashboardResponseRelevanceScorer.run({ input, output })).rejects.toThrow(
-			"Response relevance evaluation unavailable"
-		);
+		await expect(dashboardResponseRelevanceScorer.run({ input, output })).rejects.toThrow("Unavailable");
 		expect(provider).toHaveBeenCalledOnce();
 	});
 });

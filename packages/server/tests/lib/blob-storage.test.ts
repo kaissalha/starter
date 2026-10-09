@@ -1,13 +1,10 @@
+import { FilesError } from "files-sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const mocks = vi.hoisted(() => ({ delete: vi.fn(), get: vi.fn(), head: vi.fn() }));
+const mocks = vi.hoisted(() => ({ delete: vi.fn(), head: vi.fn() }));
 
-vi.mock("@vercel/blob", async (importOriginal) => ({
-	...(await importOriginal<typeof import("@vercel/blob")>()),
-	get: mocks.get,
-}));
-
-vi.mock("files-sdk", () => ({
+vi.mock("files-sdk", async (importOriginal) => ({
+	...(await importOriginal<typeof import("files-sdk")>()),
 	Files: class {
 		delete = mocks.delete;
 		head = mocks.head;
@@ -16,7 +13,7 @@ vi.mock("files-sdk", () => ({
 
 import { MAX_INGEST_FILE_SIZE_BYTES } from "@starter/documents";
 
-import { deleteBlob, downloadBlob, getBlob, getBlobSize } from "../../src/lib/blob-storage";
+import { deleteBlob, downloadBlob, getBlob, headBlob } from "../../src/lib/blob-storage";
 
 describe("blob reads", () => {
 	beforeEach(() => {
@@ -28,31 +25,33 @@ describe("blob reads", () => {
 
 	it("cancels oversized downloads before reading any bytes", async () => {
 		const cancel = vi.fn();
-		mocks.get.mockResolvedValue({
-			blob: { contentType: "text/plain", etag: "etag", size: MAX_INGEST_FILE_SIZE_BYTES + 1 },
-			statusCode: 200,
-			stream: new ReadableStream({ cancel }),
+		mocks.head.mockResolvedValue({
+			etag: "etag",
+			size: MAX_INGEST_FILE_SIZE_BYTES + 1,
+			stream: () => new ReadableStream({ cancel }),
+			type: "text/plain",
 		});
-		await expect(downloadBlob({ access: "private", url: "https://blob.example.com/large.txt" })).rejects.toThrow(
+		await expect(downloadBlob({ access: "private", key: "large.txt" })).rejects.toThrow(
 			"File exceeds the ingestion byte limit"
 		);
 		expect(cancel).toHaveBeenCalledOnce();
-		expect(mocks.head).not.toHaveBeenCalled();
 	});
 
 	it("cancels the actual stream if bytes exceed a smaller advertised size", async () => {
 		const cancel = vi.fn();
-		mocks.get.mockResolvedValue({
-			blob: { contentType: "text/plain", etag: "etag", size: 4 },
-			statusCode: 200,
-			stream: new ReadableStream({
-				cancel,
-				start(controller) {
-					controller.enqueue(new Uint8Array(MAX_INGEST_FILE_SIZE_BYTES + 1));
-				},
-			}),
+		mocks.head.mockResolvedValue({
+			etag: "etag",
+			size: 4,
+			stream: () =>
+				new ReadableStream({
+					cancel,
+					start(controller) {
+						controller.enqueue(new Uint8Array(MAX_INGEST_FILE_SIZE_BYTES + 1));
+					},
+				}),
+			type: "text/plain",
 		});
-		await expect(downloadBlob({ access: "private", url: "https://blob.example.com/large.txt" })).rejects.toThrow(
+		await expect(downloadBlob({ access: "private", key: "large.txt" })).rejects.toThrow(
 			"File exceeds the ingestion byte limit"
 		);
 		expect(cancel).toHaveBeenCalledOnce();
@@ -60,36 +59,38 @@ describe("blob reads", () => {
 
 	it("accepts downloads exactly at the byte limit", async () => {
 		const bytes = Buffer.alloc(MAX_INGEST_FILE_SIZE_BYTES);
-		mocks.get.mockResolvedValue({
-			blob: { contentType: "text/plain", etag: "etag", size: bytes.length },
-			statusCode: 200,
-			stream: new Blob([bytes]).stream(),
+		mocks.head.mockResolvedValue({
+			etag: "etag",
+			size: bytes.length,
+			stream: () => new Blob([bytes]).stream(),
+			type: "text/plain",
 		});
-		const { body } = await downloadBlob({ access: "private", url: "https://blob.example.com/safe.txt" });
+		const { body } = await downloadBlob({ access: "private", key: "safe.txt" });
 		expect(body.equals(bytes)).toBe(true);
-		await expect(getBlobSize({ access: "private", url: "https://blob.example.com/safe.txt" })).resolves.toBe(4);
+		await expect(headBlob({ access: "private", key: "safe.txt" })).resolves.toEqual({
+			contentType: "text/plain",
+			size: bytes.length,
+		});
 	});
 
-	it("passes conditional reads to the streaming provider and preserves 304 responses", async () => {
-		mocks.get.mockResolvedValue({ blob: { etag: "etag" }, statusCode: 304, stream: null });
-		await expect(getBlob({ access: "private", ifNoneMatch: '"etag"', pathname: "/report.pdf" })).resolves.toEqual({
+	it("answers matching conditional reads with 304 without opening the body stream", async () => {
+		const stream = vi.fn();
+		mocks.head.mockResolvedValue({ etag: "etag", size: 4, stream, type: "application/pdf" });
+		await expect(getBlob({ access: "private", ifNoneMatch: '"etag"', key: "report.pdf" })).resolves.toEqual({
 			etag: "etag",
 			status: 304,
 		});
-		expect(mocks.get).toHaveBeenCalledWith("report.pdf", {
-			access: "private",
-			ifNoneMatch: '"etag"',
-			token: "test-private-token",
-		});
+		expect(mocks.head).toHaveBeenCalledWith("report.pdf");
+		expect(stream).not.toHaveBeenCalled();
 	});
 
-	it("looks up blobs whose filenames are percent-encoded in their URL by the decoded pathname", async () => {
-		await getBlobSize({ access: "private", url: "https://blob.example.com/org/Screenshot%202026%20%D8%B5.png" });
-		expect(mocks.head).toHaveBeenCalledWith("org/Screenshot 2026 ص.png");
+	it("returns null for missing blobs", async () => {
+		mocks.head.mockRejectedValue(new FilesError("NotFound", "missing"));
+		await expect(getBlob({ access: "private", key: "missing.pdf" })).resolves.toBeNull();
 	});
 
-	it("deletes Blob objects by pathname key", async () => {
-		await deleteBlob({ access: "private", url: "https://blob.example.com/prod/a-1.txt" });
+	it("deletes Blob objects by storage key", async () => {
+		await deleteBlob({ access: "private", key: "prod/a-1.txt" });
 		expect(mocks.delete).toHaveBeenCalledExactlyOnceWith("prod/a-1.txt");
 	});
 });
