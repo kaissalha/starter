@@ -183,7 +183,7 @@ describe("media HTTP integration", () => {
 		expect(key).toMatch(/^[0-9a-f-]+\.pdf$/);
 		await expect(
 			mocks.storage.value?.head(`development/${organizationId}/knowledge/${key}`)
-		).resolves.toMatchObject({ size: 4, type: "application/pdf" });
+		).resolves.toMatchObject({ contentType: "application/pdf", size: 4 });
 	});
 
 	it("rejects oversized, client-keyed, unauthenticated and Member uploads", async () => {
@@ -191,7 +191,7 @@ describe("media HTTP integration", () => {
 		const client = filesClient({ organizationId, purpose: "logo" });
 
 		await expect(client.upload(new File([new Uint8Array(5 * 1024 * 1024 + 1)], "big.png"))).rejects.toThrow(
-			"upload failed (422)"
+			"upload exceeds maxUploadSize"
 		);
 		await expect(client.upload("chosen.png", new Blob(["png"]))).rejects.toMatchObject({ code: "ReadOnly" });
 		mocks.resolveSession.mockResolvedValueOnce(null);

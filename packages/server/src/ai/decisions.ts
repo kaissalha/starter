@@ -119,7 +119,10 @@ const isConsistentAnswerSet = ({
 
 export const decisionModel: EvaluationModel = {
 	doEvaluate: async (options) => {
-		const result = await models.decision.model.doDecide(options);
+		const result = await models.decision.model.doDecide({
+			...options,
+			state: [{ type: "json", value: options.state }],
+		});
 
 		const answers = Object.fromEntries(
 			Object.entries(result.answers).map(([id, answer]) => {

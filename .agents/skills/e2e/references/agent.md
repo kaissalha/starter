@@ -32,8 +32,10 @@ any provider.
 Decision models pick actions from choices the executor builds: install
 `@e2e-dev/decision` and put `decisionExecutor({ model:
 typeSafeAi.decisionModel('jev-latest'), textModel: openrouter('inception/mercury-2.5') })`
-under `executor`. Tests stay plain language with no params; the text model
-writes field values. See the shipped `docs/decision-models.mdx` or
+under `executor`. `openai.decisionModel('gpt-6-luna')` from `@ai-sdk/openai`
+4.0.90 or later works too and takes the `vision: true` screenshot.
+Tests stay plain language with no params. The text model writes field values
+and upload paths. See the shipped `docs/decision-models.mdx` or
 [the online guide](https://e2e.tester.army/docs/decision-models) for setup,
 gates, and limits.
 
@@ -277,8 +279,9 @@ matches. Misses and hand-offs use the model; `agent.assert`,
   and evict nothing.
 - With committed recordings, `--strict-cache` in CI fails a recording that
   no longer replays with `REPLAY_STALE` instead of quietly spending model
-  calls every run; re-record locally and commit. Unrecorded steps still run
-  live.
+  calls every run; re-record with a `read-write` run without the flag and
+  with `cache.strict` off, then commit. Unrecorded steps still run live;
+  retries replay too, and a strict run never writes the cache.
 
 ## Inspect what the model did
 

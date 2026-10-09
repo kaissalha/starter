@@ -28,7 +28,7 @@
 		"typecheck": "tsc --noEmit --skipLibCheck"
 	},
 	"dependencies": {
-		"@base-ui/react": "^1.8.0",
+		"@base-ui/react": "^1.9.0",
 		"@embedpdf/core": "^2.15.1",
 		"@embedpdf/engines": "^2.15.1",
 		"@embedpdf/models": "^2.15.1",
@@ -43,8 +43,8 @@
 		"@embedpdf/plugin-tiling": "^2.15.1",
 		"@embedpdf/plugin-viewport": "^2.15.1",
 		"@embedpdf/plugin-zoom": "^2.15.1",
-		"@extend-ai/react-docx": "^0.9.2",
-		"@extend-ai/react-xlsx": "0.16.6",
+		"@extend-ai/react-docx": "^0.10.0",
+		"@extend-ai/react-xlsx": "0.17.2",
 		"@hugeicons/core-free-icons": "^4.3.5",
 		"@hugeicons/react": "^1.1.10",
 		"@starter/ui": "workspace:*",
@@ -55,7 +55,7 @@
 		"pdf-lib": "^1.17.1",
 		"react": "^19.3.0",
 		"react-dom": "^19.3.0",
-		"read-excel-file": "9.3.10",
+		"read-excel-file": "9.3.12",
 		"zod": "4.6.5"
 	},
 	"devDependencies": {

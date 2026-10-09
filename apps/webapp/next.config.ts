@@ -53,22 +53,6 @@ const nextConfig: NextConfig = {
 	},
 	partialPrefetching: true,
 	reactCompiler: true,
-	async rewrites() {
-		return {
-			afterFiles: [],
-			beforeFiles: [
-				{
-					destination: "https://www.dubcdn.com/analytics/script.js",
-					source: "/umbra/script.js",
-				},
-				{
-					destination: "https://api.dub.co/:path",
-					source: "/umbra/:path",
-				},
-			],
-			fallback: [],
-		};
-	},
 	serverExternalPackages: [
 		"@mastra/ai-sdk",
 		"@mastra/core",

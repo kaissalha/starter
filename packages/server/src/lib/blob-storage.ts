@@ -110,14 +110,17 @@ export const getBlob = async ({
 	key,
 }: BlobReference & { ifNoneMatch?: string }): Promise<GetBlobResult | null> => {
 	try {
-		const stored = await getFilesClient(access).head(key);
+		const client = getFilesClient(access);
+		const info = await client.head(key);
 
-		if (ifNoneMatch && stored.etag && normalizeEntityTag(ifNoneMatch) === normalizeEntityTag(stored.etag)) {
-			return { etag: stored.etag, status: 304 };
+		if (ifNoneMatch && info.etag && normalizeEntityTag(ifNoneMatch) === normalizeEntityTag(info.etag)) {
+			return { etag: info.etag, status: 304 };
 		}
 
+		const stored = await client.download(key, { as: "stream" });
+
 		return {
-			contentType: stored.type,
+			contentType: stored.contentType,
 			etag: stored.etag,
 			size: stored.size,
 			status: 200,
@@ -136,7 +139,7 @@ export const headBlob = async ({ access, key }: BlobReference) => {
 	try {
 		const stored = await getFilesClient(access).head(key);
 
-		return { contentType: stored.type, size: stored.size };
+		return { contentType: stored.contentType, size: stored.size };
 	} catch (error) {
 		if (error instanceof FilesError && error.code === "NotFound") {
 			return null;

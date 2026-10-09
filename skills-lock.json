@@ -17,7 +17,7 @@
       "source": "tester-army/e2e",
       "sourceType": "github",
       "skillPath": "skills/e2e/SKILL.md",
-      "computedHash": "0ff4dfa69e58f911fc25df0ae9d8d367e3a0c44543cef7787724e718a06a9845"
+      "computedHash": "9ace6b1a3375a1fdeb7ba5bcc3bd6f2cafabeccc8f0d41c3f7e5657ade054e18"
     },
     "improve": {
       "source": "shadcn/improve",
@@ -41,13 +41,13 @@
       "source": "vercel/next.js",
       "sourceType": "github",
       "skillPath": "skills/next-bundle-optimizer/SKILL.md",
-      "computedHash": "5ff4463d88f33a7d09cdf820684d1f732b97cd40ad0171bc18689d9bdd7614e2"
+      "computedHash": "f4da57475811a0d4194154402b606045f5b259a722172540331a1f5c42a5343e"
     },
     "next-cache-components-optimizer": {
       "source": "vercel/next.js",
       "sourceType": "github",
       "skillPath": "skills/next-cache-components-optimizer/SKILL.md",
-      "computedHash": "60f603cd578249e5bfc6e192032b20bf7e74764554bdd319fdc543be0b563052"
+      "computedHash": "7c1e21574ff39a11fc3874e4df2ab8a355154cc7b6bf4897ad570a2dd9e5a5f2"
     },
     "playwright-best-practices": {
       "source": "currents-dev/playwright-best-practices-skill",

@@ -44,6 +44,9 @@ const decided = (
 	warnings: [],
 });
 
+const decidedState = <T>(schema: z.ZodType<T>) =>
+	z.tuple([z.object({ type: z.literal("json"), value: schema })]).parse(decide.mock.calls[0]?.[0].state)[0].value;
+
 beforeEach(() => {
 	decide.mockReset();
 });
@@ -65,7 +68,7 @@ describe("sampled claimed action scorer", () => {
 		expect(result.reason).toContain("Inspect this trace");
 		expect(decide).toHaveBeenCalledWith(
 			expect.objectContaining({
-				state: { executedTools: ["getLibraryAsset"], response: "Published." },
+				state: [{ type: "json", value: { executedTools: ["getLibraryAsset"], response: "Published." } }],
 			})
 		);
 	});
@@ -93,9 +96,7 @@ describe("sampled embedded instruction scorer", () => {
 		expect(result.score).toBe(0);
 		expect(result.reason).toContain("prompt injection");
 
-		const state = z
-			.object({ request: z.string(), toolOutputs: z.array(z.string()) })
-			.parse(decide.mock.calls[0]?.[0].state);
+		const state = decidedState(z.object({ request: z.string(), toolOutputs: z.array(z.string()) }));
 
 		expect(state.toolOutputs).toHaveLength(1);
 		expect(state.toolOutputs[0]).toHaveLength(2000);
@@ -122,12 +123,12 @@ describe("sampled grounded claims scorer", () => {
 		expect(result.score).toBe(0);
 		expect(result.reason).toContain("unsupported");
 
-		const state = z
-			.object({
+		const state = decidedState(
+			z.object({
 				evidenceIncomplete: z.boolean(),
 				toolOutputs: z.array(z.object({ result: z.string(), toolName: z.string() })),
 			})
-			.parse(decide.mock.calls[0]?.[0].state);
+		);
 
 		expect(state.toolOutputs).toHaveLength(1);
 		expect(state.evidenceIncomplete).toBe(true);
@@ -157,7 +158,10 @@ describe("sampled locale scorer", () => {
 		decide.mockResolvedValue(decided({ locale: { choice, type: "choice" } }));
 		const result = await dashboardLocaleScorer.run({ input, output: [assistant("مرحبا")], requestContext });
 		expect(result.score).toBe(score);
-		expect(decide.mock.calls[0]?.[0].state).toMatchObject({ locale: "ar", response: "مرحبا" });
+		expect(decidedState(z.object({ locale: z.string(), response: z.string() }))).toEqual({
+			locale: "ar",
+			response: "مرحبا",
+		});
 	});
 	it("requires the request locale", async () => {
 		await expect(dashboardLocaleScorer.run({ input, output: [assistant("Hi")] })).rejects.toThrow("locale");
