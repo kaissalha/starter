@@ -12,7 +12,7 @@ import { createResumableStreamContext } from "resumable-stream/ioredis";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
-import { createTCPRedisClient } from "@starter/cache";
+import { createRedisClient } from "@starter/cache";
 import { log, serializeLogError } from "@starter/observability";
 
 import { createDashboardChatRequestContext, type DashboardChatUIMessage } from "../ai/types";
@@ -305,8 +305,8 @@ const getStreamContext = () => {
 
 	streamContextReference.value = createResumableStreamContext({
 		keyPrefix: "resumable-stream",
-		publisher: createTCPRedisClient(redisUrl),
-		subscriber: createTCPRedisClient(redisUrl),
+		publisher: createRedisClient(redisUrl),
+		subscriber: createRedisClient(redisUrl),
 		waitUntil,
 	});
 

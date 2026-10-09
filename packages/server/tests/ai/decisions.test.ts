@@ -22,7 +22,7 @@ const redis = vi.hoisted(() => {
 	return {
 		client: {
 			get: vi.fn(async (key: string) => store.get(key) ?? null),
-			on: vi.fn(),
+			on: vi.fn().mockReturnThis(),
 			set: vi.fn(async (key: string, value: string) => {
 				store.set(key, value);
 
@@ -34,7 +34,10 @@ const redis = vi.hoisted(() => {
 	};
 });
 
-vi.mock("@starter/cache", () => ({ createTCPRedisClient: vi.fn(() => redis.client) }));
+vi.mock("@starter/cache", async (importOriginal) => ({
+	...(await importOriginal<typeof import("@starter/cache")>()),
+	createRedisClient: vi.fn(() => redis.client),
+}));
 
 import { decisionClassifiers, evaluateDecision } from "../../src/ai/decisions";
 

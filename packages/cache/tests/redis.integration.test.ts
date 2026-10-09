@@ -1,75 +1,89 @@
-import { Redis } from "@upstash/redis";
 import { afterAll, describe, expect, it } from "vitest";
+import { z } from "zod";
 
-import { createTCPRedisClient } from "../src/client";
-import { consumeRateLimit, createRateLimiter } from "../src/rate-limit";
+import { createCache } from "../src/cache";
+import { createRedisClient } from "../src/client";
+import { createLock } from "../src/lock";
+import { createRateLimiter } from "../src/rate-limit";
 
 const redisUrl = process.env.REDIS_URL;
 
-const upstashUrl = process.env.UPSTASH_URL;
-
-const upstashToken = process.env.UPSTASH_TOKEN;
-
-if (!redisUrl || !upstashUrl || !upstashToken) {
+if (!redisUrl) {
 	throw new Error("Redis integration environment was not initialized");
 }
 
-const redis = new Redis({ enableAutoPipelining: false, token: upstashToken, url: upstashUrl });
+const redis = createRedisClient(redisUrl);
 
-const evaluate = redis.eval;
-
-redis.eval = (script, keys, args) => evaluate(script.replace(/^#!lua[^\n]*\n/, ""), keys, args);
-
-redis.evalsha = () => Promise.reject(new Error("NOSCRIPT"));
-
-const tcpRedis = createTCPRedisClient(redisUrl);
+const limiter = createRateLimiter({ limit: 3, prefix: "integration", redis, window: "30 s" });
 
 afterAll(async () => {
-	await tcpRedis.quit();
+	await redis.quit();
 });
 
 describe("Redis integration", () => {
-	it("connects through the production TCP client", async () => {
-		await expect(tcpRedis.ping()).resolves.toBe("PONG");
-	});
-
-	it("enforces a real fixed-window limit and reset", async () => {
-		const identifier = crypto.randomUUID();
-
-		const limiter = createRateLimiter(redis, {
-			algorithm: "fixedWindow",
-			maxRequests: 1,
-			prefix: "integration-rate-limit:",
-			withinSeconds: 30,
-		});
-
-		await expect(limiter.limit(identifier)).resolves.toMatchObject({ remaining: 0, success: true });
-		await expect(limiter.limit(identifier)).resolves.toMatchObject({ remaining: 0, success: false });
-
-		await limiter.reset(identifier);
-		await expect(limiter.limit(identifier)).resolves.toMatchObject({ success: true });
+	it("connects through the production client", async () => {
+		await expect(redis.ping()).resolves.toBe("PONG");
 	});
 
 	it("counts concurrent hits atomically within one window", async () => {
-		const key = crypto.randomUUID();
+		const identifier = crypto.randomUUID();
 
-		const decisions = await Promise.all(
-			Array.from({ length: 5 }, () => consumeRateLimit({ key, max: 3, redis: tcpRedis, windowSeconds: 30 }))
-		);
+		const responses = await Promise.all(Array.from({ length: 5 }, () => limiter.limit(identifier)));
 
-		expect(decisions.filter(({ allowed }) => allowed)).toHaveLength(3);
-		expect(decisions.find(({ allowed }) => !allowed)?.retryAfterSeconds).toBeLessThanOrEqual(30);
-		const ttl = await tcpRedis.ttl(key);
+		expect(responses.filter(({ success }) => success)).toHaveLength(3);
+		expect(responses.find(({ success }) => !success)?.reset).toBeLessThanOrEqual(Date.now() + 30_000);
+		const ttl = await redis.pttl(`integration:${identifier}`);
 		expect(ttl).toBeGreaterThan(0);
-		expect(ttl).toBeLessThanOrEqual(30);
+		expect(ttl).toBeLessThanOrEqual(30_000);
+		await expect(limiter.getRemaining(identifier)).resolves.toMatchObject({ remaining: 0 });
+
+		await limiter.resetUsedTokens(identifier);
+		await expect(limiter.limit(identifier)).resolves.toMatchObject({ remaining: 2, success: true });
 	});
 
 	it("restores a missing window expiry", async () => {
+		const identifier = crypto.randomUUID();
+		await redis.set(`integration:${identifier}`, "10");
+
+		await limiter.limit(identifier);
+
+		await expect(redis.pttl(`integration:${identifier}`)).resolves.toBeGreaterThan(0);
+	});
+
+	it("caches validated JSON with an expiry", async () => {
+		const cache = createCache({
+			ex: 30,
+			prefix: "integration-cache",
+			redis,
+			schema: z.object({ count: z.number() }),
+		});
+
 		const key = crypto.randomUUID();
-		await tcpRedis.set(key, "10");
 
-		await consumeRateLimit({ key, max: 3, redis: tcpRedis, windowSeconds: 30 });
+		await expect(cache.getOrSet(key, async () => ({ count: 1 }))).resolves.toEqual({ count: 1 });
+		await expect(cache.get(key)).resolves.toEqual({ count: 1 });
+		await expect(redis.ttl(`integration-cache:${key}`)).resolves.toBeGreaterThan(0);
 
-		await expect(tcpRedis.ttl(key)).resolves.toBeGreaterThan(0);
+		await cache.del(key);
+		await expect(cache.get(key)).resolves.toBeUndefined();
+	});
+
+	it("locks with owner-checked extend and release", async () => {
+		const id = `integration-lock:${crypto.randomUUID()}`;
+		const owner = createLock({ id, lease: "30 s", redis });
+		const contender = createLock({ id, lease: "30 s", redis });
+
+		await expect(owner.acquire()).resolves.toBe(true);
+		await expect(contender.acquire()).resolves.toBe(false);
+		await expect(contender.extend()).resolves.toBe(false);
+		await expect(contender.release()).resolves.toBe(false);
+		await expect(redis.get(id)).resolves.toBe(owner.token);
+
+		await expect(owner.extend("2 m")).resolves.toBe(true);
+		await expect(redis.pttl(id)).resolves.toBeGreaterThan(30_000);
+
+		await expect(owner.release()).resolves.toBe(true);
+		await expect(contender.acquire()).resolves.toBe(true);
+		await contender.release();
 	});
 });

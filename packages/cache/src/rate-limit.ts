@@ -1,117 +1,52 @@
-import { Ratelimit } from "@upstash/ratelimit";
-import type { Redis } from "@upstash/redis";
-import type { Redis as IORedis } from "ioredis";
+import type { Redis } from "ioredis";
 
-import { log, serializeLogError } from "@starter/observability";
+import { type Duration, toMilliseconds } from "./utils/duration";
 
-import { getFailFastRedis } from "./client";
+const fixedWindowScript = `
+local count = redis.call('INCR', KEYS[1])
+local ttl = redis.call('PTTL', KEYS[1])
+if ttl < 0 then
+	redis.call('PEXPIRE', KEYS[1], ARGV[1])
+	ttl = tonumber(ARGV[1])
+end
+return {count, ttl}`;
 
-export type RateLimitOptions = {
-	algorithm?: "fixedWindow" | "slidingWindow" | "tokenBucket";
-	maxRequests: number;
-	prefix?: string;
-	withinSeconds: number;
-};
-
-export type RateLimitResult = {
-	maxRequests: number;
+export type RateLimitResponse = {
+	limit: number;
 	remaining: number;
+	reset: number;
 	success: boolean;
-	willResetOn: number;
 };
 
-const createRateLimitAlgorithm = ({
-	algorithm,
-	maxRequests,
-	withinSeconds,
+export const createRateLimiter = ({
+	limit,
+	prefix = "ratelimit",
+	redis,
+	window,
 }: {
-	algorithm: RateLimitOptions["algorithm"];
-	maxRequests: number;
-	withinSeconds: number;
+	limit: number;
+	prefix?: string;
+	redis: Pick<Redis, "del" | "eval" | "get" | "pttl">;
+	window: Duration;
 }) => {
-	if (algorithm === "slidingWindow") {
-		return Ratelimit.slidingWindow(maxRequests, `${withinSeconds} s`);
-	}
-
-	if (algorithm === "fixedWindow") {
-		return Ratelimit.fixedWindow(maxRequests, `${withinSeconds} s`);
-	}
-
-	return Ratelimit.tokenBucket(maxRequests, `${withinSeconds} s`, maxRequests);
-};
-
-export const createRateLimiter = (redis: Redis, options: RateLimitOptions) => {
-	const { algorithm = "tokenBucket", maxRequests, prefix = "ratelimit:", withinSeconds } = options;
-
-	const limiter = new Ratelimit({
-		analytics: true,
-		limiter: createRateLimitAlgorithm({ algorithm, maxRequests, withinSeconds }),
-		prefix,
-		redis,
-	});
-
-	const limit = async (identifier: string): Promise<RateLimitResult> => {
-		const result = await limiter.limit(identifier);
-
-		return {
-			maxRequests,
-			remaining: result.remaining,
-			success: result.success,
-			willResetOn: result.reset,
-		};
-	};
-
-	const reset = async (identifier: string): Promise<void> => {
-		await limiter.resetUsedTokens(identifier);
-	};
+	const windowMilliseconds = toMilliseconds(window);
+	const keyFor = (identifier: string) => `${prefix}:${identifier}`;
+	const resetAt = (ttl: number) => Date.now() + (ttl > 0 ? ttl : windowMilliseconds);
 
 	return {
-		limit,
-		reset,
+		getRemaining: async (identifier: string) => {
+			const [count, ttl] = await Promise.all([redis.get(keyFor(identifier)), redis.pttl(keyFor(identifier))]);
+
+			return { remaining: Math.max(0, limit - Number(count ?? 0)), reset: resetAt(ttl) };
+		},
+		limit: async (identifier: string): Promise<RateLimitResponse> => {
+			const reply = await redis.eval(fixedWindowScript, 1, keyFor(identifier), windowMilliseconds);
+			const [count = 0, ttl = windowMilliseconds] = Array.isArray(reply) ? reply.map(Number) : [];
+
+			return { limit, remaining: Math.max(0, limit - count), reset: resetAt(ttl), success: count <= limit };
+		},
+		resetUsedTokens: async (identifier: string) => {
+			await redis.del(keyFor(identifier));
+		},
 	};
-};
-
-export const consumeRateLimit = async ({
-	key,
-	max,
-	redis,
-	windowSeconds,
-}: {
-	key: string;
-	max: number;
-	redis: Pick<IORedis, "eval">;
-	windowSeconds: number;
-}) => {
-	const reply = await redis.eval(
-		"local count = redis.call('INCR', KEYS[1]) local ttl = redis.call('TTL', KEYS[1]) if ttl < 0 then redis.call('EXPIRE', KEYS[1], ARGV[1]) ttl = tonumber(ARGV[1]) end return {count, ttl}",
-		1,
-		key,
-		windowSeconds
-	);
-
-	const [count = 0, ttl = windowSeconds] = Array.isArray(reply) ? reply.map(Number) : [];
-
-	return { allowed: count <= max, retryAfterSeconds: Math.max(1, ttl) };
-};
-
-const allowed = { allowed: true, retryAfterSeconds: 0 };
-
-export const checkRateLimit = async ({
-	key,
-	max,
-	windowSeconds,
-}: {
-	key: string;
-	max: number;
-	windowSeconds: number;
-}) => {
-	try {
-		const redis = getFailFastRedis();
-
-		return redis ? await consumeRateLimit({ key: `ratelimit:${key}`, max, redis, windowSeconds }) : allowed;
-	} catch (error) {
-		await log.warn({ error: serializeLogError(error), message: "Rate limit unavailable; allowing request" });
-
-		return allowed;
-	}
 };

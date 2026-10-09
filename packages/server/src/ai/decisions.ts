@@ -8,9 +8,10 @@ import {
 import { createHash } from "node:crypto";
 import { z } from "zod";
 
-import { createTCPRedisClient } from "@starter/cache";
+import { createCache } from "@starter/cache";
 import { log, serializeLogError } from "@starter/observability";
 
+import { getRedis } from "../lib/redis";
 import { models } from "../mastra/models";
 
 type DecisionModelOptions = Parameters<MastraEvaluationModel["doEvaluate"]>[0];
@@ -43,27 +44,10 @@ const memoizedAnswersSchema = z.compile(
 	)
 );
 
-type MemoClient = { value?: ReturnType<typeof createTCPRedisClient> };
+const getMemo = () => {
+	const redis = getRedis();
 
-const memoClient: MemoClient = {};
-
-const getMemoClient = () => {
-	if (!process.env.REDIS_URL) {
-		return null;
-	}
-
-	if (!memoClient.value || memoClient.value.status === "end") {
-		memoClient.value = createTCPRedisClient(process.env.REDIS_URL, {
-			commandTimeout: 300,
-			connectTimeout: 300,
-			enableOfflineQueue: true,
-			maxRetriesPerRequest: 0,
-			retryStrategy: () => null,
-		});
-		memoClient.value.on("error", () => undefined);
-	}
-
-	return memoClient.value;
+	return redis && createCache({ ex: memoTtlSeconds, prefix: "decision:v1", redis, schema: memoizedAnswersSchema });
 };
 
 const memoKey = ({
@@ -72,27 +56,9 @@ const memoKey = ({
 	questions,
 	state,
 }: { classifierId: string; modelId: string } & Pick<DecisionModelOptions, "questions" | "state">) =>
-	`decision:v1:${classifierId}:${createHash("sha256")
+	`${classifierId}:${createHash("sha256")
 		.update(JSON.stringify([modelId, questions, state]))
 		.digest("hex")}`;
-
-const readMemoizedAnswers = async (key: string) => {
-	try {
-		const value = await getMemoClient()?.get(key);
-
-		return value ? memoizedAnswersSchema.safeParse(JSON.parse(value)).data : undefined;
-	} catch {
-		return undefined;
-	}
-};
-
-const writeMemoizedAnswers = async (key: string, answers: EvaluationModelResult["answers"]) => {
-	try {
-		await getMemoClient()?.set(key, JSON.stringify(answers), "EX", memoTtlSeconds);
-	} catch {
-		return;
-	}
-};
 
 const isConsistentAnswerSet = ({
 	answers,
@@ -158,7 +124,7 @@ class MemoizedDecisionModel extends MastraEvaluationModel {
 			state: options.state,
 		});
 
-		const answers = await readMemoizedAnswers(key);
+		const answers = await getMemo()?.get(key);
 
 		if (answers) {
 			return { answers, warnings: [] };
@@ -167,7 +133,7 @@ class MemoizedDecisionModel extends MastraEvaluationModel {
 		const result = await super.doEvaluate(options);
 
 		if (isConsistentAnswerSet({ answers: result.answers, questions: options.questions })) {
-			await writeMemoizedAnswers(key, result.answers);
+			await getMemo()?.set(key, result.answers);
 		}
 
 		return result;

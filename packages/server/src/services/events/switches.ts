@@ -1,7 +1,7 @@
-import { getFailFastRedis } from "@starter/cache";
+import { getRedis } from "../../lib/redis";
 
 const readSwitches = async (keys: Array<string>) => {
-	const redis = getFailFastRedis();
+	const redis = getRedis();
 
 	if (!redis) {
 		return [];

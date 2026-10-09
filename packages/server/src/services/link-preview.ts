@@ -1,12 +1,8 @@
-import { createRateLimiter, createRedisClient } from "@starter/cache";
-import { log, serializeLogError } from "@starter/observability";
 import { getHostnameFromUrl, resolveUrl } from "@starter/utils";
 
+import { checkRateLimit } from "../lib/redis";
+
 export class LinkPreviewRateLimitError extends Error {}
-
-type LimiterReference = { value?: ReturnType<typeof createRateLimiter> | null };
-
-const limiter: LimiterReference = {};
 
 const extractUrlMetadata = ({ html, originalUrl }: { html: string; originalUrl: string }) => {
 	const tags = Array.from(html.matchAll(/<(link|meta)\s[^>]{1,1024}>/giu), ([tag, name = ""]) => ({
@@ -51,29 +47,10 @@ const extractUrlMetadata = ({ html, originalUrl }: { html: string; originalUrl: 
 	};
 };
 
-const isRateLimited = async ({ userId }: { userId: string }) => {
-	const { UPSTASH_TOKEN: token, UPSTASH_URL: url } = process.env;
-	limiter.value ??=
-		url && token
-			? createRateLimiter(createRedisClient({ token, url }), {
-					algorithm: "slidingWindow",
-					maxRequests: 30,
-					prefix: "ratelimit:link-preview:",
-					withinSeconds: 60,
-				})
-			: null;
-
-	try {
-		return (await limiter.value?.limit(userId))?.success === false;
-	} catch (error) {
-		await log.warn({ error: serializeLogError(error), message: "Link preview rate limiter unavailable" });
-
-		return false;
-	}
-};
-
 export const getLinkPreview = async ({ url, userId }: { url: string; userId: string }) => {
-	if (await isRateLimited({ userId })) {
+	const { allowed } = await checkRateLimit({ key: `link-preview:${userId}`, max: 30, windowSeconds: 60 });
+
+	if (!allowed) {
 		throw new LinkPreviewRateLimitError("Too many link previews.");
 	}
 

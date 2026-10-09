@@ -44,7 +44,7 @@ vi.mock("../../src/ai/decisions", async (importOriginal) => ({
 	evaluateDecision: mocks.evaluateDecision,
 }));
 
-vi.mock("@starter/cache", () => ({ createTCPRedisClient: vi.fn(() => ({})) }));
+vi.mock("@starter/cache", () => ({ createRedisClient: vi.fn(() => ({})) }));
 
 vi.mock("@mastra/ai-sdk", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@mastra/ai-sdk")>()),

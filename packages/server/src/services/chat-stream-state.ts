@@ -1,8 +1,6 @@
-import { randomUUID } from "node:crypto";
+import { createLock, createRedisClient } from "@starter/cache";
 
-import { createTCPRedisClient } from "@starter/cache";
-
-type RedisClient = ReturnType<typeof createTCPRedisClient>;
+type RedisClient = ReturnType<typeof createRedisClient>;
 
 type RedisClientReference = { value?: RedisClient };
 
@@ -11,6 +9,8 @@ const redisClientReference: RedisClientReference = {};
 const STREAM_TTL_SECONDS = 86_400;
 
 const ORGANIZATION_SHUTDOWN_TTL_SECONDS = 60;
+
+const CHAT_CLAIM_TTL_SECONDS = 604_800;
 
 export type OrganizationAIShutdownLease = {
 	organizationId: string;
@@ -28,7 +28,7 @@ const getRedisClient = () => {
 		throw new Error("REDIS_URL is not set");
 	}
 
-	redisClientReference.value = createTCPRedisClient(redisUrl);
+	redisClientReference.value = createRedisClient(redisUrl);
 
 	return redisClientReference.value;
 };
@@ -194,103 +194,59 @@ export const cancelStream = async ({ chatId, organizationId }: { chatId: string;
 	);
 };
 
+const organizationShutdownLock = ({ organizationId, token }: { organizationId: string; token?: string }) =>
+	createLock({
+		id: organizationShutdownKey({ organizationId }),
+		lease: `${ORGANIZATION_SHUTDOWN_TTL_SECONDS} s`,
+		redis: getRedisClient(),
+		token,
+	});
+
 export const beginOrganizationAIShutdown = async ({ organizationId }: { organizationId: string }) => {
-	const lease = { organizationId, token: randomUUID() };
+	const lock = organizationShutdownLock({ organizationId });
 
-	const acquired = await getRedisClient().set(
-		organizationShutdownKey({ organizationId }),
-		lease.token,
-		"EX",
-		ORGANIZATION_SHUTDOWN_TTL_SECONDS,
-		"NX"
-	);
-
-	if (acquired !== "OK") {
+	if (!(await lock.acquire())) {
 		throw new Error("Organization AI shutdown is already in progress");
 	}
 
-	return lease;
+	return { organizationId, token: lock.token };
 };
 
-export const renewOrganizationAIShutdown = async ({
+export const renewOrganizationAIShutdown = ({
 	lease,
 	ttlSeconds = ORGANIZATION_SHUTDOWN_TTL_SECONDS,
 }: {
 	lease: OrganizationAIShutdownLease;
 	ttlSeconds?: number;
-}) => {
-	const renewed = await getRedisClient().eval(
-		"if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('expire', KEYS[1], ARGV[2]) else return 0 end",
-		1,
-		organizationShutdownKey(lease),
-		lease.token,
-		ttlSeconds
-	);
-
-	return Number(renewed) === 1;
-};
+}) => organizationShutdownLock(lease).extend(`${ttlSeconds} s`);
 
 export const clearOrganizationAIShutdown = ({ lease }: { lease: OrganizationAIShutdownLease }) =>
-	getRedisClient().eval(
-		"if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end",
-		1,
-		organizationShutdownKey(lease),
-		lease.token
-	);
+	organizationShutdownLock(lease).release();
 
 export const getOrganizationActiveStreamCount = ({ organizationId }: { organizationId: string }) =>
 	getRedisClient().scard(organizationActiveStreamsKey({ organizationId }));
 
-export const claimChatContinuation = async ({
-	chatId,
-	claimId,
-	continuationId,
-	messageId,
-	organizationId,
-}: {
-	chatId: string;
-	claimId: string;
-	continuationId: string;
-	messageId: string;
-	organizationId: string;
-}) =>
-	(await getRedisClient().set(
-		continuationKey({ chatId, continuationId, messageId, organizationId }),
-		claimId,
-		"EX",
-		604_800,
-		"NX"
-	)) === "OK";
+const chatClaimLock = ({ claimId, id }: { claimId: string; id: string }) =>
+	createLock({ id, lease: `${CHAT_CLAIM_TTL_SECONDS} s`, redis: getRedisClient(), token: claimId });
 
-export const releaseChatContinuation = async ({
-	chatId,
-	claimId,
-	continuationId,
-	messageId,
-	organizationId,
-}: {
+type ChatContinuationClaim = {
 	chatId: string;
 	claimId: string;
 	continuationId: string;
 	messageId: string;
 	organizationId: string;
-}) => {
-	await getRedisClient().eval(
-		"if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end",
-		1,
-		continuationKey({ chatId, continuationId, messageId, organizationId }),
-		claimId
-	);
 };
 
-export const claimChatMessage = async ({ claimId, messageId }: { claimId: string; messageId: string }) =>
-	(await getRedisClient().set(messageKey({ messageId }), claimId, "EX", 604_800, "NX")) === "OK";
+export const claimChatContinuation = ({ claimId, ...continuation }: ChatContinuationClaim) =>
+	chatClaimLock({ claimId, id: continuationKey(continuation) }).acquire();
+
+export const releaseChatContinuation = async ({ claimId, ...continuation }: ChatContinuationClaim) => {
+	await chatClaimLock({ claimId, id: continuationKey(continuation) }).release();
+};
+
+export const claimChatMessage = ({ claimId, messageId }: { claimId: string; messageId: string }) =>
+	chatClaimLock({ claimId, id: messageKey({ messageId }) }).acquire();
 
 export const releaseChatMessage = async ({ claimId, messageId }: { claimId: string; messageId: string }) => {
-	await getRedisClient().eval(
-		"if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end",
-		1,
-		messageKey({ messageId }),
-		claimId
-	);
+	await chatClaimLock({ claimId, id: messageKey({ messageId }) }).release();
 };

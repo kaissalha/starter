@@ -8,7 +8,10 @@ const redis = vi.hoisted(() => ({
 	set: vi.fn(),
 }));
 
-vi.mock("@starter/cache", () => ({ createTCPRedisClient: vi.fn(() => redis) }));
+vi.mock("@starter/cache", async (importOriginal) => ({
+	...(await importOriginal<typeof import("@starter/cache")>()),
+	createRedisClient: vi.fn(() => redis),
+}));
 
 import {
 	consumeChatRequestBudget,
@@ -123,18 +126,24 @@ describe("chat stream state", () => {
 		await expect(getOrganizationActiveStreamCount({ organizationId })).resolves.toBe(2);
 		await clearOrganizationAIShutdown({ lease });
 
-		expect(redis.set).toHaveBeenCalledWith(`chat-stream-shutdown:${organizationId}`, lease.token, "EX", 60, "NX");
+		expect(redis.set).toHaveBeenCalledWith(
+			`chat-stream-shutdown:${organizationId}`,
+			lease.token,
+			"PX",
+			60_000,
+			"NX"
+		);
 		expect(redis.eval).toHaveBeenNthCalledWith(
 			1,
-			expect.stringContaining("expire"),
+			expect.stringContaining("PEXPIRE"),
 			1,
 			`chat-stream-shutdown:${organizationId}`,
 			lease.token,
-			900
+			900_000
 		);
 		expect(redis.eval).toHaveBeenNthCalledWith(
 			2,
-			expect.stringContaining("del"),
+			expect.stringContaining("DEL"),
 			1,
 			`chat-stream-shutdown:${organizationId}`,
 			lease.token
@@ -166,8 +175,8 @@ describe("chat stream state", () => {
 		expect(redis.set).toHaveBeenCalledWith(
 			`chat-continuation:${organizationId}:${chatId}:assistant-1:transition-1`,
 			"stream-1",
-			"EX",
-			604_800,
+			"PX",
+			604_800_000,
 			"NX"
 		);
 	});
@@ -179,7 +188,7 @@ describe("chat stream state", () => {
 		await expect(claimChatMessage({ claimId: "stream-2", messageId: "message-1" })).resolves.toBe(false);
 		await releaseChatMessage({ claimId: "stream-1", messageId: "message-1" });
 
-		expect(redis.set).toHaveBeenNthCalledWith(1, "chat-message:message-1", "stream-1", "EX", 604_800, "NX");
+		expect(redis.set).toHaveBeenNthCalledWith(1, "chat-message:message-1", "stream-1", "PX", 604_800_000, "NX");
 		expect(redis.eval).toHaveBeenCalledWith(
 			expect.stringContaining("ARGV[1]"),
 			1,

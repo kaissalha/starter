@@ -4,11 +4,11 @@ import { alias } from "drizzle-orm/pg-core";
 import sharp from "sharp";
 import { z } from "zod";
 
-import { checkRateLimit } from "@starter/cache";
 import { db, fileTagAssignments, fileTags, files, organizations, type FileRecord } from "@starter/db";
 
 import { createLogoGenerationPrompt } from "../ai/prompts";
 import { getPublicBlobUrl, getStorageKeyPrefix, uploadBufferToBlob } from "../lib/blob-storage";
+import { checkRateLimit } from "../lib/redis";
 import { models } from "../mastra/models";
 import { startFileIngestion } from "./documents";
 import { createFile, deleteFile, getFile, getFileUrl } from "./storage";

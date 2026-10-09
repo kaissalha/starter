@@ -1,36 +1,19 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-const mocks = vi.hoisted(() => ({
-	createRateLimiter: vi.fn(),
-	createRedisClient: vi.fn(),
-	fetch: vi.fn(),
-	limit: vi.fn(),
-	warn: vi.fn(),
-}));
+const mocks = vi.hoisted(() => ({ check: vi.fn(), fetch: vi.fn() }));
 
-vi.mock("@starter/cache", () => ({
-	createRateLimiter: mocks.createRateLimiter,
-	createRedisClient: mocks.createRedisClient,
-}));
-
-vi.mock("@starter/observability", () => ({ log: { warn: mocks.warn }, serializeLogError: (error: Error) => error }));
+vi.mock("../../src/lib/redis", () => ({ checkRateLimit: mocks.check }));
 
 const loadService = async () => import("../../src/services/link-preview");
 
 const scope = { url: "https://www.example.com/page", userId: "user-1" };
-
-const redis = {};
 
 const respondWith = (body: string) => mocks.fetch.mockImplementation(async () => new Response(body));
 
 beforeEach(() => {
 	vi.resetModules();
 	vi.clearAllMocks();
-	vi.stubEnv("UPSTASH_URL", "");
-	vi.stubEnv("UPSTASH_TOKEN", "");
-	mocks.createRedisClient.mockReturnValue(redis);
-	mocks.createRateLimiter.mockReturnValue({ limit: mocks.limit });
-	mocks.limit.mockResolvedValue({ success: true });
+	mocks.check.mockResolvedValue({ allowed: true, retryAfterSeconds: 0 });
 	vi.stubGlobal("fetch", mocks.fetch);
 });
 
@@ -119,51 +102,23 @@ describe("link preview metadata", () => {
 
 describe("link preview rate limiting", () => {
 	beforeEach(() => {
-		vi.stubEnv("UPSTASH_URL", "https://limiter.example.test");
-		vi.stubEnv("UPSTASH_TOKEN", "test-token");
 		respondWith("<title>Allowed</title>");
 	});
 
-	it("limits per user with a sliding window", async () => {
+	it("limits per user", async () => {
 		const { getLinkPreview } = await loadService();
 
 		await getLinkPreview(scope);
-		vi.stubEnv("UPSTASH_URL", "");
-		vi.resetModules();
-		await (await loadService()).getLinkPreview(scope);
 
-		expect(mocks.createRateLimiter).toHaveBeenCalledTimes(1);
-		expect(mocks.createRedisClient).toHaveBeenCalledWith({
-			token: "test-token",
-			url: "https://limiter.example.test",
-		});
-		expect(mocks.createRateLimiter).toHaveBeenCalledWith(
-			redis,
-			expect.objectContaining({
-				algorithm: "slidingWindow",
-				maxRequests: 30,
-				prefix: "ratelimit:link-preview:",
-				withinSeconds: 60,
-			})
-		);
-		expect(mocks.limit).toHaveBeenCalledWith("user-1");
+		expect(mocks.check).toHaveBeenCalledWith({ key: "link-preview:user-1", max: 30, windowSeconds: 60 });
 	});
 
 	it("refuses before fetching once the limit is exceeded", async () => {
-		mocks.limit.mockResolvedValue({ success: false });
+		mocks.check.mockResolvedValue({ allowed: false, retryAfterSeconds: 10 });
 		const { getLinkPreview, LinkPreviewRateLimitError } = await loadService();
 
 		await expect(getLinkPreview(scope)).rejects.toBeInstanceOf(LinkPreviewRateLimitError);
 
 		expect(mocks.fetch).not.toHaveBeenCalled();
-	});
-
-	it("keeps serving previews when the limiter is unavailable", async () => {
-		mocks.limit.mockRejectedValue(new Error("redis down"));
-		const { getLinkPreview } = await loadService();
-
-		await expect(getLinkPreview(scope)).resolves.toMatchObject({ title: "Allowed" });
-
-		expect(mocks.warn).toHaveBeenCalledOnce();
 	});
 });

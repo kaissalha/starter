@@ -41,7 +41,7 @@ Built as a Bun workspaces + Turborepo monorepo.
 
 ## Stack
 
-Next.js 16 · React 19 · TypeScript · Mastra · AI SDK UI · Better Auth · oRPC + OpenAPI · Drizzle ORM · Postgres + pgvector · Upstash Redis · TanStack Query · Tailwind CSS v4 · Base UI · next-intl · Vercel (Workflow, Blob, AI Gateway) · Bun · Turborepo · Vitest
+Next.js 16 · React 19 · TypeScript · Mastra · AI SDK UI · Better Auth · oRPC + OpenAPI · Drizzle ORM · Postgres + pgvector · Redis · TanStack Query · Tailwind CSS v4 · Base UI · next-intl · Vercel (Workflow, Blob, AI Gateway) · Bun · Turborepo · Vitest
 
 ## Organization permissions
 

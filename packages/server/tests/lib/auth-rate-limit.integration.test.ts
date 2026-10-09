@@ -12,7 +12,7 @@ vi.mock("react-email", () => ({ render: vi.fn().mockResolvedValue("OTP email") }
 
 vi.mock("../../src/lib/resend", () => ({ resend: { emails: { send: mocks.send } } }));
 
-vi.mock("@starter/cache", () => ({ checkRateLimit: mocks.check }));
+vi.mock("../../src/lib/redis", () => ({ checkRateLimit: mocks.check }));
 
 import { auth } from "../../src/lib/auth";
 

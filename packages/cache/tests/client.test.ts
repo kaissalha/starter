@@ -16,13 +16,13 @@ vi.mock("ioredis", () => {
 	};
 });
 
-import { createTCPRedisClient } from "../src/client";
+import { createRedisClient } from "../src/client";
 
-describe("createTCPRedisClient", () => {
+describe("createRedisClient", () => {
 	it("applies bounded timeouts by default", () => {
 		tcpOptions.length = 0;
 
-		createTCPRedisClient("redis://localhost:6379");
+		createRedisClient("redis://localhost:6379");
 
 		expect(tcpOptions).toEqual([{ commandTimeout: 2000, connectTimeout: 2000, maxRetriesPerRequest: 1 }]);
 	});
@@ -30,7 +30,7 @@ describe("createTCPRedisClient", () => {
 	it("lets caller options override the defaults", () => {
 		tcpOptions.length = 0;
 
-		createTCPRedisClient("redis://localhost:6379", { commandTimeout: 300 });
+		createRedisClient("redis://localhost:6379", { commandTimeout: 300 });
 
 		expect(tcpOptions).toEqual([{ commandTimeout: 300, connectTimeout: 2000, maxRetriesPerRequest: 1 }]);
 	});
