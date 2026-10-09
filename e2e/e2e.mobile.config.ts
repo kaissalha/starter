@@ -16,6 +16,7 @@ export default {
 			system: "You are a careful QA tester holding a phone. Use taps and typing only, the way a phone user would, and never rely on hover or keyboard shortcuts. Finish only when the requested outcome is visible on screen.",
 		},
 	},
+	projectId: "starter",
 	targets: [
 		{
 			app: { url: "http://localhost:3100" },
@@ -23,7 +24,7 @@ export default {
 			name: "phone",
 		},
 	],
-	tests: "e2e/mobile/**/*.e2e.ts",
+	tests: "mobile/**/*.e2e.ts",
 	timeout: 240_000,
 	workers: 1,
 } satisfies E2EConfig;

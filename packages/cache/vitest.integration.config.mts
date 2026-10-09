@@ -13,7 +13,7 @@ export default defineProject({
 		environment: "node",
 		fileParallelism: false,
 		globals: true,
-		globalSetup: "../../redisGlobalSetup.ts",
+		globalSetup: "../../tools/testing/redis-global-setup.ts",
 		include: ["**/*.integration.test.{ts,tsx}"],
 		name: "cache-integration",
 	},

@@ -15,7 +15,7 @@ export default defineProject({
 		environment: "node",
 		fileParallelism: false,
 		globals: true,
-		globalSetup: path.resolve(import.meta.dirname, "../../globalSetup.ts"),
+		globalSetup: path.resolve(import.meta.dirname, "../../tools/testing/postgres-global-setup.ts"),
 		include: ["**/*.integration.test.{ts,tsx}", "tests/lib/auth.test.ts"],
 		name: "server-integration",
 		setupFiles: [path.resolve(import.meta.dirname, "./tests/setup.ts")],

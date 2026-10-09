@@ -103,7 +103,7 @@ export default defineConfig({
 			},
 		},
 		{
-			files: ["globalSetup.ts", "redisGlobalSetup.ts"],
+			files: ["tools/testing/*-global-setup.ts"],
 			rules: {
 				"no-console": "off",
 			},
