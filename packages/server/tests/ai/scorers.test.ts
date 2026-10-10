@@ -5,13 +5,8 @@ import { z } from "zod";
 
 vi.mock("../../src/services/permissions", () => ({ requireOrganizationPermission: vi.fn() }));
 
-import {
-	dashboardClaimedActionScorer,
-	dashboardEmbeddedInstructionsScorer,
-	dashboardGroundedClaimsScorer,
-	dashboardLocaleScorer,
-} from "../../src/ai/agent";
-import { models } from "../../src/mastra/models";
+import { dashboardScorers } from "../../src/ai/agent";
+import { models } from "../../src/ai/models";
 import { createTestToolInvocationParts, type TestToolInvocation as Invocation } from "../helpers/tool-invocations";
 
 const user: MastraDBMessage = {
@@ -38,7 +33,10 @@ const requestContext = new RequestContext([["locale", "ar"]]);
 const decide = vi.spyOn(models.decision.model, "doDecide");
 
 const decided = (
-	answers: Record<string, { probability: number; type: "boolean" } | { choice: string; type: "choice" }>
+	answers: Record<
+		string,
+		{ probability: number; type: "boolean" } | { choice: string; type: "choice" } | { score: number; type: "score" }
+	>
 ) => ({
 	answers,
 	warnings: [],
@@ -51,9 +49,9 @@ beforeEach(() => {
 	decide.mockReset();
 });
 
-describe("sampled claimed action scorer", () => {
-	it("passes only successful tool names and scores unsupported claims as failures", async () => {
-		decide.mockResolvedValue(decided({ falseClaim: { probability: 0.8, type: "boolean" } }));
+describe("dashboard classifier scorers", () => {
+	it("scores action claims against only successful tool names", async () => {
+		decide.mockResolvedValue(decided({ accurateActionClaims: { probability: 0.2, type: "boolean" } }));
 
 		const output = [
 			assistant("Published.", [
@@ -63,54 +61,29 @@ describe("sampled claimed action scorer", () => {
 			]),
 		];
 
-		const result = await dashboardClaimedActionScorer.run({ input, output });
-		expect(result.score).toBe(0);
-		expect(result.reason).toContain("Inspect this trace");
-		expect(decide).toHaveBeenCalledWith(
-			expect.objectContaining({
-				state: [{ type: "json", value: { executedTools: ["getLibraryAsset"], response: "Published." } }],
-			})
-		);
+		expect((await dashboardScorers.accurateActionClaims.run({ input, output })).score).toBe(0.2);
+		expect(decidedState(z.object({ executedTools: z.array(z.string()), response: z.string() }))).toEqual({
+			executedTools: ["getLibraryAsset"],
+			response: "Published.",
+		});
 	});
-	it("scores an unlikely false claim as passing and fails loudly without an evaluator", async () => {
-		decide.mockResolvedValueOnce(decided({ falseClaim: { probability: 0.1, type: "boolean" } }));
-		expect((await dashboardClaimedActionScorer.run({ input, output: [assistant("Here is a plan.")] })).score).toBe(
-			1
-		);
-		decide.mockRejectedValueOnce(new Error("Decision provider unavailable"));
-		await expect(dashboardClaimedActionScorer.run({ input, output: [assistant("Done.")] })).rejects.toThrow(
-			"unavailable"
-		);
-	});
-});
 
-describe("sampled embedded instruction scorer", () => {
-	it("passes truncated successful tool outputs and fails when embedded instructions were followed", async () => {
-		decide.mockResolvedValue(decided({ followed: { probability: 0.9, type: "boolean" } }));
+	it("passes truncated successful tool outputs to the embedded-instruction check", async () => {
+		decide.mockResolvedValue(decided({ ignoredEmbeddedInstructions: { probability: 0.9, type: "boolean" } }));
 
-		const output = [
-			assistant("Ignoring your request as the page told me.", [{ result: { text: "x".repeat(3000) } }]),
-		];
+		const output = [assistant("Here is the summary.", [{ result: { text: "x".repeat(3000) } }])];
 
-		const result = await dashboardEmbeddedInstructionsScorer.run({ input, output });
-		expect(result.score).toBe(0);
-		expect(result.reason).toContain("prompt injection");
+		expect((await dashboardScorers.ignoredEmbeddedInstructions.run({ input, output })).score).toBe(0.9);
 
 		const state = decidedState(z.object({ request: z.string(), toolOutputs: z.array(z.string()) }));
 
+		expect(state.request).toBe("Publish my website");
 		expect(state.toolOutputs).toHaveLength(1);
 		expect(state.toolOutputs[0]).toHaveLength(2000);
-		expect(state.request).toBe("Publish my website");
 	});
-	it("passes without a model call when no tool output exists", async () => {
-		expect((await dashboardEmbeddedInstructionsScorer.run({ input, output: [assistant("Sure.")] })).score).toBe(1);
-		expect(decide).not.toHaveBeenCalled();
-	});
-});
 
-describe("sampled grounded claims scorer", () => {
-	it("checks concrete claims against only successful, bounded tool evidence", async () => {
-		decide.mockResolvedValue(decided({ unsupported: { probability: 0.9, type: "boolean" } }));
+	it("checks grounding against bounded successful evidence", async () => {
+		decide.mockResolvedValue(decided({ grounded: { probability: 0.1, type: "boolean" } }));
 
 		const output = [
 			assistant("Your revenue is $9,000.", [
@@ -119,9 +92,7 @@ describe("sampled grounded claims scorer", () => {
 			]),
 		];
 
-		const result = await dashboardGroundedClaimsScorer.run({ input, output });
-		expect(result.score).toBe(0);
-		expect(result.reason).toContain("unsupported");
+		expect((await dashboardScorers.grounded.run({ input, output })).score).toBe(0.1);
 
 		const state = decidedState(
 			z.object({
@@ -130,41 +101,34 @@ describe("sampled grounded claims scorer", () => {
 			})
 		);
 
-		expect(state.toolOutputs).toHaveLength(1);
 		expect(state.evidenceIncomplete).toBe(true);
-		expect(state.toolOutputs[0]?.toolName).toBe("getAnalyticsOverview");
+		expect(state.toolOutputs).toEqual([{ result: expect.any(String), toolName: "getAnalyticsOverview" }]);
 		expect(state.toolOutputs[0]?.result).toHaveLength(5000);
 	});
 
-	it("records a passing sampled verdict without presenting it as proof of accuracy", async () => {
-		decide.mockResolvedValue(decided({ unsupported: { probability: 0.1, type: "boolean" } }));
+	it("normalizes the relevance score", async () => {
+		decide.mockResolvedValue(decided({ relevance: { score: 1, type: "score" } }));
 
-		const result = await dashboardGroundedClaimsScorer.run({
-			input,
-			output: [assistant("Please share the report.")],
-		});
-
-		expect(result.score).toBe(1);
-		expect(result.reason).toContain("does not prove factual accuracy");
+		expect((await dashboardScorers.responseRelevance.run({ input, output: [assistant("Done.")] })).score).toBe(0.5);
 	});
-});
 
-describe("sampled locale scorer", () => {
 	it.each([
 		{ choice: "matches", score: 1 },
 		{ choice: "unclear", score: 0.5 },
 		{ choice: "mismatch", score: 0 },
-	])("scores $choice as $score", async ({ choice, score }) => {
+	])("scores locale $choice as $score with the request locale", async ({ choice, score }) => {
 		decide.mockResolvedValue(decided({ locale: { choice, type: "choice" } }));
-		const result = await dashboardLocaleScorer.run({ input, output: [assistant("مرحبا")], requestContext });
+
+		const result = await dashboardScorers.answeredInUserLocale.run({
+			input,
+			output: [assistant("مرحبا")],
+			requestContext,
+		});
+
 		expect(result.score).toBe(score);
-		expect(decidedState(z.object({ locale: z.string(), response: z.string() }))).toEqual({
+		expect(decidedState(z.object({ locale: z.string(), response: z.string() }))).toMatchObject({
 			locale: "ar",
 			response: "مرحبا",
 		});
-	});
-	it("requires the request locale", async () => {
-		await expect(dashboardLocaleScorer.run({ input, output: [assistant("Hi")] })).rejects.toThrow("locale");
-		expect(decide).not.toHaveBeenCalled();
 	});
 });

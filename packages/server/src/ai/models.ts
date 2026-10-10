@@ -1,5 +1,5 @@
 import { ModelRouterEmbeddingModel } from "@mastra/core/llm";
-import { gateway, wrapLanguageModel, type LanguageModelMiddleware } from "ai";
+import { defaultSettingsMiddleware, gateway, wrapLanguageModel, type LanguageModelMiddleware } from "ai";
 import type { RequestLogger } from "evlog";
 import { createAIMiddleware } from "evlog/ai";
 
@@ -31,13 +31,18 @@ const requestAIMiddleware: LanguageModelMiddleware = {
 	wrapStream: (options) => resolveRequestAIMiddleware()?.wrapStream?.(options) ?? options.doStream(),
 };
 
-const languageModel = (id: string) => wrapLanguageModel({ middleware: requestAIMiddleware, model: gateway(id) });
+const languageModel = (id: string, settings: Parameters<typeof defaultSettingsMiddleware>[0]["settings"] = {}) =>
+	wrapLanguageModel({
+		middleware: [requestAIMiddleware, defaultSettingsMiddleware({ settings })],
+		model: gateway(id),
+	});
 
 export const models = {
 	chat: { model: languageModel("openai/gpt-6-luna") },
 	cheapFast: {
-		model: languageModel("deepseek/deepseek-v4-flash"),
-		providerOptions: { gateway: { models: ["google/gemini-3.6-flash"], only: ["baseten", "vertex"] } },
+		model: languageModel("deepseek/deepseek-v4-flash", {
+			providerOptions: { gateway: { models: ["google/gemini-3.6-flash"], only: ["baseten", "vertex"] } },
+		}),
 	},
 	decision: { model: gateway.decisionModel("typesafe-ai/jev") },
 	image: { model: gateway.image("openai/gpt-image-2") },

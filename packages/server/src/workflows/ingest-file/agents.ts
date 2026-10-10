@@ -1,7 +1,7 @@
 import { Agent } from "@mastra/core/agent";
 
+import { models } from "../../ai/models";
 import { fileClassificationSystemPrompt, imageClassificationSystemPrompt } from "../../ai/prompts";
-import { models } from "../../mastra/models";
 
 export const documentClassifierAgent = new Agent({
 	description: "Extracts untrusted document metadata for the knowledge library.",

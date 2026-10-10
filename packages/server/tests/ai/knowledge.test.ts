@@ -38,7 +38,7 @@ vi.mock("../../src/services/storage", () => storageMocks);
 
 vi.mock("../../src/services/permissions", () => ({ requireOrganizationPermission }));
 
-import { type KnowledgeRequestContext, retrieveKnowledgeTool, upsertKnowledgeChunks } from "../../src/mastra/knowledge";
+import { type KnowledgeRequestContext, retrieveKnowledgeTool, upsertKnowledgeChunks } from "../../src/ai/knowledge";
 
 const organizationId = "organization-1";
 

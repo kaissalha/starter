@@ -213,7 +213,7 @@ export const ingestFileWorkflow = createWorkflow({
 /* oxlint-enable promise/prefer-await-to-then, github/no-then, unicorn/prefer-top-level-await */
 
 export const startIngestFile = async (input: z.infer<typeof ingestInputSchema>) => {
-	const { mastra } = await import("../../mastra");
+	const { mastra } = await import("../../ai");
 	const run = await mastra.getWorkflow("ingestFileWorkflow").createRun({ resourceId: input.organizationId });
 
 	const execute = async () => {

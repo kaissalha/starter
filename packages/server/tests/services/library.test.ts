@@ -4,7 +4,7 @@ vi.mock("@starter/db", () => ({ db: {}, files: {} }));
 
 vi.mock("../../src/lib/blob-storage", () => ({ uploadBufferToBlob: vi.fn() }));
 
-vi.mock("../../src/mastra/models", () => ({ models: {} }));
+vi.mock("../../src/ai/models", () => ({ models: {} }));
 
 vi.mock("../../src/services/documents", () => ({ startFileIngestion: vi.fn() }));
 

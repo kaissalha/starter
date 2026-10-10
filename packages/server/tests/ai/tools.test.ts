@@ -46,6 +46,7 @@ import {
 import { asSchema } from "ai";
 import { z } from "zod";
 
+import { dashboardChatMemory } from "../../src/ai/memory";
 import {
 	dashboardChatObservationInstructions,
 	dashboardChatCurrentUserPrompt,
@@ -55,7 +56,6 @@ import {
 } from "../../src/ai/prompts";
 import { dashboardChatTools } from "../../src/ai/tools";
 import { createDashboardChatRequestContext, type AppContext } from "../../src/ai/types";
-import { dashboardChatMemory } from "../../src/mastra/memory";
 import { hasOrganizationPermission, type OrganizationPermission } from "../../src/utils/permissions";
 
 const { createLibraryDocument: createLibraryDocumentTool, webSearch: webSearchTool } = dashboardChatTools;
@@ -123,7 +123,7 @@ describe("ai tools", () => {
 
 	it("blocks a previously approved mutation after the actor becomes a Member", async () => {
 		const input = { content: "# Brief", name: "Brief" };
-		const context = { approvalContinuation: true, organizationId: "org-1", userId: "user-1" };
+		const context = { organizationId: "org-1", userId: "user-1" };
 		libraryMocks.createLibraryDocument.mockResolvedValue({ content: input.content, id: "asset-1" });
 		await expect(runTool(createLibraryDocumentTool.execute, input, context)).resolves.toEqual([{ id: "asset-1" }]);
 		permissionMocks.role = "member";

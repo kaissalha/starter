@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import { getFormatter, getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
-import { legalVersion } from "@starter/server/contracts";
 import { cn } from "@starter/ui/lib/utils";
 
 import { Footer } from "./footer";
@@ -17,7 +16,7 @@ type LegalDocumentProps = {
 
 export const LegalDocument = async ({ children, contact, title }: LegalDocumentProps) => {
 	const [t, format] = await Promise.all([getTranslations("legal"), getFormatter()]);
-	const date = format.dateTime(new Date(legalVersion), { dateStyle: "long", timeZone: "UTC" });
+	const date = format.dateTime(new Date("2026-09-28"), { dateStyle: "long", timeZone: "UTC" });
 
 	return (
 		<div className='bg-olive-50'>

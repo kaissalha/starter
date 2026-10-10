@@ -4,15 +4,15 @@ import { Memory } from "@mastra/memory";
 import { pool } from "@starter/db";
 import { createMastraStore } from "@starter/db/mastra";
 
-import { decisionClassifiers, evaluateDecision } from "../ai/decisions";
+import { decisionClassifiers, evaluateDecision } from "./decisions";
+import { models } from "./models";
 import {
 	dashboardChatObservationInstructions,
 	dashboardChatReflectionInstructions,
 	dashboardChatTitleInstructions,
 	dashboardObservationGateInstructions,
 	organizationWorkingMemoryTemplate,
-} from "../ai/prompts";
-import { models } from "./models";
+} from "./prompts";
 
 export const mastraStorage = createMastraStore({ pool });
 
@@ -50,12 +50,10 @@ export const dashboardChatMemory = new Memory({
 				manageWorkingMemory: true,
 				model: models.cheapFast.model,
 				observeAttachments: false,
-				providerOptions: models.cheapFast.providerOptions,
 			},
 			reflection: {
 				instruction: dashboardChatReflectionInstructions,
 				model: models.cheapFast.model,
-				providerOptions: models.cheapFast.providerOptions,
 			},
 			scope: "thread",
 		},

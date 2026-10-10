@@ -8,8 +8,8 @@ vi.mock("../../src/lib/resend", () => ({ sendEmail: vi.fn().mockResolvedValue(un
 
 import { InvitationEmail, OTPEmail } from "@starter/email";
 
-import { OTP_EXPIRES_IN_SECONDS, sendOrganizationInvitationEmail, sendOTPEmail } from "../../src/lib/auth-emails";
 import { sendEmail } from "../../src/lib/resend";
+import { OTP_EXPIRES_IN_SECONDS, sendOrganizationInvitationEmail, sendOTPEmail } from "../../src/services/auth-emails";
 
 const invitation = {
 	email: "invitee@example.com",

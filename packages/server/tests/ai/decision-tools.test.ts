@@ -20,7 +20,6 @@ vi.mock("../../src/lib/firecrawl", () => ({ firecrawl: { search: mocks.search } 
 
 import { decisionClassifiers } from "../../src/ai/decisions";
 import { rankRelevantCandidates, relevanceRank } from "../../src/ai/relevance";
-import { dashboardSkills, loadDashboardRoute } from "../../src/ai/skills";
 import { assistantTools } from "../../src/ai/tools/assistant";
 import { createDashboardChatRequestContext } from "../../src/ai/types";
 
@@ -44,12 +43,6 @@ beforeEach(() => {
 });
 
 describe("bounded decision tools", () => {
-	it("loads exactly the selected domain and falls back without activation", () => {
-		const library = dashboardSkills.find(({ name }) => name === "library");
-		expect(loadDashboardRoute("library")).toEqual({ instructions: library?.instructions, skill: "library" });
-		expect(loadDashboardRoute("none")).toMatchObject({ skill: null });
-		expect(loadDashboardRoute(undefined)).toMatchObject({ skill: null });
-	});
 	it("retains web citations and full excerpts when optionally reranking", async () => {
 		mocks.search.mockResolvedValue({
 			web: [

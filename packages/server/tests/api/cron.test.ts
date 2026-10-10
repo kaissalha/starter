@@ -16,8 +16,12 @@ vi.mock("../../src/services/events/dispatch", () => ({
 	runEventRetention: mocks.runEventRetention,
 }));
 
-import { handleOrganizationPurgeCron, isCronAuthorized } from "../../src/api/cron";
-import { handleEventDispatch, handleEventRetention } from "../../src/api/events";
+import {
+	handleEventDispatch,
+	handleEventRetention,
+	handleOrganizationPurgeCron,
+	isCronAuthorized,
+} from "../../src/api/cron";
 
 const secret = "test-secret";
 

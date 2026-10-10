@@ -47,8 +47,12 @@
 		},
 		{
 			"name": "ai-and-api-never-import-database",
-			"description": "AI tools and API adapters reach persistence only through services.",
-			"paths": ["packages/server/src/ai/**/*.ts", "packages/server/src/api/**/*.ts"],
+			"description": "AI tools and API adapters reach persistence only through services; only the Mastra memory and knowledge stores bind to the database connection.",
+			"paths": [
+				"packages/server/src/ai/**/*.ts",
+				"!packages/server/src/ai/{memory,knowledge}.ts",
+				"packages/server/src/api/**/*.ts"
+			],
 			"mustNot": {
 				"importValuesFrom": "@starter/db",
 				"importTypesFrom": "@starter/db"

@@ -1,6 +1,5 @@
 import { createSkill } from "@mastra/core/skills";
 import { generateSystemPrompt, type PromptOptions } from "@openuidev/lang-core";
-import { z } from "zod";
 
 import openuiChatSpec from "./generated/openui-chat.spec.json" with { type: "json" };
 
@@ -84,28 +83,3 @@ export const dashboardSkills = [
 		name: "visualization",
 	}),
 ];
-
-export const dashboardRouteResultSchema = z.compile(
-	z.object({
-		instructions: z.string(),
-		skill: z.enum(["library", "notifications", "visualization"]).nullable(),
-	})
-);
-
-export const dashboardRouteChoices = {
-	library: "List, read, write or edit a Library document or file, or generate or edit an image for the Library.",
-	none: "General question, ambiguous intent, or multiple domains; use the normal skill directory.",
-	notifications: "Read or change the user's own notification settings.",
-	visualization: "Visualize supplied numeric data in a chart or table.",
-};
-
-export const loadDashboardRoute = (route: string | undefined) => {
-	const skill = dashboardSkills.find(({ name }) => name === route);
-
-	return dashboardRouteResultSchema.parse({
-		instructions:
-			skill?.instructions ??
-			"No single domain was selected. Use the normal skill directory; no domain instructions were loaded.",
-		skill: skill?.name ?? null,
-	});
-};

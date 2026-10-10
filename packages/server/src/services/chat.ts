@@ -2,11 +2,13 @@ import { toAISdkMessages } from "@mastra/ai-sdk/ui";
 import { MessageList, type MastraDBMessage } from "@mastra/core/agent";
 import { validateUIMessages } from "ai";
 
+import { createLock } from "@starter/cache";
 import { pool } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
 
+import { dashboardChatMemory } from "../ai/memory";
 import type { DashboardChatUIMessage } from "../ai/types";
-import { dashboardChatMemory } from "../mastra/memory";
+import { getStreamRedis } from "../lib/redis";
 
 const CHAT_PAGE_SIZE = 20;
 
@@ -191,3 +193,22 @@ export const getChatWithMessages = async ({
 
 export const getChatMessages = async ({ chatId, organizationId }: { chatId: string; organizationId: string }) =>
 	(await getChatWithMessages({ chatId, organizationId }))?.messages ?? [];
+
+type ChatScope = { chatId: string; organizationId: string };
+
+const activeStreamKey = ({ chatId, organizationId }: ChatScope) => `chat-stream:${organizationId}:${chatId}`;
+
+export const setActiveChatStream = async ({ streamId, ...chat }: ChatScope & { streamId: string }) => {
+	await getStreamRedis().set(activeStreamKey(chat), streamId, "EX", 86_400);
+};
+
+export const getActiveChatStream = (chat: ChatScope) => getStreamRedis().get(activeStreamKey(chat));
+
+export const clearActiveChatStream = ({ streamId, ...chat }: ChatScope & { streamId: string }) =>
+	createLock({ id: activeStreamKey(chat), lease: "1 d", redis: getStreamRedis(), token: streamId }).release();
+
+export const cancelChatStream = async (chat: ChatScope) => {
+	if (process.env.REDIS_URL) {
+		await getStreamRedis().del(activeStreamKey(chat));
+	}
+};

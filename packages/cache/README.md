@@ -44,8 +44,6 @@ const fresh = await summaries.getOrSet(documentId, () => summarize(documentId));
   miss, and failed writes and deletes are ignored. `getOrSet` therefore still returns the loaded value when Redis is down.
 - Bump the prefix version (`v1` → `v2`) when the cached shape changes instead of migrating old entries.
 
-`packages/server/src/ai/decisions.ts` memoizes classifier answers with `createCache`.
-
 ## Rate limiting
 
 ```typescript
@@ -92,7 +90,7 @@ if (await lock.acquire()) {
 `acquire` sets the key only when it is free and returns whether this lock now owns it. `extend` and `release` act only
 while the key still holds this lock's `token`, so an expired owner can never extend or release someone else's lock.
 The token is a random UUID by default; pass `token` to act on a lock acquired elsewhere, for example a lease handed
-between requests. Lock calls throw on Redis errors. `packages/server/src/services/chat-stream-state.ts` uses a lock's
+between requests. Lock calls throw on Redis errors. `packages/server/src/services/chat.ts` uses a lock's
 owner-checked `release` so a finishing chat stream clears its active-stream id only while it is still the active one.
 
 Durations (`lease`, `window`) accept `ms`, `s`, `m`, `h`, or `d`, with or without a space: `"500ms"`, `"30 s"`,

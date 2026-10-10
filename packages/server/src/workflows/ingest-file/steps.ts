@@ -6,9 +6,17 @@ import { getExtensionFromFilename, MAX_INGEST_TEXT_LENGTH, normalizeContentType 
 import { extractFileText } from "@starter/documents/extraction";
 import { log } from "@starter/observability";
 
-import { FILE_PROCESSING_FAILED_CODE, MAX_INGEST_CHUNKS } from "../../constants/upload";
 import { downloadBlob } from "../../lib/blob-storage";
-import { applyFileEnrichment, getFile, markFileFailed, markFileReady, upsertFileTags } from "../../services/storage";
+import {
+	applyFileEnrichment,
+	FILE_PROCESSING_FAILED_CODE,
+	getFile,
+	markFileFailed,
+	markFileReady,
+	upsertFileTags,
+} from "../../services/storage";
+
+export const MAX_INGEST_CHUNKS = 300;
 
 const startIndexSchema = z.compile(z.number().int().nonnegative());
 

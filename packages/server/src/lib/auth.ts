@@ -22,6 +22,7 @@ import { apikeys, db, members, schema, users } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
 import { getBaseURL } from "@starter/utils";
 
+import { OTP_EXPIRES_IN_SECONDS, sendOrganizationInvitationEmail, sendOTPEmail } from "../services/auth-emails";
 import {
 	authPermissionHook,
 	getOrganizationRole,
@@ -29,7 +30,6 @@ import {
 	validateTeamRole,
 } from "../services/permissions";
 import { hasOrganizationPermission, organizationAccessControl, organizationRoles } from "../utils/permissions";
-import { OTP_EXPIRES_IN_SECONDS, sendOrganizationInvitationEmail, sendOTPEmail } from "./auth-emails";
 import { checkRateLimit } from "./redis";
 
 const googleClientId = process.env.GOOGLE_CLIENT_ID;

@@ -25,7 +25,7 @@ vi.mock("../../src/lib/blob-storage", async (importOriginal) => ({
 	deleteBlob: mocks.deleteBlob,
 }));
 
-vi.mock("../../src/mastra", () => ({
+vi.mock("../../src/ai", () => ({
 	mastra: {
 		getWorkflow: () => ({ createRun: mocks.createRun, getWorkflowRunById: mocks.getWorkflowRunById }),
 	},
@@ -34,10 +34,10 @@ vi.mock("../../src/mastra", () => ({
 import { db, files } from "@starter/db";
 import { knowledgeEmbeddingDimensions, knowledgeIndexName } from "@starter/db/mastra";
 
+import { knowledgeVector, upsertKnowledgeChunks } from "../../src/ai/knowledge";
+import { createDashboardWorkingMemoryProcessor, dashboardChatMemory, mastraStorage } from "../../src/ai/memory";
 import { assistantTools } from "../../src/ai/tools/assistant";
-import { hasPendingAssistantRequest } from "../../src/api/chat-stream-context";
-import { knowledgeVector, upsertKnowledgeChunks } from "../../src/mastra/knowledge";
-import { createDashboardWorkingMemoryProcessor, dashboardChatMemory, mastraStorage } from "../../src/mastra/memory";
+import { hasPendingAssistantRequest } from "../../src/api/chat-stream";
 import {
 	chatMessageIdExists,
 	ChatOwnershipConflictError,

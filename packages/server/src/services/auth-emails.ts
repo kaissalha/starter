@@ -3,7 +3,7 @@ import { render } from "react-email";
 import { getI18n, InvitationEmail, isSupportedLocale, OTPEmail } from "@starter/email";
 import { getBaseURL } from "@starter/utils";
 
-import { sendEmail } from "./resend";
+import { sendEmail } from "../lib/resend";
 
 export const OTP_EXPIRES_IN_SECONDS = 5 * 60;
 

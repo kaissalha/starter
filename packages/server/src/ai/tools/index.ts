@@ -1,4 +1,4 @@
-import { retrieveKnowledgeTool } from "../../mastra/knowledge";
+import { retrieveKnowledgeTool } from "../knowledge";
 import { assistantTools } from "./assistant";
 import { libraryTools } from "./library";
 import { notificationsTools } from "./notifications";

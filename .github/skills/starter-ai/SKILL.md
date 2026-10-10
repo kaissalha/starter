@@ -10,21 +10,21 @@ description: Implement or review prompts, models, agents, tools, retrieval, memo
 - `packages/db/src/mastra.ts` (`@starter/db/mastra`) owns Mastra store and vector construction, the knowledge index
   definition, and `initializeMastraStorage`. Mastra owns the `mastra` schema: never add Drizzle migrations, foreign
   keys, triggers, or raw SQL against its tables.
-- `packages/server/src/mastra` is four modules: `models.ts` (one model registry shared by agents, memory, and AI SDK
-  calls), `memory.ts` (Postgres store and the dashboard `Memory`), `knowledge.ts` (pgvector store, the retrieval tool,
-  and chunk upsert/delete), and `index.ts` (the single `Mastra` instance with every agent, storage, vectors, and
-  observability, plus the decision classifiers and the `ingest-file` workflow and its classifier agents). Instantiate
-  infrastructure once at module level; do not add `globalThis` singletons or lazy
-  index-creation state. The `mastra` schema and knowledge index are created by `bun --filter @starter/db migrate`
-  through `initializeMastraStorage`.
-- `packages/server/src/ai` is flat: `agent.ts` (the single dashboard agent and its runtime scorers), `skills.ts`
-  (the `library`, `notifications`, and `visualization` domain skills, skill routing, and the generated OpenUI prompt),
-  `prompts.ts` (every prompt and prompt-owned schema), `tool-policy.ts` (per-step tool gating), `decisions.ts` (Mastra
-  `Classifier` instances over the gateway decision model, with deadlines, memoization, and null fallbacks) and
-  `relevance.ts` (Mastra `rerankWithScorer` over a batching classifier `RelevanceScoreProvider`), `types.ts` (request context and UI message types), and
-  `tools/` with one module per domain exporting a `{domain}Tools` map (`assistant`, `library`, `notifications`,
-  `table`), composed with the knowledge retrieval tool in `tools/index.ts`. The request context guarantees
-  `organizationId` and `userId`; tools read them without re-checking.
+- `packages/server/src/ai` is flat and holds all AI code: `index.ts` (the single `Mastra` instance, also the `mastra dev --dir src/ai` entry, with every agent,
+  storage, vectors, observability, the decision classifiers, and the `ingest-file` workflow and its classifier agents),
+  `models.ts` (one model registry shared by agents, memory, and AI SDK calls), `memory.ts` (Postgres store and the
+  dashboard `Memory`), `knowledge.ts` (pgvector store, the retrieval tool, and chunk upsert/delete), `agent.ts` (the
+  single dashboard agent and its `createClassifierScorer` runtime scorers), `skills.ts` (the `library`,
+  `notifications`, and `visualization` domain skills, loaded by the agent with Mastra's skill tools, and the generated
+  OpenUI prompt), `prompts.ts` (every prompt and prompt-owned schema), `decisions.ts` (Mastra `Classifier` instances
+  over the gateway decision model, with deadlines and null fallbacks), `relevance.ts` (Mastra `rerankWithScorer` over a
+  batching classifier `RelevanceScoreProvider`), `types.ts` (request context and UI message types), and `tools/` with
+  one module per domain exporting a `{domain}Tools` map (`assistant`, `library`, `notifications`, `table`), composed
+  with the knowledge retrieval tool in `tools/index.ts`. Instantiate infrastructure once at module level; do not add
+  `globalThis` singletons or lazy index-creation state. The `mastra` schema and knowledge index are created by
+  `bun --filter @starter/db migrate` through `initializeMastraStorage`. The request context guarantees
+  `organizationId` and `userId`; tools read them without re-checking. `packages/server/src/api/chat-stream.ts` is the
+  only chat transport: request validation, turn context, the Mastra stream filter, and resumable delivery.
 - `ingest-file` is a Mastra workflow (`createWorkflow`/`createStep`) registered on the `Mastra` instance, snapshotted to
   Mastra Postgres storage, run under `waitUntil`, and recovered with `run.restart()` by the stale-file sweep. Its
   classification runs through Mastra agents with `structuredOutput`. Image generation is the only direct AI SDK call,

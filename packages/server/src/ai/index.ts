@@ -1,10 +1,10 @@
 import { Mastra } from "@mastra/core/mastra";
 import { MastraStorageExporter, Observability } from "@mastra/observability";
 
-import { dashboardChatAgent } from "../ai/agent";
-import { decisionClassifiers } from "../ai/decisions";
 import { ingestFileWorkflow } from "../workflows/ingest-file";
 import { documentClassifierAgent, imageClassifierAgent } from "../workflows/ingest-file/agents";
+import { dashboardChatAgent } from "./agent";
+import { decisionClassifiers } from "./decisions";
 import { knowledgeVector } from "./knowledge";
 import { mastraStorage } from "./memory";
 

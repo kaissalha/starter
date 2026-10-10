@@ -24,7 +24,7 @@ vi.mock("ai", async (importOriginal) => {
 	return { ...actual, gateway: Object.assign(languageModel, { decisionModel: vi.fn(), image: vi.fn() }) };
 });
 
-const { models } = await import("../../src/mastra/models");
+const { models } = await import("../../src/ai/models");
 
 describe("models", () => {
 	it("records AI usage on the active request wide event", async () => {

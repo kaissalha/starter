@@ -23,6 +23,7 @@ vi.mock("../../src/lib/auth", () => ({ resolveSession: mocks.resolveSession }));
 vi.mock("../../src/services/storage", () => ({
 	createFile: mocks.createFile,
 	deleteFile: mocks.deleteFile,
+	FILE_PROCESSING_FAILED_CODE: "PROCESSING_FAILED",
 	getFile: mocks.getFile,
 	getFileUrl: async () => null,
 	markFileFailed: mocks.markFileFailed,

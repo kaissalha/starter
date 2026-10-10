@@ -61,7 +61,7 @@ the server runtime. UI controls are supplementary; authorization is enforced on 
 
 ## AI architecture
 
-`packages/server/src/mastra` is the single runtime for agents, model routing, Postgres memory, pgvector knowledge,
+`packages/server/src/ai` is the single runtime for agents, model routing, Postgres memory, pgvector knowledge,
 observability, and scoring. Mastra owns the `mastra` Postgres schema and initializes it itself: the repository adds no
 migrations, foreign keys, or triggers to Mastra tables. `@starter/db/mastra` constructs the Postgres store and vector
 store and exposes `initializeMastraStorage`, which the expand-migration script and the test bootstrap run before any

@@ -12,11 +12,11 @@ import { z } from "zod";
 import { databaseUrl } from "@starter/db";
 import { knowledgeIndexName, knowledgeVectorId, mastraSchemaName } from "@starter/db/mastra";
 
-import { decisionClassifiers, evaluateDecision } from "../ai/decisions";
-import { rerankQueryResults } from "../ai/relevance";
 import { requireOrganizationPermission } from "../services/permissions";
 import { getFile, listRetrievableFileIds } from "../services/storage";
+import { decisionClassifiers, evaluateDecision } from "./decisions";
 import { knowledgeEmbeddingModel, knowledgeEmbeddingModelConfig, knowledgeEmbeddingProviderOptions } from "./models";
+import { rerankQueryResults } from "./relevance";
 
 const knowledgeQueryFailures = new AsyncLocalStorage<Array<Error>>();
 

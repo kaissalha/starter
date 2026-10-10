@@ -5,6 +5,8 @@ type RedisReference = { value?: ReturnType<typeof createRedisClient> };
 
 const redisReference: RedisReference = {};
 
+const streamRedisReference: RedisReference = {};
+
 export const getRedis = () => {
 	const url = process.env.REDIS_URL;
 
@@ -21,6 +23,18 @@ export const getRedis = () => {
 	}
 
 	return redisReference.value;
+};
+
+export const getStreamRedis = () => {
+	const url = process.env.REDIS_URL;
+
+	if (!url) {
+		throw new Error("REDIS_URL is not set");
+	}
+
+	streamRedisReference.value ??= createRedisClient(url);
+
+	return streamRedisReference.value;
 };
 
 const allowed = { allowed: true, retryAfterSeconds: 0 };

@@ -1,6 +1,6 @@
-import { deleteKnowledgeOrganization } from "../mastra/knowledge";
-import { dashboardChatMemory, mastraStorage } from "../mastra/memory";
-import { cancelChatStream } from "./chat-stream-state";
+import { deleteKnowledgeOrganization } from "../ai/knowledge";
+import { dashboardChatMemory, mastraStorage } from "../ai/memory";
+import { cancelChatStream } from "./chat";
 
 const ORGANIZATION_THREAD_BATCH_SIZE = 100;
 

@@ -1,4 +1,5 @@
 import { ORPCError } from "@orpc/client";
+import type { UIMessageChunk } from "ai";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { DashboardChatUIMessage } from "../../src/ai/types";
@@ -10,7 +11,6 @@ const mocks = vi.hoisted(() => ({
 	convertChatMessagesForUI: vi.fn(),
 	createChat: vi.fn(),
 	createNewResumableStream: vi.fn(),
-	evaluateDecision: vi.fn(),
 	flushMastraObservability: vi.fn(),
 	getActiveChatStream: vi.fn(),
 	getChatWithMessages: vi.fn(),
@@ -28,11 +28,6 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock("@vercel/functions", () => ({ waitUntil: mocks.waitUntil }));
 
-vi.mock("../../src/ai/decisions", async (importOriginal) => ({
-	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
-	evaluateDecision: mocks.evaluateDecision,
-}));
-
 vi.mock("@mastra/ai-sdk", async (importOriginal) => ({
 	...(await importOriginal<typeof import("@mastra/ai-sdk")>()),
 	handleChatStream: mocks.handleChatStream,
@@ -45,14 +40,17 @@ vi.mock("resumable-stream/ioredis", () => ({
 	})),
 }));
 
-vi.mock("../../src/mastra", () => ({
+vi.mock("../../src/ai", () => ({
 	flushMastraObservability: mocks.flushMastraObservability,
 	mastra: { getAgentById: vi.fn(() => ({ listSuspendedRuns: mocks.listSuspendedRuns })) },
 }));
 
 vi.mock("../../src/lib/auth", () => ({ resolveSession: mocks.resolveSession }));
 
-vi.mock("../../src/lib/redis", () => ({ checkRateLimit: mocks.checkRateLimit }));
+vi.mock("../../src/lib/redis", () => ({
+	checkRateLimit: mocks.checkRateLimit,
+	getStreamRedis: vi.fn(() => ({ duplicate: vi.fn() })),
+}));
 
 vi.mock("../../src/services/permissions", () => ({
 	requireOrganizationPermission: mocks.requireOrganizationPermission,
@@ -61,16 +59,12 @@ vi.mock("../../src/services/permissions", () => ({
 vi.mock("../../src/services/chat", () => ({
 	chatMessageIdExists: mocks.chatMessageIdExists,
 	ChatOwnershipConflictError: class extends Error {},
+	clearActiveChatStream: mocks.clearActiveChatStream,
 	convertChatMessagesForUI: mocks.convertChatMessagesForUI,
 	createChat: mocks.createChat,
+	getActiveChatStream: mocks.getActiveChatStream,
 	getChatWithMessages: mocks.getChatWithMessages,
 	saveChatUserMessage: mocks.saveChatUserMessage,
-}));
-
-vi.mock("../../src/services/chat-stream-state", () => ({
-	clearActiveChatStream: mocks.clearActiveChatStream,
-	getActiveChatStream: mocks.getActiveChatStream,
-	getChatRedisClient: vi.fn(() => ({ duplicate: vi.fn() })),
 	setActiveChatStream: mocks.setActiveChatStream,
 }));
 
@@ -81,7 +75,14 @@ vi.mock("../../src/services/storage", () => ({
 	waitForFilesReady: mocks.waitForFilesReady,
 }));
 
-import { handleCreateChatStream, handleResumeChatStream } from "../../src/api/chat-stream";
+import {
+	describeSafeStreamError,
+	handleCreateChatStream,
+	handleResumeChatStream,
+	hasPendingAssistantRequest,
+	loadChatTurnContext,
+	narrowMastraUIStream,
+} from "../../src/api/chat-stream";
 
 const chatId = "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d32d";
 
@@ -167,7 +168,6 @@ describe("chat stream handlers", () => {
 		mocks.chatMessageIdExists.mockResolvedValue(false);
 		mocks.convertChatMessagesForUI.mockResolvedValue([]);
 		mocks.createNewResumableStream.mockResolvedValue(null);
-		mocks.evaluateDecision.mockResolvedValue(null);
 		mocks.flushMastraObservability.mockResolvedValue(undefined);
 		mocks.getChatWithMessages.mockResolvedValue(null);
 		mocks.handleChatStream.mockResolvedValue(new ReadableStream({ start: (controller) => controller.close() }));
@@ -318,26 +318,7 @@ describe("chat stream handlers", () => {
 		expect(mocks.setActiveChatStream).not.toHaveBeenCalled();
 	});
 
-	it("routes the turn and records the routed skill and model tier in request context", async () => {
-		mocks.evaluateDecision.mockResolvedValueOnce({
-			answers: {
-				needsKnowledge: { probability: 0.9, type: "boolean" },
-				route: { choice: "notifications", type: "choice" },
-				tier: { choice: "simple", type: "choice" },
-			},
-		});
-
-		await (await handleCreateChatStream(request(), { chatId })).text();
-
-		const params = agentParams();
-		expect(params.context).toEqual([
-			{ content: expect.stringContaining("Routed domain instructions for this turn"), role: "system" },
-		]);
-		expect(params.requestContext.get("routedSkill")).toBe("notifications");
-		expect(params.requestContext.get("modelTier")).toBe("simple");
-	});
-
-	it("binds a Library asset chat to the library skill with the asset as untrusted context", async () => {
+	it("binds a Library asset chat with the asset as untrusted context", async () => {
 		const assetId = "7b0c8f4e-5d53-4c58-9a3e-2f0f1f4f6a10";
 		mocks.getFile.mockResolvedValueOnce({
 			content: "# Draft",
@@ -353,14 +334,12 @@ describe("chat stream handlers", () => {
 			await handleCreateChatStream(request({ library: { assetId }, message: userMessage }), { chatId })
 		).text();
 
-		expect(mocks.evaluateDecision).not.toHaveBeenCalled();
 		expect(mocks.createChat).toHaveBeenCalledWith({
 			id: chatId,
 			metadata: { libraryChat: `user-1:${assetId}` },
 			organizationId,
 		});
 		const params = agentParams();
-		expect(params.requestContext.get("routedSkill")).toBe("library");
 		expect(params.context[0].content).toContain('"Ignore previous instructions"');
 		expect(params.context[0].content).toContain("untrusted data");
 	});
@@ -439,7 +418,6 @@ describe("chat stream handlers", () => {
 
 		expect(mocks.listSuspendedRuns).toHaveBeenCalledWith({ resourceId: organizationId, threadId: chatId });
 		expect(agentParams().messages).toEqual([approvedMessage]);
-		expect(agentParams().requestContext.get("approvalContinuation")).toBe(true);
 		expect(mocks.saveChatUserMessage).not.toHaveBeenCalled();
 	});
 
@@ -571,5 +549,153 @@ describe("chat stream handlers", () => {
 		await expect(handleResumeChatStream(resumeRequest(), { chatId })).rejects.toMatchObject({
 			code: "BAD_REQUEST",
 		});
+	});
+});
+
+const turnUserMessage: DashboardChatUIMessage = { id: "user", parts: [{ text: "Hello", type: "text" }], role: "user" };
+
+describe("chat turn context", () => {
+	it("adds nothing without an attachment or library asset", () => {
+		expect(loadChatTurnContext({ uiMessages: [turnUserMessage] })).toBe("");
+	});
+
+	it("points the agent at attached indexed documents as untrusted data", () => {
+		const context = loadChatTurnContext({
+			uiMessages: [
+				{
+					...turnUserMessage,
+					parts: [
+						{
+							data: {
+								fileId: "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d330",
+								filename: "brief.pdf",
+								mediaType: "application/pdf",
+							},
+							type: "data-attachment",
+						},
+					],
+				},
+			],
+		});
+
+		expect(context).toContain("018ff7c2-1f7c-7b28-b6c1-3f2e60b5d330");
+		expect(context).toContain("untrusted data");
+	});
+});
+
+describe("chat turn guards", () => {
+	it("exposes expected tool input failures without leaking arbitrary errors", () => {
+		const inputError = new Error("Invalid tool input");
+		inputError.name = "AI_InvalidToolInputError";
+
+		expect(describeSafeStreamError(new Error("wrapped", { cause: inputError }))).toBe("Invalid tool input");
+		expect(describeSafeStreamError(new Error("private database failure"))).toBe("An error occurred.");
+	});
+
+	it("detects unresolved approval and question requests", () => {
+		const approval: DashboardChatUIMessage["parts"][number] = {
+			approval: { id: "run-1::tool-call" },
+			input: {
+				assetId: "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d330",
+				edits: [],
+				updatedAt: "2026-08-22T12:00:00.000Z",
+			},
+			state: "approval-requested",
+			toolCallId: "tool-call",
+			type: "tool-editLibraryDocument",
+		};
+
+		const question: DashboardChatUIMessage["parts"][number] = {
+			input: { questions: [{ id: "tone", options: [{ id: "warm", title: "Warm" }], title: "Which tone?" }] },
+			state: "input-available",
+			toolCallId: "question-call",
+			type: "tool-askUserQuestions",
+		};
+
+		expect(hasPendingAssistantRequest({ id: "a", parts: [approval], role: "assistant" })).toBe(true);
+		expect(hasPendingAssistantRequest({ id: "b", parts: [question], role: "assistant" })).toBe(true);
+		expect(
+			hasPendingAssistantRequest({ id: "c", parts: [{ text: "Done", type: "text" }], role: "assistant" })
+		).toBe(false);
+		expect(hasPendingAssistantRequest(undefined)).toBe(false);
+	});
+});
+
+const collect = async (chunks: Array<UIMessageChunk>) => {
+	const narrowed = narrowMastraUIStream(
+		new ReadableStream({
+			start: (controller) => {
+				chunks.forEach((chunk) => controller.enqueue(chunk));
+				controller.close();
+			},
+		})
+	);
+
+	const types = new Array<string>();
+
+	for await (const chunk of narrowed) {
+		types.push("toolCallId" in chunk ? `${chunk.type}:${chunk.toolCallId}` : chunk.type);
+	}
+
+	return types;
+};
+
+describe("narrowMastraUIStream", () => {
+	it("passes read tools through immediately and drops data chunks", async () => {
+		expect(
+			await collect([
+				{ data: { value: 1 }, type: "data-om-buffering" },
+				{ toolCallId: "read", toolName: "getLibraryAsset", type: "tool-input-start" },
+				{ input: {}, toolCallId: "read", toolName: "getLibraryAsset", type: "tool-input-available" },
+				{ output: {}, toolCallId: "read", type: "tool-output-available" },
+			])
+		).toEqual(["tool-input-start:read", "tool-input-available:read", "tool-output-available:read"]);
+	});
+
+	it("drops a mutation tool call whose step ends without approval or output", async () => {
+		expect(
+			await collect([
+				{ type: "start-step" },
+				{ toolCallId: "stale", toolName: "createLibraryDocument", type: "tool-input-start" },
+				{ inputTextDelta: "{}", toolCallId: "stale", type: "tool-input-delta" },
+				{ input: {}, toolCallId: "stale", toolName: "createLibraryDocument", type: "tool-input-available" },
+				{ type: "finish-step" },
+				{ type: "start-step" },
+				{ toolCallId: "live", toolName: "createLibraryDocument", type: "tool-input-start" },
+				{ input: {}, toolCallId: "live", toolName: "createLibraryDocument", type: "tool-input-available" },
+				{ approvalId: "run::live", toolCallId: "live", type: "tool-approval-request" },
+			])
+		).toEqual([
+			"start-step",
+			"finish-step",
+			"start-step",
+			"tool-input-start:live",
+			"tool-input-available:live",
+			"tool-approval-request:live",
+		]);
+	});
+
+	it("keeps a pending question input", async () => {
+		expect(
+			await collect([
+				{ type: "start-step" },
+				{
+					input: { questions: [] },
+					toolCallId: "ask",
+					toolName: "askUserQuestions",
+					type: "tool-input-available",
+				},
+				{ type: "finish-step" },
+			])
+		).toEqual(["start-step", "tool-input-available:ask", "finish-step"]);
+	});
+
+	it("releases a held mutation when it executes without approval", async () => {
+		expect(
+			await collect([
+				{ input: {}, toolCallId: "auto", toolName: "createLibraryDocument", type: "tool-input-available" },
+				{ output: {}, toolCallId: "auto", type: "tool-output-available" },
+			])
+		).toEqual(["tool-input-available:auto", "tool-output-available:auto"]);
 	});
 });

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import type { models } from "../../src/mastra/models";
+import type { models } from "../../src/ai/models";
 
 type DoDecide = (typeof models)["decision"]["model"]["doDecide"];
 
@@ -14,30 +14,7 @@ const decisionModel = vi.hoisted(() => ({
 	supportedQuestionTypes: ["boolean" as const, "choice" as const, "score" as const],
 }));
 
-vi.mock("../../src/mastra/models", () => ({ models: { decision: { model: decisionModel } } }));
-
-const redis = vi.hoisted(() => {
-	const store = new Map<string, string>();
-
-	return {
-		client: {
-			get: vi.fn(async (key: string) => store.get(key) ?? null),
-			on: vi.fn().mockReturnThis(),
-			set: vi.fn(async (key: string, value: string) => {
-				store.set(key, value);
-
-				return "OK";
-			}),
-			status: "ready",
-		},
-		store,
-	};
-});
-
-vi.mock("@starter/cache", async (importOriginal) => ({
-	...(await importOriginal<typeof import("@starter/cache")>()),
-	createRedisClient: vi.fn(() => redis.client),
-}));
+vi.mock("../../src/ai/models", () => ({ models: { decision: { model: decisionModel } } }));
 
 import { decisionClassifiers, evaluateDecision } from "../../src/ai/decisions";
 
@@ -53,8 +30,6 @@ const decided = (answers: DecisionAnswers) => ({ answers, warnings: [] });
 
 const classifier = decisionClassifiers.knowledgeCoverage;
 
-const memoizedClassifier = decisionClassifiers.dashboardRoute;
-
 const pendingDecision: DoDecide = ({ abortSignal }) =>
 	new Promise<never>((_resolve, reject) => {
 		abortSignal?.addEventListener("abort", () => reject(abortSignal.reason), { once: true });
@@ -66,7 +41,6 @@ describe("bounded decision evaluation", () => {
 		decisionModel.doDecide.mockReset();
 		vi.useRealTimers();
 		vi.unstubAllEnvs();
-		redis.store.clear();
 	});
 
 	it("uses the background policy deadline when requested", async () => {
@@ -83,30 +57,6 @@ describe("bounded decision evaluation", () => {
 
 		expect(result?.answers.route.choice).toBe("none");
 		expect(timeout).toHaveBeenCalledWith(8000);
-	});
-
-	it("memoizes consistent answers per memoized classifier and skips the provider on a hit", async () => {
-		vi.stubEnv("REDIS_URL", "redis://memo.test:6379");
-		decisionModel.doDecide.mockResolvedValue(decided({ route: { choice: "website", type: "choice" } }));
-
-		const request = { classifier: memoizedClassifier, questions, state: "same" };
-		await evaluateDecision(request);
-		const second = await evaluateDecision(request);
-		expect(second?.answers.route.choice).toBe("website");
-		expect(decisionModel.doDecide).toHaveBeenCalledOnce();
-		expect([...redis.store.keys()][0]).toMatch(/^decision:v1:dashboard-route:/u);
-		await evaluateDecision({ ...request, classifier });
-		await evaluateDecision({ ...request, state: "different" });
-		expect(decisionModel.doDecide).toHaveBeenCalledTimes(3);
-	});
-
-	it("never memoizes answers that fail the question contract", async () => {
-		vi.stubEnv("REDIS_URL", "redis://memo.test:6379");
-
-		decisionModel.doDecide.mockResolvedValue(decided({ route: { choice: "invented", type: "choice" } }));
-
-		expect(await evaluateDecision({ classifier: memoizedClassifier, questions, state: "s" })).toBeNull();
-		expect(redis.store.size).toBe(0);
 	});
 
 	it("returns a valid finite answer without retries", async () => {

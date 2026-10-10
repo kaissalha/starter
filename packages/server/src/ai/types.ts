@@ -7,7 +7,6 @@ import type { dashboardChatTools } from "./tools";
 
 export const appContextSchema = z.compile(
 	z.looseObject({
-		approvalContinuation: z.boolean().optional(),
 		chatId: z.string().optional(),
 		currentUser: z
 			.strictObject({
@@ -16,9 +15,7 @@ export const appContextSchema = z.compile(
 			})
 			.optional(),
 		locale: z.string().optional(),
-		modelTier: z.enum(["full", "simple"]).optional(),
 		organizationId: z.string().min(1),
-		routedSkill: z.enum(["library", "notifications", "visualization"]).nullable().optional(),
 		timezone: z.string().optional(),
 		userId: z.string().min(1),
 		useVisionModel: z.boolean().optional(),
@@ -30,18 +27,7 @@ export type AppContext = z.infer<typeof appContextSchema>;
 export const toolInput = <Schema extends z.ZodType>(schema: Schema) => z.compile(schema.meta({}));
 
 export const createDashboardChatRequestContext = (values: AppContext) =>
-	new RequestContext<AppContext>([
-		["approvalContinuation", values.approvalContinuation],
-		["chatId", values.chatId],
-		["currentUser", values.currentUser],
-		["locale", values.locale],
-		["modelTier", values.modelTier],
-		["organizationId", values.organizationId],
-		["routedSkill", values.routedSkill],
-		["timezone", values.timezone],
-		["userId", values.userId],
-		["useVisionModel", values.useVisionModel],
-	]);
+	new RequestContext<AppContext>(Object.entries(values));
 
 export type BaseCustomUIDataTypes = {
 	attachment: {

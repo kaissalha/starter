@@ -27,9 +27,7 @@ export type ApiRouterClient = RouterClient<ApiRouter>;
 
 export { isPublicApiProcedure, publicApi } from "./base";
 
-export { handleDataRetention, handleOrganizationPurgeCron } from "./cron";
-
-export { handleEventDispatch, handleEventRetention } from "./events";
+export { handleDataRetention, handleEventDispatch, handleEventRetention, handleOrganizationPurgeCron } from "./cron";
 
 export { type FilesUploadData, handleFilesRequest } from "./files";
 

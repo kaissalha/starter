@@ -1,8 +1,7 @@
 import { openapi } from "@orpc/openapi";
 import { z } from "zod";
 
-import { convertChatMessagesForUI, getChat, getChatMessages, getChats } from "../../services/chat";
-import { cancelChatStream } from "../../services/chat-stream-state";
+import { cancelChatStream, convertChatMessagesForUI, getChat, getChatMessages, getChats } from "../../services/chat";
 import { organizationPermission, authedWithOrganization } from "../base";
 
 export const uiMessageSchema = z.compile(

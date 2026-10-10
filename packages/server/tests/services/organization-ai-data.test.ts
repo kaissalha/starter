@@ -9,7 +9,7 @@ const mocks = vi.hoisted(() => ({
 	updateResource: vi.fn(),
 }));
 
-vi.mock("../../src/mastra/memory", () => ({
+vi.mock("../../src/ai/memory", () => ({
 	dashboardChatMemory: {
 		deleteThread: mocks.deleteThread,
 		listThreads: mocks.listThreads,
@@ -19,9 +19,9 @@ vi.mock("../../src/mastra/memory", () => ({
 	},
 }));
 
-vi.mock("../../src/mastra/knowledge", () => ({ deleteKnowledgeOrganization: mocks.deleteKnowledgeOrganization }));
+vi.mock("../../src/ai/knowledge", () => ({ deleteKnowledgeOrganization: mocks.deleteKnowledgeOrganization }));
 
-vi.mock("../../src/services/chat-stream-state", () => ({ cancelChatStream: mocks.cancelChatStream }));
+vi.mock("../../src/services/chat", () => ({ cancelChatStream: mocks.cancelChatStream }));
 
 import { deleteOrganizationAIData } from "../../src/services/organization-ai-data";
 

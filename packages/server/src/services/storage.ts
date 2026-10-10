@@ -15,8 +15,9 @@ import {
 } from "@starter/db";
 import { detectKind } from "@starter/documents";
 
-import { FILE_PROCESSING_FAILED_CODE } from "../constants/upload";
 import { deleteBlob, getPublicBlobUrl } from "../lib/blob-storage";
+
+export const FILE_PROCESSING_FAILED_CODE = "PROCESSING_FAILED";
 
 export const createFile = async (params: {
 	access?: FileAccess;
@@ -121,7 +122,7 @@ const abandonIngestAfterMs = 30 * 60 * 1000;
 const activeIngestRunStatuses = new Set(["pending", "running", "waiting"]);
 
 const restartStalledIngestRun = async (runId: string) => {
-	const { mastra } = await import("../mastra");
+	const { mastra } = await import("../ai");
 	const workflow = mastra.getWorkflow("ingestFileWorkflow");
 	const state = await workflow.getWorkflowRunById(runId, { withNestedWorkflows: false });
 
@@ -279,7 +280,7 @@ export const deleteFile = async ({
 		return false;
 	}
 
-	const { deleteKnowledgeFile } = await import("../mastra/knowledge");
+	const { deleteKnowledgeFile } = await import("../ai/knowledge");
 	await deleteKnowledgeFile({ fileId, organizationId });
 
 	return true;

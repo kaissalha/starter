@@ -3,11 +3,32 @@ import { and, eq, inArray, sql, type AnyColumn } from "drizzle-orm";
 import { db, eventExecutions, events, type EventExecutionState, type EventRecord } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
 
+import { getRedis } from "../../lib/redis";
 import { sendNotificationEmails } from "../notifications/email";
 import { projectNotificationEvent } from "../notifications/projector";
 import { notificationEventTypes } from "../notifications/registry";
 import { isEventType, type EventType } from "./catalog";
-import { isEventConsumerPaused } from "./switches";
+
+const readSwitches = async (keys: Array<string>) => {
+	const redis = getRedis();
+
+	if (!redis) {
+		return [];
+	}
+
+	try {
+		return await redis.mget(keys);
+	} catch {
+		return [];
+	}
+};
+
+const isEventConsumerPaused = async ({ consumerKey }: { consumerKey: string }) => {
+	const [kind] = consumerKey.split(":");
+	const values = await readSwitches([`starter:events:paused:${kind}`, `starter:events:paused:${consumerKey}`]);
+
+	return values.includes("1");
+};
 
 export type EventExecutionStep = { status: "done" } | { status: "run" } | { status: "wait"; until: number };
 

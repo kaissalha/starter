@@ -1,8 +1,7 @@
 import { decisionClassifiers, evaluateDecision } from "../../ai/decisions";
+import { deleteKnowledgeFile, upsertKnowledgeChunks } from "../../ai/knowledge";
 import { documentCategoryQuestion, fileClassificationSchema, imageClassificationSchema } from "../../ai/prompts";
 import { downloadBlob } from "../../lib/blob-storage";
-import { deleteKnowledgeFile, upsertKnowledgeChunks } from "../../mastra/knowledge";
-import { models } from "../../mastra/models";
 import { documentClassifierAgent, imageClassifierAgent } from "./agents";
 import type { FileClassification, IngestChunk, IngestFile } from "./steps";
 
@@ -23,7 +22,6 @@ export const classifyDocument = async ({
 		documentClassifierAgent.generate(`<untrusted-document>\n${text.slice(0, 12_000)}\n</untrusted-document>`, {
 			abortSignal: classificationTimeout(),
 			modelSettings: { maxRetries: 2 },
-			providerOptions: models.cheapFast.providerOptions,
 			structuredOutput: { schema: fileClassificationSchema },
 		}),
 		text.trim().length < documentCategoryMinimumCharacters

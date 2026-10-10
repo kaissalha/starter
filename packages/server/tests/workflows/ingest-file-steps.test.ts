@@ -16,7 +16,7 @@ vi.mock("../../src/workflows/ingest-file/agents", () => ({
 	imageClassifierAgent: { generate: mocks.generate },
 }));
 
-vi.mock("../../src/mastra/knowledge", () => ({ deleteKnowledgeFile: vi.fn(), upsertKnowledgeChunks: vi.fn() }));
+vi.mock("../../src/ai/knowledge", () => ({ deleteKnowledgeFile: vi.fn(), upsertKnowledgeChunks: vi.fn() }));
 
 vi.mock("../../src/ai/decisions", async (importOriginal) => ({
 	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
@@ -34,6 +34,7 @@ vi.mock("../../src/lib/blob-storage", () => ({ downloadBlob: mocks.downloadBlob 
 
 vi.mock("../../src/services/storage", () => ({
 	applyFileEnrichment: vi.fn(),
+	FILE_PROCESSING_FAILED_CODE: "PROCESSING_FAILED",
 	getFile: vi.fn(),
 	markFileFailed: mocks.markFileFailed,
 	markFileReady: vi.fn(),
@@ -42,10 +43,15 @@ vi.mock("../../src/services/storage", () => ({
 
 import { MAX_INGEST_TEXT_LENGTH } from "@starter/documents";
 
-import { MAX_INGEST_CHUNKS } from "../../src/constants/upload";
 import { applyFileEnrichment, upsertFileTags } from "../../src/services/storage";
 import { classifyDocument, classifyImage } from "../../src/workflows/ingest-file/mastra-steps";
-import { applyEnrichment, chunkContent, extractDocumentText, markFailed } from "../../src/workflows/ingest-file/steps";
+import {
+	applyEnrichment,
+	chunkContent,
+	extractDocumentText,
+	markFailed,
+	MAX_INGEST_CHUNKS,
+} from "../../src/workflows/ingest-file/steps";
 
 const invoiceText = `Invoice 2041 for consulting services rendered in August. ${"Line item details. ".repeat(40)}`;
 

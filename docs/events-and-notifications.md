@@ -50,15 +50,14 @@ flowchart LR
 | `packages/server/src/services/events/catalog.ts`                   | `eventCatalog`: event types, subject types and data schemas                                          |
 | `packages/server/src/services/events/append.ts`                    | `appendEvents` and `wakeEventDispatcher`                                                             |
 | `packages/server/src/services/events/dispatch.ts`                  | Expansion, run start, stranded-run recovery, and `runEventRetention`                                 |
-| `packages/server/src/services/events/executions.ts`                | `builtinConsumers`, claiming, attempts, retries and settlement                                       |
-| `packages/server/src/services/events/switches.ts`                  | Redis consumer pause switches                                                                        |
+| `packages/server/src/services/events/executions.ts`                | `builtinConsumers`, Redis pause switches, claiming, attempts, retries and settlement                 |
 | `packages/server/src/services/notifications/registry.ts`           | `notificationTypes`: notification type definitions                                                   |
 | `packages/server/src/services/notifications/projector.ts`          | `builtin:notifications`: inbox rows                                                                  |
 | `packages/server/src/services/notifications/email.ts`              | `builtin:notification_email`: recipients, content builders, deliveries                               |
 | `packages/server/src/services/notifications/inbox.ts`              | Inbox list, counts, seen, read and archive                                                           |
 | `packages/server/src/services/notifications/preferences.ts`        | Per-member channel settings                                                                          |
 | `packages/server/src/workflows/run-event-execution/`               | The Vercel Workflow that runs one execution                                                          |
-| `packages/server/src/api/events.ts`                                | `handleEventDispatch` and `handleEventRetention`                                                     |
+| `packages/server/src/api/cron.ts`                                  | `handleEventDispatch` and `handleEventRetention`                                                     |
 | `apps/webapp/src/app/[locale]/dashboard/components/notifications/` | Bell, inbox panel, rows and grouping                                                                 |
 | `apps/webapp/src/app/[locale]/dashboard/components/settings/`      | Notifications settings tab                                                                           |
 
@@ -213,7 +212,7 @@ file_ingestion_failed: async ({ event, locale, settingsLink }) => ({
   example when the subject no longer exists).
 - Put the React Email template in `packages/email/src/emails/`, export it from `packages/email/src/index.ts`, and add
   English and Arabic strings to `packages/email/src/locales/messages/`. Render with `render` from `react-email`, as
-  `packages/server/src/lib/auth-emails.ts` does. Include `settingsLink` so recipients can change their preferences.
+  `packages/server/src/services/auth-emails.ts` does. Include `settingsLink` so recipients can change their preferences.
 - The sender currently uses the `en` locale for every recipient.
 - Each recipient gets a `notification_email_deliveries` row; its ID is the Resend idempotency key and `accepted_at` is
   set when Resend accepts the message, so retries skip recipients already sent. Any failed send retries the execution.

@@ -74,7 +74,7 @@
 ### AI
 
 - Mastra owns agents, model routing, tools, skills, memory, retrieval, observability, and runtime scorers under
-  `packages/server/src/mastra` and `packages/server/src/ai`. Keep prompt-owned schemas beside their prompts.
+  `packages/server/src/ai`. Keep prompt-owned schemas beside their prompts.
 - Mastra owns its Postgres schema. Never write Drizzle migrations, foreign keys, or triggers for `mastra.*` tables and
   never query them with raw SQL; construct stores through `@starter/db/mastra`, bootstrap with
   `initializeMastraStorage`, and enforce tenant boundaries in application services through Mastra's APIs.

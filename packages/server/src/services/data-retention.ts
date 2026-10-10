@@ -11,7 +11,7 @@ import {
 	verifications,
 } from "@starter/db";
 
-import { mastraStorage } from "../mastra/memory";
+import { mastraStorage } from "../ai/memory";
 
 const pruneBatchSize = 500;
 
