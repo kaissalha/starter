@@ -8,13 +8,12 @@ import {
 	mediaContentTypes,
 	normalizeContentType,
 	uploadPolicies,
-	uploadPurposes,
+	type UploadPurpose,
 } from "@starter/documents";
-import { log, serializeLogError } from "@starter/observability";
 
 import { decisionClassifiers } from "../ai/decisions";
 import { rankRelevantCandidates } from "../ai/relevance";
-import { deleteBlob, getPublicBlobUrl, getStorageKeyPrefix, headBlob } from "../lib/blob-storage";
+import { getPublicBlobUrl } from "../lib/blob-storage";
 import { startFileIngestion } from "./documents";
 import { createFile, deleteFile, getFileUrl } from "./storage";
 
@@ -168,57 +167,29 @@ export const deleteUploadedMedia = async ({
 	return deleteFile({ deletedBy: userId, fileId, organizationId });
 };
 
-export const registerUploadInputSchema = z.compile(
-	z.strictObject({
-		key: z
-			.string()
-			.max(255)
-			.regex(/^[\w-]+(?:\.[\w-]+)*$/),
-		name: z.string().trim().min(1).max(255),
-		purpose: z.enum(uploadPurposes),
-	})
-);
-
-export const registeredUploadSchema = z.compile(z.strictObject({ id: z.uuid(), url: z.string().nullable() }));
-
 export class UploadRejectedError extends Error {}
 
-const rejectUpload = async ({
-	access,
-	key,
-	message,
-}: {
-	access: "private" | "public";
-	key: string;
-	message: string;
-}) => {
-	try {
-		await deleteBlob({ access, key });
-	} catch (error) {
-		await log.warn({ error: serializeLogError(error), message: "Rejected upload Blob cleanup failed" });
-	}
-
-	return new UploadRejectedError(message);
-};
+export type RegisteredUpload = { id: string; url: string | null };
 
 export const registerUpload = async ({
-	input: { name, purpose, ...input },
+	contentType: storedContentType,
+	key,
+	name,
 	organizationId,
+	purpose,
+	sizeBytes,
 	userId,
 }: {
-	input: z.infer<typeof registerUploadInputSchema>;
+	contentType: string;
+	key: string;
+	name: string;
 	organizationId: string;
+	purpose: UploadPurpose;
+	sizeBytes: number;
 	userId: string;
-}) => {
+}): Promise<RegisteredUpload> => {
 	const policy = uploadPolicies[purpose];
-	const key = `${getStorageKeyPrefix({ organizationId, purpose })}${input.key}`;
-	const stored = await headBlob({ access: policy.access, key });
-
-	if (!stored) {
-		throw new UploadRejectedError("The upload was not found.");
-	}
-
-	const contentType = normalizeContentType(stored.contentType);
+	const contentType = normalizeContentType(storedContentType);
 
 	const kind = detectKind({
 		extension: getExtensionFromFilename({ filename: name }) ?? undefined,
@@ -231,11 +202,11 @@ export const registerUpload = async ({
 		!policy.contentTypes.includes(contentType) ||
 		(indexable && kind !== "image" && kind !== "document" && kind !== "text")
 	) {
-		throw await rejectUpload({ access: policy.access, key, message: "Unsupported upload type." });
+		throw new UploadRejectedError("Unsupported upload type.");
 	}
 
-	if (stored.size > policy.maxFileSizeMb * 1024 * 1024) {
-		throw await rejectUpload({ access: policy.access, key, message: "Uploaded file exceeds its size limit." });
+	if (sizeBytes > policy.maxFileSizeMb * 1024 * 1024) {
+		throw new UploadRejectedError("Uploaded file exceeds its size limit.");
 	}
 
 	const { created, file } = await createFile({
@@ -245,7 +216,7 @@ export const registerUpload = async ({
 		name,
 		organizationId,
 		ragStatus: indexable ? "pending" : "none",
-		sizeBytes: stored.size,
+		sizeBytes,
 		sourceType: "upload",
 		storageKey: key,
 		uploadedBy: userId,

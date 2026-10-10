@@ -31,7 +31,7 @@ export { handleDataRetention, handleOrganizationPurgeCron } from "./cron";
 
 export { handleEventDispatch, handleEventRetention } from "./events";
 
-export { handleFilesRequest } from "./files";
+export { type FilesUploadData, handleFilesRequest } from "./files";
 
 export { handleGetLibraryDocumentPdf } from "./library";
 

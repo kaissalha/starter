@@ -9,7 +9,7 @@ import { db, members, users } from "@starter/db";
 const mocks = vi.hoisted(() => {
 	const storage: MutableReference<Files | undefined> = { value: undefined };
 
-	return { getBlob: vi.fn(), getFile: vi.fn(), resolveSession: vi.fn(), storage };
+	return { getBlob: vi.fn(), getFile: vi.fn(), registerUpload: vi.fn(), resolveSession: vi.fn(), storage };
 });
 
 vi.mock("../../src/lib/auth", () => ({ resolveSession: mocks.resolveSession }));
@@ -23,8 +23,14 @@ vi.mock("../../src/lib/blob-storage", async (importOriginal) => ({
 
 vi.mock("../../src/services/storage", () => ({ getFile: mocks.getFile }));
 
+vi.mock("../../src/services/media", async (importOriginal) => ({
+	...(await importOriginal<typeof import("../../src/services/media")>()),
+	registerUpload: mocks.registerUpload,
+}));
+
 import { handleFilesRequest } from "../../src/api/files";
 import { handleGetMedia } from "../../src/api/media";
+import { UploadRejectedError } from "../../src/services/media";
 import { cleanupOrganization, createTestOrganization } from "../helpers/db";
 
 type MutableReference<Value> = { value: Value };
@@ -35,8 +41,16 @@ const fileId = "018ff7c2-1f7c-7b28-b6c1-3f2e60b5d32e";
 
 const organizationIds: Array<string> = [];
 
-const filesClient = ({ organizationId, purpose }: { organizationId: string; purpose: string }) => {
-	const endpoint = `https://example.com/api/files?${new URLSearchParams({ organizationId, purpose })}`;
+const filesClient = ({
+	name = "upload.bin",
+	organizationId,
+	purpose,
+}: {
+	name?: string;
+	organizationId: string;
+	purpose: string;
+}) => {
+	const endpoint = `https://example.com/api/files?${new URLSearchParams({ name, organizationId, purpose })}`;
 
 	const send = (input: RequestInfo | URL, init?: RequestInit) =>
 		handleFilesRequest(
@@ -174,25 +188,61 @@ describe("media HTTP integration", () => {
 		}
 	);
 
-	it("uploads through the files gateway under a server-minted organization and purpose prefix", async () => {
+	it("uploads under a server-minted prefix and registers the landed object in onUploadComplete", async () => {
 		const organizationId = organizationIdReference.value ?? "";
 		const file = new File(["%PDF"], "report.pdf", { type: "application/pdf" });
+		mocks.registerUpload.mockResolvedValue({ id: fileId, url: "/api/media?fileId=1" });
 
-		const { key } = await filesClient({ organizationId, purpose: "knowledge" }).upload(file);
+		const { data, key } = await filesClient({ name: "report.pdf", organizationId, purpose: "knowledge" }).upload(
+			file
+		);
 
 		expect(key).toMatch(/^[0-9a-f-]+\.pdf$/);
+		expect(data).toEqual({ id: fileId, url: "/api/media?fileId=1" });
+		expect(mocks.registerUpload).toHaveBeenCalledExactlyOnceWith({
+			contentType: "application/pdf",
+			key: `development/${organizationId}/knowledge/${key}`,
+			name: "report.pdf",
+			organizationId,
+			purpose: "knowledge",
+			sizeBytes: 4,
+			userId,
+		});
 		await expect(
 			mocks.storage.value?.head(`development/${organizationId}/knowledge/${key}`)
 		).resolves.toMatchObject({ contentType: "application/pdf", size: 4 });
+	});
+
+	it("refuses a disallowed declared type at presign before any bytes move", async () => {
+		const organizationId = organizationIdReference.value ?? "";
+		const client = filesClient({ name: "a.svg", organizationId, purpose: "image" });
+
+		await expect(client.upload(new File(["<svg/>"], "a.svg", { type: "image/svg+xml" }))).rejects.toThrow(
+			"Unsupported upload type."
+		);
+		expect(mocks.registerUpload).not.toHaveBeenCalled();
+		await expect(mocks.storage.value?.list()).resolves.toMatchObject({ items: [] });
+	});
+
+	it("deletes the landed object when registration rejects it", async () => {
+		const organizationId = organizationIdReference.value ?? "";
+		mocks.registerUpload.mockRejectedValue(new UploadRejectedError("Unsupported upload type."));
+
+		await expect(
+			filesClient({ name: "notes.txt", organizationId, purpose: "knowledge" }).upload(
+				new File(["text"], "notes.txt", { type: "text/plain" })
+			)
+		).rejects.toThrow("Unsupported upload type.");
+		await expect(mocks.storage.value?.list()).resolves.toMatchObject({ items: [] });
 	});
 
 	it("rejects oversized, client-keyed, unauthenticated and Member uploads", async () => {
 		const organizationId = organizationIdReference.value ?? "";
 		const client = filesClient({ organizationId, purpose: "logo" });
 
-		await expect(client.upload(new File([new Uint8Array(5 * 1024 * 1024 + 1)], "big.png"))).rejects.toThrow(
-			"upload exceeds maxUploadSize"
-		);
+		await expect(
+			client.upload(new File([new Uint8Array(5 * 1024 * 1024 + 1)], "big.png", { type: "image/png" }))
+		).rejects.toMatchObject({ code: "Invalid" });
 		await expect(client.upload("chosen.png", new Blob(["png"]))).rejects.toMatchObject({ code: "ReadOnly" });
 		mocks.resolveSession.mockResolvedValueOnce(null);
 		await expect(client.upload(new File(["png"], "logo.png"))).rejects.toMatchObject({ code: "Unauthorized" });

@@ -9,7 +9,7 @@ File-format knowledge shared by the apps and the server. It owns no storage, per
 | `@starter/documents/viewer`     | React (client only) | PDF, DOCX, and XLSX viewers and their label provider                                         |
 
 `uploadPolicies` is the single source for upload content types, size limits, and storage access. The server's
-`/api/files` gateway and `media.register` procedure enforce it, and the webapp upload hooks validate against it before
-uploading.
+`/api/files` gateway enforces it when signing an upload and again on the landed object in `onUploadComplete`, and the
+webapp upload hooks validate against it before uploading.
 
 The viewers are vendored adapters around `@embedpdf/*` and `@extend-ai/*`; they are excluded from Oxlint and jscpd.

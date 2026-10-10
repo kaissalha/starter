@@ -3,14 +3,11 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { db, files, users } from "@starter/db";
 
-const mocks = vi.hoisted(() => ({ deleteBlob: vi.fn(), headBlob: vi.fn(), startIngestFile: vi.fn() }));
+const mocks = vi.hoisted(() => ({ deleteBlob: vi.fn(), startIngestFile: vi.fn() }));
 
 vi.mock("../../src/lib/blob-storage", () => ({
 	deleteBlob: mocks.deleteBlob,
 	getPublicBlobUrl: async (key: string) => `https://cdn.example.com/${key}`,
-	getStorageKeyPrefix: ({ organizationId, purpose }: { organizationId: string; purpose: string }) =>
-		`test/${organizationId}/${purpose}/`,
-	headBlob: mocks.headBlob,
 }));
 
 vi.mock("../../src/workflows/ingest-file", async (importOriginal) => ({
@@ -18,13 +15,7 @@ vi.mock("../../src/workflows/ingest-file", async (importOriginal) => ({
 	startIngestFile: mocks.startIngestFile,
 }));
 
-import {
-	deleteUploadedMedia,
-	getUploadedMedia,
-	listUploadedMedia,
-	registerUpload,
-	registerUploadInputSchema,
-} from "../../src/services/media";
+import { deleteUploadedMedia, getUploadedMedia, listUploadedMedia, registerUpload } from "../../src/services/media";
 import { cleanupOrganization, createTestOrganization } from "../helpers/db";
 
 const organizations: Array<string> = [];
@@ -207,17 +198,24 @@ describe("media deletion", () => {
 });
 
 describe("upload registration", () => {
-	it("registers private knowledge under the organization prefix and queues ingestion once", async () => {
+	it("registers private knowledge from the landed object and queues ingestion once", async () => {
 		const owner = await createTestOrganization();
 		organizations.push(owner.id);
 		await db.insert(users).values({ email: `${owner.id}@example.com`, id: owner.id, name: "Uploader" });
-		mocks.headBlob.mockResolvedValue({ contentType: "application/pdf; charset=binary", size: 1024 });
 		mocks.startIngestFile.mockResolvedValue({ runId: "run-1" });
-		const input = { key: "a1.pdf", name: "report.pdf", purpose: "knowledge" as const };
 
-		const registered = await registerUpload({ input, organizationId: owner.id, userId: owner.id });
+		const upload = {
+			contentType: "application/pdf; charset=binary",
+			key: `test/${owner.id}/knowledge/a1.pdf`,
+			name: "report.pdf",
+			organizationId: owner.id,
+			purpose: "knowledge" as const,
+			sizeBytes: 1024,
+			userId: owner.id,
+		};
 
-		expect(mocks.headBlob).toHaveBeenCalledWith({ access: "private", key: `test/${owner.id}/knowledge/a1.pdf` });
+		const registered = await registerUpload(upload);
+
 		expect(registered.url).toBe(
 			`/api/media?${new URLSearchParams({ fileId: registered.id, organizationId: owner.id })}`
 		);
@@ -226,44 +224,43 @@ describe("upload registration", () => {
 			contentType: "application/pdf",
 			ingestRunId: "run-1",
 			kind: "document",
+			name: "report.pdf",
 			ragStatus: "pending",
 			sizeBytes: 1024,
 			storageKey: `test/${owner.id}/knowledge/a1.pdf`,
 		});
-		await expect(registerUpload({ input, organizationId: owner.id, userId: owner.id })).resolves.toEqual(
-			registered
-		);
+		await expect(registerUpload(upload)).resolves.toEqual(registered);
 		expect(mocks.startIngestFile).toHaveBeenCalledOnce();
 	});
 
-	it("deletes and rejects uploads that break their purpose policy", async () => {
+	it("rejects uploads that break their purpose policy without recording them", async () => {
 		const owner = await createTestOrganization();
 		organizations.push(owner.id);
 		await db.insert(users).values({ email: `${owner.id}@example.com`, id: owner.id, name: "Uploader" });
 
-		const register = (key: string) =>
-			registerUpload({ input: { key, name: key, purpose: "image" }, organizationId: owner.id, userId: owner.id });
+		const register = ({ contentType, name, sizeBytes }: { contentType: string; name: string; sizeBytes: number }) =>
+			registerUpload({
+				contentType,
+				key: `test/${owner.id}/image/${name}`,
+				name,
+				organizationId: owner.id,
+				purpose: "image",
+				sizeBytes,
+				userId: owner.id,
+			});
 
-		mocks.headBlob.mockResolvedValueOnce({ contentType: "image/svg+xml", size: 10 });
-		await expect(register("a.svg")).rejects.toThrow("Unsupported upload type.");
-		expect(mocks.deleteBlob).toHaveBeenLastCalledWith({ access: "public", key: `test/${owner.id}/image/a.svg` });
-
-		mocks.headBlob.mockResolvedValueOnce({ contentType: "image/png", size: 10 * 1024 * 1024 + 1 });
-		mocks.deleteBlob.mockRejectedValueOnce(new Error("Blob unavailable"));
-		await expect(register("big.png")).rejects.toThrow("Uploaded file exceeds its size limit.");
-
-		mocks.headBlob.mockResolvedValueOnce(null);
-		await expect(register("gone.png")).rejects.toThrow("The upload was not found.");
+		await expect(register({ contentType: "image/svg+xml", name: "a.svg", sizeBytes: 10 })).rejects.toThrow(
+			"Unsupported upload type."
+		);
+		await expect(
+			register({ contentType: "image/png", name: "big.png", sizeBytes: 10 * 1024 * 1024 + 1 })
+		).rejects.toThrow("Uploaded file exceeds its size limit.");
 		expect(await db.query.files.findMany({ where: { organizationId: owner.id } })).toEqual([]);
+		expect(mocks.deleteBlob).not.toHaveBeenCalled();
 
-		mocks.headBlob.mockResolvedValueOnce({ contentType: "image/png", size: 10 });
-		await expect(register("ok.png")).resolves.toMatchObject({
+		await expect(register({ contentType: "image/png", name: "ok.png", sizeBytes: 10 })).resolves.toMatchObject({
 			url: `https://cdn.example.com/test/${owner.id}/image/ok.png`,
 		});
 		expect(mocks.startIngestFile).not.toHaveBeenCalled();
-	});
-
-	it.each(["../other/a.png", "nested/a.png", "", "a..png/"])("refuses non-relative key %j", (key) => {
-		expect(registerUploadInputSchema.safeParse({ key, name: "a.png", purpose: "image" }).success).toBe(false);
 	});
 });

@@ -83,7 +83,6 @@ const levels = {
 	"linkPreviews/get": "read",
 	"media/delete": "delete",
 	"media/list": "read",
-	"media/register": "write",
 	"notifications/archive": "read",
 	"notifications/archiveAll": "read",
 	"notifications/counts": "read",
