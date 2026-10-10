@@ -5,6 +5,7 @@ import { z } from "zod";
 
 import { normalizeContentType, uploadPolicies, type UploadPurpose, uploadPurposes } from "@starter/documents";
 import { log, serializeLogError } from "@starter/observability";
+import { getBaseURL } from "@starter/utils";
 
 import { resolveSession } from "../lib/auth";
 import { getFilesClient, getStorageKeyPrefix } from "../lib/blob-storage";
@@ -47,6 +48,7 @@ const createUploadRouter = (purpose: UploadPurpose) => {
 	const policy = uploadPolicies[purpose];
 
 	return createFilesRouter({
+		allowedOrigins: [getBaseURL().origin],
 		authorize: async ({ key, params, req }) => {
 			if (key) {
 				throw new FilesError("ReadOnly", "Only server-keyed uploads are allowed.");

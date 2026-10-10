@@ -44,18 +44,18 @@ const organizationIds: Array<string> = [];
 const filesClient = ({
 	name = "upload.bin",
 	organizationId,
+	origin = "http://localhost:3000",
 	purpose,
 }: {
 	name?: string;
 	organizationId: string;
+	origin?: string;
 	purpose: string;
 }) => {
-	const endpoint = `https://example.com/api/files?${new URLSearchParams({ name, organizationId, purpose })}`;
+	const endpoint = `http://0.0.0.0:3000/api/files?${new URLSearchParams({ name, organizationId, purpose })}`;
 
 	const send = (input: RequestInfo | URL, init?: RequestInit) =>
-		handleFilesRequest(
-			new Request(input, { ...init, headers: { ...init?.headers, origin: "https://example.com" } })
-		);
+		handleFilesRequest(new Request(input, { ...init, headers: { ...init?.headers, origin } }));
 
 	return createFilesClient({
 		endpoint,
@@ -211,6 +211,19 @@ describe("media HTTP integration", () => {
 		await expect(
 			mocks.storage.value?.head(`development/${organizationId}/knowledge/${key}`)
 		).resolves.toMatchObject({ contentType: "application/pdf", size: 4 });
+	});
+
+	it("accepts the app origin even when the server sees a bind-address URL, and refuses other origins", async () => {
+		const organizationId = organizationIdReference.value ?? "";
+		mocks.registerUpload.mockResolvedValue({ id: fileId, url: null });
+		const file = () => new File(["%PDF"], "report.pdf", { type: "application/pdf" });
+
+		await expect(filesClient({ organizationId, purpose: "knowledge" }).upload(file())).resolves.toMatchObject({
+			data: { id: fileId },
+		});
+		await expect(
+			filesClient({ organizationId, origin: "https://attacker.example", purpose: "knowledge" }).upload(file())
+		).rejects.toThrow("origin not allowed");
 	});
 
 	it("refuses a disallowed declared type at presign before any bytes move", async () => {
