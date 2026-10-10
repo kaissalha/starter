@@ -14,7 +14,7 @@ vi.mock("files-sdk", async (importOriginal) => ({
 
 import { MAX_INGEST_FILE_SIZE_BYTES } from "@starter/documents";
 
-import { deleteBlob, downloadBlob, getBlob, headBlob } from "../../src/lib/blob-storage";
+import { deleteBlob, downloadBlob, getBlob } from "../../src/lib/blob-storage";
 
 describe("blob reads", () => {
 	const stored = (file: { size: number; stream: () => ReadableStream }) => {
@@ -69,10 +69,6 @@ describe("blob reads", () => {
 		});
 		const { body } = await downloadBlob({ access: "private", key: "safe.txt" });
 		expect(body.equals(bytes)).toBe(true);
-		await expect(headBlob({ access: "private", key: "safe.txt" })).resolves.toEqual({
-			contentType: "text/plain",
-			size: bytes.length,
-		});
 	});
 
 	it("answers matching conditional reads with 304 without opening the body stream", async () => {

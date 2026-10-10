@@ -135,20 +135,6 @@ export const getBlob = async ({
 	}
 };
 
-export const headBlob = async ({ access, key }: BlobReference) => {
-	try {
-		const stored = await getFilesClient(access).head(key);
-
-		return { contentType: stored.contentType, size: stored.size };
-	} catch (error) {
-		if (error instanceof FilesError && error.code === "NotFound") {
-			return null;
-		}
-
-		throw error;
-	}
-};
-
 export const downloadBlob = async ({ access, key }: BlobReference) => {
 	const blob = await getBlob({ access, key });
 
