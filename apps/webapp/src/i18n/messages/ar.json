@@ -116,8 +116,7 @@
 	"breadcrumbs": {
 		"home": "الرئيسية",
 		"settings": "الإعدادات",
-		"chat": "المحادثة",
-		"library": "المكتبة"
+		"chat": "المحادثة"
 	},
 	"language": {
 		"label": "اللغة",
@@ -891,10 +890,6 @@
 					"title": "مساعد ذكي",
 					"description": "محادثة مع أدوات وموافقات وذاكرة وبحث على الويب، مستندة إلى مستنداتك."
 				},
-				"library": {
-					"title": "المكتبة والمعرفة",
-					"description": "ارفع المستندات والصور، واكتب بصيغة Markdown، وولّد الصور، وصدّر إلى PDF."
-				},
 				"notifications": {
 					"title": "الإشعارات",
 					"description": "إشعارات داخل التطبيق وعبر البريد، جاهزة للربط بأحداثك."
@@ -1091,131 +1086,10 @@
 		"categories": {},
 		"types": {}
 	},
-	"library": {
-		"title": "المكتبة",
-		"search": "بحث",
-		"upload": "رفع",
-		"uploadInvalid": "نوع الملف أو حجمه غير مدعوم.",
-		"uploadFailed": "فشل الرفع. حاول مرة أخرى.",
-		"kinds": {
-			"all": "الكل",
-			"image": "الصور",
-			"video": "الفيديوهات",
-			"document": "المستندات"
-		},
-		"sort": "الترتيب",
-		"sorts": {
-			"newest": "الأحدث أولاً",
-			"oldest": "الأقدم أولاً",
-			"name": "الاسم",
-			"largest": "الأكبر أولاً"
-		},
-		"source": "المصدر",
-		"sources": {
-			"all": "كل المصادر",
-			"uploaded": "مرفوعة",
-			"generated": "بالذكاء الاصطناعي"
-		},
-		"emptyTitle": "مكتبتك فارغة",
-		"noResults": "لا توجد ملفات مطابقة لبحثك.",
-		"loadError": "تعذر تحميل مكتبتك.",
-		"retry": "إعادة المحاولة",
-		"loading": "جارٍ التحميل…",
-		"loadMore": "تحميل المزيد",
-		"generated": "ذكاء اصطناعي",
-		"processing": "جارٍ المعالجة…",
-		"failed": "فشلت المعالجة",
-		"back": "العودة إلى المكتبة",
-		"name": "اسم الملف",
-		"download": "تنزيل",
-		"downloadPdf": "تنزيل PDF",
-		"actions": "إجراءات الملف",
-		"delete": "حذف",
-		"deleteTitle": "حذف هذا الملف؟",
-		"deleteDescription": "ستتم إزالته من مكتبتك ومن معرفة المساعد.",
-		"saving": "جارٍ الحفظ…",
-		"saved": "تم الحفظ",
-		"saveFailed": "تعذر الحفظ. تغييراتك ما زالت هنا.",
-		"conflict": "تم تغيير هذا المستند في مكان آخر وأعيد تحميله.",
-		"type": "النوع",
-		"size": "الحجم",
-		"added": "تاريخ الإضافة",
-		"notFound": "تعذر العثور على هذا الملف.",
-		"document": "محتوى المستند",
-		"formatting": "التنسيق",
-		"agent": {
-			"title": "أنشئ بالذكاء الاصطناعي",
-			"placeholder": "صِف ما تريد إنشاءه…",
-			"assetTitle": "اسأل عن هذا الملف",
-			"assetPlaceholder": "اسأل عن هذا الملف أو عدّله…",
-			"open": "اسأل الذكاء الاصطناعي",
-			"hideConversation": "إخفاء المحادثة",
-			"scrollToEnd": "الانتقال إلى الأحدث"
-		},
-		"details": "التفاصيل",
-		"dimensions": "الأبعاد",
-		"updated": "آخر تحديث",
-		"date": "تاريخ المستند",
-		"language": "اللغة",
-		"category": "الفئة",
-		"model": "النموذج",
-		"prompt": "الوصف",
-		"tags": "الوسوم",
-		"generating": "جارٍ الإنشاء…",
-		"versionCount": "{count, plural, one {إصدار واحد} two {إصداران} few {# إصدارات} many {# إصدارًا} other {# إصدار}}",
-		"versions": "الإصدارات",
-		"version": "الإصدار {number}",
-		"filters": "عوامل التصفية",
-		"filtersLabel": "تصفية المكتبة، {count} نشطة",
-		"clearFilters": "مسح",
-		"versionModes": {
-			"latest": "الأحدث فقط",
-			"all": "كل الإصدارات"
-		},
-		"viewer": {
-			"clear": "مسح",
-			"columnMenu": "قائمة العمود",
-			"comments": "التعليقات",
-			"document": "المستند",
-			"edits": "التعديلات",
-			"fileTooLarge": "الملف كبير جدًا",
-			"fileTooLargeDescription": "يتجاوز هذا الملف حد العرض. نزّله لعرضه كاملًا.",
-			"loading": "جارٍ التحميل",
-			"moreActions": "إجراءات إضافية",
-			"nextResult": "النتيجة التالية",
-			"of": "من",
-			"page": "صفحة",
-			"pageNumber": "رقم الصفحة",
-			"pagesSidebar": "شريط الصفحات",
-			"previousResult": "النتيجة السابقة",
-			"rotateClockwise": "تدوير مع عقارب الساعة",
-			"rotateCounterclockwise": "تدوير عكس عقارب الساعة",
-			"search": "بحث",
-			"sortAscending": "ترتيب تصاعدي",
-			"sortDescending": "ترتيب تنازلي",
-			"toggleThumbnails": "إظهار أو إخفاء المصغّرات",
-			"unableToDisplay": "تعذّر عرض هذا الملف.",
-			"upload": "رفع",
-			"zoom": "تكبير",
-			"zoomIn": "تكبير",
-			"zoomLevel": "مستوى التكبير",
-			"zoomOut": "تصغير"
-		}
-	},
 	"businessLogo": {
 		"title": "الشعار",
 		"replace": "استبدال الشعار",
 		"saved": "تم حفظ الشعار",
 		"failed": "تعذّر حفظ الشعار. حاول مرة أخرى."
-	},
-	"richText": {
-		"bold": "عريض",
-		"italic": "مائل",
-		"heading": "عنوان",
-		"bulletList": "قائمة نقطية",
-		"orderedList": "قائمة مرقمة",
-		"quote": "اقتباس",
-		"undo": "تراجع",
-		"redo": "إعادة"
 	}
 }

@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ChatMessage, ChatMessageById } from "@/components/chat/message/chat-message";
+import { ChatMessage } from "@/components/chat/message/chat-message";
 import { ChatMessageParts } from "@/components/chat/message/chat-message-parts";
 import { OpenUIBlock } from "@/components/chat/openui/openui-block";
 import type { DashboardChatUIMessage as BaseChatUIMessage } from "@starter/server";
@@ -19,21 +19,16 @@ const chatSession: { busy: boolean; messages: Array<BaseChatUIMessage> } = vi.ho
 	messages: [],
 }));
 
-vi.mock("@/components/chat/stores/chat-session-store", () => ({
-	selectChatSessionBusy: () => chatSession.busy,
-	useChatMessage: (messageId: string) => chatSession.messages.find(({ id }) => id === messageId),
-	useChatSession: <T,>(
-		selector: (state: {
-			actions: { addToolApprovalResponse: typeof addToolApprovalResponse; sendMessage: typeof sendMessage };
-			messages: Array<BaseChatUIMessage>;
-			status: "ready";
-		}) => T
-	) =>
-		selector({
-			actions: { addToolApprovalResponse, sendMessage },
-			messages: chatSession.messages,
-			status: "ready",
-		}),
+vi.mock(import("@/components/chat/chat-session"), async (importOriginal) => ({
+	...(await importOriginal()),
+	isChatSessionBusy: () => chatSession.busy,
+	useChatSession: () => ({
+		actions: { addToolApprovalResponse, answerQuestions: vi.fn(), sendMessage, stop: vi.fn() },
+		error: undefined,
+		isLoading: false,
+		messages: chatSession.messages,
+		status: "ready",
+	}),
 }));
 
 vi.mock("thinking-orbs", () => ({
@@ -277,14 +272,14 @@ describe("ChatMessageParts", () => {
 		chatSession.messages = [
 			{ id: "streaming", parts: [{ state: "streaming", text: "", type: "text" }], role: "assistant" },
 		];
-		const { container, rerender } = render(<ChatMessageById isStreaming messageId='streaming' />);
+		const { container, rerender } = render(<ChatMessage isStreaming message={chatSession.messages[0]} />);
 
 		expect(container.querySelector("[data-thinking-orb-state]")).toBeInTheDocument();
 
 		chatSession.messages = [
 			{ id: "streaming", parts: [{ state: "streaming", text: "Here is", type: "text" }], role: "assistant" },
 		];
-		rerender(<ChatMessageById isStreaming messageId='streaming' />);
+		rerender(<ChatMessage isStreaming message={chatSession.messages[0]} />);
 
 		expect(container.querySelector("[data-thinking-orb-state]")).not.toBeInTheDocument();
 		expect(container.textContent).toContain("Here is");

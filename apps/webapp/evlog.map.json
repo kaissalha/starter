@@ -1,6 +1,6 @@
 {
 	"version": 1,
-	"generatedAt": "2026-10-08T02:16:12.475Z",
+	"generatedAt": "2026-10-10T18:45:46.495Z",
 	"cliVersion": "0.9.0",
 	"ruleSetVersion": 1,
 	"framework": "next",
@@ -75,46 +75,6 @@
 			"file": "src/app/[locale]/dashboard/(home)/page.tsx",
 			"handler": null,
 			"id": "daa78fd26ed6",
-			"checks": {
-				"page-error-handling": {
-					"status": "n/a"
-				}
-			},
-			"suggestions": {},
-			"sensitivity": {
-				"level": "none",
-				"reasons": []
-			},
-			"score": 100
-		},
-		{
-			"framework": "next",
-			"kind": "page",
-			"method": null,
-			"path": "/:locale/dashboard/library",
-			"file": "src/app/[locale]/dashboard/library/page.tsx",
-			"handler": null,
-			"id": "fbdd7a0c64fe",
-			"checks": {
-				"page-error-handling": {
-					"status": "n/a"
-				}
-			},
-			"suggestions": {},
-			"sensitivity": {
-				"level": "none",
-				"reasons": []
-			},
-			"score": 100
-		},
-		{
-			"framework": "next",
-			"kind": "page",
-			"method": null,
-			"path": "/:locale/dashboard/library/:assetId",
-			"file": "src/app/[locale]/dashboard/library/[assetId]/page.tsx",
-			"handler": null,
-			"id": "e3689fe6a90a",
 			"checks": {
 				"page-error-handling": {
 					"status": "n/a"
@@ -522,6 +482,76 @@
 		{
 			"framework": "next",
 			"kind": "api",
+			"method": "POST",
+			"path": "/api/files",
+			"file": "src/app/api/files/route.ts",
+			"handler": {
+				"line": 15,
+				"column": 0
+			},
+			"id": "38e4ccf57e58",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
+			"method": "PUT",
+			"path": "/api/files",
+			"file": "src/app/api/files/route.ts",
+			"handler": {
+				"line": 17,
+				"column": 0
+			},
+			"id": "2ed8054f7de5",
+			"checks": {
+				"structured-errors": {
+					"status": "n/a"
+				},
+				"audit": {
+					"status": "n/a"
+				},
+				"error-handling": {
+					"status": "n/a"
+				},
+				"wide-event": {
+					"status": "pass"
+				},
+				"context": {
+					"status": "pass"
+				}
+			},
+			"suggestions": {},
+			"sensitivity": {
+				"level": "none",
+				"reasons": []
+			},
+			"score": 100
+		},
+		{
+			"framework": "next",
+			"kind": "api",
 			"method": "GET",
 			"path": "/api/library/:assetId/pdf",
 			"file": "src/app/api/library/[assetId]/pdf/route.ts",
@@ -631,45 +661,10 @@
 			"path": "/api/media",
 			"file": "src/app/api/media/route.ts",
 			"handler": {
-				"line": 15,
-				"column": 0
-			},
-			"id": "39a06f692090",
-			"checks": {
-				"structured-errors": {
-					"status": "n/a"
-				},
-				"audit": {
-					"status": "n/a"
-				},
-				"error-handling": {
-					"status": "n/a"
-				},
-				"wide-event": {
-					"status": "pass"
-				},
-				"context": {
-					"status": "pass"
-				}
-			},
-			"suggestions": {},
-			"sensitivity": {
-				"level": "none",
-				"reasons": []
-			},
-			"score": 100
-		},
-		{
-			"framework": "next",
-			"kind": "api",
-			"method": "POST",
-			"path": "/api/media",
-			"file": "src/app/api/media/route.ts",
-			"handler": {
 				"line": 5,
 				"column": 0
 			},
-			"id": "8f712acf35c3",
+			"id": "39a06f692090",
 			"checks": {
 				"structured-errors": {
 					"status": "n/a"

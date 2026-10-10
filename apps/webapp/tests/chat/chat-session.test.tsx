@@ -6,12 +6,12 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
 	ChatSessionProvider,
-	selectChatSessionAwaitingApproval,
-	selectChatSessionBusy,
+	isAwaitingApproval,
+	isChatSessionBusy,
 	useChatSession,
 	type ChatSessionConfig,
 	type ChatSessionState,
-} from "@/components/chat/stores/chat-session-store";
+} from "@/components/chat/chat-session";
 import type { DashboardChatUIMessage } from "@starter/server";
 
 import { mockOrganizationPermissions } from "../mocks/organization-permissions";
@@ -23,14 +23,9 @@ vi.mock("@/hooks/use-organization-permissions", () => ({
 }));
 
 const stateWith = ({
+	isLoading = false,
 	messages = [],
-	status = "ready",
-}: Partial<Pick<ChatSessionState, "messages" | "status">>): ChatSessionState => ({
-	actions: undefined,
-	error: undefined,
-	messages,
-	status,
-});
+}: Partial<Pick<ChatSessionState, "isLoading" | "messages">>) => ({ isLoading, messages });
 
 describe("chat session state", () => {
 	it("distinguishes manual approvals that replace the ordinary composer", () => {
@@ -48,27 +43,23 @@ describe("chat session state", () => {
 			role: "assistant" as const,
 		};
 
-		expect(selectChatSessionAwaitingApproval(stateWith({ messages: [approvalMessage] }))).toBe(true);
+		expect(isAwaitingApproval([approvalMessage])).toBe(true);
 
 		expect(
-			selectChatSessionAwaitingApproval(
-				stateWith({
-					messages: [
-						{
-							...approvalMessage,
-							parts: [{ ...approvalPart, approval: { id: "approval-id", isAutomatic: true } }],
-						},
-					],
-				})
-			)
+			isAwaitingApproval([
+				{
+					...approvalMessage,
+					parts: [{ ...approvalPart, approval: { id: "approval-id", isAutomatic: true } }],
+				},
+			])
 		).toBe(false);
 	});
 
 	it("stays busy through streaming and pending client continuations", () => {
-		expect(selectChatSessionBusy(stateWith({ status: "streaming" }))).toBe(true);
+		expect(isChatSessionBusy(stateWith({ isLoading: true }))).toBe(true);
 
 		expect(
-			selectChatSessionBusy(
+			isChatSessionBusy(
 				stateWith({
 					messages: [
 						{
@@ -90,7 +81,7 @@ describe("chat session state", () => {
 		).toBe(true);
 
 		expect(
-			selectChatSessionBusy(
+			isChatSessionBusy(
 				stateWith({
 					messages: [
 						{
@@ -112,7 +103,7 @@ describe("chat session state", () => {
 	});
 
 	it("is ready when no response or work is pending", () => {
-		expect(selectChatSessionBusy(stateWith({}))).toBe(false);
+		expect(isChatSessionBusy(stateWith({}))).toBe(false);
 	});
 });
 
@@ -130,7 +121,7 @@ const streamResponse = (chunks: Array<UIMessageChunk>) =>
 		}),
 	});
 
-const completedLibraryTool: Array<UIMessageChunk> = [
+const completedTool: Array<UIMessageChunk> = [
 	{ messageId: "assistant-1", type: "start" },
 	{
 		input: { content: "# Notes", name: "Notes" },
@@ -156,7 +147,7 @@ const renderSession = ({
 	const current: CurrentSession = {};
 
 	const Probe = () => {
-		const state = useChatSession((value) => value);
+		const state = useChatSession();
 
 		useEffect(() => {
 			current.state = state;
@@ -178,7 +169,7 @@ describe("chat session", () => {
 	beforeEach(() => {
 		fetchMock.mockReset();
 		fetchMock.mockImplementation(async (_input, init) =>
-			init?.method === "POST" ? streamResponse(completedLibraryTool) : new Response(null, { status: 204 })
+			init?.method === "POST" ? streamResponse(completedTool) : new Response(null, { status: 204 })
 		);
 		vi.stubGlobal("fetch", fetchMock);
 	});
@@ -189,20 +180,15 @@ describe("chat session", () => {
 		await waitFor(() => expect(fetchMock).toHaveBeenCalledWith("/api/chats/chat-1/stream", expect.anything()));
 	});
 
-	it("accepts a send once the server responds, reports a new chat once, and notifies data changes", async () => {
+	it("accepts a send once the server responds and reports a new chat once", async () => {
 		const onChatCreated = vi.fn();
-		const library = vi.fn();
-
-		const session = renderSession({
-			runtime: { chatId: "chat-1", library: { assetId: "asset-1" }, onChatCreated, onDataChange: { library } },
-		});
+		const session = renderSession({ runtime: { chatId: "chat-1", onChatCreated } });
 
 		await waitFor(() => expect(session.state).toBeDefined());
-		await session.state?.actions?.sendMessage({ text: "Hi" });
+		await session.state?.actions.sendMessage({ text: "Hi" });
 
 		expect(onChatCreated).toHaveBeenCalledExactlyOnceWith("chat-1");
-		expect(postedBody()).toMatchObject({ library: { assetId: "asset-1" }, message: { role: "user" } });
-		await waitFor(() => expect(library).toHaveBeenCalledOnce());
+		expect(postedBody()).toMatchObject({ message: { role: "user" } });
 	});
 
 	it("rejects a send the server refuses and never reports an existing chat as created", async () => {
@@ -219,9 +205,7 @@ describe("chat session", () => {
 		});
 
 		await waitFor(() => expect(session.state).toBeDefined());
-		await expect(session.state?.actions?.sendMessage({ text: "Hi" })).rejects.toThrow(
-			"Chat request limit reached."
-		);
+		await expect(session.state?.actions.sendMessage({ text: "Hi" })).rejects.toThrow("Chat request limit reached.");
 		expect(onChatCreated).not.toHaveBeenCalled();
 	});
 
@@ -247,7 +231,7 @@ describe("chat session", () => {
 		});
 
 		await waitFor(() => expect(session.state).toBeDefined());
-		await session.state?.actions?.answerQuestions({ output, toolCallId: "question-1" });
+		await session.state?.actions.answerQuestions({ output, toolCallId: "question-1" });
 
 		expect(postedBody()).toMatchObject({
 			message: { id: "assistant-1", parts: [{ output, state: "output-available", toolCallId: "question-1" }] },

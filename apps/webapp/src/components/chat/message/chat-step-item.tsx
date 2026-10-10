@@ -2,18 +2,33 @@
 
 import type { ReactNode } from "react";
 
-import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
+import { ArrowDown01Icon, Brain01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import type { OrbState } from "thinking-orbs";
+import { useTranslations } from "next-intl";
+import { ThinkingOrb, type OrbState } from "thinking-orbs";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@starter/ui/components/collapsible";
+import { TextShimmer } from "@starter/ui/components/text-shimmer";
 import { cn } from "@starter/ui/lib/utils";
-
-import { ChatActivityOrb } from "./chat-activity-orb";
 
 export type ChatStepStatus = "running" | "done" | "error";
 
-export type ChatStepItemProps = {
+export const ChatActivityOrb = ({ state = "composing" }: { state?: OrbState }) => (
+	<ThinkingOrb
+		aria-hidden
+		className='shrink-0'
+		data-thinking-orb-state={state}
+		role='presentation'
+		size={20}
+		state={state}
+	/>
+);
+
+export const ChatSteps = ({ children }: { children: ReactNode }) => (
+	<div className='my-1 flex flex-col'>{children}</div>
+);
+
+type ChatStepItemProps = {
 	action?: ReactNode;
 	activity?: OrbState;
 	children?: ReactNode;
@@ -101,3 +116,27 @@ export const ChatStepItem = ({
 };
 
 ChatStepItem.displayName = "ChatStepItem";
+
+const thinkingIcon = (
+	<HugeiconsIcon aria-hidden='true' className='size-3.5 scale-110' icon={Brain01Icon} strokeWidth={1.75} />
+);
+
+export const ThinkingStep = () => {
+	const t = useTranslations("components.chat.message");
+
+	return (
+		<ChatStepItem
+			activity='composing'
+			icon={thinkingIcon}
+			isLast
+			label={<TextShimmer variant='label'>{t("status.thinking")}</TextShimmer>}
+			status='running'
+		/>
+	);
+};
+
+export const ThinkingSteps = () => (
+	<ChatSteps>
+		<ThinkingStep />
+	</ChatSteps>
+);

@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import { apiClient } from "@/lib/api-client";
 import { PreviewCard, PreviewCardPopup, PreviewCardTrigger } from "@starter/ui/components/preview-card";
 
-import { getSiteInitial } from "./utils/site-initial";
+const getSiteInitial = (name: string | null) => name?.trim().charAt(0).toUpperCase() || null;
 
 type LinkPreviewProps = {
 	children: React.ReactNode;

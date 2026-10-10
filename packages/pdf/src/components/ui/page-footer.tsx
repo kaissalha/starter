@@ -1,10 +1,7 @@
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type PageFooterVariant = "simple" | "centered" | "branded" | "minimal" | "three-column" | "detailed";
 
@@ -325,8 +322,8 @@ export const PageFooter = ({
 	variant = "simple",
 	website,
 }: PageFooterProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createPageFooterStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createPageFooterStyles(theme);
 	const isFixed = fixed || sticky;
 	const mt = sticky ? 0 : (marginTop ?? theme.spacing.sectionGap);
 	const resolvedTextColor = textColor ? resolvePdfColor(textColor, theme.colors) : undefined;

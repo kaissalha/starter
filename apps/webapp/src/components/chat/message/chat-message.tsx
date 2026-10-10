@@ -5,15 +5,18 @@ import { isToolUIPart } from "ai";
 import { MorphIcon } from "morphicons/react";
 import { useTranslations } from "next-intl";
 
-import { useChatMessage } from "@/components/chat/stores/chat-session-store";
 import type { DashboardChatUIMessage as BaseChatUIMessage } from "@starter/server";
 import { Button } from "@starter/ui/components/button";
 import { useCopyToClipboard } from "@starter/ui/hooks/use-copy-to-clipboard";
 import { cn } from "@starter/ui/lib/utils";
 
-import { ChatMessageParts, type ChatMessagePart, type ChatMessagePartType } from "./chat-message-parts";
-import { getVisibleMessageParts } from "./get-visible-message-parts";
-import { askUserQuestionsOutputSchema } from "./parts/ask-user-questions-schema";
+import {
+	ChatMessageParts,
+	getVisibleMessageParts,
+	isSkillPart,
+	type ChatMessagePart,
+	type ChatMessagePartType,
+} from "./chat-message-parts";
 
 type MessageRenderData = {
 	hasNonEmptyText: boolean;
@@ -66,10 +69,7 @@ const shouldShowThinkingIndicator = ({
 		return true;
 	}
 
-	if (
-		["tool-skill", "tool-skill_read", "tool-skill_search"].includes(lastPart.type) ||
-		(lastPart.type === "dynamic-tool" && ["skill", "skill_read", "skill_search"].includes(lastPart.toolName))
-	) {
+	if (isSkillPart(lastPart)) {
 		return true;
 	}
 
@@ -80,20 +80,11 @@ const shouldShowThinkingIndicator = ({
 	return true;
 };
 
-const MessageContainer = ({
-	children,
-	className,
-	isUser,
-}: {
-	children: React.ReactNode;
-	className?: string;
-	isUser: boolean;
-}) => (
+const MessageContainer = ({ children, isUser }: { children: React.ReactNode; isUser: boolean }) => (
 	<div
 		className={cn(
 			"group/message flex w-full max-w-full flex-col gap-3 overflow-hidden py-5",
-			isUser ? "items-end" : "items-start",
-			className
+			isUser ? "items-end" : "items-start"
 		)}
 	>
 		{children}
@@ -124,12 +115,10 @@ const AssistantMessageActions = ({ copyableText }: { copyableText: string }) => 
 	);
 };
 
-const MessageBody = ({
-	className,
+export const ChatMessage = ({
 	isStreaming = false,
 	message,
 }: {
-	className?: string;
 	isStreaming?: boolean;
 	message: BaseChatUIMessage;
 }) => {
@@ -137,21 +126,16 @@ const MessageBody = ({
 	const renderData = buildMessageRenderData(message);
 	const showThinkingIndicator = shouldShowThinkingIndicator({ isStreaming, message });
 
-	const hasAnsweredQuestions = message.parts.some((part) => {
-		if (part.type !== "tool-askUserQuestions" || part.state !== "output-available") {
-			return false;
-		}
-
-		const output = askUserQuestionsOutputSchema.safeParse(part.output);
-
-		return output.success && Boolean(output.data.answers?.length);
-	});
+	const hasAnsweredQuestions = message.parts.some(
+		(part) =>
+			part.type === "tool-askUserQuestions" && part.state === "output-available" && part.output.answers.length > 0
+	);
 
 	const showCopyAction =
 		!isStreaming && message.role === "assistant" && renderData.hasNonEmptyText && !hasAnsweredQuestions;
 
 	return (
-		<MessageContainer className={className} isUser={isUser}>
+		<MessageContainer isUser={isUser}>
 			<ChatMessageParts
 				isStreaming={isStreaming}
 				isUser={isUser}
@@ -163,27 +147,3 @@ const MessageBody = ({
 		</MessageContainer>
 	);
 };
-
-export const ChatMessageById = ({
-	className,
-	isStreaming = false,
-	messageId,
-}: {
-	className?: string;
-	isStreaming?: boolean;
-	messageId: string;
-}) => {
-	const message = useChatMessage(messageId);
-
-	if (!message) {
-		return null;
-	}
-
-	return <MessageBody className={className} isStreaming={isStreaming} message={message} />;
-};
-
-ChatMessageById.displayName = "ChatMessageById";
-
-export const ChatMessage = ({ className, message }: { className?: string; message: BaseChatUIMessage }) => (
-	<MessageBody className={className} message={message} />
-);

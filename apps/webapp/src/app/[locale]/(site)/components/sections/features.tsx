@@ -1,7 +1,6 @@
 import {
 	AiChat02Icon,
 	ApiIcon,
-	Folder01Icon,
 	LanguageSkillIcon,
 	Notification03Icon,
 	UserGroupIcon,
@@ -12,7 +11,6 @@ import { getTranslations } from "next-intl/server";
 const features = [
 	{ icon: UserGroupIcon, id: "workspaces" },
 	{ icon: AiChat02Icon, id: "assistant" },
-	{ icon: Folder01Icon, id: "library" },
 	{ icon: Notification03Icon, id: "notifications" },
 	{ icon: ApiIcon, id: "api" },
 	{ icon: LanguageSkillIcon, id: "production" },

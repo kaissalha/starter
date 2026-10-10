@@ -6,7 +6,7 @@ vi.mock("../../src/lib/blob-storage", () => ({ uploadBufferToBlob: vi.fn() }));
 
 vi.mock("../../src/ai/models", () => ({ models: {} }));
 
-vi.mock("../../src/services/documents", () => ({ startFileIngestion: vi.fn() }));
+vi.mock("../../src/workflows/ingest-file", () => ({ startIngestFile: vi.fn() }));
 
 vi.mock("../../src/services/storage", () => ({ createFile: vi.fn(), deleteFile: vi.fn(), getFile: vi.fn() }));
 

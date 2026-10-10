@@ -2,10 +2,7 @@ import { Text as PDFText, Rect, StyleSheet, Svg, View } from "@react-pdf/rendere
 import type { Style } from "@react-pdf/types";
 import QRCodeLib from "qrcode";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type QRCodeErrorLevel = "L" | "M" | "Q" | "H";
 
@@ -73,9 +70,9 @@ export const QRCode = ({
 	style,
 	value,
 }: QRCodeProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createQRCodeStyles(theme), [theme]);
-	const matrix = useSafeMemo(() => generateQRMatrix(value, errorLevel, margin), [value, errorLevel, margin]);
+	const theme = defaultTheme;
+	const styles = createQRCodeStyles(theme);
+	const matrix = generateQRMatrix(value, errorLevel, margin);
 	const moduleSize = size / matrix.length;
 	const resolvedColor = resolvePdfColor(color, theme.colors);
 

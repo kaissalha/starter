@@ -46,10 +46,6 @@ export const resolveUrl = ({ base, href }: { base: string; href: string }) => {
 		return `https:${href}`;
 	}
 
-	if (href.startsWith("/")) {
-		return new URL(href, base).href;
-	}
-
 	if (href.startsWith("http")) {
 		return href;
 	}

@@ -10,7 +10,7 @@ import { models } from "../ai/models";
 import { createLogoGenerationPrompt } from "../ai/prompts";
 import { getPublicBlobUrl, getStorageKeyPrefix, uploadBufferToBlob } from "../lib/blob-storage";
 import { checkRateLimit } from "../lib/redis";
-import { startFileIngestion } from "./documents";
+import { startIngestFile } from "../workflows/ingest-file";
 import { createFile, deleteFile, getFile, getFileUrl } from "./storage";
 
 export class LibraryError extends Error {
@@ -21,11 +21,7 @@ export class LibraryError extends Error {
 	}
 }
 
-export type LibraryActor = { organizationId: string; userId: string };
-
-export const libraryChatScope = ({ groupId, userId }: { groupId?: string; userId: string }) => ({
-	libraryChat: `${userId}:${groupId ?? "library"}`,
-});
+type LibraryActor = { organizationId: string; userId: string };
 
 const libraryKinds = ["image", "video", "document"] as const;
 
@@ -61,27 +57,6 @@ export const libraryAssetSchema = z
 	})
 	.meta({ id: "LibraryAsset" });
 
-export const libraryAssetDetailSchema = libraryAssetSchema
-	.extend({
-		category: z.string().nullable(),
-		content: z.string().nullable(),
-		docDate: z.string().nullable(),
-		generation: z.strictObject({ model: z.string(), prompt: z.string() }).nullable(),
-		groupId: z.uuid(),
-		language: z.string().nullable(),
-		tags: z.array(z.string()),
-		versions: z.array(
-			z.strictObject({
-				createdAt: z.string(),
-				generating: z.boolean(),
-				id: z.uuid(),
-				status: fileStatusSchema,
-				url: z.string().nullable(),
-			})
-		),
-	})
-	.meta({ id: "LibraryAssetDetail" });
-
 export const libraryListInputSchema = z
 	.strictObject({
 		kind: z.enum(["all", ...libraryKinds]).default("all"),
@@ -93,12 +68,6 @@ export const libraryListInputSchema = z
 	})
 	.meta({ id: "ListLibraryAssetsInput" });
 
-export const libraryListResultSchema = z.strictObject({
-	counts: z.strictObject({ all: z.int(), document: z.int(), image: z.int(), video: z.int() }),
-	items: z.array(libraryAssetSchema),
-	nextOffset: z.int().nullable(),
-});
-
 export const libraryAssetIdSchema = z.strictObject({ assetId: z.uuid() });
 
 const documentNameSchema = z.string().trim().min(1).max(200);
@@ -109,7 +78,7 @@ export const libraryDocumentCreateSchema = z
 	.strictObject({ content: documentContentSchema.default(""), name: documentNameSchema })
 	.meta({ id: "CreateLibraryDocument" });
 
-export const libraryAssetUpdateSchema = z
+const libraryAssetUpdateSchema = z
 	.strictObject({
 		assetId: z.uuid(),
 		content: documentContentSchema.optional(),
@@ -412,9 +381,6 @@ export const editLibraryDocument = async ({
 	return updateLibraryAsset({ actor, input: { assetId: file.id, content, updatedAt: input.updatedAt } });
 };
 
-export const deleteLibraryAsset = ({ actor, assetId }: { actor: LibraryActor; assetId: string }) =>
-	deleteFile({ deletedBy: actor.userId, fileId: assetId, organizationId: actor.organizationId });
-
 const loadSourceImage = async (file: FileRecord) => {
 	if (file.kind !== "image" || file.access !== "public" || !file.storageKey) {
 		throw new LibraryError("NOT_EDITABLE", "Only library images can be edited.");
@@ -443,39 +409,44 @@ const finishLibraryImage = async ({
 	request: Pick<Parameters<typeof generateImage>[0], "model" | "prompt" | "providerOptions" | "size">;
 	transform?: (image: Uint8Array) => Promise<Buffer>;
 }) => {
-	const { image } = await generateImage({
-		...request,
-		abortSignal: AbortSignal.any([AbortSignal.timeout(180_000), ...(abortSignal ? [abortSignal] : [])]),
-		maxRetries: 1,
-	});
+	try {
+		const { image } = await generateImage({
+			...request,
+			abortSignal: AbortSignal.any([AbortSignal.timeout(180_000), ...(abortSignal ? [abortSignal] : [])]),
+			maxRetries: 1,
+		});
 
-	const body = transform ? await transform(image.uint8Array) : Buffer.from(image.uint8Array);
+		const body = transform ? await transform(image.uint8Array) : Buffer.from(image.uint8Array);
 
-	const blob = await uploadBufferToBlob({
-		access: "public",
-		buffer: body,
-		mediaType: image.mediaType,
-		prefix: getStorageKeyPrefix({ organizationId: actor.organizationId, purpose: "image" }),
-	});
+		const blob = await uploadBufferToBlob({
+			access: "public",
+			buffer: body,
+			mediaType: image.mediaType,
+			prefix: getStorageKeyPrefix({ organizationId: actor.organizationId, purpose: "image" }),
+		});
 
-	const [file] = await db
-		.update(files)
-		.set({
-			contentType: image.mediaType,
-			sizeBytes: blob.size,
-			storageKey: blob.key,
-			updatedAt: new Date().toISOString(),
-		})
-		.where(and(eq(files.id, fileId), eq(files.organizationId, actor.organizationId)))
-		.returning();
+		const [file] = await db
+			.update(files)
+			.set({
+				contentType: image.mediaType,
+				sizeBytes: blob.size,
+				storageKey: blob.key,
+				updatedAt: new Date().toISOString(),
+			})
+			.where(and(eq(files.id, fileId), eq(files.organizationId, actor.organizationId)))
+			.returning();
 
-	if (!file) {
-		throw new LibraryError("NOT_FOUND", "Library asset not found.");
+		if (!file) {
+			throw new LibraryError("NOT_FOUND", "Library asset not found.");
+		}
+
+		await startIngestFile({ fileId, organizationId: actor.organizationId });
+
+		return await toLibraryAsset(file);
+	} catch (error) {
+		await deleteFile({ deletedBy: actor.userId, fileId, organizationId: actor.organizationId });
+		throw error;
 	}
-
-	await startFileIngestion({ fileId, organizationId: actor.organizationId });
-
-	return file;
 };
 
 export const generateLibraryImage = async ({
@@ -507,23 +478,16 @@ export const generateLibraryImage = async ({
 		versionGroupId: sourceFile ? (sourceFile.versionGroupId ?? sourceFile.id) : null,
 	});
 
-	try {
-		const generated = await finishLibraryImage({
-			abortSignal,
-			actor,
-			fileId: file.id,
-			request: {
-				model: models.image.model,
-				prompt: source ? { images: [source], text: input.prompt } : input.prompt,
-				size: source ? undefined : imageSizes[input.aspect],
-			},
-		});
-
-		return await toLibraryAsset(generated);
-	} catch (error) {
-		await deleteFile({ deletedBy: actor.userId, fileId: file.id, organizationId: actor.organizationId });
-		throw error;
-	}
+	return finishLibraryImage({
+		abortSignal,
+		actor,
+		fileId: file.id,
+		request: {
+			model: models.image.model,
+			prompt: source ? { images: [source], text: input.prompt } : input.prompt,
+			size: source ? undefined : imageSizes[input.aspect],
+		},
+	});
 };
 
 const logoPadding = 16;
@@ -540,16 +504,6 @@ const trimLogo = (image: Uint8Array) =>
 		})
 		.png()
 		.toBuffer();
-
-const readLogoBusinessContext = async ({ organizationId }: { organizationId: string }) => {
-	const [organization] = await db
-		.select({ name: organizations.name })
-		.from(organizations)
-		.where(eq(organizations.id, organizationId))
-		.limit(1);
-
-	return { businessName: organization?.name ?? "" };
-};
 
 export const generateLibraryLogo = async ({
 	abortSignal,
@@ -570,32 +524,31 @@ export const generateLibraryLogo = async ({
 		throw new LibraryError("RATE_LIMITED", "Too many logos generated. Try again later.");
 	}
 
-	const context = await readLogoBusinessContext({ organizationId: actor.organizationId });
-	const prompt = createLogoGenerationPrompt({ ...context, request: input.prompt });
+	const [organization] = await db
+		.select({ name: organizations.name })
+		.from(organizations)
+		.where(eq(organizations.id, actor.organizationId))
+		.limit(1);
+
+	const businessName = organization?.name ?? "";
+	const prompt = createLogoGenerationPrompt({ businessName, request: input.prompt });
 
 	const { file } = await createFile({
 		access: "public",
 		contentType: "image/png",
 		kind: "image",
 		metadata: { generation: { model: models.logo.model.modelId, prompt } },
-		name: `${context.businessName || "Business"} logo`,
+		name: `${businessName || "Business"} logo`,
 		organizationId: actor.organizationId,
 		ragStatus: "pending",
 		uploadedBy: actor.userId,
 	});
 
-	try {
-		const generated = await finishLibraryImage({
-			abortSignal,
-			actor,
-			fileId: file.id,
-			request: { ...models.logo, prompt, size: imageSizes.square },
-			transform: trimLogo,
-		});
-
-		return await toLibraryAsset(generated);
-	} catch (error) {
-		await deleteFile({ deletedBy: actor.userId, fileId: file.id, organizationId: actor.organizationId });
-		throw error;
-	}
+	return finishLibraryImage({
+		abortSignal,
+		actor,
+		fileId: file.id,
+		request: { ...models.logo, prompt, size: imageSizes.square },
+		transform: trimLogo,
+	});
 };

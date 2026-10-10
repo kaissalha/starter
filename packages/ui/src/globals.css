@@ -538,69 +538,6 @@
 	}
 }
 
-/* Website preview: pending copy keeps its authored typography and available inline size. */
-[data-website-viewport] .iw-text[data-pending] {
-	inline-size: 100%;
-}
-
-[data-website-viewport] span.iw-text[data-pending] {
-	inline-size: auto;
-	min-inline-size: 8ch;
-}
-
-[data-website-viewport] .iw-text-skeleton {
-	display: inline-flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 0.36em;
-	inline-size: 100%;
-	vertical-align: -0.125em;
-}
-
-[data-website-viewport] .text-center .iw-text-skeleton {
-	align-items: center;
-}
-
-[data-website-viewport] .text-end .iw-text-skeleton {
-	align-items: flex-end;
-}
-
-[data-website-viewport] .iw-text-skeleton-line {
-	position: relative;
-	display: block;
-	inline-size: 100%;
-	block-size: 0.82em;
-	overflow: hidden;
-	border-radius: 0.375em;
-	background-color: color-mix(in srgb, currentColor 10%, transparent);
-}
-
-[data-website-viewport] .iw-text-skeleton-line:last-child:not(:first-child) {
-	inline-size: 72%;
-}
-
-[data-website-viewport] .iw-text-skeleton-line::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(
-		95deg,
-		transparent 25%,
-		color-mix(in srgb, currentColor 44%, transparent) 50%,
-		transparent 75%
-	);
-	animation: website-text-skeleton-shimmer 1.45s linear infinite;
-}
-
-@keyframes website-text-skeleton-shimmer {
-	from {
-		transform: translateX(-100%);
-	}
-	to {
-		transform: translateX(100%);
-	}
-}
-
 .react-grid-item > .react-resizable-handle {
 	z-index: 10;
 	inline-size: 1.5rem;

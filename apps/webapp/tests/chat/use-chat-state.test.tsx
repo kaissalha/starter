@@ -36,20 +36,11 @@ type SendRejecterReference = {
 	reject?: (error: Error) => void;
 };
 
-vi.mock("@/components/chat/stores/chat-session-store", () => ({
-	useChatSession: <Result,>(
-		selector: (state: {
-			actions: { sendMessage: typeof chatMocks.sendMessage; stop: typeof chatMocks.stop };
-			status: "ready";
-		}) => Result
-	) =>
-		selector({
-			actions: {
-				sendMessage: chatMocks.sendMessage,
-				stop: chatMocks.stop,
-			},
-			status: "ready",
-		}),
+vi.mock("@/components/chat/chat-session", () => ({
+	useChatSession: () => ({
+		actions: { sendMessage: chatMocks.sendMessage, stop: chatMocks.stop },
+		isLoading: false,
+	}),
 }));
 
 vi.mock("@/components/chat/use-chat-file-upload", () => ({
@@ -116,7 +107,7 @@ describe("useChatState", () => {
 		expect(chatMocks.clearAttachments).not.toHaveBeenCalled();
 
 		send.resolve?.();
-		await waitFor(() => expect(chatMocks.clearAttachments).toHaveBeenCalledWith({ abort: false }));
+		await waitFor(() => expect(chatMocks.clearAttachments).toHaveBeenCalled());
 	});
 
 	it("restores the draft when an attachment upload fails", async () => {
@@ -148,7 +139,7 @@ describe("useChatState", () => {
 			expect(chatMocks.sendMessage).toHaveBeenCalledOnce();
 		});
 		expect(screen.getByRole("textbox", { name: "Message" })).toHaveValue("");
-		expect(chatMocks.clearAttachments).toHaveBeenCalledWith({ abort: false });
+		expect(chatMocks.clearAttachments).toHaveBeenCalled();
 	});
 
 	it("restores the draft when the chat transport rejects the send", async () => {
@@ -206,7 +197,7 @@ describe("useChatState", () => {
 
 		expect(chatMocks.removeAttachment).not.toHaveBeenCalled();
 		send.resolve?.();
-		await waitFor(() => expect(chatMocks.clearAttachments).toHaveBeenCalledWith({ abort: false }));
+		await waitFor(() => expect(chatMocks.clearAttachments).toHaveBeenCalled());
 	});
 
 	it("does not remove the attachment snapshot while uploads are preparing", async () => {

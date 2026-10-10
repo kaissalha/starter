@@ -6,7 +6,7 @@ import { cn } from "@starter/ui/lib/utils";
 import { OpenUIBlock } from "../../openui/openui-block";
 import { ChatMessageMarkdown } from "../chat-message-markdown";
 
-export type TextPartProps = {
+type TextPartProps = {
 	isAssistant: boolean;
 	isMessageStreaming?: boolean;
 	isTextStreaming?: boolean;

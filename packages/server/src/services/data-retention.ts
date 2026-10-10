@@ -2,6 +2,7 @@ import { and, eq, gte, inArray, isNull, lt, notExists, sql, type SQL } from "dri
 
 import {
 	db,
+	events,
 	oauthAccessTokens,
 	oauthClientAssertions,
 	oauthClients,
@@ -41,23 +42,29 @@ export const deleteInBatches = async ({
 		: deleteInBatches({ batchSize, deadline, deleteBatch, total: total + deleted });
 };
 
-const pruneExpired = ({
+export const deleteRowsInBatches = ({
+	batchSize = pruneBatchSize,
+	budgetMs = pruneBudgetMs,
 	table,
 	where,
 }: {
+	batchSize?: number;
+	budgetMs?: number;
 	table:
+		| typeof events
 		| typeof oauthAccessTokens
 		| typeof oauthClientAssertions
+		| typeof oauthClients
 		| typeof oauthRefreshTokens
 		| typeof sessions
 		| typeof verifications;
 	where: SQL | undefined;
 }) =>
 	deleteInBatches({
-		batchSize: pruneBatchSize,
-		budgetMs: pruneBudgetMs,
+		batchSize,
+		budgetMs,
 		deleteBatch: async () => {
-			const expired = db.select({ id: table.id }).from(table).where(where).limit(pruneBatchSize);
+			const expired = db.select({ id: table.id }).from(table).where(where).limit(batchSize);
 			const deleted = await db.delete(table).where(inArray(table.id, expired)).returning({ id: table.id });
 
 			return deleted.length;
@@ -65,15 +72,15 @@ const pruneExpired = ({
 	});
 
 export const pruneExpiredAuthRecords = async () => ({
-	oauthAccessTokens: await pruneExpired({
+	oauthAccessTokens: await deleteRowsInBatches({
 		table: oauthAccessTokens,
 		where: lt(oauthAccessTokens.expiresAt, sql`now()`),
 	}),
-	oauthClientAssertions: await pruneExpired({
+	oauthClientAssertions: await deleteRowsInBatches({
 		table: oauthClientAssertions,
 		where: lt(oauthClientAssertions.expiresAt, sql`now()`),
 	}),
-	oauthRefreshTokens: await pruneExpired({
+	oauthRefreshTokens: await deleteRowsInBatches({
 		table: oauthRefreshTokens,
 		where: and(
 			lt(oauthRefreshTokens.expiresAt, sql`now()`),
@@ -90,55 +97,42 @@ export const pruneExpiredAuthRecords = async () => ({
 			)
 		),
 	}),
-	sessions: await pruneExpired({ table: sessions, where: lt(sessions.expiresAt, sql`now() - interval '1 day'`) }),
-	verifications: await pruneExpired({
+	sessions: await deleteRowsInBatches({
+		table: sessions,
+		where: lt(sessions.expiresAt, sql`now() - interval '1 day'`),
+	}),
+	verifications: await deleteRowsInBatches({
 		table: verifications,
 		where: lt(verifications.expiresAt, sql`now() - interval '1 day'`),
 	}),
 });
 
 export const pruneStaleOAuthClients = () =>
-	deleteInBatches({
-		batchSize: pruneBatchSize,
-		budgetMs: pruneBudgetMs,
-		deleteBatch: async () => {
-			const stale = db
-				.select({ id: oauthClients.id })
-				.from(oauthClients)
-				.where(
-					and(
-						lt(oauthClients.createdAt, sql`now() - interval '1 day'`),
-						isNull(oauthClients.userId),
-						isNull(oauthClients.referenceId),
-						notExists(
-							db
-								.select({ id: oauthAccessTokens.id })
-								.from(oauthAccessTokens)
-								.where(eq(oauthAccessTokens.clientId, oauthClients.clientId))
-						),
-						notExists(
-							db
-								.select({ id: oauthRefreshTokens.id })
-								.from(oauthRefreshTokens)
-								.where(eq(oauthRefreshTokens.clientId, oauthClients.clientId))
-						),
-						notExists(
-							db
-								.select({ id: oauthConsents.id })
-								.from(oauthConsents)
-								.where(eq(oauthConsents.clientId, oauthClients.clientId))
-						)
-					)
-				)
-				.limit(pruneBatchSize);
-
-			const deleted = await db
-				.delete(oauthClients)
-				.where(inArray(oauthClients.id, stale))
-				.returning({ id: oauthClients.id });
-
-			return deleted.length;
-		},
+	deleteRowsInBatches({
+		table: oauthClients,
+		where: and(
+			lt(oauthClients.createdAt, sql`now() - interval '1 day'`),
+			isNull(oauthClients.userId),
+			isNull(oauthClients.referenceId),
+			notExists(
+				db
+					.select({ id: oauthAccessTokens.id })
+					.from(oauthAccessTokens)
+					.where(eq(oauthAccessTokens.clientId, oauthClients.clientId))
+			),
+			notExists(
+				db
+					.select({ id: oauthRefreshTokens.id })
+					.from(oauthRefreshTokens)
+					.where(eq(oauthRefreshTokens.clientId, oauthClients.clientId))
+			),
+			notExists(
+				db
+					.select({ id: oauthConsents.id })
+					.from(oauthConsents)
+					.where(eq(oauthConsents.clientId, oauthClients.clientId))
+			)
+		),
 	});
 
 export const pruneMastraStorage = async () => {

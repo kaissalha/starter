@@ -1,5 +1,5 @@
 import { isSpanContextValid, trace } from "@opentelemetry/api";
-import { createLogger, definePlugin, log, type DrainContext, type TailSamplingContext } from "evlog";
+import { definePlugin, log, type DrainContext, type TailSamplingContext } from "evlog";
 import { createDefaultEnrichers } from "evlog/enrichers";
 import { createFsDrain } from "evlog/fs";
 import { useLogger } from "evlog/next";
@@ -108,7 +108,7 @@ export const getRequestLogger = () => {
 	}
 };
 
-export { createLogger, log };
+export { log };
 
 /* oxlint-disable anti-slop/no-unknown-parameters, anti-slop/no-runtime-typeof -- serializes arbitrary thrown values at the log boundary */
 type SerializedLogError = {

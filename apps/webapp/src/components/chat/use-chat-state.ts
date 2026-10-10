@@ -2,35 +2,13 @@
 
 import { useCallback, useRef, useState } from "react";
 
-import {
-	type ChatAttachmentErrorCode,
-	type ChatFileAttachment,
-	isInlineModelAttachment,
-} from "@/components/chat/chat-attachments";
-import { useChatSession } from "@/components/chat/stores/chat-session-store";
+import { isInlineModelAttachment } from "@/components/chat/chat-attachments";
+import { useChatSession } from "@/components/chat/chat-session";
 import { useChatFileUpload } from "@/components/chat/use-chat-file-upload";
 import { useOrganizationPermissions } from "@/hooks/use-organization-permissions";
 import type { DashboardChatUIMessage as BaseChatUIMessage } from "@starter/server";
 
-export type ChatState = {
-	addUploadedMedia: ReturnType<typeof useChatFileUpload>["addUploadedMedia"];
-	attachmentError: ChatAttachmentErrorCode | null;
-	attachments: Array<ChatFileAttachment>;
-	canSubmit: boolean;
-	clearAttachmentError: () => void;
-	handleFilesAdded: (files: Array<File>) => Promise<void>;
-	handleFilesRejected: (error: ChatAttachmentErrorCode) => void;
-	handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-	handleSubmit: (e?: React.FormEvent) => Promise<void>;
-	input: string;
-	isLoading: boolean;
-	isReadingAttachments: boolean;
-	removeAttachment: (id: string) => void;
-	stop?: () => void;
-	textareaRef: React.RefObject<HTMLTextAreaElement | null>;
-};
-
-export const useChatState = (): ChatState => {
+export const useChatState = () => {
 	const { can } = useOrganizationPermissions();
 	const [input, setInput] = useState("");
 	const [isPreparingMessage, setIsPreparingMessage] = useState(false);
@@ -47,15 +25,14 @@ export const useChatState = (): ChatState => {
 		isReadingAttachments,
 		removeAttachment,
 		waitForAttachmentUploads,
-	} = useChatFileUpload({ uploadToKnowledgeBase: true });
+	} = useChatFileUpload();
 
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-	const { sendMessage, status, stop } = useChatSession((state) => ({
-		sendMessage: state.actions?.sendMessage,
-		status: state.status,
-		stop: state.actions?.stop,
-	}));
+	const {
+		actions: { sendMessage, stop },
+		isLoading,
+	} = useChatSession();
 
 	const handleSubmit = useCallback(
 		async (e?: React.FormEvent) => {
@@ -66,7 +43,6 @@ export const useChatState = (): ChatState => {
 			if (
 				!can("workspace.write") ||
 				(!input.trim() && messageAttachments.length === 0) ||
-				!sendMessage ||
 				isReadingAttachments ||
 				isPreparingMessage
 			) {
@@ -120,7 +96,7 @@ export const useChatState = (): ChatState => {
 					role: "user",
 				});
 
-				clearAttachments({ abort: false });
+				clearAttachments();
 			} catch {
 				setInput((current) => (current.trim() ? current : messageText));
 			} finally {
@@ -168,7 +144,7 @@ export const useChatState = (): ChatState => {
 		handleInputChange,
 		handleSubmit,
 		input,
-		isLoading: status === "streaming" || status === "submitted",
+		isLoading,
 		isReadingAttachments: isReadingAttachments || isPreparingMessage,
 		removeAttachment: handleRemoveAttachment,
 		stop,

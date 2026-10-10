@@ -3,9 +3,7 @@ import type { ReactNode } from "react";
 import { Circle, Line, Text as PDFText, Path, StyleSheet, Svg, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
 
 export type AlertVariant = "info" | "success" | "warning" | "error";
 
@@ -146,8 +144,8 @@ const createAlertStyles = (theme: PdfxTheme) => {
 };
 
 export const Alert = ({ children, showBorder = true, showIcon = true, style, title, variant = "info" }: AlertProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createAlertStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createAlertStyles(theme);
 
 	if (!title && !children) {
 		return null;

@@ -4,9 +4,9 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 
 import { getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 import { redirect } from "@/i18n/navigation";
-import { getTranslations } from "@/lib/i18n";
 import { PostHogIdentify } from "@/lib/posthog";
 import { getServerSession } from "@/lib/server/auth";
 import { auth } from "@starter/server/auth";

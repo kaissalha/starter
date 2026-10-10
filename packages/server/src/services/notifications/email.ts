@@ -1,60 +1,17 @@
-import { and, asc, eq, inArray, isNull, sql } from "drizzle-orm";
+import { and, eq, inArray, isNull, sql } from "drizzle-orm";
 
-import {
-	db,
-	members,
-	notificationEmailDeliveries,
-	notificationPreferences,
-	users,
-	type EventRecord,
-} from "@starter/db";
+import { db, notificationEmailDeliveries, type EventRecord } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
 import { getBaseURL } from "@starter/utils";
 
 import { sendEmail } from "../../lib/resend";
-import { hasOrganizationPermission } from "../../utils/permissions";
-import type { ProjectionOutcome } from "./projector";
-import { audiencePermission, notificationTypeKeys, getNotificationDefinition, type NotificationType } from "./registry";
+import { findNotificationRecipients, type ProjectionOutcome } from "./projector";
+import { getNotificationDefinition, notificationTypeKeys, type NotificationType } from "./registry";
 
 type EmailContent = { html: string; replyTo?: string; subject: string };
 
 const dashboardUrl = ({ locale, path }: { locale: string; path: string }) =>
 	new URL(`${locale === "en" ? "" : `/${locale}`}${path}`, getBaseURL()).toString();
-
-const findRecipients = async ({ event, type }: { event: EventRecord; type: NotificationType }) => {
-	const definition = getNotificationDefinition(type).email;
-
-	const candidates = await db
-		.select({
-			email: users.email,
-			enabled: notificationPreferences.enabled,
-			role: members.role,
-			userId: members.userId,
-		})
-		.from(members)
-		.innerJoin(users, eq(users.id, members.userId))
-		.leftJoin(
-			notificationPreferences,
-			and(
-				eq(notificationPreferences.organizationId, members.organizationId),
-				eq(notificationPreferences.userId, members.userId),
-				eq(notificationPreferences.type, type),
-				eq(notificationPreferences.channel, "email")
-			)
-		)
-		.where(eq(members.organizationId, event.organizationId))
-		.orderBy(asc(members.userId));
-
-	const actor = "userId" in event.actor ? event.actor.userId : null;
-
-	return candidates.filter(
-		({ enabled, role, userId }) =>
-			definition !== null &&
-			userId !== actor &&
-			(definition.locked || enabled !== false) &&
-			hasOrganizationPermission({ permission: audiencePermission(definition.audience), role })
-	);
-};
 
 const emailContentBuilders: Partial<
 	Record<
@@ -164,7 +121,7 @@ export const sendNotificationEmails = async ({ event }: { event: EventRecord }):
 		return { code: "delivery_disabled", state: "skipped" };
 	}
 
-	const recipients = await findRecipients({ event, type });
+	const recipients = await findNotificationRecipients({ channel: "email", event, type });
 
 	if (recipients.length === 0) {
 		return { code: "no_recipients", state: "skipped" };

@@ -8,15 +8,14 @@ const mocks = vi.hoisted(() => ({
 	fromText: vi.fn(),
 	generate: vi.fn(),
 	logError: vi.fn(),
-	markFileFailed: vi.fn(),
+	setFileRagStatus: vi.fn(),
 }));
 
-vi.mock("../../src/workflows/ingest-file/agents", () => ({
-	documentClassifierAgent: { generate: mocks.generate },
-	imageClassifierAgent: { generate: mocks.generate },
+vi.mock("@mastra/core/agent", () => ({
+	Agent: class {
+		generate = mocks.generate;
+	},
 }));
-
-vi.mock("../../src/ai/knowledge", () => ({ deleteKnowledgeFile: vi.fn(), upsertKnowledgeChunks: vi.fn() }));
 
 vi.mock("../../src/ai/decisions", async (importOriginal) => ({
 	...(await importOriginal<typeof import("../../src/ai/decisions")>()),
@@ -36,18 +35,18 @@ vi.mock("../../src/services/storage", () => ({
 	applyFileEnrichment: vi.fn(),
 	FILE_PROCESSING_FAILED_CODE: "PROCESSING_FAILED",
 	getFile: vi.fn(),
-	markFileFailed: mocks.markFileFailed,
-	markFileReady: vi.fn(),
+	setFileRagStatus: mocks.setFileRagStatus,
 	upsertFileTags: vi.fn(),
 }));
 
 import { MAX_INGEST_TEXT_LENGTH } from "@starter/documents";
 
 import { applyFileEnrichment, upsertFileTags } from "../../src/services/storage";
-import { classifyDocument, classifyImage } from "../../src/workflows/ingest-file/mastra-steps";
 import {
 	applyEnrichment,
 	chunkContent,
+	classifyDocument,
+	classifyImage,
 	extractDocumentText,
 	markFailed,
 	MAX_INGEST_CHUNKS,
@@ -129,12 +128,9 @@ describe("file ingestion Mastra steps", () => {
 			key: file.storageKey,
 		});
 		mocks.downloadBlob.mockRejectedValueOnce(new Error("File exceeds the ingestion byte limit"));
-		await expect(
-			classifyImage({
-				file: { ...file, contentType: "image/png", kind: "image" },
-				organizationId: "organization-1",
-			})
-		).rejects.toThrow("File exceeds the ingestion byte limit");
+		await expect(classifyImage({ file: { ...file, contentType: "image/png", kind: "image" } })).rejects.toThrow(
+			"File exceeds the ingestion byte limit"
+		);
 		expect(mocks.generate).not.toHaveBeenCalled();
 	});
 
@@ -143,7 +139,7 @@ describe("file ingestion Mastra steps", () => {
 		mocks.generate.mockResolvedValue({ object: classification });
 		mocks.evaluateDecision.mockResolvedValue({ answers: { category: { choice: "invoice", type: "choice" } } });
 
-		await expect(classifyDocument({ organizationId: "organization-1", text: invoiceText })).resolves.toEqual({
+		await expect(classifyDocument({ text: invoiceText })).resolves.toEqual({
 			...classification,
 			documentCategory: "invoice",
 			ocrText: null,
@@ -164,13 +160,13 @@ describe("file ingestion Mastra steps", () => {
 	it("samples long documents and skips category evaluation for very short text", async () => {
 		mocks.evaluateDecision.mockClear();
 		mocks.generate.mockResolvedValue({ object: { summary: "Summary", tags: [], title: "Title" } });
-		await expect(classifyDocument({ organizationId: "organization-1", text: "Document" })).resolves.toMatchObject({
+		await expect(classifyDocument({ text: "Document" })).resolves.toMatchObject({
 			documentCategory: "unknown",
 		});
 		expect(mocks.evaluateDecision).not.toHaveBeenCalled();
 		mocks.evaluateDecision.mockResolvedValue({ answers: { category: { choice: "report", type: "choice" } } });
 		const longText = `${"Opening ".repeat(600)}${"Closing ".repeat(300)}`;
-		await classifyDocument({ organizationId: "organization-1", text: longText });
+		await classifyDocument({ text: longText });
 		const state = mocks.evaluateDecision.mock.calls[0]?.[0].state;
 		expect(state).toContain("[…]");
 		expect(state.length).toBeLessThan(4200);
@@ -178,7 +174,7 @@ describe("file ingestion Mastra steps", () => {
 	it("preserves required metadata when optional document labeling is unavailable", async () => {
 		mocks.evaluateDecision.mockResolvedValue(null);
 		mocks.generate.mockResolvedValue({ object: { summary: "Summary", tags: ["finance"], title: "Report" } });
-		await expect(classifyDocument({ organizationId: "organization-1", text: "Document" })).resolves.toMatchObject({
+		await expect(classifyDocument({ text: "Document" })).resolves.toMatchObject({
 			documentCategory: "unknown",
 			summary: "Summary",
 			tags: ["finance"],
@@ -228,12 +224,13 @@ describe("file ingestion Mastra steps", () => {
 	it("stores a fixed failure code and logs the raw cause", async () => {
 		const cause = "Failed query: select secret params: token";
 		await markFailed({ cause, fileId: "file-1", organizationId: "organization-1" });
-		expect(mocks.markFileFailed).toHaveBeenCalledWith({
+		expect(mocks.setFileRagStatus).toHaveBeenCalledWith({
 			error: "PROCESSING_FAILED",
 			fileId: "file-1",
 			organizationId: "organization-1",
+			status: "failed",
 		});
-		expect(mocks.markFileFailed).not.toHaveBeenCalledWith(expect.objectContaining({ error: cause }));
+		expect(mocks.setFileRagStatus).not.toHaveBeenCalledWith(expect.objectContaining({ error: cause }));
 		expect(mocks.logError).toHaveBeenCalledWith(expect.objectContaining({ cause, fileId: "file-1" }));
 	});
 });

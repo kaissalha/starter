@@ -23,12 +23,10 @@ const getThreadOwner = async (id: string) => (await dashboardChatMemory.getThrea
 
 export const createChat = async ({
 	id,
-	metadata,
 	organizationId,
 	title,
 }: {
 	id: string;
-	metadata?: Record<string, string>;
 	organizationId: string;
 	title?: string;
 }) => {
@@ -51,7 +49,6 @@ export const createChat = async ({
 		}
 
 		const thread = await dashboardChatMemory.createThread({
-			metadata,
 			resourceId: organizationId,
 			threadId: id,
 			title,
@@ -125,18 +122,7 @@ export const convertChatMessagesForUI = async (messages: Array<MastraDBMessage>)
 export const getChat = async (id: string, organizationId: string) =>
 	dashboardChatMemory.getThreadById({ resourceId: organizationId, threadId: id });
 
-type ChatPage = {
-	chats: Awaited<ReturnType<typeof dashboardChatMemory.listThreads>>["threads"];
-	nextPage: number | null;
-};
-
-export const getChats = async ({
-	organizationId,
-	page = 0,
-}: {
-	organizationId: string;
-	page?: number;
-}): Promise<ChatPage> => {
+export const getChats = async ({ organizationId, page = 0 }: { organizationId: string; page?: number }) => {
 	const result = await dashboardChatMemory.listThreads({
 		filter: { resourceId: organizationId },
 		orderBy: { direction: "DESC", field: "updatedAt" },
@@ -144,27 +130,7 @@ export const getChats = async ({
 		perPage: CHAT_PAGE_SIZE,
 	});
 
-	const chats = result.threads.filter((thread) => !thread.metadata?.libraryChat);
-	const nextPage = result.hasMore ? page + 1 : null;
-
-	return chats.length === 0 && nextPage !== null ? getChats({ organizationId, page: nextPage }) : { chats, nextPage };
-};
-
-export const findLatestChat = async ({
-	metadata,
-	organizationId,
-}: {
-	metadata: Record<string, string>;
-	organizationId: string;
-}) => {
-	const result = await dashboardChatMemory.listThreads({
-		filter: { metadata, resourceId: organizationId },
-		orderBy: { direction: "DESC", field: "updatedAt" },
-		page: 0,
-		perPage: 1,
-	});
-
-	return result.threads[0] ?? null;
+	return { chats: result.threads, nextPage: result.hasMore ? page + 1 : null };
 };
 
 export const getChatWithMessages = async ({

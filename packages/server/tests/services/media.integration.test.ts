@@ -3,19 +3,16 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { db, files, users } from "@starter/db";
 
-const mocks = vi.hoisted(() => ({ deleteBlob: vi.fn(), startIngestFile: vi.fn() }));
+const mocks = vi.hoisted(() => ({ createRun: vi.fn(), deleteBlob: vi.fn() }));
 
 vi.mock("../../src/lib/blob-storage", () => ({
 	deleteBlob: mocks.deleteBlob,
 	getPublicBlobUrl: async (key: string) => `https://cdn.example.com/${key}`,
 }));
 
-vi.mock("../../src/workflows/ingest-file", async (importOriginal) => ({
-	...(await importOriginal<typeof import("../../src/workflows/ingest-file")>()),
-	startIngestFile: mocks.startIngestFile,
-}));
+vi.mock("../../src/ai", () => ({ mastra: { getWorkflow: () => ({ createRun: mocks.createRun }) } }));
 
-import { deleteUploadedMedia, getUploadedMedia, listUploadedMedia, registerUpload } from "../../src/services/media";
+import { deleteUploadedMedia, listUploadedMedia, registerUpload } from "../../src/services/media";
 import { cleanupOrganization, createTestOrganization } from "../helpers/db";
 
 const organizations: Array<string> = [];
@@ -94,25 +91,20 @@ describe("uploaded media", () => {
 		expect(
 			(await listUploadedMedia({ kind: "image", offset: 0, organizationId: owner.id, query: "_photo" })).items
 		).toHaveLength(1);
-		const [photo, movie, ...excluded] = rows;
+		const [photo, , ...excluded] = rows;
 
-		if (!photo || !movie) {
+		if (!photo) {
 			throw new Error("Missing fixtures");
 		}
 
-		for (const row of excluded) {
-			await expect(getUploadedMedia({ fileId: row.id, organizationId: owner.id })).rejects.toThrow(
-				"Uploaded media not found"
-			);
+		for (const { id, organizationId } of [
+			...excluded.map((row) => ({ ...row, organizationId: owner.id })),
+			{ ...photo, organizationId: other.id },
+		]) {
+			await expect(deleteUploadedMedia({ fileId: id, organizationId, userId: owner.id })).resolves.toBe(false);
 		}
 
-		await expect(getUploadedMedia({ fileId: movie.id, organizationId: owner.id })).resolves.toMatchObject({
-			kind: "video",
-			url: `https://cdn.example.com/${movie.storageKey}`,
-		});
-		await expect(getUploadedMedia({ fileId: photo.id, organizationId: other.id })).rejects.toThrow(
-			"Uploaded media not found"
-		);
+		expect(mocks.deleteBlob).not.toHaveBeenCalled();
 	});
 });
 
@@ -202,7 +194,7 @@ describe("upload registration", () => {
 		const owner = await createTestOrganization();
 		organizations.push(owner.id);
 		await db.insert(users).values({ email: `${owner.id}@example.com`, id: owner.id, name: "Uploader" });
-		mocks.startIngestFile.mockResolvedValue({ runId: "run-1" });
+		mocks.createRun.mockResolvedValue({ runId: "run-1", start: vi.fn() });
 
 		const upload = {
 			contentType: "application/pdf; charset=binary",
@@ -230,7 +222,7 @@ describe("upload registration", () => {
 			storageKey: `test/${owner.id}/knowledge/a1.pdf`,
 		});
 		await expect(registerUpload(upload)).resolves.toEqual(registered);
-		expect(mocks.startIngestFile).toHaveBeenCalledOnce();
+		expect(mocks.createRun).toHaveBeenCalledOnce();
 	});
 
 	it("rejects uploads that break their purpose policy without recording them", async () => {
@@ -261,6 +253,6 @@ describe("upload registration", () => {
 		await expect(register({ contentType: "image/png", name: "ok.png", sizeBytes: 10 })).resolves.toMatchObject({
 			url: `https://cdn.example.com/test/${owner.id}/image/ok.png`,
 		});
-		expect(mocks.startIngestFile).not.toHaveBeenCalled();
+		expect(mocks.createRun).not.toHaveBeenCalled();
 	});
 });

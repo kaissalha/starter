@@ -2,26 +2,18 @@ import { expect, test } from "@playwright/test";
 
 import { expectNoHorizontalOverflow, openNavigation } from "../fixtures/mobile";
 
-const sections = [
-	{ name: "Library", path: /\/dashboard\/library$/u },
-	{ name: "Home", path: /\/dashboard$/u },
-];
-
-test("reaches every dashboard section from the navigation drawer without horizontal overflow", async ({ page }) => {
+test("reaches the dashboard home from the navigation drawer without horizontal overflow", async ({ page }) => {
 	await page.goto("/dashboard");
-
-	for (const section of sections) {
-		const navigation = await openNavigation(page);
-		await navigation.getByRole("link", { exact: true, name: section.name }).tap();
-		await expect(page).toHaveURL(section.path, { timeout: 30_000 });
-		await expect(navigation).toBeHidden();
-		await expect(page.getByRole("button", { name: "Toggle navigation" }).first()).toBeVisible();
-		await expectNoHorizontalOverflow(page);
-	}
+	const navigation = await openNavigation(page);
+	await navigation.getByRole("link", { exact: true, name: "Home" }).tap();
+	await expect(page).toHaveURL(/\/dashboard$/u, { timeout: 30_000 });
+	await expect(navigation).toBeHidden();
+	await expect(page.getByRole("button", { name: "Toggle navigation" }).first()).toBeVisible();
+	await expectNoHorizontalOverflow(page);
 });
 
 test("shows the logo and a close button in the navigation drawer", async ({ page }) => {
-	await page.goto("/dashboard/library");
+	await page.goto("/dashboard");
 	const navigation = await openNavigation(page);
 	await expect(navigation.getByRole("button", { exact: true, name: "Close" })).toBeVisible();
 	await navigation.getByRole("button", { exact: true, name: "Close" }).tap();
@@ -29,19 +21,19 @@ test("shows the logo and a close button in the navigation drawer", async ({ page
 });
 
 test("switches the dashboard language and theme from the drawer", async ({ page }) => {
-	await page.goto("/dashboard/library");
+	await page.goto("/dashboard");
 	const english = await openNavigation(page);
 	await english.getByRole("button", { name: "Language: English" }).tap();
 	await page.getByRole("menuitemradio", { name: "Arabic" }).tap();
 	await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-	await expect(page).toHaveURL(/\/ar\/dashboard\/library$/u);
+	await expect(page).toHaveURL(/\/ar\/dashboard$/u);
 	await expectNoHorizontalOverflow(page);
 	await expect(page.getByRole("dialog")).toHaveCount(0);
 	await page.getByRole("banner").getByRole("button", { name: "فتح قائمة التنقل أو إغلاقها" }).tap();
 	const arabic = page.getByRole("dialog", { name: "التنقل" });
 	await arabic.getByRole("button", { name: "اللغة: العربية" }).tap();
 	await page.getByRole("menuitemradio", { name: "الإنجليزية" }).tap();
-	await expect(page).toHaveURL(/localhost:3100\/dashboard\/library$/u);
+	await expect(page).toHaveURL(/localhost:3100\/dashboard$/u);
 	await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
 	await expect(page.getByRole("dialog")).toHaveCount(0);
 

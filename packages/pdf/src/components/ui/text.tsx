@@ -3,10 +3,7 @@ import type React from "react";
 import { Text as PDFText, StyleSheet } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type TextVariant = "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl";
 
@@ -74,8 +71,8 @@ export const Text = ({
 	variant,
 	weight,
 }: TextProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createTextStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createTextStyles(theme);
 
 	const weightMap = {
 		bold: styles.weightBold,

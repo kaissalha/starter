@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getToolApprovalPermission } from "@/components/chat/message/parts/tool-approval-permission";
+import { getToolApprovalPermission } from "@/components/chat/message/parts/tool-part";
 
 describe("approval permissions", () => {
 	it("allows admin permission for plain input", () => {

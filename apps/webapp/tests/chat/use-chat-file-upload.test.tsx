@@ -21,7 +21,7 @@ describe("chat file uploads", () => {
 	});
 
 	it("stores persistent knowledge privately and attaches its registered file", async () => {
-		const { result } = renderHook(() => useChatFileUpload({ uploadToKnowledgeBase: true }));
+		const { result } = renderHook(() => useChatFileUpload());
 		const file = new File(["Private notes"], "brief.txt", { type: "text/plain" });
 		await act(async () => result.current.handleFilesAdded([file]));
 		await waitFor(() => expect(result.current.attachments[0]?.uploadStatus).toBe("uploaded"));

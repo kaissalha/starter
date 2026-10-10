@@ -21,8 +21,7 @@ import {
 } from "@starter/ui/components/sidebar";
 import { getDirection } from "@starter/utils";
 
-import { DashboardThemeScope } from "./components/layout/dashboard-theme-scope";
-import { DashboardTimeZoneProvider } from "./components/layout/dashboard-time-zone-provider";
+import { DashboardThemeScope, DashboardTimeZoneProvider } from "./components/layout/dashboard-time-zone-provider";
 import { AppSidebar } from "./components/layout/sidebar/app-sidebar";
 import { SettingsModal } from "./components/settings/settings-modal";
 

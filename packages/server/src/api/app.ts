@@ -21,19 +21,15 @@ export const apiRouter = {
 	notificationSettings,
 };
 
-export type ApiRouter = typeof apiRouter;
+export type ApiRouterClient = RouterClient<typeof apiRouter>;
 
-export type ApiRouterClient = RouterClient<ApiRouter>;
-
-export { isPublicApiProcedure, publicApi } from "./base";
+export { isPublicApiProcedure } from "./base";
 
 export { handleDataRetention, handleEventDispatch, handleEventRetention, handleOrganizationPurgeCron } from "./cron";
 
 export { type FilesUploadData, handleFilesRequest } from "./files";
 
-export { handleGetLibraryDocumentPdf } from "./library";
-
-export { handleGetMedia } from "./media";
+export { handleGetLibraryDocumentPdf, handleGetMedia } from "./media";
 
 export const openApiSpecPath = "/openapi.json";
 

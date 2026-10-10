@@ -5,18 +5,18 @@ import { z } from "zod";
 import { apikeys, db, members, organizationPurges, organizations } from "@starter/db";
 import { OTPEmail } from "@starter/email";
 
-import { auth, resolveOAuthSession, resolveSession } from "../../src/lib/auth";
+import { auth, resolveOrganizationSession, resolveSession } from "../../src/lib/auth";
 import { sendEmail } from "../../src/lib/resend";
 import { requireOrganizationPermission } from "../../src/services/permissions";
 import { authTestHelpers, testAuth } from "../helpers/auth";
 
 const mocks = vi.hoisted(() => ({
-	deleteOrganizationAIData: vi.fn(async (_input: { organizationId: string }) => undefined),
+	deleteKnowledgeOrganization: vi.fn(async (_input: { organizationId: string }) => undefined),
 }));
 
-vi.mock("../../src/services/organization-ai-data", () => ({
-	deleteOrganizationAIData: mocks.deleteOrganizationAIData,
-}));
+vi.mock("../../src/ai/knowledge", () => ({ deleteKnowledgeOrganization: mocks.deleteKnowledgeOrganization }));
+
+vi.mock("../../src/ai/memory", async () => (await import("../helpers/ai")).emptyMastraMemoryMock);
 
 vi.mock("@starter/email", async () => (await import("../helpers/email")).emailPackageMock);
 
@@ -128,17 +128,17 @@ describe("Better Auth test helpers", () => {
 	it("resolves OAuth claims only while the user belongs to the requested organization", async () => {
 		const { organizationId, user } = await createMember();
 
-		await expect(resolveOAuthSession({ organizationId, userId: user.id })).resolves.toMatchObject({
+		await expect(resolveOrganizationSession({ organizationId, userId: user.id })).resolves.toMatchObject({
 			session: { activeOrganizationId: organizationId },
 			user: { email: user.email, id: user.id },
 		});
 
 		await expect(
-			resolveOAuthSession({ organizationId: `org-${crypto.randomUUID()}`, userId: user.id })
+			resolveOrganizationSession({ organizationId: `org-${crypto.randomUUID()}`, userId: user.id })
 		).resolves.toBeNull();
 
 		await db.delete(members).where(eq(members.userId, user.id));
-		await expect(resolveOAuthSession({ organizationId, userId: user.id })).resolves.toBeNull();
+		await expect(resolveOrganizationSession({ organizationId, userId: user.id })).resolves.toBeNull();
 	});
 
 	it("resolves a real API key and revokes it with organization membership", async () => {
@@ -249,7 +249,7 @@ describe("Better Auth test helpers", () => {
 				.where(eq(organizationPurges.organizationId, organizationId));
 
 			expect(purge?.completedAt).not.toBeNull();
-			expect(mocks.deleteOrganizationAIData).toHaveBeenCalledExactlyOnceWith({ organizationId });
+			expect(mocks.deleteKnowledgeOrganization).toHaveBeenCalledExactlyOnceWith({ organizationId });
 		} finally {
 			await db.delete(organizationPurges).where(eq(organizationPurges.organizationId, organizationId));
 		}

@@ -44,7 +44,7 @@ export const SourcePart = ({ title, url }: SourcePartProps) => {
 
 SourcePart.displayName = "SourcePart";
 
-export type SourcesContainerProps = {
+type SourcesContainerProps = {
 	sources: Array<{ title?: string; url: string }>;
 };
 

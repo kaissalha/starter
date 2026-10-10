@@ -6,7 +6,7 @@ import { getBaseURL } from "@starter/utils";
 
 import { eventCatalog, type EventDataFor, type EventType } from "./catalog";
 
-export type AppendEventInput = {
+type AppendEventInput = {
 	[Type in EventType]: {
 		actor: EventActor;
 		data: EventDataFor<Type>;

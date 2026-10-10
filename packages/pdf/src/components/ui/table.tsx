@@ -1,11 +1,228 @@
 import { Children, type ReactNode, cloneElement, isValidElement } from "react";
 
-import { Text as PDFText, View } from "@react-pdf/renderer";
+import { StyleSheet, Text as PDFText, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { createTableStyles } from "./table-styles";
-import type { TableCellProps, TableProps, TableRowProps, TableSectionProps, TableVariant } from "./table-types";
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
+
+export type TableVariant = "line" | "grid" | "minimal" | "striped" | "compact" | "bordered" | "primary-header";
+
+export type TableProps = {
+	children: ReactNode;
+	noWrap?: boolean;
+	style?: Style;
+	variant?: TableVariant;
+	zebraStripe?: boolean;
+};
+
+export type TableSectionProps = {
+	children: ReactNode;
+	style?: Style;
+};
+
+export type TableRowProps = {
+	children: ReactNode;
+	footer?: boolean;
+	header?: boolean;
+	stripe?: boolean;
+	style?: Style;
+	variant?: TableVariant;
+};
+
+export type TableCellProps = {
+	_last?: boolean;
+	align?: "left" | "center" | "right";
+	children: ReactNode;
+	footer?: boolean;
+	header?: boolean;
+	style?: Style;
+	variant?: TableVariant;
+	width?: string | number;
+};
+
+const createTableStyles = (t: PdfxTheme) => {
+	const { borderRadius, fontWeights, spacing, typography } = t.primitives;
+	const borderColor = t.colors.border;
+	const hairline = 0.5;
+	const rule = 1;
+	const thick = 1.5;
+	const cellPadV = spacing[2] - 2;
+	const cellPadH = spacing[2] + 2;
+	const cellPadVCompact = spacing[0.5];
+	const cellPadHCompact = spacing[2];
+
+	const rowDivider = {
+		borderBottomColor: borderColor,
+		borderBottomStyle: "solid" as const,
+		borderBottomWidth: hairline,
+	};
+
+	return StyleSheet.create({
+		cell: { flex: 1, justifyContent: "center", paddingHorizontal: cellPadH, paddingVertical: cellPadV },
+		cellBordered: { paddingHorizontal: cellPadH, paddingVertical: cellPadV },
+		cellBorderedBorder: { borderRightColor: borderColor, borderRightStyle: "solid", borderRightWidth: hairline },
+		cellCompact: { paddingHorizontal: cellPadHCompact, paddingVertical: cellPadVCompact },
+		cellFixed: {
+			flexGrow: 0,
+			flexShrink: 0,
+			justifyContent: "center",
+			paddingHorizontal: cellPadH,
+			paddingVertical: cellPadV,
+		},
+		cellGridBorder: { borderRightColor: borderColor, borderRightStyle: "solid", borderRightWidth: hairline },
+		cellMinimal: { paddingHorizontal: spacing[2] - 2, paddingVertical: spacing[1] + 1 },
+		cellPrimaryHeader: { paddingHorizontal: cellPadH, paddingVertical: cellPadV },
+		cellStriped: { paddingHorizontal: cellPadH, paddingVertical: cellPadV },
+		cellText: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.typography.body.fontSize,
+			lineHeight: 1.2,
+		},
+		cellTextCompact: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: typography.xs,
+			lineHeight: 1.2,
+		},
+		cellTextFooter: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.typography.body.fontSize,
+			fontWeight: fontWeights.semibold,
+			lineHeight: 1.2,
+		},
+		cellTextHeaderBordered: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.typography.body.fontSize,
+			fontWeight: fontWeights.bold,
+			lineHeight: 1.2,
+		},
+		cellTextHeaderCompact: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: typography.xs,
+			fontWeight: fontWeights.semibold,
+			letterSpacing: 0.6,
+			lineHeight: 1.2,
+			textTransform: "uppercase",
+		},
+		cellTextHeaderGrid: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.typography.body.fontSize,
+			fontWeight: fontWeights.semibold,
+			lineHeight: 1.2,
+		},
+		cellTextHeaderLine: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.typography.body.fontSize,
+			fontWeight: fontWeights.semibold,
+			lineHeight: 1.2,
+		},
+		cellTextHeaderMinimal: {
+			color: t.colors.mutedForeground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.typography.body.fontSize,
+			fontWeight: fontWeights.medium,
+			lineHeight: 1.2,
+		},
+		cellTextHeaderPrimaryHeader: {
+			color: t.colors.primaryForeground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: typography.xs,
+			fontWeight: fontWeights.semibold,
+			letterSpacing: 0.6,
+			lineHeight: 1.2,
+			textTransform: "uppercase",
+		},
+		cellTextHeaderStriped: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.typography.body.fontSize,
+			fontWeight: fontWeights.semibold,
+			lineHeight: 1.2,
+		},
+		row: { display: "flex", flexDirection: "row" },
+		rowBordered: rowDivider,
+		rowCompact: rowDivider,
+		rowFooter: { borderTopColor: borderColor, borderTopStyle: "solid", borderTopWidth: rule },
+		rowFooterStriped: {
+			backgroundColor: t.colors.muted,
+			borderTopColor: borderColor,
+			borderTopStyle: "solid",
+			borderTopWidth: rule,
+		},
+		rowGrid: rowDivider,
+		rowHeaderBordered: {
+			backgroundColor: t.colors.muted,
+			borderBottomColor: borderColor,
+			borderBottomStyle: "solid",
+			borderBottomWidth: hairline,
+		},
+		rowHeaderCompact: {
+			backgroundColor: t.colors.muted,
+			borderBottomColor: borderColor,
+			borderBottomStyle: "solid",
+			borderBottomWidth: rule,
+		},
+		rowHeaderGrid: {
+			backgroundColor: t.colors.muted,
+			borderBottomColor: borderColor,
+			borderBottomStyle: "solid",
+			borderBottomWidth: rule,
+		},
+		rowHeaderLine: { borderBottomColor: borderColor, borderBottomStyle: "solid", borderBottomWidth: rule },
+		rowHeaderMinimal: { borderBottomColor: borderColor, borderBottomStyle: "solid", borderBottomWidth: rule },
+		rowHeaderPrimaryHeader: { backgroundColor: t.colors.primary },
+		rowHeaderStriped: {
+			backgroundColor: t.colors.muted,
+			borderBottomColor: borderColor,
+			borderBottomStyle: "solid",
+			borderBottomWidth: rule,
+		},
+		rowLine: rowDivider,
+		rowMinimal: rowDivider,
+		rowPrimaryHeader: rowDivider,
+		rowStripe: { backgroundColor: t.colors.muted },
+		rowStriped: {},
+		table: { display: "flex", flexDirection: "column", marginBottom: t.spacing.componentGap, width: "100%" },
+		tableBordered: {
+			borderBottomLeftRadius: borderRadius.sm,
+			borderBottomRightRadius: borderRadius.sm,
+			borderColor,
+			borderStyle: "solid",
+			borderTopLeftRadius: borderRadius.sm,
+			borderTopRightRadius: borderRadius.sm,
+			borderWidth: rule,
+			overflow: "hidden" as const,
+		},
+		tableCompact: { borderBottomColor: borderColor, borderBottomStyle: "solid", borderBottomWidth: hairline },
+		tableGrid: {
+			borderBottomLeftRadius: borderRadius.md,
+			borderBottomRightRadius: borderRadius.md,
+			borderColor,
+			borderStyle: "solid",
+			borderTopLeftRadius: borderRadius.md,
+			borderTopRightRadius: borderRadius.md,
+			borderWidth: thick,
+			overflow: "hidden" as const,
+		},
+		tableLine: { borderBottomColor: borderColor, borderBottomStyle: "solid", borderBottomWidth: hairline },
+		tableMinimal: { paddingVertical: spacing[2] },
+		tablePrimaryHeader: { borderBottomColor: borderColor, borderBottomStyle: "solid", borderBottomWidth: hairline },
+		tableStriped: {
+			borderBottomColor: borderColor,
+			borderBottomStyle: "solid",
+			borderBottomWidth: hairline,
+			borderTopColor: borderColor,
+			borderTopStyle: "solid",
+			borderTopWidth: hairline,
+		},
+	});
+};
 
 type MutableReference<Value> = { value: Value };
 
@@ -61,8 +278,8 @@ export const TableBody = ({ children, style }: TableSectionProps) => <View style
 export const TableFooter = ({ children, style }: TableSectionProps) => <View style={style}>{children}</View>;
 
 export const Table = ({ children, noWrap = false, style, variant = "line", zebraStripe = false }: TableProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createTableStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createTableStyles(theme);
 	const tableStyles: Array<Style> = [styles.table];
 	const effectiveZebra = variant === "striped" ? true : zebraStripe;
 
@@ -86,8 +303,8 @@ export const Table = ({ children, noWrap = false, style, variant = "line", zebra
 };
 
 export const TableRow = ({ children, footer, header, stripe, style, variant = "line" }: TableRowProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createTableStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createTableStyles(theme);
 	const rowStyles: Array<Style> = [styles.row];
 
 	rowStyles.push(
@@ -161,8 +378,8 @@ export const TableCell = ({
 	variant = "line",
 	width,
 }: TableCellProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createTableStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createTableStyles(theme);
 	const cellStyles: Array<Style> = width !== undefined ? [styles.cellFixed, { width }] : [styles.cell];
 
 	const cellVariantStyles = {

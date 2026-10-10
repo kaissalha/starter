@@ -1,9 +1,7 @@
 import { Image, Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
 
 export type PdfImageHTTPMethod = "GET" | "HEAD" | "POST" | "PUT" | "DELETE" | "PATCH";
 
@@ -71,8 +69,8 @@ export const PdfImage = ({
 	variant = "default",
 	width,
 }: PdfImageProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createImageStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createImageStyles(theme);
 	const defaults = { borderRadius: undefined, height: undefined, width: undefined, ...VARIANT_DEFAULTS[variant] };
 	const resolvedWidth = width ?? defaults.width;
 

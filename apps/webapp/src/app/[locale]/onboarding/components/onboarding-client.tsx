@@ -7,9 +7,64 @@ import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { Button } from "@starter/ui/components/button";
+import { Skeleton } from "@starter/ui/components/skeleton";
 
-import { OnboardingContent } from "./onboarding-content";
-import { useOnboardingController, type OnboardingInvitation } from "./use-onboarding-controller";
+import { CreateOrganizationForm } from "./create-organization-form";
+import { InvitationList } from "./invitation-list";
+import {
+	useOnboardingController,
+	type OnboardingController,
+	type OnboardingInvitation,
+} from "./use-onboarding-controller";
+
+const OnboardingContent = ({ controller }: { controller: OnboardingController }) => {
+	const t = useTranslations("onboarding");
+	const tCommon = useTranslations("common");
+
+	if (controller.isLoadingInvitations) {
+		return (
+			<div aria-busy className='space-y-5' role='status'>
+				<span className='sr-only'>{t("loadingInvitations")}</span>
+				<Skeleton className='h-4 w-3/4' />
+				<div className='space-y-2'>
+					<Skeleton className='h-4 w-28' />
+					<Skeleton className='h-11 w-full' />
+				</div>
+				<Skeleton className='h-12 w-full' />
+				<Skeleton className='h-4 w-2/3' />
+			</div>
+		);
+	}
+
+	if (controller.hasInvitationLoadError) {
+		return (
+			<div className='rounded-xl border border-border bg-muted/35 p-5 sm:p-6'>
+				<div className='space-y-2'>
+					<h2 className='text-base font-semibold'>{t("inviteTitle")}</h2>
+					<p className='text-sm text-muted-foreground'>{t("messages.loadInvitations")}</p>
+				</div>
+				<div className='mt-5'>
+					<Button className='w-full' onClick={() => controller.retryInvitationLoad()} size='lg' type='button'>
+						{tCommon("retry")}
+					</Button>
+				</div>
+			</div>
+		);
+	}
+
+	if (controller.invitations.length > 0) {
+		return (
+			<InvitationList
+				invitations={controller.invitations}
+				isAcceptingInvitation={controller.isAcceptingInvitation}
+				onAcceptInvitation={controller.handleAcceptInvitation}
+				pendingInvitationId={controller.pendingInvitationId}
+			/>
+		);
+	}
+
+	return <CreateOrganizationForm isCreating={controller.isCreating} onCreate={controller.handleCreateOrganization} />;
+};
 
 type OnboardingClientProps = {
 	initialInvitations: Array<OnboardingInvitation> | null;

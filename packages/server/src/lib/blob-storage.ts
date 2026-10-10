@@ -12,7 +12,7 @@ import { log, serializeLogError } from "@starter/observability";
 
 type BlobReference = { access: MediaAccess; key: string };
 
-export type BlobUploadResult = {
+type BlobUploadResult = {
 	contentType: string;
 	key: string;
 	size: number;

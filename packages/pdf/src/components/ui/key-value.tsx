@@ -1,10 +1,7 @@
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type KeyValueDirection = "horizontal" | "vertical";
 
@@ -71,8 +68,8 @@ export const KeyValue = ({
 	style,
 	valueColor,
 }: KeyValueProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createKeyValueStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createKeyValueStyles(theme);
 	const keyStyleMap = { lg: styles.keyLg, md: styles.keyMd, sm: styles.keySm } satisfies Record<KeyValueSize, Style>;
 
 	const valueStyleMap = { lg: styles.valueLg, md: styles.valueMd, sm: styles.valueSm } satisfies Record<

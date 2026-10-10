@@ -1,9 +1,7 @@
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
 
 export type SignatureVariant = "single" | "double" | "inline";
 
@@ -102,8 +100,8 @@ export const Signature = ({
 	title,
 	variant = "single",
 }: SignatureProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createSignatureStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createSignatureStyles(theme);
 	const containerStyles: Array<Style> = [styles.container];
 
 	if (style) {

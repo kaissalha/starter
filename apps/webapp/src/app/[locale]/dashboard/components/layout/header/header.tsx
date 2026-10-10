@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 
-import { type IconSvgElement } from "@hugeicons/react";
 import { useQuery } from "@tanstack/react-query";
 import type { AppConfig } from "next-intl";
 import { useTranslations } from "next-intl";
@@ -11,45 +10,21 @@ import { apiClient } from "@/lib/api-client";
 import { SidebarTrigger } from "@starter/ui/components/sidebar";
 import { cn } from "@starter/ui/lib/utils";
 
-export type BreadcrumbItemProp =
-	| {
-			href?: string;
-			icon?: IconSvgElement;
-			label?: never;
-			labelTx: keyof AppConfig["Messages"]["breadcrumbs"];
-	  }
-	| {
-			href?: string;
-			icon?: IconSvgElement;
-			label: string;
-			labelTx?: never;
-	  };
-
 export type HeaderProps = {
 	actions?: ReactNode;
-
-	afterLabel?: ReactNode;
-	center?: ReactNode;
-	centerClassName?: string;
 	className?: string;
-	item: BreadcrumbItemProp;
-
+	item:
+		| { href?: string; label?: never; labelTx: keyof AppConfig["Messages"]["breadcrumbs"] }
+		| { href?: string; label: string; labelTx?: never };
 	leading?: ReactNode;
 };
 
-export const Header = ({ actions, afterLabel, center, centerClassName, className, item, leading }: HeaderProps) => {
+export const Header = ({ actions, className, item, leading }: HeaderProps) => {
 	const t = useTranslations("breadcrumbs");
 	const tCommon = useTranslations("common");
 	const counts = useQuery(apiClient.notifications.counts.queryOptions({ refetchInterval: 30 * 1000 }));
 	const unseen = counts.data?.unseen ?? 0;
 	const label = item.labelTx === undefined ? item.label : t(item.labelTx);
-
-	const leadingContent =
-		leading === undefined ? (
-			<span className='shrink-0 whitespace-nowrap text-lg leading-none'>{label}</span>
-		) : (
-			leading
-		);
 
 	return (
 		<header
@@ -69,27 +44,13 @@ export const Header = ({ actions, afterLabel, center, centerClassName, className
 					)}
 				</span>
 				<div className='flex min-w-0 flex-1 items-center gap-2 overflow-x-auto overscroll-x-none md:gap-3 no-scrollbar'>
-					{leadingContent}
-					{afterLabel ? (
-						<>
-							{leadingContent ? (
-								<span aria-hidden className='hidden h-4 w-px shrink-0 bg-border sm:block' />
-							) : null}
-							{afterLabel}
-						</>
-					) : null}
+					{leading === undefined ? (
+						<span className='shrink-0 whitespace-nowrap text-lg leading-none'>{label}</span>
+					) : (
+						leading
+					)}
 				</div>
 			</div>
-			{center && (
-				<div
-					className={cn(
-						"order-last flex w-full items-center justify-center md:absolute md:start-1/2 md:order-none md:w-auto md:-translate-x-1/2",
-						centerClassName
-					)}
-				>
-					{center}
-				</div>
-			)}
 			{actions && (
 				<div className='flex max-w-full min-w-0 flex-wrap items-center justify-end gap-2 md:justify-end'>
 					{actions}

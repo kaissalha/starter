@@ -1,6 +1,6 @@
 import { getFileExtension } from "@starter/documents";
 
-export const TEXT_LIKE_EXTENSIONS = new Set([
+const TEXT_LIKE_EXTENSIONS = new Set([
 	"md",
 	"txt",
 	"markdown",
@@ -39,7 +39,7 @@ export const isTextLikeFile = ({ filename, mediaType }: { filename: string; medi
 
 const FILE_SIZE_UNITS = ["bytes", "kilobytes", "megabytes", "gigabytes"] as const;
 
-export type FileSizeParts = { unit: "zero" } | { size: number; unit: (typeof FILE_SIZE_UNITS)[number] };
+type FileSizeParts = { unit: "zero" } | { size: number; unit: (typeof FILE_SIZE_UNITS)[number] };
 
 export const getFileSizeParts = (bytes: number): FileSizeParts => {
 	if (bytes === 0) {

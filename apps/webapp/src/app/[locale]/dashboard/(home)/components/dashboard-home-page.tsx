@@ -11,7 +11,7 @@ import { ChatContent } from "@/components/chat/chat-content";
 import { ChatHistoryButton } from "@/components/chat/chat-history-button";
 import { ChatComposer } from "@/components/chat/chat-input/chat-composer";
 import { ChatNewChatButton } from "@/components/chat/chat-new-chat-button";
-import { ChatSessionProvider, useChatSession } from "@/components/chat/stores/chat-session-store";
+import { ChatSessionProvider, useChatSession } from "@/components/chat/chat-session";
 import { useRouter } from "@/i18n/navigation";
 import { apiClient } from "@/lib/api-client";
 import type { DashboardChatUIMessage } from "@starter/server";
@@ -78,7 +78,7 @@ type DashboardHomeContentProps = {
 const DashboardHomeContent = ({ chatId, greeting, onNewChat }: DashboardHomeContentProps) => {
 	const tHome = useTranslations("dashboard.home");
 	const tCommon = useTranslations("common");
-	const hasMessages = useChatSession((state) => state.messages.length > 0);
+	const hasMessages = useChatSession().messages.length > 0;
 
 	if (hasMessages) {
 		return (

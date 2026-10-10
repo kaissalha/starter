@@ -9,12 +9,12 @@ import { log, serializeLogError } from "@starter/observability";
 
 import { models } from "./models";
 
-export const decisionPolicies = {
+const decisionPolicies = {
 	background: { deadlineMs: 8000, maxRetries: 1 },
 	interactive: { deadlineMs: 2000, maxRetries: 0 },
 };
 
-export const decisionStateCharacterBudget = 32_000;
+const decisionStateCharacterBudget = 32_000;
 
 export const decisionModel: ConstructorParameters<typeof MastraEvaluationModel>[0] = {
 	doEvaluate: async (options) => {
@@ -51,8 +51,6 @@ export const decisionClassifiers = {
 	observationGate: decisionClassifier("observation-gate"),
 	webRelevance: decisionClassifier("web-relevance"),
 };
-
-export type DecisionClassifier = Classifier;
 
 export const evaluateDecision = async <const Questions extends ClassifierQuestions>({
 	abortSignal,

@@ -2,42 +2,66 @@
 
 import { BookOpen01Icon, Tick02Icon, Wrench01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { isToolUIPart } from "ai";
+import type { ToolUIPart } from "ai";
 import { useLocale, useTranslations } from "next-intl";
 import { TextMorph } from "torph/react";
+import { z } from "zod";
 
-import { type ChatSessionState, useChatSession } from "@/components/chat/stores/chat-session-store";
+import { isPendingApprovalPart, useChatSession } from "@/components/chat/chat-session";
 import { useOrganizationPermissions } from "@/hooks/use-organization-permissions";
+import type { OrganizationPermission } from "@starter/server/permissions";
 import { Button } from "@starter/ui/components/button";
 
 import { ChatStepItem, type ChatStepStatus } from "../chat-step-item";
 import { AskUserQuestionsPart } from "./ask-user-questions-part";
-import { getToolApprovalPermission } from "./tool-approval-permission";
-import { getToolLabelKey } from "./tool-output-helpers";
-import type { ToolApproval, ToolState } from "./tool-part-types";
 import { WebSearchTool } from "./web-search-tool";
 
-export type ToolPartProps = {
+export type ToolState = ToolUIPart["state"];
+
+type ToolApproval = NonNullable<ToolUIPart["approval"]>;
+
+type ToolPartProps = {
 	approval?: ToolApproval;
 	errorText?: string;
 	input?: unknown;
 	isLast?: boolean;
 	output?: unknown;
 	state: ToolState;
-	toolCallId: string;
 	toolName: string;
 };
 
-const selectPendingApprovalParts = ({ messages }: ChatSessionState) => {
-	const last = messages.at(-1);
+const toolNames = [
+	"addNumbers",
+	"askUserQuestions",
+	"createLibraryDocument",
+	"editLibraryDocument",
+	"generateLibraryImage",
+	"getDocument",
+	"getLibraryAsset",
+	"inspectTable",
+	"listDocuments",
+	"listLibraryAssets",
+	"retrieveKnowledge",
+	"webSearch",
+] as const;
 
-	if (!last || last.role !== "assistant") {
-		return [];
+const getToolLabelKey = (name: string) => toolNames.find((toolName) => toolName === name) ?? "other";
+
+const approvalEditsSchema = z.looseObject({
+	edits: z.array(z.looseObject({ operation: z.string() })).optional(),
+});
+
+export const getToolApprovalPermission = ({ input }: { input: unknown }): OrganizationPermission => {
+	const parsed = approvalEditsSchema.safeParse(input);
+
+	if (
+		!parsed.success ||
+		parsed.data.edits?.some(({ operation }) => operation.startsWith("delete") || operation.startsWith("remove"))
+	) {
+		return "delete";
 	}
 
-	return last.parts.flatMap((part) =>
-		isToolUIPart(part) && part.state === "approval-requested" && !part.approval.isAutomatic ? [part] : []
-	);
+	return "write";
 };
 
 const ToolApprovalStep = ({
@@ -51,8 +75,14 @@ const ToolApprovalStep = ({
 }) => {
 	const t = useTranslations("components.chat.message.tool.approval");
 	const { can } = useOrganizationPermissions();
-	const addToolApprovalResponse = useChatSession((state) => state.actions?.addToolApprovalResponse);
-	const pendingApprovalParts = useChatSession(selectPendingApprovalParts);
+
+	const {
+		actions: { addToolApprovalResponse },
+		messages,
+	} = useChatSession();
+
+	const last = messages.at(-1);
+	const pendingApprovalParts = last?.role === "assistant" ? last.parts.filter(isPendingApprovalPart) : [];
 
 	const pendingApprovals = pendingApprovalParts.map((part) => ({
 		allowed:
@@ -71,7 +101,7 @@ const ToolApprovalStep = ({
 			return;
 		}
 
-		pendingApprovals.forEach(({ id }) => addToolApprovalResponse?.({ approved, id }));
+		pendingApprovals.forEach(({ id }) => addToolApprovalResponse({ approved, id }));
 	};
 
 	const showBulkBar = pendingApprovals.length > 1 && pendingApprovals.at(-1)?.id === approval.id;
@@ -96,8 +126,8 @@ const ToolApprovalStep = ({
 			</div>
 			<div className='mt-3 flex flex-wrap items-center justify-end gap-2'>
 				<Button
-					disabled={!can("workspace.write") || !addToolApprovalResponse}
-					onClick={() => addToolApprovalResponse?.({ approved: false, id: approval.id })}
+					disabled={!can("workspace.write")}
+					onClick={() => addToolApprovalResponse({ approved: false, id: approval.id })}
 					size='sm'
 					type='button'
 					variant='ghost'
@@ -106,8 +136,8 @@ const ToolApprovalStep = ({
 					{t("deny")}
 				</Button>
 				<Button
-					disabled={!canApprove || !addToolApprovalResponse}
-					onClick={() => addToolApprovalResponse?.({ approved: true, id: approval.id })}
+					disabled={!canApprove}
+					onClick={() => addToolApprovalResponse({ approved: true, id: approval.id })}
 					size='sm'
 					type='button'
 					variant={hasDestructiveEdit ? "destructive" : "default"}
@@ -122,7 +152,7 @@ const ToolApprovalStep = ({
 						{t("pendingCount", { count: pendingApprovals.length })}
 					</span>
 					<Button
-						disabled={!can("workspace.write") || !addToolApprovalResponse}
+						disabled={!can("workspace.write")}
 						onClick={() => respondToAll(false)}
 						size='sm'
 						type='button'
@@ -138,7 +168,7 @@ const ToolApprovalStep = ({
 					</Button>
 					{showBulkApprove && (
 						<Button
-							disabled={!can("workspace.write") || !addToolApprovalResponse}
+							disabled={!can("workspace.write")}
 							onClick={() => respondToAll(true)}
 							size='sm'
 							type='button'
@@ -255,7 +285,7 @@ export const ToolPart = ({ approval, errorText, input, isLast = false, output, s
 	}
 
 	if (toolName === "askUserQuestions") {
-		return <AskUserQuestionsPart errorText={errorText} output={output} state={state} />;
+		return <AskUserQuestionsPart output={output} state={state} />;
 	}
 
 	return <GenericToolStep isLast={isLast} state={state} toolName={toolName} />;

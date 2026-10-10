@@ -12,8 +12,6 @@
 		"./globals.css": "./src/globals.css",
 		"./postcss.config": "./postcss.config.mjs",
 		"./lib/*": "./src/lib/*.ts",
-		"./components/charts/genui-chart-data": "./src/components/charts/genui-chart-data.ts",
-		"./components/charts/genui-charts": "./src/components/charts/genui-charts.tsx",
 		"./components/*": "./src/components/*.tsx",
 		"./hooks/*": "./src/hooks/*.ts"
 	},
@@ -29,7 +27,6 @@
 		"@hugeicons/react": "^1.1.10",
 		"@shadcn/react": "^0.3.1",
 		"@starter/genui": "workspace:*",
-		"@starter/utils": "workspace:*",
 		"@tanstack/react-table": "^9.2.8",
 		"class-variance-authority": "^0.7.1",
 		"cn": "^0.4.0",

@@ -1,3 +1,9 @@
+export const DOCX_MIME_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+export const XLSX_MIME_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+export const TEXT_FILE_EXTENSIONS = new Set(["json", "log", "md", "mdx", "txt", "yaml", "yml"]);
+
 export const getExtensionFromFilename = ({ filename, maxLength = 8 }: { filename: string; maxLength?: number }) => {
 	const lastDot = filename.lastIndexOf(".");
 
@@ -85,8 +91,8 @@ export type FileKind = "audio" | "document" | "image" | "other" | "text" | "vide
 
 const documentMediaTypes = new Set([
 	"application/pdf",
-	"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-	"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+	DOCX_MIME_TYPE,
+	XLSX_MIME_TYPE,
 	"application/vnd.ms-excel",
 	"text/csv",
 	"text/html",
@@ -95,8 +101,6 @@ const documentMediaTypes = new Set([
 ]);
 
 const documentExtensions = new Set(["csv", "doc", "docx", "htm", "html", "pdf", "xls", "xlsx", "xml"]);
-
-const textExtensions = new Set(["json", "log", "md", "mdx", "txt", "yaml", "yml"]);
 
 export const detectKind = ({ extension, mediaType }: { extension?: string; mediaType: string }): FileKind => {
 	if (mediaType.startsWith("image/")) {
@@ -125,5 +129,5 @@ export const detectKind = ({ extension, mediaType }: { extension?: string; media
 		return "document";
 	}
 
-	return textExtensions.has(normalizedExtension) ? "text" : "other";
+	return TEXT_FILE_EXTENSIONS.has(normalizedExtension) ? "text" : "other";
 };

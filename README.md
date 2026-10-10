@@ -1,6 +1,6 @@
 # starter
 
-A production-grade foundation for building new products. A Next.js 16 app and eleven workspace packages — auth, organizations, an AI assistant with retrieval and memory, a document library, a typed API, events and notifications, i18n, emails, PDFs, and the quality gates to keep it all honest — wired together so every new app starts at the interesting part.
+A production-grade foundation for building new products. A Next.js 16 app and eleven workspace packages — auth, organizations, an AI assistant with retrieval and memory, file knowledge, a typed API, events and notifications, i18n, emails, PDFs, and the quality gates to keep it all honest — wired together so every new app starts at the interesting part.
 
 Built as a Bun workspaces + Turborepo monorepo.
 
@@ -8,7 +8,7 @@ Built as a Bun workspaces + Turborepo monorepo.
 
 - **Auth & organizations** — Passwordless Better Auth with hashed email OTPs and Google sign-in, organizations with invitations and roles, and localized auth errors.
 - **AI assistant** — A Mastra agent embedded in Next.js with organization-scoped request context, approval-gated mutations, web search, human-in-the-loop questions, generative UI charts, automatic vision-model switching, Postgres-backed memory and traces, and Redis-backed resumable delivery.
-- **Library & knowledge** — A file and document library with PDF/DOCX/XLSX viewers, AI document and image/logo generation, durable ingestion (Vercel Workflow), Mastra pgvector retrieval and reranking, plus Mastra message history and observational memory.
+- **Files & knowledge** — Organization files with AI document and image/logo generation from chat, durable ingestion (Vercel Workflow), Mastra pgvector retrieval and reranking, plus Mastra message history and observational memory.
 - **Typed API** — oRPC procedures where zod validation and the OpenAPI 3.1 document share one definition, exposed three ways: an RPC transport for the webapp (`/api/rpc`, consumed through a typed TanStack Query client), a public REST API with API-key auth and a served spec (`/api/v1`, `/api/v1/openapi.json`), and an OAuth-protected MCP server (`/api/mcp`) whose tools are registered separately (currently notification settings).
 - **Internationalization** — English and Arabic with full RTL support via next-intl, localized metadata, and an Accept-header markdown mode that serves any page as markdown to agents.
 - **Events & notifications** — Transactional event log with a cron-recovered dispatcher, durable per-consumer executions, an in-app inbox, per-member preferences, and email delivery. The event catalog and notification registry start empty; see [events and notifications](docs/events-and-notifications.md).

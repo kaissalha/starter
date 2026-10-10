@@ -48,7 +48,7 @@ vi.mock("../../src/services/permissions", () => ({}));
 
 vi.mock("../../src/services/storage", () => ({}));
 
-vi.mock("../../src/services/documents", () => ({}));
+vi.mock("../../src/workflows/ingest-file", () => ({}));
 
 vi.mock("../../src/lib/blob-storage", () => ({
 	getPublicBlobUrl: async (key: string) => `https://example.com/${key}`,

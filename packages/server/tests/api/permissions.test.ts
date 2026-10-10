@@ -74,12 +74,8 @@ const levels = {
 	"documents/create": "write",
 	"documents/delete": "delete",
 	"documents/get": "read",
-	"library/agentChat": "write",
-	"library/delete": "delete",
 	"library/generateLogo": "write",
-	"library/get": "read",
 	"library/list": "read",
-	"library/update": "write",
 	"linkPreviews/get": "read",
 	"media/delete": "delete",
 	"media/list": "read",
@@ -120,11 +116,11 @@ describe("role permission matrix", () => {
 	});
 	it("lets an admin past a write guard", async () => {
 		actor.role = "admin";
-		expect(await call("library/update")).toBe(400);
+		expect(await call("documents/create")).toBe(400);
 	});
 	it("lets an owner past a delete guard", async () => {
 		actor.role = "owner";
-		expect(await call("library/delete")).toBe(400);
+		expect(await call("media/delete")).toBe(400);
 	});
 });
 

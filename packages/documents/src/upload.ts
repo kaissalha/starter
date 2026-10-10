@@ -1,32 +1,24 @@
-import { detectKind, getExtensionFromFilename } from "./file";
+import { DOCX_MIME_TYPE, detectKind, getExtensionFromFilename, XLSX_MIME_TYPE } from "./file";
 
-export const mediaAccessValues = ["public", "private"] as const;
+export type MediaAccess = "public" | "private";
 
-export type MediaAccess = (typeof mediaAccessValues)[number];
-
-export const MAX_INGEST_FILE_SIZE_MB = 5;
+const MAX_INGEST_FILE_SIZE_MB = 5;
 
 export const MAX_INGEST_FILE_SIZE_BYTES = MAX_INGEST_FILE_SIZE_MB * 1024 * 1024;
 
 export const MAX_INGEST_TEXT_LENGTH = 500_000;
 
-export const imageContentTypes: ReadonlyArray<string> = [
-	"image/jpeg",
-	"image/png",
-	"image/webp",
-	"image/avif",
-	"image/gif",
-];
+const imageContentTypes: ReadonlyArray<string> = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/gif"];
 
-export const videoContentTypes: ReadonlyArray<string> = ["video/mp4", "video/webm"];
+const videoContentTypes: ReadonlyArray<string> = ["video/mp4", "video/webm"];
 
 export const mediaContentTypes: ReadonlyArray<string> = [...imageContentTypes, ...videoContentTypes];
 
 const knowledgeContentTypes: ReadonlyArray<string> = [
 	...imageContentTypes,
 	"application/pdf",
-	"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-	"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+	DOCX_MIME_TYPE,
+	XLSX_MIME_TYPE,
 	"application/json",
 	"application/xml",
 	"application/yaml",
@@ -88,8 +80,8 @@ export const isKnowledgeFile = ({ filename, mediaType }: { filename: string; med
 
 const viewerKinds = new Map<string, "docx" | "pdf" | "xlsx">([
 	["application/pdf", "pdf"],
-	["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"],
-	["application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"],
+	[XLSX_MIME_TYPE, "xlsx"],
+	[DOCX_MIME_TYPE, "docx"],
 ]);
 
 export const getDocumentViewerKind = (contentType: string) => viewerKinds.get(normalizeContentType(contentType));

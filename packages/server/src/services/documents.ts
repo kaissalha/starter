@@ -2,14 +2,7 @@ import { createHash } from "node:crypto";
 import { z } from "zod";
 
 import { startIngestFile } from "../workflows/ingest-file";
-import {
-	createFile,
-	FILE_PROCESSING_FAILED_CODE,
-	getFile,
-	getFileUrl,
-	markFileFailed,
-	setFileIngestRunId,
-} from "./storage";
+import { createFile, FILE_PROCESSING_FAILED_CODE, getFile, getFileUrl } from "./storage";
 
 export const documentSchema = z.compile(
 	z
@@ -60,25 +53,6 @@ export const toDocumentResponse = async (file: NonNullable<Awaited<ReturnType<ty
 	url: await getFileUrl(file),
 });
 
-export const startFileIngestion = async (input: { fileId: string; organizationId: string; text?: string }) => {
-	const { runId } = await (async () => {
-		try {
-			return await startIngestFile(input);
-		} catch (error) {
-			await markFileFailed({
-				error: FILE_PROCESSING_FAILED_CODE,
-				fileId: input.fileId,
-				organizationId: input.organizationId,
-			});
-			throw error;
-		}
-	})();
-
-	await setFileIngestRunId({ fileId: input.fileId, organizationId: input.organizationId, runId });
-
-	return { runId };
-};
-
 export const createDocumentInputSchema = z.compile(
 	z
 		.strictObject({
@@ -112,7 +86,7 @@ export const createDocument = async ({
 		uploadedBy: userId,
 	});
 
-	const run = await startFileIngestion({ fileId: fileRecord.id, organizationId, text });
+	const { runId } = await startIngestFile({ fileId: fileRecord.id, organizationId, text });
 
-	return { document: await toDocumentResponse(fileRecord), runId: run.runId };
+	return { document: await toDocumentResponse(fileRecord), runId };
 };

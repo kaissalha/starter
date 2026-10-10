@@ -1,14 +1,15 @@
 import { createTool } from "@mastra/core/tools";
-import type { Document, SearchResultWeb } from "firecrawl";
+import { Firecrawl, type Document, type SearchResultWeb } from "firecrawl";
 import { z } from "zod";
 
-import { firecrawl } from "../../lib/firecrawl";
 import { listUploadedMedia, mediaListInputSchema } from "../../services/media";
 import { requireOrganizationPermission } from "../../services/permissions";
 import { getFile, listKnowledgeDocuments } from "../../services/storage";
 import { decisionClassifiers } from "../decisions";
 import { rankRelevantCandidates } from "../relevance";
 import { appContextSchema } from "../types";
+
+const firecrawl = new Firecrawl({ apiKey: process.env.FIRECRAWL_API_KEY, timeoutMs: 20_000 });
 
 const questionSchema = z.object({
 	allowOther: z

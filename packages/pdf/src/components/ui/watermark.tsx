@@ -1,10 +1,7 @@
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type WatermarkPosition = "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
@@ -80,8 +77,8 @@ export const Watermark = ({
 	style,
 	text,
 }: WatermarkProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createWatermarkStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createWatermarkStyles(theme);
 
 	const positionMap = {
 		"bottom-left": styles.positionBottomLeft,

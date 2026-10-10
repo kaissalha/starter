@@ -11,8 +11,7 @@ import { Kbd } from "@starter/ui/components/kbd";
 import { Textarea } from "@starter/ui/components/textarea";
 import { cn } from "@starter/ui/lib/utils";
 
-import { AskUserQuestionRows } from "./ask-user-question-rows";
-import { autosizeQuestionTextarea, questionFontWeights } from "./ask-user-question-utils";
+import { AskUserQuestionRows, autosizeQuestionTextarea, questionFontWeights } from "./ask-user-question-rows";
 
 export type AskUserQuestion = {
 	allowOther?: boolean;
@@ -35,7 +34,7 @@ export type AskUserAnswer = {
 
 type Answers = Record<string, AskUserAnswer>;
 
-export type AskUserQuestionsProps = {
+type AskUserQuestionsProps = {
 	className?: string;
 	onComplete: (answers: Answers) => void;
 	questions: Array<AskUserQuestion>;

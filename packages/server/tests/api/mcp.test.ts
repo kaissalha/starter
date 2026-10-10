@@ -52,7 +52,7 @@ vi.mock("../../src/lib/auth", () => ({
 	},
 	MCP_RESOURCE: "https://starter.example/api/mcp",
 	ORGANIZATION_ID_CLAIM: "https://starter.example/claims/organization-id",
-	resolveOAuthSession: vi.fn(),
+	resolveOrganizationSession: vi.fn(),
 	resolveSession: mocks.resolveSession,
 }));
 

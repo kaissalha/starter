@@ -1,10 +1,10 @@
 import type { EventType } from "../events/catalog";
 
-export type NotificationAudience = "members" | "writers";
+type NotificationAudience = "members" | "writers";
 
 export const notificationCategories = [] as const;
 
-export type NotificationDefinition = {
+type NotificationDefinition = {
 	category: (typeof notificationCategories)[number];
 	email: { audience: NotificationAudience; locked: boolean } | null;
 	event: EventType;

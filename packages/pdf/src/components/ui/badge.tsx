@@ -1,10 +1,7 @@
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type BadgeVariant =
 	| "default"
@@ -164,8 +161,8 @@ const createBadgeStyles = (t: PdfxTheme) => {
 };
 
 export const Badge = ({ background, children, color, label, size = "md", style, variant = "default" }: BadgeProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createBadgeStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createBadgeStyles(theme);
 	const text = label ?? children ?? "";
 
 	const containerStyles: Array<Style> = [

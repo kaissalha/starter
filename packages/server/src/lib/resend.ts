@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-export type EmailFlow = "email-otp" | "notification" | "organization-invitation";
+type EmailFlow = "email-otp" | "notification" | "organization-invitation";
 
 export const resend = new Resend(process.env.RESEND_KEY);
 

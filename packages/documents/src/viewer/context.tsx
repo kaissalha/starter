@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, use } from "react";
+import { type ReactNode, createContext, use } from "react";
 
-export const defaultDocumentViewerLabels = {
+const defaultDocumentViewerLabels = {
 	clear: "Clear",
 	columnMenu: "Column menu",
 	comments: "Comments",
@@ -32,10 +32,14 @@ export const defaultDocumentViewerLabels = {
 	zoomOut: "Zoom out",
 };
 
-export type DocumentViewerLabels = typeof defaultDocumentViewerLabels;
-
-const DocumentViewerLabelsContext = createContext<DocumentViewerLabels>(defaultDocumentViewerLabels);
+const DocumentViewerLabelsContext = createContext(defaultDocumentViewerLabels);
 
 export const DocumentViewerLabelsProvider = DocumentViewerLabelsContext;
 
 export const useDocumentViewerLabels = () => use(DocumentViewerLabelsContext);
+
+const DocumentViewerToolbarLeadingContext = createContext<ReactNode>(null);
+
+export const DocumentViewerToolbarLeadingProvider = DocumentViewerToolbarLeadingContext;
+
+export const useDocumentViewerToolbarLeading = () => use(DocumentViewerToolbarLeadingContext);

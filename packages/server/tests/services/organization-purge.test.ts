@@ -23,7 +23,7 @@ vi.mock("../../src/ai/knowledge", () => ({ deleteKnowledgeOrganization: mocks.de
 
 vi.mock("../../src/services/chat", () => ({ cancelChatStream: mocks.cancelChatStream }));
 
-import { deleteOrganizationAIData } from "../../src/services/organization-ai-data";
+import { deleteOrganizationAIData } from "../../src/services/organization-purge";
 
 describe("organization AI data cleanup", () => {
 	beforeEach(() => {

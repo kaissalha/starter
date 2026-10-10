@@ -27,10 +27,6 @@ const STATUS_POLL_TIMEOUT_MS = 5 * 60 * 1000;
 
 type AttachmentUploadMode = "inline" | "knowledge" | "inline-and-knowledge" | "unsupported";
 
-type ClearAttachmentsOptions = {
-	abort?: boolean;
-};
-
 const createAttachmentFromFile = async ({
 	file,
 	uploadStatus,
@@ -66,17 +62,7 @@ const createAttachmentFromFile = async ({
 	}),
 });
 
-const getAttachmentUploadMode = ({
-	file,
-	uploadToKnowledgeBase,
-}: {
-	file: File;
-	uploadToKnowledgeBase: boolean;
-}): AttachmentUploadMode => {
-	if (!uploadToKnowledgeBase) {
-		return "inline";
-	}
-
+const getAttachmentUploadMode = (file: File): AttachmentUploadMode => {
 	const mediaType = file.type || "application/octet-stream";
 	const canUseInline = isInlineModelAttachment({ mediaType });
 	const canUseKnowledgeBase = isKnowledgeFile({ filename: file.name, mediaType });
@@ -193,7 +179,7 @@ const uploadedMediaAttachment = (media: UploadedMedia): ChatFileAttachment => ({
 	url: media.url,
 });
 
-export const useChatFileUpload = ({ uploadToKnowledgeBase = false }: { uploadToKnowledgeBase?: boolean } = {}) => {
+export const useChatFileUpload = () => {
 	const { data: session } = useAuthSession();
 	const organizationId = session?.session.activeOrganizationId;
 	const [attachments, setAttachments] = useState<Array<ChatFileAttachment>>([]);
@@ -280,7 +266,7 @@ export const useChatFileUpload = ({ uploadToKnowledgeBase = false }: { uploadToK
 				hasUnsupportedFile: boolean;
 			}>(
 				(result, file) => {
-					const mode = getAttachmentUploadMode({ file, uploadToKnowledgeBase });
+					const mode = getAttachmentUploadMode(file);
 
 					if (mode === "unsupported") {
 						result.hasUnsupportedFile = true;
@@ -364,7 +350,7 @@ export const useChatFileUpload = ({ uploadToKnowledgeBase = false }: { uploadToK
 				startKnowledgeBaseUpload({ attachment, file: preparedFile.file });
 			});
 		},
-		[attachments.length, startKnowledgeBaseUpload, uploadToKnowledgeBase]
+		[attachments.length, startKnowledgeBaseUpload]
 	);
 
 	const removeAttachment = useCallback((id: string) => {
@@ -378,16 +364,7 @@ export const useChatFileUpload = ({ uploadToKnowledgeBase = false }: { uploadToK
 		setAttachmentError(null);
 	}, []);
 
-	const clearAttachments = useCallback((options: ClearAttachmentsOptions = {}) => {
-		if (options.abort ?? true) {
-			for (const controller of abortControllersRef.current.values()) {
-				controller.abort();
-			}
-
-			abortControllersRef.current.clear();
-			documentUploadPromisesRef.current.clear();
-		}
-
+	const clearAttachments = useCallback(() => {
 		attachmentsRef.current = [];
 		setAttachments([]);
 		setAttachmentError(null);
@@ -447,9 +424,6 @@ export const useChatFileUpload = ({ uploadToKnowledgeBase = false }: { uploadToK
 		handleFilesAdded,
 		handleFilesRejected,
 		hasFailedAttachments: attachments.some((attachment) => attachment.uploadStatus === "error"),
-		hasPendingAttachments: attachments.some(
-			(attachment) => attachment.uploadStatus === "uploading" || attachment.uploadStatus === "processing"
-		),
 		isReadingAttachments,
 		removeAttachment,
 		waitForAttachmentUploads,

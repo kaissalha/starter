@@ -6,9 +6,7 @@ const mocks = vi.hoisted(() => ({
 	deleteFile: vi.fn(),
 	deleteUploadedMedia: vi.fn(),
 	getFile: vi.fn(),
-	markFileFailed: vi.fn(),
 	resolveSession: vi.fn(),
-	setFileIngestRunId: vi.fn(),
 	startIngestFile: vi.fn(),
 }));
 
@@ -26,8 +24,6 @@ vi.mock("../../src/services/storage", () => ({
 	FILE_PROCESSING_FAILED_CODE: "PROCESSING_FAILED",
 	getFile: mocks.getFile,
 	getFileUrl: async () => null,
-	markFileFailed: mocks.markFileFailed,
-	setFileIngestRunId: mocks.setFileIngestRunId,
 }));
 
 vi.mock("../../src/services/media", async (importOriginal) => ({
@@ -123,18 +119,6 @@ describe("documents RPC boundary", () => {
 			organizationId,
 			text: "Source knowledge",
 		});
-		expect(mocks.setFileIngestRunId).toHaveBeenCalledWith({ fileId: documentId, organizationId, runId: "run-1" });
-	});
-
-	it("marks the document failed when the workflow cannot start", async () => {
-		mocks.startIngestFile.mockRejectedValueOnce(new Error("workflow unavailable"));
-		const result = await call({ body: { name: "brief.txt", text: "Source knowledge" }, path: "documents/create" });
-
-		expect(result.response?.status).toBe(500);
-		expect(mocks.markFileFailed).toHaveBeenCalledWith(
-			expect.objectContaining({ fileId: documentId, organizationId })
-		);
-		expect(mocks.setFileIngestRunId).not.toHaveBeenCalled();
 	});
 
 	it("returns a fixed processing failure code instead of raw error text", async () => {

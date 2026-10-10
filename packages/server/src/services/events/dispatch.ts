@@ -5,7 +5,7 @@ import { db, eventDispatches, eventExecutions, events } from "@starter/db";
 import { log, serializeLogError } from "@starter/observability";
 
 import { runEventExecutionWorkflow } from "../../workflows/run-event-execution";
-import { deleteInBatches } from "../data-retention";
+import { deleteRowsInBatches } from "../data-retention";
 import { isEventType } from "./catalog";
 import { listBuiltinConsumerKeys } from "./executions";
 
@@ -250,44 +250,34 @@ export const dispatchEvents = async ({ eventIds }: { eventIds?: Array<string> } 
 };
 
 export const runEventRetention = () =>
-	deleteInBatches({
+	deleteRowsInBatches({
 		batchSize: retentionBatchSize,
-		deleteBatch: async () => {
-			const expired = db
-				.select({ id: events.id })
-				.from(events)
-				.where(
-					and(
-						lt(events.recordedAt, sql`now() - interval '1 day'`),
-						notExists(
-							db
-								.select({ id: eventExecutions.id })
-								.from(eventExecutions)
-								.where(
-									and(
-										eq(eventExecutions.eventId, events.id),
-										inArray(eventExecutions.state, ["queued", "running", "retry_wait"])
-									)
-								)
-						),
-						notExists(
-							db
-								.select({ eventId: eventDispatches.eventId })
-								.from(eventDispatches)
-								.where(
-									and(
-										eq(eventDispatches.eventId, events.id),
-										isNull(eventDispatches.expandedAt),
-										lt(eventDispatches.attempts, maxExpansionAttempts)
-									)
-								)
+		budgetMs: 45_000,
+		table: events,
+		where: and(
+			lt(events.recordedAt, sql`now() - interval '1 day'`),
+			notExists(
+				db
+					.select({ id: eventExecutions.id })
+					.from(eventExecutions)
+					.where(
+						and(
+							eq(eventExecutions.eventId, events.id),
+							inArray(eventExecutions.state, ["queued", "running", "retry_wait"])
 						)
 					)
-				)
-				.limit(retentionBatchSize);
-
-			const deleted = await db.delete(events).where(inArray(events.id, expired)).returning({ id: events.id });
-
-			return deleted.length;
-		},
+			),
+			notExists(
+				db
+					.select({ eventId: eventDispatches.eventId })
+					.from(eventDispatches)
+					.where(
+						and(
+							eq(eventDispatches.eventId, events.id),
+							isNull(eventDispatches.expandedAt),
+							lt(eventDispatches.attempts, maxExpansionAttempts)
+						)
+					)
+			)
+		),
 	});

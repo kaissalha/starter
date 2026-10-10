@@ -2,9 +2,10 @@ import { ORPCError } from "@orpc/client";
 import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 
-import { db, members, notificationChannels, notificationPreferences } from "@starter/db";
+import { db, notificationChannels, notificationPreferences } from "@starter/db";
 
 import { hasOrganizationPermission } from "../../utils/permissions";
+import { getOrganizationRole } from "../permissions";
 import type { NotificationActor } from "./inbox";
 import {
 	audiencePermission,
@@ -45,11 +46,7 @@ export const getNotificationSettings = async ({ actor }: { actor: NotificationAc
 			)
 		);
 
-	const [membership] = await db
-		.select({ role: members.role })
-		.from(members)
-		.where(and(eq(members.organizationId, actor.organizationId), eq(members.userId, actor.userId)))
-		.limit(1);
+	const role = await getOrganizationRole(actor);
 
 	return notificationTypeKeys
 		.filter((type) => getNotificationDefinition(type).showInSettings)
@@ -69,7 +66,7 @@ export const getNotificationSettings = async ({ actor }: { actor: NotificationAc
 					...(definition.email &&
 					hasOrganizationPermission({
 						permission: audiencePermission(definition.email.audience),
-						role: membership?.role,
+						role,
 					})
 						? [
 								{

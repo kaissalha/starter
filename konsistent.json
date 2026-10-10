@@ -5,7 +5,6 @@
 		"get-base-url": "getBaseURL"
 	},
 	"kebabToPascalMap": {
-		"base-layout-posthog-provider": "BaseLayoutPostHogProvider",
 		"cta": "CTA",
 		"input-otp": "InputOTP",
 		"openui-block": "OpenUIBlock",
@@ -291,14 +290,6 @@
 			"paths": "packages/pdf/src/components/ui/{component}.tsx",
 			"must": {
 				"exportValues": ["${component.toPascalCase()}"]
-			}
-		},
-		{
-			"name": "ui-chart-components-named-after-directory",
-			"description": "Each chart directory's index exports the base chart named after the directory; GenUI-specific wrappers live in genui-charts.tsx.",
-			"paths": "packages/ui/src/components/charts/{chart}/index.tsx",
-			"must": {
-				"exportValues": ["${chart.toPascalCase()}"]
 			}
 		},
 		{

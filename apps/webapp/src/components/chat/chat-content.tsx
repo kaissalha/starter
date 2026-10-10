@@ -3,8 +3,8 @@
 import type { ReactNode } from "react";
 
 import { ChatComposer } from "@/components/chat/chat-input/chat-composer";
+import { isAwaitingApproval, useChatSession } from "@/components/chat/chat-session";
 import { ChatMessageList } from "@/components/chat/message/chat-message-list";
-import { selectChatSessionAwaitingApproval, useChatSession } from "@/components/chat/stores/chat-session-store";
 import { useOrganizationPermissions } from "@/hooks/use-organization-permissions";
 import { cn } from "@starter/ui/lib/utils";
 
@@ -24,7 +24,7 @@ export const ChatContent = ({
 	placeholder?: string;
 }) => {
 	const { can } = useOrganizationPermissions();
-	const awaitingApproval = useChatSession(selectChatSessionAwaitingApproval);
+	const awaitingApproval = isAwaitingApproval(useChatSession().messages);
 
 	return (
 		<div className='relative flex h-full min-h-0 w-full flex-col items-center overflow-hidden'>

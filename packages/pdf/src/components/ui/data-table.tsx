@@ -1,13 +1,72 @@
-import type { ReactNode } from "react";
-import { Fragment } from "react";
+import { Fragment, type ReactNode } from "react";
 
-import { Text as PDFText } from "@react-pdf/renderer";
+import { StyleSheet, Text as PDFText } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { createCompactStyles, formatValue } from "./data-table-styles";
-import type { DataTableProps, DataTableRow } from "./data-table-types";
-import { Table, TableBody, TableCell, TableFooter, TableHeader, TableRow } from "./table";
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
+import { Table, TableBody, TableCell, TableFooter, TableHeader, TableRow, type TableVariant } from "./table";
+
+export type DataTableSize = "default" | "compact";
+
+export type DataTableValue = Date | ReactNode;
+
+export type DataTableRow = Record<string, DataTableValue>;
+
+export type DataTableColumn<T extends DataTableRow = DataTableRow> = {
+	align?: "left" | "center" | "right";
+	header: string;
+	key: keyof T & string;
+	render?: (value: T[keyof T], row: T) => ReactNode;
+	renderFooter?: (value: DataTableValue) => ReactNode;
+	width?: string | number;
+};
+
+export type DataTableProps<T extends DataTableRow = DataTableRow> = {
+	columns: Array<DataTableColumn<T>>;
+	data: Array<T>;
+	footer?: Partial<Record<keyof T & string, string | number>>;
+	noWrap?: boolean;
+	size?: DataTableSize;
+	stripe?: boolean;
+	style?: Style;
+	variant?: TableVariant;
+};
+
+const createCompactStyles = (t: PdfxTheme) => {
+	const { fontWeights, lineHeights, spacing } = t.primitives;
+
+	return StyleSheet.create({
+		cell: { paddingHorizontal: spacing[2], paddingVertical: spacing[0.5] },
+		footerText: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.primitives.typography.xs,
+			fontWeight: fontWeights.semibold,
+			lineHeight: lineHeights.normal,
+		},
+		headerText: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.primitives.typography.xs,
+			fontWeight: fontWeights.semibold,
+			lineHeight: lineHeights.normal,
+		},
+		text: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.primitives.typography.xs,
+			lineHeight: lineHeights.normal,
+		},
+	});
+};
+
+const formatValue = (value: DataTableValue): string => {
+	if (value === null || value === undefined) {
+		return "";
+	}
+
+	return String(value);
+};
 
 const renderCellContent = ({
 	isCompact,
@@ -45,8 +104,8 @@ export const DataTable = <T extends DataTableRow>({
 	style,
 	variant = "grid",
 }: DataTableProps<T>) => {
-	const theme = usePdfxTheme();
-	const compact = useSafeMemo(() => createCompactStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const compact = createCompactStyles(theme);
 	const isCompact = size === "compact";
 
 	return (

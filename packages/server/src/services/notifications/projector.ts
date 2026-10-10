@@ -7,19 +7,64 @@ import {
 	notificationInboxes,
 	notificationPreferences,
 	notifications,
-	type EventActor,
+	users,
 	type EventData,
 	type EventRecord,
+	type NotificationChannel,
 } from "@starter/db";
 
 import { hasOrganizationPermission } from "../../utils/permissions";
-import { audiencePermission, notificationTypeKeys, getNotificationDefinition, type NotificationType } from "./registry";
+import { audiencePermission, getNotificationDefinition, notificationTypeKeys, type NotificationType } from "./registry";
 
 const groupKeySchema = z.string();
 
 export type ProjectionOutcome = { code: string; state: "skipped" | "succeeded" };
 
-const actorUserId = (actor: EventActor) => ("userId" in actor ? actor.userId : null);
+export const findNotificationRecipients = async ({
+	channel,
+	event,
+	executor = db,
+	type,
+}: {
+	channel: NotificationChannel;
+	event: EventRecord;
+	executor?: Pick<typeof db, "select">;
+	type: NotificationType;
+}) => {
+	const definition =
+		channel === "email" ? getNotificationDefinition(type).email : getNotificationDefinition(type).inApp;
+
+	const actor = "userId" in event.actor ? event.actor.userId : null;
+
+	const candidates = await executor
+		.select({
+			email: users.email,
+			enabled: notificationPreferences.enabled,
+			role: members.role,
+			userId: members.userId,
+		})
+		.from(members)
+		.innerJoin(users, eq(users.id, members.userId))
+		.leftJoin(
+			notificationPreferences,
+			and(
+				eq(notificationPreferences.organizationId, members.organizationId),
+				eq(notificationPreferences.userId, members.userId),
+				eq(notificationPreferences.type, type),
+				eq(notificationPreferences.channel, channel)
+			)
+		)
+		.where(eq(members.organizationId, event.organizationId))
+		.orderBy(asc(members.userId));
+
+	return candidates.filter(
+		({ enabled, role, userId }) =>
+			definition !== null &&
+			userId !== actor &&
+			(definition.locked || enabled !== false) &&
+			hasOrganizationPermission({ permission: audiencePermission(definition.audience), role })
+	);
+};
 
 const insertNotifications = ({
 	event,
@@ -35,38 +80,15 @@ const insertNotifications = ({
 	type: NotificationType;
 }) =>
 	db.transaction(async (transaction): Promise<ProjectionOutcome> => {
-		const definition = getNotificationDefinition(type);
-
-		const candidates = await transaction
-			.select({ enabled: notificationPreferences.enabled, role: members.role, userId: members.userId })
-			.from(members)
-			.leftJoin(
-				notificationPreferences,
-				and(
-					eq(notificationPreferences.organizationId, members.organizationId),
-					eq(notificationPreferences.userId, members.userId),
-					eq(notificationPreferences.type, type),
-					eq(notificationPreferences.channel, "in_app")
-				)
-			)
-			.where(eq(members.organizationId, event.organizationId))
-			.orderBy(asc(members.userId));
+		const candidates = await findNotificationRecipients({ channel: "in_app", event, executor: transaction, type });
 
 		const existing = await transaction
 			.select({ userId: notifications.recipientUserId })
 			.from(notifications)
 			.where(and(eq(notifications.eventId, event.id), eq(notifications.type, type)));
 
-		const actor = actorUserId(event.actor);
-
 		const recipients = candidates
-			.filter(
-				({ enabled, role, userId }) =>
-					userId !== actor &&
-					(definition.inApp.locked || enabled !== false) &&
-					hasOrganizationPermission({ permission: audiencePermission(definition.inApp.audience), role }) &&
-					!existing.some((row) => row.userId === userId)
-			)
+			.filter(({ userId }) => !existing.some((row) => row.userId === userId))
 			.map(({ userId }) => userId);
 
 		if (recipients.length === 0) {

@@ -3,10 +3,7 @@ import type React from "react";
 import { StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type SectionSpacing = "none" | "sm" | "md" | "lg" | "xl";
 
@@ -81,8 +78,8 @@ export const Section = ({
 	style,
 	variant = "default",
 }: SectionProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createSectionStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createSectionStyles(theme);
 
 	const spacingMap = {
 		lg: styles.spacingLg,

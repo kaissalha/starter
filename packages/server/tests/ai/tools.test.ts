@@ -33,8 +33,10 @@ vi.mock("../../src/services/library", async (importOriginal) => ({
 	...libraryMocks,
 }));
 
-vi.mock("../../src/lib/firecrawl", () => ({
-	firecrawl: { search },
+vi.mock("firecrawl", () => ({
+	Firecrawl: class {
+		search = search;
+	},
 }));
 
 import {

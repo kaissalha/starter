@@ -15,7 +15,7 @@ export const [publicApi, getPublicApiMeta] = defineMeta("starter.public-api", (i
 export const isPublicApiProcedure = (contract: Parameters<typeof getPublicApiMeta>[0]) =>
 	getPublicApiMeta(contract) === true;
 
-export const betterAuthSecurity: Array<Record<string, Array<string>>> = [
+const betterAuthSecurity: Array<Record<string, Array<string>>> = [
 	{ apiKeyAuth: [] },
 	{ betterAuthSession: [] },
 	{ betterAuthSecureSession: [] },

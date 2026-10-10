@@ -47,7 +47,7 @@ import {
 	saveChatUserMessage,
 	getChats,
 } from "../../src/services/chat";
-import { deleteOrganizationAIData } from "../../src/services/organization-ai-data";
+import { deleteOrganizationAIData } from "../../src/services/organization-purge";
 import {
 	createFile,
 	deleteFile,

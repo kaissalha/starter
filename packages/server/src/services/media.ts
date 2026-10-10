@@ -14,7 +14,7 @@ import {
 import { decisionClassifiers } from "../ai/decisions";
 import { rankRelevantCandidates } from "../ai/relevance";
 import { getPublicBlobUrl } from "../lib/blob-storage";
-import { startFileIngestion } from "./documents";
+import { startIngestFile } from "../workflows/ingest-file";
 import { createFile, deleteFile, getFileUrl } from "./storage";
 
 export const mediaListInputSchema = z.compile(
@@ -135,20 +135,6 @@ export const listUploadedMedia = async ({
 	};
 };
 
-export const getUploadedMedia = async ({ fileId, organizationId }: { fileId: string; organizationId: string }) => {
-	const row = await db.query.files.findFirst({
-		where: { access: "public", deletedAt: { isNull: true }, id: fileId, organizationId },
-	});
-
-	const parsed = uploadedMediaSchema.safeParse(row && { ...row, url: await getFileUrl(row) });
-
-	if (!parsed.success || !row || !mediaContentTypes.includes(row.contentType) || row.sourceType !== "upload") {
-		throw new Error("Uploaded media not found");
-	}
-
-	return parsed.data;
-};
-
 export const deleteUploadedMedia = async ({
 	fileId,
 	organizationId,
@@ -158,9 +144,15 @@ export const deleteUploadedMedia = async ({
 	organizationId: string;
 	userId: string;
 }) => {
-	try {
-		await getUploadedMedia({ fileId, organizationId });
-	} catch {
+	const row = await db.query.files.findFirst({
+		where: { access: "public", deletedAt: { isNull: true }, id: fileId, organizationId, sourceType: "upload" },
+	});
+
+	if (
+		!row?.storageKey ||
+		!mediaContentTypes.includes(row.contentType) ||
+		(row.kind !== "image" && row.kind !== "video")
+	) {
 		return false;
 	}
 
@@ -168,8 +160,6 @@ export const deleteUploadedMedia = async ({
 };
 
 export class UploadRejectedError extends Error {}
-
-export type RegisteredUpload = { id: string; url: string | null };
 
 export const registerUpload = async ({
 	contentType: storedContentType,
@@ -187,7 +177,7 @@ export const registerUpload = async ({
 	purpose: UploadPurpose;
 	sizeBytes: number;
 	userId: string;
-}): Promise<RegisteredUpload> => {
+}) => {
 	const policy = uploadPolicies[purpose];
 	const contentType = normalizeContentType(storedContentType);
 
@@ -223,7 +213,7 @@ export const registerUpload = async ({
 	});
 
 	if (indexable && created) {
-		await startFileIngestion({ fileId: file.id, organizationId });
+		await startIngestFile({ fileId: file.id, organizationId });
 	}
 
 	return { id: file.id, url: await getFileUrl(file) };

@@ -10,7 +10,7 @@ import {
 	OPENUI_CHART_MAGNITUDE_LIMIT,
 } from "./text";
 
-export { getOpenUIVisibleMarkdownText, type OpenUIFenceSegment, parseOpenUIFences } from "./openui-source";
+export { type OpenUIFenceSegment, parseOpenUIFences } from "./openui-source";
 
 type OpenUIPropValue = ElementNode["props"][string];
 
@@ -76,7 +76,7 @@ const stringSchema = z.string();
 
 const toneSchema = z.enum(["negative", "neutral", "positive"]);
 
-export const getOpenUIElementNode = (value: OpenUIPropValue) => {
+const getOpenUIElementNode = (value: OpenUIPropValue) => {
 	const element = elementNodeSchema.safeParse(value);
 
 	return element.success ? element.data : undefined;
@@ -272,14 +272,6 @@ const getStaticCanonicalTextKey = (value: OpenUIPropValue) => {
 	const text = getStaticCanonicalText(value);
 
 	return text === undefined ? undefined : normalizeOpenUIIdentityText(text).toLowerCase();
-};
-
-const getStaticTrimmedKey = (value: OpenUIPropValue) => {
-	const key = getStaticNonemptyString(value);
-
-	return key !== undefined && hasOpenUIVisibleContent(key) && key === normalizeOpenUIVisibleText(key)
-		? key
-		: undefined;
 };
 
 const getStaticActionText = (value: OpenUIPropValue) => {
@@ -585,7 +577,7 @@ const getStaticSelectItem = (value: OpenUIPropValue) => {
 	}
 
 	const label = getStaticCanonicalText(item.props.label);
-	const itemValue = getStaticTrimmedKey(item.props.value);
+	const itemValue = getStaticCanonicalText(item.props.value);
 
 	return label !== undefined && itemValue !== undefined ? { label, value: itemValue } : undefined;
 };
@@ -600,7 +592,7 @@ const getStaticSelectContract = (
 		return undefined;
 	}
 
-	const selectName = getStaticTrimmedKey(props.name);
+	const selectName = getStaticCanonicalText(props.name);
 
 	if (
 		selectName === undefined ||

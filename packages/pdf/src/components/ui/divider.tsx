@@ -1,10 +1,7 @@
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type DividerVariant = "solid" | "dashed" | "dotted";
 
@@ -60,8 +57,8 @@ export const Divider = ({
 	variant = "solid",
 	width,
 }: DividerProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createDividerStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createDividerStyles(theme);
 	const spacingMap = { lg: styles.spacingLg, md: styles.spacingMd, none: styles.spacingNone, sm: styles.spacingSm };
 	const variantMap = { dashed: styles.dashed, dotted: styles.dotted, solid: styles.solid };
 	const thicknessMap = { medium: styles.medium, thick: styles.thick, thin: styles.thin };

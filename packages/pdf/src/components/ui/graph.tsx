@@ -1,25 +1,97 @@
 import type { ReactNode } from "react";
 
-import { Circle, G, Line, Path, Rect, Svg, Text as SvgText } from "@react-pdf/renderer";
-import { Text as PDFText, View } from "@react-pdf/renderer";
+import {
+	Circle,
+	G,
+	Line,
+	Path,
+	Rect,
+	StyleSheet,
+	Svg,
+	Text as SvgText,
+	Text as PDFText,
+	View,
+} from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import type { PdfxTheme } from "../../lib/theme";
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { createGraphStyles } from "./graph-styles";
-import type { ChartLayout, GraphProps, GraphSeries } from "./graph-types";
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
 import {
 	GRAPH_SAFE_WIDTHS,
 	arcPath,
 	buildLayout,
+	type ChartLayout,
 	fmtNum,
 	getDefaultPalette,
 	getGraphWidth,
+	type GraphDataPoint,
+	type GraphSeries,
 	normalizeData,
 	polarToCartesian,
 	smoothPath,
 	truncate,
 } from "./graph-utils";
+
+export type GraphVariant = "bar" | "horizontal-bar" | "line" | "area" | "pie" | "donut";
+
+export type GraphLegendPosition = "bottom" | "right" | "none";
+
+export type GraphProps = {
+	centerLabel?: string;
+	colors?: Array<string>;
+	containerPadding?: number;
+	data: Array<GraphDataPoint> | Array<GraphSeries>;
+	fullWidth?: boolean;
+	height?: number;
+	legend?: GraphLegendPosition;
+	noWrap?: boolean;
+	showDots?: boolean;
+	showGrid?: boolean;
+	showValues?: boolean;
+	smooth?: boolean;
+	style?: Style;
+	subtitle?: string;
+	title?: string;
+	variant?: GraphVariant;
+	width?: number;
+	wrapperPadding?: number;
+	xLabel?: string;
+	yLabel?: string;
+	yTicks?: number;
+};
+
+const createGraphStyles = (t: PdfxTheme) =>
+	StyleSheet.create({
+		chartWithRightLegend: { alignItems: "flex-start", display: "flex", flexDirection: "row" },
+		container: { display: "flex", flexDirection: "column", marginBottom: t.spacing.componentGap },
+		legendColumn: {
+			display: "flex",
+			flexDirection: "column",
+			gap: 8,
+			marginLeft: 12,
+			marginTop: 18,
+			minWidth: 120,
+		},
+		legendItem: { alignItems: "center", display: "flex", flexDirection: "row", gap: 4 },
+		legendRow: { display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 12, marginTop: 6 },
+		legendText: {
+			color: t.colors.mutedForeground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.primitives.typography.xs,
+		},
+		subtitle: {
+			color: t.colors.mutedForeground,
+			fontFamily: t.typography.body.fontFamily,
+			fontSize: t.primitives.typography.xs,
+			marginBottom: 6,
+		},
+		title: {
+			color: t.colors.foreground,
+			fontFamily: t.typography.heading.fontFamily,
+			fontSize: t.primitives.typography.base,
+			fontWeight: t.primitives.fontWeights.semibold,
+			marginBottom: 2,
+		},
+	});
 
 const renderGridAndYAxis = ({
 	chartW,
@@ -548,18 +620,14 @@ export const Graph = ({
 	yLabel,
 	yTicks: yTickCount = 5,
 }: GraphProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createGraphStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createGraphStyles(theme);
 	const palette = colors ?? getDefaultPalette(theme);
 	const series = normalizeData(data);
 
-	const width = useSafeMemo(() => {
-		if (fullWidth) {
-			return getGraphWidth(theme, { containerPadding, wrapperPadding });
-		}
-
-		return explicitWidth ?? GRAPH_SAFE_WIDTHS.default;
-	}, [fullWidth, explicitWidth, theme, containerPadding, wrapperPadding]);
+	const width = fullWidth
+		? getGraphWidth(theme, { containerPadding, wrapperPadding })
+		: (explicitWidth ?? GRAPH_SAFE_WIDTHS.default);
 
 	const isPieOrDonut = variant === "pie" || variant === "donut";
 	const layout = buildLayout(series, width, height, isPieOrDonut, yTickCount);

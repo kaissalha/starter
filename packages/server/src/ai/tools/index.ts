@@ -4,7 +4,7 @@ import { libraryTools } from "./library";
 import { notificationsTools } from "./notifications";
 import { tableTools } from "./table";
 
-const tools = {
+export const dashboardChatTools = {
 	...assistantTools,
 	...libraryTools,
 	...notificationsTools,
@@ -12,11 +12,9 @@ const tools = {
 	retrieveKnowledge: retrieveKnowledgeTool,
 };
 
-for (const tool of Object.values(tools)) {
+for (const tool of Object.values(dashboardChatTools)) {
 	tool.strict = false;
 }
-
-export const dashboardChatTools = tools;
 
 export const isDashboardMutationToolName = (toolName: string) =>
 	Object.entries(dashboardChatTools).some(([name, tool]) => name === toolName && Boolean(tool.requireApproval));

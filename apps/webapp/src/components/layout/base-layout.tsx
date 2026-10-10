@@ -5,7 +5,7 @@ import localFont from "next/font/local";
 import Script from "next/script";
 
 import { DirectionProvider } from "@base-ui/react/direction-provider";
-import { PostHogPageView } from "@posthog/next";
+import { PostHogPageView, PostHogProvider } from "@posthog/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { VercelToolbar } from "@vercel/toolbar/next";
 import { EvlogProvider } from "evlog/next/client";
@@ -22,7 +22,6 @@ import { getDirection } from "@starter/utils";
 import "server-only";
 
 import { ErrorToaster } from "../error-toaster";
-import { BaseLayoutPostHogProvider } from "./base-layout-posthog-provider";
 
 const openRunde = localFont({
 	src: [
@@ -94,7 +93,10 @@ export const BaseLayout = ({ children, loadingLabel, locale, messages }: BaseLay
 					(process.env.REACT_SCAN === "1" || process.env.REACT_SCAN === "true") && (
 						<Script src='//unpkg.com/react-scan@0.5.7/dist/auto.global.js' strategy='afterInteractive' />
 					)}
-				<BaseLayoutPostHogProvider>
+				<PostHogProvider
+					clientOptions={{ api_host: "/ingest", capture_exceptions: true, capture_pageleave: true }}
+					serverOptions={{ enableExceptionAutocapture: true }}
+				>
 					<EvlogProvider console={process.env.NODE_ENV === "development"} service='webapp'>
 						<PostHogClientEffects />
 						<PostHogPageView />
@@ -130,7 +132,7 @@ export const BaseLayout = ({ children, loadingLabel, locale, messages }: BaseLay
 							</NuqsAdapter>
 						</NextIntlClientProvider>
 					</EvlogProvider>
-				</BaseLayoutPostHogProvider>
+				</PostHogProvider>
 				{process.env.VERCEL_ENV !== "production" && <VercelToolbar />}
 			</body>
 			{}

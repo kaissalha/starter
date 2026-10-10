@@ -3,10 +3,7 @@ import type React from "react";
 import { StyleSheet, Text } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type HeadingWeight = "normal" | "medium" | "semibold" | "bold";
 
@@ -72,8 +69,8 @@ export const Heading = ({
 	transform,
 	weight,
 }: HeadingProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createHeadingStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createHeadingStyles(theme);
 
 	const weightMap = {
 		bold: styles.weightBold,

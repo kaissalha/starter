@@ -116,8 +116,7 @@
 	"breadcrumbs": {
 		"home": "Home",
 		"settings": "Settings",
-		"chat": "Chat",
-		"library": "Library"
+		"chat": "Chat"
 	},
 	"language": {
 		"label": "Language",
@@ -891,10 +890,6 @@
 					"title": "AI assistant",
 					"description": "Chat with tools, approvals, memory, and web search, grounded in your own documents."
 				},
-				"library": {
-					"title": "Library and knowledge",
-					"description": "Upload documents and images, write in Markdown, generate images, and export to PDF."
-				},
 				"notifications": {
 					"title": "Notifications",
 					"description": "In-app and email notifications, ready to wire into your own events."
@@ -1091,131 +1086,10 @@
 		"categories": {},
 		"types": {}
 	},
-	"library": {
-		"title": "Library",
-		"search": "Search",
-		"upload": "Upload",
-		"uploadInvalid": "This file type or size is not supported.",
-		"uploadFailed": "Upload failed. Try again.",
-		"kinds": {
-			"all": "Everything",
-			"image": "Images",
-			"video": "Videos",
-			"document": "Documents"
-		},
-		"sort": "Sort",
-		"sorts": {
-			"newest": "Newest first",
-			"oldest": "Oldest first",
-			"name": "Name",
-			"largest": "Largest first"
-		},
-		"source": "Source",
-		"sources": {
-			"all": "All sources",
-			"uploaded": "Uploaded",
-			"generated": "Made with AI"
-		},
-		"emptyTitle": "Your library is empty",
-		"noResults": "No files match your search.",
-		"loadError": "Could not load your library.",
-		"retry": "Retry",
-		"loading": "Loading…",
-		"loadMore": "Load more",
-		"generated": "AI",
-		"processing": "Processing…",
-		"failed": "Processing failed",
-		"back": "Back to library",
-		"name": "File name",
-		"download": "Download",
-		"downloadPdf": "Download PDF",
-		"actions": "File actions",
-		"delete": "Delete",
-		"deleteTitle": "Delete this file?",
-		"deleteDescription": "It will be removed from your library and from the assistant’s knowledge.",
-		"saving": "Saving…",
-		"saved": "Saved",
-		"saveFailed": "Could not save. Your changes are still here.",
-		"conflict": "This document changed elsewhere and was reloaded.",
-		"type": "Type",
-		"size": "Size",
-		"added": "Added",
-		"notFound": "This file could not be found.",
-		"document": "Document content",
-		"formatting": "Formatting",
-		"agent": {
-			"title": "Create with AI",
-			"placeholder": "Describe what to create…",
-			"assetTitle": "Ask about this file",
-			"assetPlaceholder": "Ask about or edit this file…",
-			"open": "Ask AI",
-			"hideConversation": "Hide conversation",
-			"scrollToEnd": "Scroll to latest"
-		},
-		"details": "Details",
-		"dimensions": "Dimensions",
-		"updated": "Updated",
-		"date": "Document date",
-		"language": "Language",
-		"category": "Category",
-		"model": "Model",
-		"prompt": "Prompt",
-		"tags": "Tags",
-		"generating": "Generating…",
-		"versionCount": "{count, plural, one {# version} other {# versions}}",
-		"versions": "Versions",
-		"version": "Version {number}",
-		"filters": "Filters",
-		"filtersLabel": "Filter library, {count} active",
-		"clearFilters": "Clear",
-		"versionModes": {
-			"latest": "Latest only",
-			"all": "All versions"
-		},
-		"viewer": {
-			"clear": "Clear",
-			"columnMenu": "Column menu",
-			"comments": "Comments",
-			"document": "Document",
-			"edits": "Edits",
-			"fileTooLarge": "File too large",
-			"fileTooLargeDescription": "This file exceeds the display limit. Download it to view the full file.",
-			"loading": "Loading",
-			"moreActions": "More actions",
-			"nextResult": "Next result",
-			"of": "of",
-			"page": "Page",
-			"pageNumber": "Page number",
-			"pagesSidebar": "Pages sidebar",
-			"previousResult": "Previous result",
-			"rotateClockwise": "Rotate clockwise",
-			"rotateCounterclockwise": "Rotate counterclockwise",
-			"search": "Search",
-			"sortAscending": "Sort ascending",
-			"sortDescending": "Sort descending",
-			"toggleThumbnails": "Toggle thumbnails",
-			"unableToDisplay": "Unable to display this file.",
-			"upload": "Upload",
-			"zoom": "Zoom",
-			"zoomIn": "Zoom in",
-			"zoomLevel": "Zoom level",
-			"zoomOut": "Zoom out"
-		}
-	},
 	"businessLogo": {
 		"title": "Logo",
 		"replace": "Replace logo",
 		"saved": "Logo saved",
 		"failed": "The logo couldn't be saved. Try again."
-	},
-	"richText": {
-		"bold": "Bold",
-		"italic": "Italic",
-		"heading": "Heading",
-		"bulletList": "Bullets",
-		"orderedList": "Numbered list",
-		"quote": "Quote",
-		"undo": "Undo",
-		"redo": "Redo"
 	}
 }

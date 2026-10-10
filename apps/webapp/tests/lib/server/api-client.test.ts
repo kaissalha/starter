@@ -14,7 +14,7 @@ vi.mock("@/lib/server/dashboard-session", () => ({ requireDashboardSession: mock
 vi.mock("@starter/server/api", () => ({
 	apiRouter: {
 		library: {
-			agentChat: os.handler(() => {
+			list: os.handler(() => {
 				throw new ORPCError("INTERNAL_SERVER_ERROR");
 			}),
 		},
@@ -52,6 +52,6 @@ it("rethrows the original error when the session and organization are valid", as
 });
 
 it("leaves other failures untouched", async () => {
-	await expect(serverClient.library.agentChat({})).rejects.toMatchObject({ code: "INTERNAL_SERVER_ERROR" });
+	await expect(serverClient.library.list({})).rejects.toMatchObject({ code: "INTERNAL_SERVER_ERROR" });
 	expect(mocks.requireDashboardSession).not.toHaveBeenCalled();
 });

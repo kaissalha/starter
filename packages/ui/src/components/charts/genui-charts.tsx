@@ -1,12 +1,232 @@
 "use client";
 
-import { lazy, Suspense, useId } from "react";
+import { lazy, type ReactNode, Suspense, useId } from "react";
 
 import { useDirection } from "@base-ui/react/direction-provider";
 import { useReducedMotion } from "motion/react";
+import type { TooltipContentProps } from "recharts";
+import { z } from "zod";
 
-import { prepareSpectrumChartData, type GenUIInput } from "./genui-chart-data";
-import { ChartSurface, ChartTooltipContent } from "./spectrum-chart-surface";
+import {
+	hasOpenUIVisibleContent,
+	normalizeOpenUIIdentityText,
+	normalizeOpenUIVisibleText,
+	OPENUI_CHART_MAGNITUDE_LIMIT,
+} from "@starter/genui/text";
+import { cn } from "@starter/ui/lib/utils";
+
+export type GenUISeries = {
+	name: string;
+	values: Array<number>;
+};
+
+type GenUIChartData = { entries: Array<GenUISeries>; labels: Array<string> };
+
+type GenUIScalar = boolean | null | number | string | undefined;
+
+type SeriesLike = { category?: GenUIScalar; props?: undefined; values?: GenUIScalar | Array<GenUIScalar> };
+
+type SeriesNode = SeriesLike | { props: SeriesLike };
+
+export type GenUIInput = GenUIScalar | Array<GenUIScalar> | SeriesNode | Array<SeriesNode>;
+
+const canonicalTextSchema = z
+	.string()
+	.min(1)
+	.refine(hasOpenUIVisibleContent)
+	.refine((value) => value === normalizeOpenUIVisibleText(value));
+
+const finiteNumbersSchema = z.compile(
+	z.array(z.number().finite().min(-OPENUI_CHART_MAGNITUDE_LIMIT).max(OPENUI_CHART_MAGNITUDE_LIMIT)).min(1)
+);
+
+const nonemptyStringSchema = z.compile(canonicalTextSchema);
+
+const nonemptyStringsSchema = z.compile(z.array(canonicalTextSchema).min(1));
+
+const asArray = (value: GenUIInput) => {
+	if (Array.isArray(value)) {
+		return value;
+	}
+
+	if (value == null) {
+		return [];
+	}
+
+	return [value];
+};
+
+const valuesAreUnique = (values: ReadonlyArray<string>) =>
+	new Set(values.map((value) => normalizeOpenUIIdentityText(value).toLowerCase())).size === values.length;
+
+const resolveSeriesLike = (node: GenUIInput): SeriesLike | null => {
+	if (!(node instanceof Object) || Array.isArray(node)) {
+		return null;
+	}
+
+	const value = node.props ?? node;
+
+	return {
+		category: value.category,
+		values: value.values,
+	};
+};
+
+const normalizeGenUIChartData = (labels: GenUIInput, series: GenUIInput): GenUIChartData => {
+	const rawLabels = nonemptyStringsSchema.safeParse(asArray(labels));
+
+	if (!rawLabels.success) {
+		return { entries: [], labels: [] };
+	}
+
+	const parsed = asArray(series).flatMap((node) => {
+		const props = resolveSeriesLike(node);
+
+		if (!props) {
+			return [];
+		}
+
+		const name = nonemptyStringSchema.safeParse(props.category);
+		const values = finiteNumbersSchema.safeParse(props.values);
+
+		return name.success && values.success ? [{ name: name.data, values: values.data }] : [];
+	});
+
+	const names = parsed.map((entry) => entry.name);
+
+	if (
+		parsed.length !== asArray(series).length ||
+		parsed.some((entry) => entry.values.length !== rawLabels.data.length) ||
+		!valuesAreUnique(rawLabels.data) ||
+		!valuesAreUnique(names)
+	) {
+		return { entries: [], labels: [] };
+	}
+
+	return { entries: parsed, labels: rawLabels.data };
+};
+
+const prepareSpectrumChartData = (rawLabels: GenUIInput, rawSeries: GenUIInput) => {
+	const { entries, labels } = normalizeGenUIChartData(rawLabels, rawSeries);
+
+	const series = entries.map((entry, index) => ({
+		...entry,
+		color: `var(--chart-${(index % 5) + 1})`,
+		key: `series${index}`,
+	}));
+
+	const rows = labels.map((label, index) => ({
+		label,
+		...Object.fromEntries(series.map((entry) => [entry.key, entry.values[index]])),
+	}));
+
+	const slices = labels.map((name, index) => ({
+		fill: `var(--chart-${(index % 5) + 1})`,
+		name,
+		value: entries[0]?.values[index] ?? 0,
+	}));
+
+	return { entries, labels, rows, series, slices };
+};
+
+export const ChartTooltipContent = ({ active, label, payload }: Partial<TooltipContentProps<number, string>>) => {
+	if (!active || !payload?.length) {
+		return null;
+	}
+
+	return (
+		<div className='min-w-30 rounded-lg bg-popover/90 px-3 py-2 text-xs text-popover-foreground smooth-shadow-sm ring-1 ring-border backdrop-blur-md'>
+			{label != null && <p className='mb-1.5 font-medium'>{String(label)}</p>}
+			<ul className='flex flex-col gap-1'>
+				{payload
+					.filter((item) => item.type !== "none")
+					.map((item) => (
+						<li className='flex items-center gap-2' key={String(item.name)}>
+							<span
+								aria-hidden
+								className='size-2 shrink-0 rounded-xs'
+								style={{ backgroundColor: item.color }}
+							/>
+							<span className='text-muted-foreground'>{item.name}</span>
+							<span className='ms-auto font-mono tabular-nums'>{String(item.value ?? "")}</span>
+						</li>
+					))}
+			</ul>
+		</div>
+	);
+};
+
+export const ChartSurface = ({
+	ariaLabel,
+	children,
+	className,
+	height,
+	labels,
+	legend,
+	presentation,
+	series,
+}: {
+	ariaLabel?: string;
+	children: ReactNode;
+	className?: string;
+	height: number;
+	labels: Array<string>;
+	legend: Array<{ color: string; name: string }>;
+	presentation: "default" | "sparkline";
+	series: Array<GenUISeries>;
+}) => (
+	<div
+		aria-label={ariaLabel}
+		className={cn("genui-chart-surface w-full min-w-0 text-muted-foreground", className)}
+		role='group'
+	>
+		<ul
+			className={
+				presentation === "sparkline"
+					? "sr-only"
+					: "mb-2 flex flex-wrap justify-end gap-x-3 gap-y-1 text-[11px] tracking-wide"
+			}
+		>
+			{legend.map((item) => (
+				<li className='flex items-center gap-1.5' key={item.name}>
+					<span
+						aria-hidden
+						className='size-2 shrink-0 rounded-xs ring-1 ring-border'
+						style={{ backgroundColor: item.color }}
+					/>
+					{item.name}
+				</li>
+			))}
+		</ul>
+		<div className='relative min-w-0' style={{ height }}>
+			{children}
+		</div>
+		<div className='sr-only'>
+			<table aria-label={ariaLabel}>
+				<thead>
+					<tr>
+						<td />
+						{series.map(({ name }) => (
+							<th key={name} scope='col'>
+								{name}
+							</th>
+						))}
+					</tr>
+				</thead>
+				<tbody>
+					{labels.map((label, index) => (
+						<tr key={label}>
+							<th scope='row'>{label}</th>
+							{series.map((entry) => (
+								<td key={entry.name}>{String(entry.values[index])}</td>
+							))}
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+	</div>
+);
 
 export type SpectrumChartProps = {
 	ariaLabel?: string;

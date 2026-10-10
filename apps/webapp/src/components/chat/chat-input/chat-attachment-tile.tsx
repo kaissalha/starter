@@ -179,20 +179,19 @@ const ChatAttachmentPreviewDialog = ({
 	displayName,
 	onOpenChange,
 	open,
+	sizeLabel,
 	textLoad,
 }: {
 	attachment: ChatFileAttachment;
 	displayName: string;
 	onOpenChange: (open: boolean) => void;
 	open: boolean;
+	sizeLabel: string;
 	textLoad: AttachmentTextLoad;
 }) => {
 	const t = useTranslations("components.chat.chatInput.attachment");
-	const tSize = useTranslations("components.chat.chatInput.fileSize");
 	const { filename, mediaType, size } = attachment;
 	const canPreviewText = isTextLikeFile({ filename, mediaType }) && size <= MAX_PREVIEW_BYTES;
-	const sizeParts = getFileSizeParts(size);
-	const sizeLabel = sizeParts.unit === "zero" ? tSize("zero") : tSize(sizeParts.unit, { size: sizeParts.size });
 
 	return (
 		<Dialog onOpenChange={onOpenChange} open={open}>
@@ -302,6 +301,7 @@ const ChatAttachmentContent = ({
 	onOpenChange,
 	open,
 	preview,
+	sizeLabel,
 	statusLabel,
 	textLoad,
 	titleId,
@@ -317,6 +317,7 @@ const ChatAttachmentContent = ({
 	onOpenChange: (open: boolean) => void;
 	open: boolean;
 	preview: string | null;
+	sizeLabel: string;
 	statusLabel: string | null;
 	textLoad: AttachmentTextLoad;
 	titleId: string;
@@ -355,6 +356,7 @@ const ChatAttachmentContent = ({
 					displayName={displayName}
 					onOpenChange={onOpenChange}
 					open={open}
+					sizeLabel={sizeLabel}
 					textLoad={textLoad}
 				/>
 			)}
@@ -508,6 +510,7 @@ export const ChatAttachmentTile = ({ attachment, disabled = false, onRemove }: C
 				onOpenChange={setPreviewOpen}
 				open={previewOpen}
 				preview={preview}
+				sizeLabel={sizeLabel}
 				statusLabel={statusLabel}
 				textLoad={textLoadReference.value}
 				titleId={titleId}

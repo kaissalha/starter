@@ -27,7 +27,7 @@ export const notificationSequenceInputSchema = z
 	.strictObject({ throughSequence: sequenceSchema })
 	.meta({ id: "NotificationSequenceBound" });
 
-export const notificationSchema = z
+const notificationSchema = z
 	.strictObject({
 		archivedAt: z.string().nullable(),
 		createdAt: z.string(),

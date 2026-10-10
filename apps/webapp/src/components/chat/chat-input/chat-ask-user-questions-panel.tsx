@@ -6,7 +6,7 @@ import { Cancel01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 
-import { useChatSession } from "@/components/chat/stores/chat-session-store";
+import { useChatSession } from "@/components/chat/chat-session";
 import { Button } from "@starter/ui/components/button";
 
 import {
@@ -18,34 +18,30 @@ import {
 
 type Answers = Record<string, AskUserAnswer>;
 
-export const usePendingAskUserQuestions = (): PendingAskUserQuestions | undefined =>
-	useChatSession((state) => {
-		if (state.status !== "ready") {
-			return undefined;
-		}
+export const usePendingAskUserQuestions = (): PendingAskUserQuestions | undefined => {
+	const { messages, status } = useChatSession();
+	const lastMessage = messages.at(-1);
 
-		const lastMessage = state.messages.at(-1);
-
-		if (!lastMessage || lastMessage.role !== "assistant") {
-			return undefined;
-		}
-
-		for (const part of lastMessage.parts) {
-			if (part.type !== "tool-askUserQuestions" || part.state !== "input-available") {
-				continue;
-			}
-
-			const questions = part.input?.questions;
-
-			if (!questions || questions.length === 0) {
-				return undefined;
-			}
-
-			return { questions, toolCallId: part.toolCallId };
-		}
-
+	if (status !== "ready" || !lastMessage || lastMessage.role !== "assistant") {
 		return undefined;
-	});
+	}
+
+	for (const part of lastMessage.parts) {
+		if (part.type !== "tool-askUserQuestions" || part.state !== "input-available") {
+			continue;
+		}
+
+		const questions = part.input?.questions;
+
+		if (!questions || questions.length === 0) {
+			return undefined;
+		}
+
+		return { questions, toolCallId: part.toolCallId };
+	}
+
+	return undefined;
+};
 
 const toToolOutput = ({
 	answers,
@@ -79,12 +75,12 @@ const toToolOutput = ({
 
 export const ChatAskUserQuestionsPanel = ({ questions, toolCallId }: PendingAskUserQuestions) => {
 	const t = useTranslations("components.chat.chatInput.clarify");
-	const answerQuestions = useChatSession((state) => state.actions?.answerQuestions);
+	const { answerQuestions } = useChatSession().actions;
 
 	const submitOutput = useCallback(
 		async (answers: Answers, dismissed: boolean) => {
 			try {
-				await answerQuestions?.({ output: toToolOutput({ answers, dismissed, questions }), toolCallId });
+				await answerQuestions({ output: toToolOutput({ answers, dismissed, questions }), toolCallId });
 			} catch {}
 		},
 		[answerQuestions, questions, toolCallId]

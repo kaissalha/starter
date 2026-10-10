@@ -14,7 +14,7 @@ import { customSession, lastLoginMethod } from "better-auth/plugins";
 import { emailOTP } from "better-auth/plugins/email-otp";
 import { jwt } from "better-auth/plugins/jwt";
 import { organization } from "better-auth/plugins/organization";
-import { eq, inArray } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { createHash } from "node:crypto";
 import { z } from "zod";
 
@@ -57,6 +57,10 @@ const loggerErrorSchema = z.compile(
 const API_KEY_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 
 const API_KEY_RATE_LIMIT_MAX_REQUESTS = 1000;
+
+const API_KEY_HEADER = "x-api-key";
+
+const API_KEY_PREFIX = "starter_";
 
 if (!db) {
 	throw new Error("Database not found");
@@ -151,30 +155,17 @@ const authOptions = {
 
 			const details = error ? args.filter((arg) => arg !== error) : args;
 
-			switch (level) {
-				case "error":
-					log.error({
-						details: details.length ? details : undefined,
-						error: serializeLogError(error ?? message),
-						message,
-						source: "better-auth",
-					});
-
-					return;
-				default:
-					log[level]({
-						details: details.length ? details : undefined,
-						message,
-						source: "better-auth",
-					});
-
-					return;
-			}
+			log[level]({
+				details: details.length ? details : undefined,
+				error: level === "error" ? serializeLogError(error ?? message) : undefined,
+				message,
+				source: "better-auth",
+			});
 		},
 	},
 	plugins: [
 		apiKey({
-			defaultPrefix: "starter_",
+			defaultPrefix: API_KEY_PREFIX,
 			enableMetadata: true,
 			keyExpiration: { defaultExpiresIn: 60 * 60 * 24 * 90, maxExpiresIn: 365 },
 			rateLimit: {
@@ -439,52 +430,27 @@ export const auth = betterAuth({
 	],
 });
 
-export const API_KEY_HEADER = "x-api-key";
-
-export const API_KEY_PREFIX = "starter_";
-
 export const getApiKeyFromHeaders = (headers: Headers) => {
 	const bearer = headers.get("authorization")?.match(/^Bearer\s+(.+)$/i)?.[1];
 
 	return headers.get(API_KEY_HEADER) ?? (bearer?.startsWith(API_KEY_PREFIX) ? bearer : undefined);
 };
 
-const resolveAuthenticatedSession = async ({
-	requestedOrganizationId,
+export const resolveOrganizationSession = async ({
+	organizationId,
 	userId,
 }: {
-	requestedOrganizationId?: string;
+	organizationId: string;
 	userId: string;
 }) => {
-	const memberships = await db
-		.select({ organizationId: members.organizationId })
-		.from(members)
-		.where(eq(members.userId, userId))
-		.execute();
-
-	const organizationId = requestedOrganizationId
-		? memberships.find((membership) => membership.organizationId === requestedOrganizationId)?.organizationId
-		: memberships[0]?.organizationId;
-
-	if (!organizationId) {
-		return null;
-	}
-
 	const [user] = await db
 		.select({ email: users.email, id: users.id, name: users.name })
 		.from(users)
+		.innerJoin(members, and(eq(members.userId, users.id), eq(members.organizationId, organizationId)))
 		.where(eq(users.id, userId))
-		.limit(1)
-		.execute();
+		.limit(1);
 
-	if (!user) {
-		return null;
-	}
-
-	return {
-		session: { activeOrganizationId: organizationId },
-		user,
-	};
+	return user ? { session: { activeOrganizationId: organizationId }, user } : null;
 };
 
 const resolveApiKeySession = async (key: string) => {
@@ -514,17 +480,9 @@ const resolveApiKeySession = async (key: string) => {
 		});
 	}
 
-	const requestedOrganizationId = readApiKeyOrganizationId(apiKeyRecord.metadata);
+	const organizationId = readApiKeyOrganizationId(apiKeyRecord.metadata);
 
-	if (!requestedOrganizationId) {
-		return null;
-	}
-
-	return resolveAuthenticatedSession({ requestedOrganizationId, userId: apiKeyRecord.referenceId });
-};
-
-export const resolveOAuthSession = async ({ organizationId, userId }: { organizationId: string; userId: string }) => {
-	return resolveAuthenticatedSession({ requestedOrganizationId: organizationId, userId });
+	return organizationId ? resolveOrganizationSession({ organizationId, userId: apiKeyRecord.referenceId }) : null;
 };
 
 export const resolveSession = async (headers: Headers, allowApiKey = true) => {

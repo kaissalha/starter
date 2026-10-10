@@ -1,17 +1,16 @@
 "use client";
 
-import { FolderLibraryIcon, Home03Icon } from "@hugeicons/core-free-icons";
+import { Home03Icon } from "@hugeicons/core-free-icons";
 import { useTranslations } from "next-intl";
 
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { SidebarGroup, SidebarMenu, useSidebar } from "@starter/ui/components/sidebar";
 
 import { NavItem } from "./nav-item";
-import { useIsMenuItemActive } from "./utils/use-is-menu-item-active";
 
 export const NavMain = () => {
 	const t = useTranslations();
-	const { isMenuItemActive } = useIsMenuItemActive();
+	const pathname = usePathname();
 	const { isMobile, setOpenMobile } = useSidebar("navigation");
 
 	const items = [
@@ -20,14 +19,13 @@ export const NavMain = () => {
 			title: t("breadcrumbs.home"),
 			url: "/dashboard" as const,
 		},
-		{ icon: FolderLibraryIcon, title: t("breadcrumbs.library"), url: "/dashboard/library" as const },
 	];
 
 	return (
 		<SidebarGroup>
 			<SidebarMenu>
 				{items.map((item) => {
-					const isActive = isMenuItemActive(item.url, item.url === "/dashboard");
+					const isActive = pathname === item.url;
 
 					return (
 						<NavItem

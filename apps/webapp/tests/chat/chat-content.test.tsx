@@ -5,9 +5,9 @@ import { mockOrganizationPermissions, organizationPermissionState } from "../moc
 
 const chatState = vi.hoisted(() => ({ awaitingApproval: false }));
 
-vi.mock("@/components/chat/stores/chat-session-store", () => ({
-	selectChatSessionAwaitingApproval: (state: typeof chatState) => state.awaitingApproval,
-	useChatSession: <T,>(selector: (state: typeof chatState) => T) => selector(chatState),
+vi.mock("@/components/chat/chat-session", () => ({
+	isAwaitingApproval: () => chatState.awaitingApproval,
+	useChatSession: () => ({ messages: [] }),
 }));
 
 vi.mock("@/components/chat/chat-input/chat-composer", () => ({

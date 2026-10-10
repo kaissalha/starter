@@ -4,16 +4,17 @@ import { BubbleChatIcon, HistoryIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useFormatter, useNow, useTranslations } from "next-intl";
 
+import { useChatHistory } from "@/components/chat/use-chat-history";
+import { Button } from "@starter/ui/components/button";
+import { Skeleton } from "@starter/ui/components/skeleton";
+
 import {
 	DashboardFrame,
 	DashboardFrameEmpty,
 	DashboardFrameHeader,
 	DashboardFramePanel,
 	DashboardFrameRow,
-} from "@/app/[locale]/dashboard/components/dashboard-frame";
-import { useChatHistory } from "@/components/chat/use-chat-history";
-import { Button } from "@starter/ui/components/button";
-import { Skeleton } from "@starter/ui/components/skeleton";
+} from "./dashboard-frame";
 
 export const DashboardHistory = () => {
 	const t = useTranslations("chats");

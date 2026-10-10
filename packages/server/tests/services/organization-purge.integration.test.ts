@@ -12,7 +12,7 @@ import {
 
 const mocks = vi.hoisted(() => ({
 	deleteBlob: vi.fn(),
-	deleteOrganizationAIData: vi.fn(),
+	deleteKnowledgeOrganization: vi.fn(),
 	logError: vi.fn(),
 }));
 
@@ -23,9 +23,9 @@ vi.mock("@starter/observability", () => ({
 	serializeLogError: (error: Error) => error,
 }));
 
-vi.mock("../../src/services/organization-ai-data", () => ({
-	deleteOrganizationAIData: mocks.deleteOrganizationAIData,
-}));
+vi.mock("../../src/ai/knowledge", () => ({ deleteKnowledgeOrganization: mocks.deleteKnowledgeOrganization }));
+
+vi.mock("../../src/ai/memory", async () => (await import("../helpers/ai")).emptyMastraMemoryMock);
 
 const organizationIds: Array<string> = [];
 
@@ -65,7 +65,6 @@ const deleteWorkspace = async (organizationId: string) => {
 beforeEach(() => {
 	vi.clearAllMocks();
 	mocks.deleteBlob.mockResolvedValue(undefined);
-	mocks.deleteOrganizationAIData.mockResolvedValue(undefined);
 });
 
 afterEach(async () => {
@@ -116,7 +115,7 @@ describe("organization purge", () => {
 		await snapshotOrganizationPurge({ organizationId });
 
 		expect(await runOrganizationPurge({ organizationId })).toEqual({ completed: false });
-		expect(mocks.deleteOrganizationAIData).not.toHaveBeenCalled();
+		expect(mocks.deleteKnowledgeOrganization).not.toHaveBeenCalled();
 		expect(mocks.deleteBlob).not.toHaveBeenCalled();
 		expect((await readPurge(organizationId))?.blobs).toHaveLength(3);
 	});
@@ -127,7 +126,7 @@ describe("organization purge", () => {
 
 		expect(await runOrganizationPurge({ organizationId })).toEqual({ completed: true });
 
-		expect(mocks.deleteOrganizationAIData).toHaveBeenCalledWith({ organizationId });
+		expect(mocks.deleteKnowledgeOrganization).toHaveBeenCalledWith({ organizationId });
 		expect(mocks.deleteBlob).toHaveBeenCalledTimes(3);
 		expect(mocks.deleteBlob).toHaveBeenCalledWith({ access: "private", key: `${organizationId}/doc.pdf` });
 		expect(await readPurge(organizationId)).toMatchObject({
@@ -185,7 +184,9 @@ describe("organization purge", () => {
 		expect(result.completed).toBeGreaterThanOrEqual(1);
 		expect(await readPurge(stale.organizationId)).toBeUndefined();
 		expect((await readPurge(pending.organizationId))?.completedAt).not.toBeNull();
-		expect(mocks.deleteOrganizationAIData).not.toHaveBeenCalledWith({ organizationId: exhausted.organizationId });
+		expect(mocks.deleteKnowledgeOrganization).not.toHaveBeenCalledWith({
+			organizationId: exhausted.organizationId,
+		});
 		expect((await readPurge(exhausted.organizationId))?.completedAt).toBeNull();
 		expect(mocks.logError).toHaveBeenCalledWith({
 			message: "Organization purge exhausted retries",

@@ -3,7 +3,7 @@ import type React from "react";
 import { StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
 
 export type StackGap = "none" | "sm" | "md" | "lg" | "xl";
 
@@ -24,7 +24,7 @@ export type StackProps = {
 	wrap?: boolean;
 };
 
-const createStackStyles = (t: ReturnType<typeof usePdfxTheme>) => {
+const createStackStyles = (t: PdfxTheme) => {
 	const { spacing } = t.primitives;
 
 	return StyleSheet.create({
@@ -58,8 +58,8 @@ export const Stack = ({
 	style,
 	wrap,
 }: StackProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createStackStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createStackStyles(theme);
 	const gapMap = { lg: styles.gapLg, md: styles.gapMd, none: styles.gapNone, sm: styles.gapSm, xl: styles.gapXl };
 
 	const alignMap = {

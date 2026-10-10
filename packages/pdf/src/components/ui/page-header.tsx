@@ -3,10 +3,7 @@ import type { ReactNode } from "react";
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type PageHeaderVariant =
 	| "simple"
@@ -269,8 +266,8 @@ export const PageHeader = ({
 	titleColor,
 	variant = "simple",
 }: PageHeaderProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createPageHeaderStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createPageHeaderStyles(theme);
 	const mb = marginBottom ?? theme.spacing.sectionGap;
 
 	const containerOverrides = [

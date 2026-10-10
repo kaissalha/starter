@@ -100,21 +100,6 @@ export const getFileUrl = async (file: Pick<FileRecord, "access" | "id" | "organ
 		: `/api/media?${new URLSearchParams({ fileId: file.id, organizationId: file.organizationId })}`;
 };
 
-export const setFileIngestRunId = async ({
-	fileId,
-	organizationId,
-	runId,
-}: {
-	fileId: string;
-	organizationId: string;
-	runId: string;
-}) => {
-	await db
-		.update(files)
-		.set({ ingestRunId: runId })
-		.where(and(eq(files.id, fileId), eq(files.organizationId, organizationId)));
-};
-
 const staleIngestAfterMs = 5 * 60 * 1000;
 
 const abandonIngestAfterMs = 30 * 60 * 1000;
@@ -136,7 +121,7 @@ const restartStalledIngestRun = async (runId: string) => {
 	return true;
 };
 
-export const failStalePendingFiles = async ({
+const failStalePendingFiles = async ({
 	fileIds,
 	organizationId,
 }: {
@@ -302,19 +287,6 @@ export const setFileRagStatus = async ({
 		.set({ processingError: error, ragStatus: status, updatedAt: new Date().toISOString() })
 		.where(and(eq(files.id, fileId), eq(files.organizationId, organizationId)));
 };
-
-export const markFileReady = ({ fileId, organizationId }: { fileId: string; organizationId: string }) =>
-	setFileRagStatus({ fileId, organizationId, status: "ready" });
-
-export const markFileFailed = ({
-	error,
-	fileId,
-	organizationId,
-}: {
-	error: string;
-	fileId: string;
-	organizationId: string;
-}) => setFileRagStatus({ error, fileId, organizationId, status: "failed" });
 
 export const applyFileEnrichment = async ({
 	docDate = null,

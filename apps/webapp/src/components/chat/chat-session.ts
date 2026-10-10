@@ -11,42 +11,64 @@ import {
 } from "ai";
 import { useTranslations } from "next-intl";
 import { v4 as uuidv4 } from "uuid";
+import { z } from "zod";
 
 import { useOrganizationPermissions } from "@/hooks/use-organization-permissions";
 import { client } from "@/lib/api-client";
 import type { DashboardChatUIMessage as BaseChatUIMessage, DashboardChatTools } from "@starter/server";
 
-import { classifyChatError } from "./chat-error-message";
-import { chatToolDataChanges, type ChatDataDomain } from "./chat-tool-data-changes";
+const serverErrorSchema = z.compile(z.object({ error: z.object({ message: z.string() }) }));
+
+const knownErrors = [
+	["Assistant continuation does not match", "continuationMismatch"],
+	["Resolve the pending assistant request", "continuationMismatch"],
+	["This approval is no longer pending", "approvalExpired"],
+] as const;
+
+const extractErrorMessage = (rawMessage: string) => {
+	if (!rawMessage.trimStart().startsWith("{")) {
+		return rawMessage;
+	}
+
+	try {
+		// oxlint-disable-next-line unicorn(prefer-structured-clone)
+		return serverErrorSchema.safeParse(JSON.parse(rawMessage)).data?.error.message;
+	} catch {
+		return undefined;
+	}
+};
+
+const classifyChatError = (
+	rawMessage: string
+): { key: "approvalExpired" | "continuationMismatch" | "generic" } | { message: string } => {
+	const message = extractErrorMessage(rawMessage);
+	const known = knownErrors.find(([prefix]) => message?.startsWith(prefix));
+
+	if (known) {
+		return { key: known[1] };
+	}
+
+	return message ? { message } : { key: "generic" };
+};
 
 export type ChatSessionConfig = {
 	chatId: string;
-	library?: { assetId?: string };
 	onChatCreated?: (chatId: string) => void;
-	onDataChange?: Partial<Record<ChatDataDomain, () => void>>;
 };
 
 type ChatSession = ReturnType<typeof createChatSession>;
 
-export type ChatRuntimeActions = ChatSession["actions"];
+type ChatPart = BaseChatUIMessage["parts"][number];
 
 export type ChatSessionState = {
-	actions: ChatRuntimeActions | undefined;
+	actions: ChatSession["actions"];
 	error: Error | undefined;
+	isLoading: boolean;
 	messages: Array<BaseChatUIMessage>;
 	status: ChatStatus;
 };
 
 type PendingSend = { reject: (error: Error) => void; resolve: () => void };
-
-const listCompletedToolCalls = (messages: Array<BaseChatUIMessage>) =>
-	messages.flatMap(({ parts }) =>
-		parts.flatMap((part) =>
-			isToolUIPart(part) && part.state === "output-available"
-				? [{ toolCallId: part.toolCallId, toolName: part.type.slice("tool-".length) }]
-				: []
-		)
-	);
 
 type ChatSessionSettings = { canWrite: boolean; config: ChatSessionConfig };
 
@@ -61,7 +83,6 @@ const createChatSession = ({
 }) => {
 	const { chatId } = settings.config;
 	const current = { ...settings };
-	const reportedToolCallIds = new Set(listCompletedToolCalls(initialMessages).map(({ toolCallId }) => toolCallId));
 	const chatCreated = { value: initialMessages.length > 0 };
 	const pendingSend: PendingSendReference = {};
 
@@ -89,29 +110,13 @@ const createChatSession = ({
 				} catch {}
 			}
 		},
-		onFinish: ({ isAbort, isError, messages }) => {
+		onFinish: ({ isAbort, isError }) => {
 			if (isError) {
 				settleSend(new Error("Chat request failed."));
 			} else if (isAbort) {
 				settleSend(new Error("Chat request was cancelled."));
 			} else {
 				settleSend();
-			}
-
-			const domains = new Set(
-				listCompletedToolCalls(messages).flatMap(({ toolCallId, toolName }) => {
-					if (reportedToolCallIds.has(toolCallId)) {
-						return [];
-					}
-
-					reportedToolCallIds.add(toolCallId);
-
-					return chatToolDataChanges.get(toolName) ?? [];
-				})
-			);
-
-			for (const domain of domains) {
-				current.config.onDataChange?.[domain]?.();
 			}
 		},
 		sendAutomaticallyWhen: (options) =>
@@ -135,7 +140,7 @@ const createChatSession = ({
 			prepareReconnectToStreamRequest: ({ id }) => ({ api: `/api/chats/${id}/stream` }),
 			prepareSendMessagesRequest: ({ body, id, messages }) => ({
 				api: `/api/chats/${id}/stream`,
-				body: { ...body, library: current.config.library, message: messages.at(-1) },
+				body: { ...body, message: messages.at(-1) },
 			}),
 		}),
 	});
@@ -189,16 +194,14 @@ const createChatSession = ({
 	};
 };
 
-export const selectChatSessionAwaitingApproval = ({ messages }: ChatSessionState) =>
-	messages.some((message) =>
-		message.parts.some(
-			(part) => isToolUIPart(part) && part.state === "approval-requested" && !part.approval.isAutomatic
-		)
-	);
+export const isPendingApprovalPart = (part: ChatPart): part is Extract<ChatPart, { state: "approval-requested" }> =>
+	isToolUIPart(part) && part.state === "approval-requested" && !part.approval.isAutomatic;
 
-export const selectChatSessionBusy = ({ messages, status }: ChatSessionState) =>
-	status === "streaming" ||
-	status === "submitted" ||
+export const isAwaitingApproval = (messages: Array<BaseChatUIMessage>) =>
+	messages.some((message) => message.parts.some(isPendingApprovalPart));
+
+export const isChatSessionBusy = ({ isLoading, messages }: Pick<ChatSessionState, "isLoading" | "messages">) =>
+	isLoading ||
 	messages.some((message) =>
 		message.parts.some(
 			(part) =>
@@ -248,31 +251,23 @@ export const ChatSessionProvider = ({
 	return createElement(ChatSessionContext.Provider, { value: session }, children);
 };
 
-const useChatSessionContext = () => {
+export const useChatSession = (): ChatSessionState => {
 	const session = useContext(ChatSessionContext);
 
 	if (session == null) {
 		throw new Error("useChatSession must be used within ChatSessionProvider");
 	}
 
-	return session;
-};
-
-export const useChatSession = <T>(selector: (state: ChatSessionState) => T): T => {
-	const { actions, chat } = useChatSessionContext();
+	const { actions, chat } = session;
 	const { error, messages, status } = useChat({ chat, throttle: 100 });
 	const t = useTranslations("components.chat.errors");
 	const classified = error ? classifyChatError(error.message) : undefined;
 
-	return selector({
+	return {
 		actions,
 		error: classified && new Error("key" in classified ? t(classified.key) : classified.message),
+		isLoading: status === "streaming" || status === "submitted",
 		messages,
 		status,
-	});
+	};
 };
-
-export const useChatMessageIds = () => useChatSession(({ messages }) => messages.map(({ id }) => id));
-
-export const useChatMessage = (messageId: string) =>
-	useChatSession(({ messages }) => messages.find(({ id }) => id === messageId));

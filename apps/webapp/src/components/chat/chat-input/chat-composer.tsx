@@ -3,6 +3,8 @@
 import type React from "react";
 import { useRef } from "react";
 
+import { Add01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
 
 import { CHAT_ATTACHMENT_MAX_FILES, CHAT_ATTACHMENT_MAX_SIZE_BYTES } from "@/components/chat/chat-attachments";
@@ -19,11 +21,11 @@ import {
 	ChatInputSubmit,
 	ChatInputTextArea,
 } from "@/components/chat/chat-input/chat-input";
-import { ChatPlusMenu } from "@/components/chat/chat-input/chat-plus-menu";
 import { useChatDropHandlers } from "@/components/chat/use-chat-drop-handlers";
 import { useChatState } from "@/components/chat/use-chat-state";
 import { MediaPicker } from "@/components/media/media-picker";
 import { useOrganizationPermissions } from "@/hooks/use-organization-permissions";
+import { Button } from "@starter/ui/components/button";
 import { Input } from "@starter/ui/components/input";
 import { Skeleton } from "@starter/ui/components/skeleton";
 import { cn } from "@starter/ui/lib/utils";
@@ -41,7 +43,7 @@ const ATTACHMENT_MAX_SIZE_LABEL =
 		? `${Math.max(1, Math.round(CHAT_ATTACHMENT_MAX_SIZE_BYTES / 1024))} KB`
 		: `${Math.round(CHAT_ATTACHMENT_MAX_SIZE_BYTES / (1024 * 1024))} MB`;
 
-export type ChatComposerProps = {
+type ChatComposerProps = {
 	accept?: string;
 	className?: string;
 	containerClassName?: string;
@@ -79,6 +81,7 @@ export const ChatComposer = ({
 	const tPermissions = useTranslations("permissions");
 	const tChats = useTranslations("chats");
 	const inputT = useTranslations("components.chat.input");
+	const plusMenuT = useTranslations("components.chat.chatInput.plusMenu");
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const pendingQuestions = usePendingAskUserQuestions();
 
@@ -212,7 +215,21 @@ export const ChatComposer = ({
 								<ChatInputTextArea autoFocus placeholder={placeholder ?? tChats("placeholder")} />
 								<ChatInputControls>
 									<div className='flex items-center gap-1'>
-										<ChatPlusMenu disabled={isAttachDisabled} fileInputRef={fileInputRef} />
+										<Button
+											aria-label={plusMenuT("addFiles")}
+											disabled={isAttachDisabled}
+											onClick={() => fileInputRef.current?.click()}
+											size='icon-sm'
+											type='button'
+											variant='ghost'
+										>
+											<HugeiconsIcon
+												aria-hidden
+												className='scale-110'
+												icon={Add01Icon}
+												strokeWidth={1.75}
+											/>
+										</Button>
 										{media && (
 											<MediaPicker disabled={isAttachDisabled} onSelect={addUploadedMedia} />
 										)}

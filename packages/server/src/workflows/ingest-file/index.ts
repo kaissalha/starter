@@ -1,18 +1,27 @@
 import { createStep, createWorkflow } from "@mastra/core/workflows";
 import { waitUntil } from "@vercel/functions";
+import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 
+import { db, files } from "@starter/db";
 import { MAX_INGEST_TEXT_LENGTH } from "@starter/documents";
 import { log, serializeLogError } from "@starter/observability";
 
-import { classifyDocument, classifyImage, clearChunks, embedAndInsertChunks } from "./mastra-steps";
-import { applyEnrichment, chunkContent, extractDocumentText, loadIngestFile, markFailed, markReady } from "./steps";
+import { deleteKnowledgeFile, upsertKnowledgeChunks } from "../../ai/knowledge";
+import { FILE_PROCESSING_FAILED_CODE, setFileRagStatus } from "../../services/storage";
+import {
+	applyEnrichment,
+	chunkContent,
+	classifyDocument,
+	classifyImage,
+	extractDocumentText,
+	loadIngestFile,
+	markFailed,
+} from "./steps";
 
 const EMBED_BATCH_SIZE = 20;
 
 const EMBED_BATCH_CONCURRENCY = 3;
-
-export const ingestFileWorkflowId = "ingest-file";
 
 const ingestInputSchema = z.object({
 	fileId: z.string().min(1),
@@ -96,9 +105,7 @@ const enrichFileStep = createStep({
 				return;
 			}
 
-			const classification = text.trim()
-				? await classifyDocument({ organizationId, text })
-				: await classifyImage({ file, organizationId });
+			const classification = text.trim() ? await classifyDocument({ text }) : await classifyImage({ file });
 
 			await applyEnrichment({ classification, fileId, organizationId });
 		}),
@@ -114,7 +121,7 @@ const indexChunksStep = createStep({
 				return;
 			}
 
-			await clearChunks({ fileId, organizationId });
+			await deleteKnowledgeFile({ fileId, organizationId });
 			const chunks = await chunkContent({ contentType: file.contentType, pages, text });
 
 			const batches = Array.from({ length: Math.ceil(chunks.length / EMBED_BATCH_SIZE) }, (_, index) =>
@@ -124,7 +131,7 @@ const indexChunksStep = createStep({
 			while (batches.length > 0) {
 				const batchResults = await Promise.allSettled(
 					batches.splice(0, EMBED_BATCH_CONCURRENCY).map((chunkBatch) =>
-						embedAndInsertChunks({
+						upsertKnowledgeChunks({
 							chunks: chunkBatch,
 							fileId,
 							fileName: file.name,
@@ -160,7 +167,7 @@ const markReadyStep = createStep({
 			return { status: "missing" as const };
 		}
 
-		await markReady({ fileId, organizationId });
+		await setFileRagStatus({ fileId, organizationId, status: "ready" });
 
 		return { status: "ready" as const };
 	},
@@ -181,7 +188,7 @@ const recordIngestFailure = async ({ error, input }: { error?: { message?: strin
 
 	const cleanupFailure = await (async () => {
 		try {
-			await clearChunks({ fileId, organizationId });
+			await deleteKnowledgeFile({ fileId, organizationId });
 
 			return undefined;
 		} catch (cleanupError) {
@@ -199,7 +206,7 @@ const recordIngestFailure = async ({ error, input }: { error?: { message?: strin
 /* oxlint-disable promise/prefer-await-to-then, github/no-then, unicorn/prefer-top-level-await -- Mastra's workflow builder chains steps with .then(); it is not a Promise. */
 export const ingestFileWorkflow = createWorkflow({
 	description: "Extracts, classifies, chunks and embeds an uploaded or written file for knowledge retrieval.",
-	id: ingestFileWorkflowId,
+	id: "ingest-file",
 	inputSchema: ingestInputSchema,
 	options: {
 		onError: ({ error, getInitData }) => recordIngestFailure({ error, input: getInitData() }),
@@ -213,8 +220,18 @@ export const ingestFileWorkflow = createWorkflow({
 /* oxlint-enable promise/prefer-await-to-then, github/no-then, unicorn/prefer-top-level-await */
 
 export const startIngestFile = async (input: z.infer<typeof ingestInputSchema>) => {
-	const { mastra } = await import("../../ai");
-	const run = await mastra.getWorkflow("ingestFileWorkflow").createRun({ resourceId: input.organizationId });
+	const { fileId, organizationId } = input;
+
+	const run = await (async () => {
+		try {
+			const { mastra } = await import("../../ai");
+
+			return await mastra.getWorkflow("ingestFileWorkflow").createRun({ resourceId: organizationId });
+		} catch (error) {
+			await setFileRagStatus({ error: FILE_PROCESSING_FAILED_CODE, fileId, organizationId, status: "failed" });
+			throw error;
+		}
+	})();
 
 	const execute = async () => {
 		try {
@@ -229,6 +246,11 @@ export const startIngestFile = async (input: z.infer<typeof ingestInputSchema>) 
 	};
 
 	waitUntil(execute());
+
+	await db
+		.update(files)
+		.set({ ingestRunId: run.runId })
+		.where(and(eq(files.id, fileId), eq(files.organizationId, organizationId)));
 
 	return { runId: run.runId };
 };

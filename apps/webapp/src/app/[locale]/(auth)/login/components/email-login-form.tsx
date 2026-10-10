@@ -6,17 +6,16 @@ import { useForm } from "react-hook-form";
 import validator from "validator";
 import { z } from "zod";
 
-import type { TranslationFunction } from "@/types/translation";
 import { Button } from "@starter/ui/components/button";
 import { Field, FieldControl, FieldError, FieldLabel } from "@starter/ui/components/field";
 import { Form } from "@starter/ui/components/form";
 
-const loginSchema = (t: TranslationFunction<"account.login">) =>
+const loginSchema = ({ invalidMessage, requiredMessage }: { invalidMessage: string; requiredMessage: string }) =>
 	z.object({
 		email: z
 			.string()
-			.min(1, { message: t("fields.email.validation.required") })
-			.refine((value) => validator.isEmail(value), { message: t("fields.email.validation.invalid") }),
+			.min(1, { message: requiredMessage })
+			.refine((value) => validator.isEmail(value), { message: invalidMessage }),
 	});
 
 type LoginFormValues = z.infer<ReturnType<typeof loginSchema>>;
@@ -33,7 +32,12 @@ export const EmailLoginForm = ({ onBack, onEmailSubmit }: EmailLoginFormProps) =
 		defaultValues: {
 			email: "",
 		},
-		resolver: zodResolver(loginSchema(t)),
+		resolver: zodResolver(
+			loginSchema({
+				invalidMessage: t("fields.email.validation.invalid"),
+				requiredMessage: t("fields.email.validation.required"),
+			})
+		),
 	});
 
 	const isSubmitting = form.formState.isSubmitting;

@@ -10,7 +10,7 @@ import { chatGenUILibrary } from "@/lib/genui-library";
 import { getOpenUIValidationErrors } from "@starter/genui";
 import { normalizeOpenUIActionText } from "@starter/genui/text";
 
-import { selectChatSessionBusy, useChatSession } from "../stores/chat-session-store";
+import { isChatSessionBusy, useChatSession } from "../chat-session";
 
 const urlSchema = z.compile(z.url().refine((value) => /^https?:\/\//u.test(value)));
 
@@ -45,17 +45,16 @@ const getAssistantActionMessage = (event: ActionEvent) => {
 	return normalizedMessage;
 };
 
-export type OpenUIBlockProps = {
+type OpenUIBlockProps = {
 	code: string;
 	complete: boolean;
 	isStreaming: boolean;
 };
 
 export const OpenUIBlock = ({ code, complete, isStreaming }: OpenUIBlockProps) => {
-	const { sendMessage, sessionBusy } = useChatSession((state) => ({
-		sendMessage: state.actions?.sendMessage,
-		sessionBusy: selectChatSessionBusy(state),
-	}));
+	const session = useChatSession();
+	const { sendMessage } = session.actions;
+	const sessionBusy = isChatSessionBusy(session);
 
 	const t = useTranslations("components.chat.message");
 	const externalActionInFlight = useRef(false);
@@ -91,7 +90,7 @@ export const OpenUIBlock = ({ code, complete, isStreaming }: OpenUIBlockProps) =
 
 			const message = getAssistantActionMessage(event);
 
-			if (!message || !sendMessage) {
+			if (!message) {
 				return;
 			}
 

@@ -2,22 +2,41 @@
 
 import { type ReactNode } from "react";
 
+import { Alert02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { isToolUIPart } from "ai";
 
 import type { DashboardChatUIMessage as BaseChatUIMessage } from "@starter/server";
 
-import { ChatSteps } from "./chat-steps";
-import { getVisibleMessageParts } from "./get-visible-message-parts";
-import { ErrorPart } from "./parts/error-part";
+import { ChatMessageMarkdown } from "./chat-message-markdown";
+import { ChatSteps, ThinkingStep, ThinkingSteps } from "./chat-step-item";
 import { FilePart } from "./parts/file-part";
 import { SourcePart } from "./parts/source-part";
 import { TextPart } from "./parts/text-part";
 import { ToolPart } from "./parts/tool-part";
-import { ThinkingStep, ThinkingSteps } from "./thinking-step";
 
 export type ChatMessagePart = BaseChatUIMessage["parts"][number];
 
 export type ChatMessagePartType = ChatMessagePart["type"];
+
+const skillToolNames = ["skill", "skill_read", "skill_search"];
+
+export const isSkillPart = (part: ChatMessagePart) =>
+	(part.type.startsWith("tool-") && skillToolNames.includes(part.type.slice("tool-".length))) ||
+	(part.type === "dynamic-tool" && skillToolNames.includes(part.toolName));
+
+export const getVisibleMessageParts = ({ isUser, parts }: { isUser: boolean; parts: Array<ChatMessagePart> }) => {
+	if (isUser) {
+		return parts;
+	}
+
+	const lastToolIndex = parts.findLastIndex(isToolUIPart);
+
+	return parts.filter(
+		(part, index) =>
+			part.type !== "reasoning" && (part.type !== "text" || index > lastToolIndex) && !isSkillPart(part)
+	);
+};
 
 type ChatMessagePartsProps = {
 	isStreaming: boolean;
@@ -81,14 +100,21 @@ const renderMessagePart = ({
 				key={key}
 				output={part.output}
 				state={part.state}
-				toolCallId={part.toolCallId}
 				toolName={part.type === "dynamic-tool" ? part.toolName : part.type.slice("tool-".length)}
 			/>
 		);
 	}
 
 	if (part.type === "data-error") {
-		return <ErrorPart key={key} message={part.data.message} />;
+		return (
+			<div
+				className='flex w-fit max-w-full items-center gap-3 rounded-2xl bg-destructive/10 px-4 py-3 text-destructive'
+				key={key}
+			>
+				<HugeiconsIcon aria-hidden='true' className='scale-110' icon={Alert02Icon} strokeWidth={1.75} />
+				<ChatMessageMarkdown>{part.data.message}</ChatMessageMarkdown>
+			</div>
+		);
 	}
 
 	return null;

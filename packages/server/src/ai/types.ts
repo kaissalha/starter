@@ -29,7 +29,7 @@ export const toolInput = <Schema extends z.ZodType>(schema: Schema) => z.compile
 export const createDashboardChatRequestContext = (values: AppContext) =>
 	new RequestContext<AppContext>(Object.entries(values));
 
-export type BaseCustomUIDataTypes = {
+type BaseCustomUIDataTypes = {
 	attachment: {
 		fileId: string;
 		filename: string;

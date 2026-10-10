@@ -11,6 +11,11 @@ const BLOB_BATCH_SIZE = 25;
 
 const MAX_ATTEMPTS = 20;
 
+const THREAD_BATCH_SIZE = 100;
+
+const chunk = <Item>(items: Array<Item>, size: number) =>
+	Array.from({ length: Math.ceil(items.length / size) }, (_, index) => items.slice(index * size, (index + 1) * size));
+
 type PurgeBlob = { access: "private" | "public"; key: string };
 
 const listUploadBlobs = async ({
@@ -49,6 +54,33 @@ const summarizeFailures = (failures: Record<string, Array<unknown>>) =>
 				`${step}:${errors.length}:${[...new Set(errors.map((error) => (error instanceof Error ? error.name : "Error")))].join(",")}`
 		)
 		.join(" ");
+
+export const deleteOrganizationAIData = async ({ organizationId }: { organizationId: string }) => {
+	const [{ deleteKnowledgeOrganization }, { dashboardChatMemory, mastraStorage }, { cancelChatStream }] =
+		await Promise.all([import("../ai/knowledge"), import("../ai/memory"), import("./chat")]);
+
+	const { threads } = await dashboardChatMemory.listThreads({
+		filter: { resourceId: organizationId },
+		perPage: false,
+	});
+
+	for (const batch of chunk(threads, THREAD_BATCH_SIZE)) {
+		await Promise.all(
+			batch.map(async ({ id: chatId }) => {
+				await cancelChatStream({ chatId, organizationId });
+				await dashboardChatMemory.deleteThread(chatId);
+			})
+		);
+	}
+
+	const memoryStore = await mastraStorage.getStore("memory");
+
+	if (await memoryStore?.getResourceById({ resourceId: organizationId })) {
+		await memoryStore?.updateResource({ resourceId: organizationId, workingMemory: "" });
+	}
+
+	await deleteKnowledgeOrganization({ organizationId });
+};
 
 export const snapshotOrganizationPurge = async ({ organizationId }: { organizationId: string }) => {
 	const values = {
@@ -92,20 +124,14 @@ export const runOrganizationPurge = async ({ organizationId }: { organizationId:
 			.set({ ...values, updatedAt: new Date().toISOString() })
 			.where(eq(organizationPurges.organizationId, organizationId));
 
-	const [aiResult] = await Promise.allSettled([
-		(async () => {
-			const { deleteOrganizationAIData } = await import("./organization-ai-data");
-			await deleteOrganizationAIData({ organizationId });
-		})(),
-	]);
+	const [aiResult] = await Promise.allSettled([deleteOrganizationAIData({ organizationId })]);
 
 	const blobResults: Array<PromiseSettledResult<void>> = [];
+	const remainingBlobs = () => purge.blobs.filter((_, index) => blobResults[index]?.status !== "fulfilled");
 
-	for (const batch of Array.from({ length: Math.ceil(purge.blobs.length / BLOB_BATCH_SIZE) }, (_, index) =>
-		purge.blobs.slice(index * BLOB_BATCH_SIZE, (index + 1) * BLOB_BATCH_SIZE)
-	)) {
+	for (const batch of chunk(purge.blobs, BLOB_BATCH_SIZE)) {
 		blobResults.push(...(await Promise.allSettled(batch.map((blob) => deleteBlob(blob)))));
-		await updatePurge({ blobs: purge.blobs.filter((_, index) => blobResults[index]?.status !== "fulfilled") });
+		await updatePurge({ blobs: remainingBlobs() });
 	}
 
 	const rejected = (results: Array<PromiseSettledResult<unknown>>) =>
@@ -116,7 +142,7 @@ export const runOrganizationPurge = async ({ organizationId }: { organizationId:
 		blobs: rejected(blobResults),
 	});
 
-	const blobs = purge.blobs.filter((_, index) => blobResults[index]?.status !== "fulfilled");
+	const blobs = remainingBlobs();
 	const completed = !lastError && !blobs.length;
 
 	await updatePurge(

@@ -9,7 +9,7 @@ vi.mock("../../src/lib/blob-storage", () => ({
 	uploadBufferToBlob: vi.fn(),
 }));
 
-vi.mock("../../src/services/documents", () => ({ startFileIngestion: vi.fn() }));
+vi.mock("../../src/workflows/ingest-file", () => ({ startIngestFile: vi.fn() }));
 
 import { getLibraryAsset, listLibraryAssets } from "../../src/services/library";
 import { cleanupTestActors, createTestOrganization } from "../helpers/db";

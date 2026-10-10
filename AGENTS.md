@@ -59,7 +59,7 @@
   `packages/server/src/workflows`. Services must not import the API layer; routers must not import `@starter/db`.
 - Procedures are internal by default and available through `/api/rpc`. `publicApi(true)` is an explicit opt-in to the
   API-key-authenticated `/api/v1` REST/OpenAPI surface. Do not assume an oRPC procedure automatically becomes an MCP
-  tool; `/api/mcp` is wired separately in `packages/server/src/api/mcp.ts` and its `src/api/mcp-tools` modules.
+  tool; `/api/mcp` is wired separately in `packages/server/src/api/mcp.ts`.
 - Better Auth owns `/api/auth/*`. AI chat streaming, media transfer, and MCP remain plain protocol-specific handlers in
   `packages/server/src/api`, mounted by Next.js routes.
 - Authentication is permanently passwordless: email OTP and optional Google sign-in. Never add credentials, passwords,

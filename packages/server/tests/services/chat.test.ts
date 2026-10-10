@@ -152,17 +152,6 @@ describe("chat service", () => {
 		expect(memory.listThreads).toHaveBeenCalledWith(expect.objectContaining({ page: 1 }));
 	});
 
-	it("hides Library chats from the history and skips pages that hold nothing else", async () => {
-		const libraryThread = { ...thread, id: "library-thread", metadata: { libraryChat: "user-1:library" } };
-		memory.listThreads
-			.mockResolvedValueOnce({ ...threadPage, hasMore: true, threads: [libraryThread] })
-			.mockResolvedValueOnce({ ...threadPage, hasMore: true, page: 1, threads: [libraryThread, thread] });
-
-		await expect(getChats({ organizationId })).resolves.toEqual({ chats: [thread], nextPage: 2 });
-		expect(memory.listThreads).toHaveBeenCalledTimes(2);
-		expect(memory.listThreads).toHaveBeenLastCalledWith(expect.objectContaining({ page: 1 }));
-	});
-
 	it("loads and converts authorized Mastra messages", async () => {
 		const message = {
 			content: { format: 2 as const, parts: [{ text: "Hello", type: "text" as const }] },

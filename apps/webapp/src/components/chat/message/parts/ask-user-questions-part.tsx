@@ -1,24 +1,43 @@
 "use client";
 
-import { MessageQuestionIcon } from "@hugeicons/core-free-icons";
+import { Alert02Icon, MessageQuestionIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTranslations } from "next-intl";
+import { z } from "zod";
 
-import { askUserQuestionsOutputSchema } from "./ask-user-questions-schema";
-import { ToolError, ToolLoading } from "./tool-loading";
-import type { ToolState } from "./tool-part-types";
+import { TextShimmer } from "@starter/ui/components/text-shimmer";
 
-export type AskUserQuestionsPartProps = {
-	errorText?: string;
-	output?: unknown;
-	state: ToolState;
-};
+import { ChatActivityOrb } from "../chat-step-item";
+import type { ToolState } from "./tool-part";
 
-export const AskUserQuestionsPart = ({ output, state }: AskUserQuestionsPartProps) => {
+const askUserQuestionsOutputSchema = z.compile(
+	z.object({
+		answers: z
+			.array(
+				z.object({
+					otherText: z.string().optional(),
+					question: z.string(),
+					questionId: z.string(),
+					selectedOptions: z.array(z.string()).optional(),
+					skipped: z.boolean().optional(),
+				})
+			)
+			.optional(),
+		dismissed: z.boolean().optional(),
+	})
+);
+
+export const AskUserQuestionsPart = ({ output, state }: { output?: unknown; state: ToolState }) => {
 	const t = useTranslations("components.chat.message.tool.askUserQuestions");
+	const tTool = useTranslations("components.chat.message.tool");
 
 	if (state === "input-streaming" || state === "approval-requested" || state === "approval-responded") {
-		return <ToolLoading message={t("title")} />;
+		return (
+			<div className='flex items-center gap-2.5 rounded-2xl border border-border/50 bg-muted/30 px-4 py-3'>
+				<ChatActivityOrb state='composing' />
+				<TextShimmer variant='muted'>{t("title")}</TextShimmer>
+			</div>
+		);
 	}
 
 	if (state === "input-available") {
@@ -36,7 +55,12 @@ export const AskUserQuestionsPart = ({ output, state }: AskUserQuestionsPartProp
 	}
 
 	if (state === "output-error" || state === "output-denied") {
-		return <ToolError />;
+		return (
+			<div className='flex items-center gap-3 rounded-2xl bg-destructive/10 px-4 py-3 text-destructive'>
+				<HugeiconsIcon aria-hidden='true' className='size-4 scale-110' icon={Alert02Icon} strokeWidth={1.75} />
+				<span className='text-sm'>{tTool("error")}</span>
+			</div>
+		);
 	}
 
 	const parsedOutput = askUserQuestionsOutputSchema.safeParse(output);

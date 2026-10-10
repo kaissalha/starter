@@ -7,19 +7,64 @@ import {
 	getApiKeyFromHeaders,
 	MCP_RESOURCE,
 	ORGANIZATION_ID_CLAIM,
-	resolveOAuthSession,
+	resolveOrganizationSession,
 	resolveSession,
 } from "../lib/auth";
+import {
+	getNotificationSettings,
+	notificationSettingUpdateSchema,
+	updateNotificationSetting,
+} from "../services/notifications/preferences";
 import { requireOrganizationPermission } from "../services/permissions";
-import { registerNotificationMcpTools } from "./mcp-tools/notifications";
 
 const createOrganizationMcpHandler = async ({ organizationId, userId }: { organizationId: string; userId: string }) => {
 	await requireOrganizationPermission({ organizationId, permission: "read", userId });
 
 	return createMcpHandler(() => {
 		const server = new McpServer({ name: "starter", version: "1.0.0" });
-		const context = { organizationId, server, userId };
-		registerNotificationMcpTools(context);
+		server.registerTool(
+			"list_notification_settings",
+			{
+				annotations: { destructiveHint: false, openWorldHint: false, readOnlyHint: true },
+				description:
+					"List the signed-in member's notification settings in the active organization, including each channel's state and whether it is locked on.",
+				inputSchema: z.compile(z.object({})),
+				title: "listNotificationSettings",
+			},
+			async () => ({
+				content: [
+					{
+						text: JSON.stringify(await getNotificationSettings({ actor: { organizationId, userId } })),
+						type: "text",
+					},
+				],
+			})
+		);
+		server.registerTool(
+			"update_notification_setting",
+			{
+				annotations: {
+					destructiveHint: false,
+					idempotentHint: true,
+					openWorldHint: false,
+					readOnlyHint: false,
+				},
+				description:
+					"Turn one notification channel on or off for the signed-in member, using an exact type and channel from list_notification_settings. Locked channels cannot be turned off.",
+				inputSchema: notificationSettingUpdateSchema,
+				title: "updateNotificationSetting",
+			},
+			async (input) => ({
+				content: [
+					{
+						text: JSON.stringify(
+							await updateNotificationSetting({ actor: { organizationId, userId }, input })
+						),
+						type: "text",
+					},
+				],
+			})
+		);
 
 		return server;
 	});
@@ -42,7 +87,7 @@ const oauthHandler = requireMcpAuth(
 		}
 
 		if (
-			!(await resolveOAuthSession({
+			!(await resolveOrganizationSession({
 				organizationId: claims.data[ORGANIZATION_ID_CLAIM],
 				userId: claims.data.sub,
 			}))

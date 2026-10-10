@@ -9,7 +9,7 @@ import {
 	DashboardHomePage,
 	DashboardNewHomePage,
 } from "@/app/[locale]/dashboard/(home)/components/dashboard-home-page";
-import type { ChatSessionConfig, ChatSessionState } from "@/components/chat/stores/chat-session-store";
+import type { ChatSessionConfig } from "@/components/chat/chat-session";
 
 import { mockOrganizationPermissions } from "../mocks/organization-permissions";
 
@@ -23,7 +23,7 @@ vi.mock("@/lib/api-client", () => ({
 	apiClient: { chats: { list: { key: () => ["chats"] } } },
 }));
 
-vi.mock("@/components/chat/stores/chat-session-store", async () => {
+vi.mock("@/components/chat/chat-session", async () => {
 	const { createContext, useContext, useState } = await import("react");
 	const message = { id: "message", parts: [{ text: "Hello", type: "text" as const }], role: "user" as const };
 	const CreatedContext = createContext(false);
@@ -55,13 +55,7 @@ vi.mock("@/components/chat/stores/chat-session-store", async () => {
 				</CreatedContext.Provider>
 			);
 		},
-		useChatSession: <T,>(selector: (state: ChatSessionState) => T) =>
-			selector({
-				actions: undefined,
-				error: undefined,
-				messages: useContext(CreatedContext) ? [message] : [],
-				status: "ready",
-			}),
+		useChatSession: () => ({ messages: useContext(CreatedContext) ? [message] : [] }),
 	};
 });
 

@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 import { getDisplayFileExtension } from "@starter/documents";
 import { cn } from "@starter/ui/lib/utils";
 
-export type FilePartProps = {
+type FilePartProps = {
 	filename?: string;
 	mediaType: string;
 	url: string;

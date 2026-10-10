@@ -1,7 +1,25 @@
 import type { PdfxTheme } from "../../lib/theme";
-import type { ChartLayout, GraphDataPoint, GraphSeries, GraphWidthOptions } from "./graph-types";
 
-export const A4_WIDTH = 595;
+export type GraphWidthOptions = { containerPadding?: number; pageWidth?: number; wrapperPadding?: number };
+
+export type GraphDataPoint = { color?: string; label: string; value: number };
+
+export type GraphSeries = { color?: string; data: Array<GraphDataPoint>; name: string };
+
+export type ChartLayout = {
+	chartH: number;
+	chartW: number;
+	chartX: number;
+	chartY: number;
+	svgH: number;
+	svgW: number;
+	xLabels: Array<string>;
+	yMax: number;
+	yMin: number;
+	yTicks: Array<number>;
+};
+
+const A4_WIDTH = 595;
 
 export const GRAPH_SAFE_WIDTHS = { default: 420, inSection: 400, inSectionWithWrapper: 380 } as const;
 
@@ -12,7 +30,7 @@ export const getGraphWidth = (theme: PdfxTheme, options: GraphWidthOptions = {})
 	return Math.max(Math.floor(pageWidth - marginLeft - marginRight - containerPadding * 2 - wrapperPadding * 2), 100);
 };
 
-export const CHART_MARGINS = { axisBottom: 24, axisLeft: 40, pieBottom: 10, pieLeft: 10, right: 10, top: 10 } as const;
+const CHART_MARGINS = { axisBottom: 24, axisLeft: 40, pieBottom: 10, pieLeft: 10, right: 10, top: 10 } as const;
 
 export const normalizeData = (data: Array<GraphDataPoint> | Array<GraphSeries>): Array<GraphSeries> => {
 	if (data.length === 0) {

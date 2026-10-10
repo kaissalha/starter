@@ -14,8 +14,6 @@ import { z } from "zod/v4";
 
 import { hasOpenUIVisibleContent, normalizeOpenUIVisibleText, OPENUI_CHART_MAGNITUDE_LIMIT } from "./text";
 
-export { type OpenUIFenceSegment, parseOpenUIFences } from "./openui";
-
 type SeriesChartRenderer = ComponentRenderer<{
 	labels: Array<string>;
 	series: Array<SubComponentOf<{ category: string; values: Array<number> }>>;

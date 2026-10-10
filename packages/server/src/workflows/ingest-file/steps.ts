@@ -1,3 +1,4 @@
+import { Agent } from "@mastra/core/agent";
 import { Language, MDocument } from "@mastra/rag";
 import { z } from "zod";
 
@@ -6,13 +7,21 @@ import { getExtensionFromFilename, MAX_INGEST_TEXT_LENGTH, normalizeContentType 
 import { extractFileText } from "@starter/documents/extraction";
 import { log } from "@starter/observability";
 
+import { decisionClassifiers, evaluateDecision } from "../../ai/decisions";
+import { models } from "../../ai/models";
+import {
+	documentCategoryQuestion,
+	fileClassificationSchema,
+	fileClassificationSystemPrompt,
+	imageClassificationSchema,
+	imageClassificationSystemPrompt,
+} from "../../ai/prompts";
 import { downloadBlob } from "../../lib/blob-storage";
 import {
 	applyFileEnrichment,
 	FILE_PROCESSING_FAILED_CODE,
 	getFile,
-	markFileFailed,
-	markFileReady,
+	setFileRagStatus,
 	upsertFileTags,
 } from "../../services/storage";
 
@@ -22,16 +31,23 @@ const startIndexSchema = z.compile(z.number().int().nonnegative());
 
 const docDateSchema = z.compile(z.iso.date().regex(/^(?:19|20)\d{2}-/u));
 
-export type IngestFile = {
-	access: "public" | "private";
-	contentType: string;
-	kind: "audio" | "document" | "image" | "other" | "text" | "video";
-	name: string;
-	source: string | null;
-	storageKey: string | null;
-};
+export const documentClassifierAgent = new Agent({
+	description: "Extracts untrusted document metadata for the knowledge library.",
+	id: "document-classifier",
+	instructions: fileClassificationSystemPrompt,
+	model: models.cheapFast.model,
+	name: "Document Classifier",
+});
 
-export type FileClassification = {
+export const imageClassifierAgent = new Agent({
+	description: "Extracts untrusted image metadata and visible text for the knowledge library.",
+	id: "image-classifier",
+	instructions: imageClassificationSystemPrompt,
+	model: models.vision.model,
+	name: "Image Classifier",
+});
+
+type FileClassification = {
 	date: string | null;
 	documentCategory?: FileMetadata["documentCategory"];
 	language: string | null;
@@ -41,7 +57,7 @@ export type FileClassification = {
 	title: string | null;
 };
 
-export const loadIngestFile = async (fileId: string, organizationId: string): Promise<IngestFile | null> => {
+export const loadIngestFile = async (fileId: string, organizationId: string) => {
 	const file = await getFile({ fileId, organizationId });
 
 	if (!file) {
@@ -57,6 +73,8 @@ export const loadIngestFile = async (fileId: string, organizationId: string): Pr
 		storageKey: file.storageKey,
 	};
 };
+
+type IngestFile = NonNullable<Awaited<ReturnType<typeof loadIngestFile>>>;
 
 export const extractDocumentText = async (file: IngestFile) => {
 	if (!file.storageKey) {
@@ -75,6 +93,64 @@ export const extractDocumentText = async (file: IngestFile) => {
 		pages: extracted.pages.map(({ pageNumber, text }) => ({ pageNumber, text: text.trim() })),
 		text: extracted.text.trim(),
 	};
+};
+
+const classificationTimeout = () => AbortSignal.timeout(120_000);
+
+const documentCategoryMinimumCharacters = 400;
+
+const sampleDocumentText = (text: string) =>
+	text.length <= 4000 ? text : `${text.slice(0, 3000)}\n[…]\n${text.slice(-1000)}`;
+
+export const classifyDocument = async ({ text }: { text: string }): Promise<FileClassification> => {
+	const [generated, classification] = await Promise.all([
+		documentClassifierAgent.generate(`<untrusted-document>\n${text.slice(0, 12_000)}\n</untrusted-document>`, {
+			abortSignal: classificationTimeout(),
+			modelSettings: { maxRetries: 2 },
+			structuredOutput: { schema: fileClassificationSchema },
+		}),
+		text.trim().length < documentCategoryMinimumCharacters
+			? null
+			: evaluateDecision({
+					classifier: decisionClassifiers.documentCategory,
+					policy: "background",
+					questions: { category: documentCategoryQuestion },
+					state: sampleDocumentText(text),
+				}),
+	]);
+
+	return {
+		...generated.object,
+		documentCategory: classification?.answers.category.choice ?? "unknown",
+		ocrText: null,
+	};
+};
+
+export const classifyImage = async ({ file }: { file: IngestFile }): Promise<FileClassification> => {
+	if (!file.storageKey) {
+		return { date: null, language: null, ocrText: null, summary: null, tags: [], title: file.name };
+	}
+
+	const { body } = await downloadBlob({ access: file.access, key: file.storageKey });
+
+	const { object } = await imageClassifierAgent.generate(
+		[
+			{
+				content: [
+					{ text: "Analyze this image and extract metadata and any visible text.", type: "text" },
+					{ data: new Uint8Array(body), mediaType: file.contentType, type: "file" },
+				],
+				role: "user",
+			},
+		],
+		{
+			abortSignal: classificationTimeout(),
+			modelSettings: { maxRetries: 2 },
+			structuredOutput: { schema: imageClassificationSchema },
+		}
+	);
+
+	return object;
 };
 
 export const chunkContent = async ({
@@ -126,8 +202,6 @@ export const chunkContent = async ({
 	return chunks;
 };
 
-export type IngestChunk = Awaited<ReturnType<typeof chunkContent>>[number];
-
 export const applyEnrichment = async ({
 	classification,
 	fileId,
@@ -159,10 +233,6 @@ export const applyEnrichment = async ({
 	}
 };
 
-export const markReady = async ({ fileId, organizationId }: { fileId: string; organizationId: string }) => {
-	await markFileReady({ fileId, organizationId });
-};
-
 export const markFailed = async ({
 	cause,
 	fileId,
@@ -174,5 +244,5 @@ export const markFailed = async ({
 }) => {
 	log.error({ cause, fileId, message: "File ingestion failed", organizationId });
 
-	await markFileFailed({ error: FILE_PROCESSING_FAILED_CODE, fileId, organizationId });
+	await setFileRagStatus({ error: FILE_PROCESSING_FAILED_CODE, fileId, organizationId, status: "failed" });
 };

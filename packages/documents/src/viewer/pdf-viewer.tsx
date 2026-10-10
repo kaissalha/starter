@@ -55,7 +55,6 @@ import {
 	ArrowLeft01Icon,
 	ArrowRight01Icon,
 	Download01Icon,
-	Loading03Icon,
 	MinusSignCircleIcon,
 	MoreHorizontalIcon,
 	PlusSignCircleIcon,
@@ -78,63 +77,37 @@ import { Popover, PopoverContent, PopoverTrigger } from "@starter/ui/components/
 import { ScrollArea } from "@starter/ui/components/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@starter/ui/components/select";
 import { Separator } from "@starter/ui/components/separator";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@starter/ui/components/tooltip";
+import { TooltipProvider } from "@starter/ui/components/tooltip";
 import { cn } from "@starter/ui/lib/utils";
 
+import { useDocumentViewerLabels, useDocumentViewerToolbarLeading } from "./context";
 import {
 	DocumentViewerSidebarSkeleton,
 	DocumentViewerThumbnailSidebar,
+	ToolbarTooltip,
+	ViewerSpinner,
 	useElementWidth,
-	useInlineThumbnailSidebar,
-} from "./document-viewer-sidebar";
-import { useDocumentViewerLabels } from "./labels";
-import { loadSharedPdfEngine } from "./pdf-thumbnail-utils";
-import { useDocumentViewerToolbarLeading } from "./toolbar-leading";
+} from "./viewer-shared";
+import {
+	ZOOM_MODE_LABELS,
+	composeRefs,
+	downloadBlob,
+	ensureExtension,
+	isZoomMode,
+	type ZoomModeLevel,
+} from "./viewer-utils";
 
-export type PDFViewerPageOverlayProps = {
-	pageNumber: number;
-	pageWidth: number;
-	pageHeight: number;
-	scale: number;
-	rotation: number;
-};
-export type PDFViewerHandle = {
-	scrollToPage: (pageNumber: number, options?: ScrollIntoViewOptions) => void;
-	scrollToPageArea: (
-		pageNumber: number,
-		area: {
-			top: number;
-			left?: number;
-			width?: number;
-			height?: number;
-		},
-		options?: ScrollToOptions
-	) => void;
-	getViewportElement: () => HTMLDivElement | null;
-};
-export type PDFViewerScrollAreaViewportResolver = (container: HTMLDivElement) => HTMLDivElement | null;
-export type PDFViewerZoomLevel = number | "fit-page" | "fit-width" | "automatic";
-export type PDFViewerProps = {
+type PDFViewerZoomLevel = number | ZoomModeLevel;
+type PDFViewerProps = {
 	className?: string;
 	defaultZoom?: PDFViewerZoomLevel;
 	fileName?: string;
-	resolveScrollAreaViewport?: PDFViewerScrollAreaViewportResolver;
 	showDownload?: boolean;
-	showToolbar?: boolean;
-	showRotateControls?: boolean;
 	showUpload?: boolean;
 	src?: string;
 	toolbarActions?: React.ReactNode;
-	pageClassName?: (pageNumber: number) => string | undefined;
-	renderPageOverlay?: (props: PDFViewerPageOverlayProps) => React.ReactNode;
-	onActivePageChange?: (pageNumber: number) => void;
-	onDocumentLoadSuccess?: (numPages: number) => void;
-	onPdfUpload?: (file: File) => void;
-	onPagePointerDown?: (event: React.PointerEvent<HTMLDivElement>, pageNumber: number) => void;
-	onPagePointerMove?: (event: React.PointerEvent<HTMLDivElement>, pageNumber: number) => void;
-	onPagePointerUp?: (event: React.PointerEvent<HTMLDivElement>, pageNumber: number) => void;
-	onPagePointerCancel?: (event: React.PointerEvent<HTMLDivElement>, pageNumber: number) => void;
 };
+const PDFIUM_WASM_URL = "https://cdn.jsdelivr.net/npm/@embedpdf/pdfium@2.15.1/dist/pdfium.wasm";
 const DEFAULT_ZOOM = 1;
 const ZOOM_OPTIONS = [0.1, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 2];
 const PAGE_GAP = 24;
@@ -152,27 +125,12 @@ const PDF_SEARCH_DEBOUNCE_MS = 300;
 const TEXT_SELECTION_BACKGROUND = "rgba(59, 130, 246, 0.14)";
 const THUMBNAIL_FOCUS_RING_CLASS =
 	"group-focus-visible/pdf-thumbnail-sidebar:ring-2 group-focus-visible/pdf-thumbnail-sidebar:ring-ring group-focus-visible/pdf-thumbnail-sidebar:ring-offset-1 group-focus-visible/pdf-thumbnail-sidebar:ring-offset-background";
-const DEFAULT_SCROLL_AREA_VIEWPORT_SELECTOR = '[data-slot="scroll-area-viewport"]';
-const ZOOM_MODE_LABELS: Record<ZoomMode, string> = {
-	[ZoomMode.FitPage]: "Fit page",
-	[ZoomMode.FitWidth]: "Fit width",
-	[ZoomMode.Automatic]: "Automatic",
-};
 function toZoomLevel(level: PDFViewerZoomLevel): ZoomMode | number {
 	if (level === "fit-page") return ZoomMode.FitPage;
 	if (level === "fit-width") return ZoomMode.FitWidth;
 	if (level === "automatic") return ZoomMode.Automatic;
 	return level;
 }
-function isZoomMode(value: unknown): value is ZoomMode {
-	return value === ZoomMode.FitPage || value === ZoomMode.FitWidth || value === ZoomMode.Automatic;
-}
-function resolveDefaultScrollAreaViewport(container: HTMLDivElement) {
-	return container.querySelector<HTMLDivElement>(DEFAULT_SCROLL_AREA_VIEWPORT_SELECTOR);
-}
-const PDFViewerScrollAreaResolverContext = React.createContext<PDFViewerScrollAreaViewportResolver>(
-	resolveDefaultScrollAreaViewport
-);
 type PageRotationDeltas = Map<number, Rotation>;
 type ThumbnailSelectionMode = "replace" | "toggle" | "range";
 function getPageIndexRange(from: number, to: number): Set<number> {
@@ -193,6 +151,13 @@ function arePageIndexSetsEqual(left: Set<number>, right: Set<number>) {
 }
 function normalizeRotation(rotation: number): Rotation {
 	return (((rotation % 4) + 4) % 4) as Rotation;
+}
+let sharedEnginePromise: Promise<PdfEngine> | null = null;
+function loadSharedPdfEngine() {
+	sharedEnginePromise ??= import("@embedpdf/engines/pdfium-worker-engine").then(({ createPdfiumEngine }) =>
+		createPdfiumEngine(PDFIUM_WASM_URL, {})
+	);
+	return sharedEnginePromise;
 }
 function useSharedPdfEngine() {
 	const [engine, setEngine] = React.useState<PdfEngine | null>(null);
@@ -219,32 +184,18 @@ function rotationToDegrees(rotation: Rotation) {
 function normalizeDegrees(rotation: number) {
 	return ((rotation % 360) + 360) % 360;
 }
-function ensurePdfExtension(fileName: string) {
-	return fileName.toLowerCase().endsWith(".pdf") ? fileName : `${fileName}.pdf`;
-}
 function getPdfDownloadFileName(fileName: string | undefined, src: string) {
-	if (fileName?.trim()) return ensurePdfExtension(fileName.trim());
+	if (fileName?.trim()) return ensureExtension(fileName.trim(), ["pdf"]);
 	const pathname = src.split(/[?#]/)[0] ?? "";
 	const rawName = pathname.split("/").pop() || "document.pdf";
 	try {
-		return ensurePdfExtension(decodeURIComponent(rawName));
+		return ensureExtension(decodeURIComponent(rawName), ["pdf"]);
 	} catch {
-		return ensurePdfExtension(rawName);
+		return ensureExtension(rawName, ["pdf"]);
 	}
 }
 function getRotatedPdfDownloadFileName(fileName: string) {
 	return fileName.replace(/\.pdf$/i, "-rotated.pdf");
-}
-function downloadBlob(blob: Blob, fileName: string) {
-	const url = URL.createObjectURL(blob);
-	const anchor = document.createElement("a");
-	anchor.href = url;
-	anchor.download = fileName;
-	anchor.rel = "noopener";
-	document.body.append(anchor);
-	anchor.click();
-	anchor.remove();
-	window.setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 async function downloadPdfWithPageRotations({
 	fileName,
@@ -377,7 +328,7 @@ function PDFViewerLoadingSkeleton({ sidebarOpen, sidebarInline }: { sidebarOpen:
 				<DocumentViewerSidebarSkeleton className={THUMBNAIL_SIDEBAR_WIDTH_CLASS} inline={sidebarInline} />
 			) : null}
 			<div className='grid min-w-0 flex-1 place-items-center'>
-				<InlineSpinner className='size-4' />
+				<ViewerSpinner />
 			</div>
 		</div>
 	);
@@ -389,8 +340,6 @@ function PDFViewerFallbackShell({
 	defaultZoom,
 	errorMessage = "Unable to load the PDF preview.",
 	showDownload,
-	showRotateControls,
-	showToolbar,
 	showUpload,
 	sidebarOpen,
 	state,
@@ -401,8 +350,6 @@ function PDFViewerFallbackShell({
 	defaultZoom: PDFViewerZoomLevel;
 	errorMessage?: string;
 	showDownload: boolean;
-	showRotateControls: boolean;
-	showToolbar: boolean;
 	showUpload: boolean;
 	sidebarOpen: boolean;
 	state: "loading" | "error" | "empty";
@@ -415,32 +362,29 @@ function PDFViewerFallbackShell({
 			data-slot='pdf-viewer'
 			className={cn("flex h-full max-h-full min-h-0 w-full flex-col overflow-hidden bg-background", className)}
 		>
-			{showToolbar ? (
-				<PDFViewerToolbar
-					activePage={1}
-					controlsDisabled
-					currentZoomLevel={typeof defaultZoom === "number" ? defaultZoom : DEFAULT_ZOOM}
-					zoomLevel={toZoomLevel(defaultZoom)}
-					numPages={0}
-					searchControl={
-						<ToolbarTooltip label={labels.search}>
-							<Button type='button' variant='ghost' size='icon-sm' aria-label={labels.search} disabled>
-								<HugeiconsIcon icon={Search01Icon} strokeWidth={1.75} className='size-4' />
-							</Button>
-						</ToolbarTooltip>
-					}
-					sidebarOpen={sidebarOpen}
-					showDownload={showDownload}
-					showRotateControls={showRotateControls}
-					showUpload={showUpload}
-					toolbarActions={toolbarActions}
-					onPageChange={() => undefined}
-					onRotate={() => undefined}
-					onToggleSidebar={() => undefined}
-					onUploadFile={onUploadFile}
-					onZoomChange={() => undefined}
-				/>
-			) : null}
+			<PDFViewerToolbar
+				activePage={1}
+				controlsDisabled
+				currentZoomLevel={typeof defaultZoom === "number" ? defaultZoom : DEFAULT_ZOOM}
+				zoomLevel={toZoomLevel(defaultZoom)}
+				numPages={0}
+				searchControl={
+					<ToolbarTooltip label={labels.search}>
+						<Button type='button' variant='ghost' size='icon-sm' aria-label={labels.search} disabled>
+							<HugeiconsIcon icon={Search01Icon} strokeWidth={1.75} className='size-4' />
+						</Button>
+					</ToolbarTooltip>
+				}
+				sidebarOpen={sidebarOpen}
+				showDownload={showDownload}
+				showUpload={showUpload}
+				toolbarActions={toolbarActions}
+				onPageChange={() => undefined}
+				onRotate={() => undefined}
+				onToggleSidebar={() => undefined}
+				onUploadFile={onUploadFile}
+				onZoomChange={() => undefined}
+			/>
 			<div className='relative flex min-h-0 flex-1 overflow-hidden bg-muted/30'>
 				{state === "loading" ? <PDFViewerLoadingSkeleton sidebarInline sidebarOpen={sidebarOpen} /> : null}
 				{state === "error" ? (
@@ -460,14 +404,6 @@ function PDFViewerFallbackShell({
 				) : null}
 			</div>
 		</div>
-	);
-}
-function ToolbarTooltip({ label, children }: { label: string; children: React.ReactNode }) {
-	return (
-		<Tooltip>
-			<TooltipTrigger render={<span className='inline-flex'>{children}</span>}></TooltipTrigger>
-			<TooltipContent side='bottom'>{label}</TooltipContent>
-		</Tooltip>
 	);
 }
 function PDFViewerFileActionsMenu({
@@ -519,7 +455,7 @@ function PDFViewerFileActionsMenu({
 					{showDownload ? (
 						<DropdownMenuItem disabled={downloadDisabled} onClick={onDownload}>
 							{isPreparingDownload ? (
-								<InlineSpinner className='size-4' />
+								<ViewerSpinner />
 							) : (
 								<HugeiconsIcon icon={Download01Icon} strokeWidth={1.75} className='size-4' />
 							)}
@@ -832,7 +768,6 @@ function PDFViewerToolbar({
 	searchControl,
 	sidebarOpen,
 	showDownload,
-	showRotateControls,
 	showUpload,
 	toolbarActions,
 	onDownload,
@@ -852,7 +787,6 @@ function PDFViewerToolbar({
 	searchControl: React.ReactNode;
 	sidebarOpen: boolean;
 	showDownload: boolean;
-	showRotateControls: boolean;
 	showUpload: boolean;
 	toolbarActions?: React.ReactNode;
 	onDownload?: () => void;
@@ -865,7 +799,7 @@ function PDFViewerToolbar({
 }) {
 	const labels = useDocumentViewerLabels();
 	const leading = useDocumentViewerToolbarLeading();
-	const selectValue = isZoomMode(zoomLevel) ? zoomLevel : String(Number(currentZoomLevel.toFixed(2)));
+	const selectValue = typeof zoomLevel === "string" ? zoomLevel : String(Number(currentZoomLevel.toFixed(2)));
 	const zoomOptions = ZOOM_OPTIONS.includes(Number(currentZoomLevel.toFixed(2)))
 		? ZOOM_OPTIONS
 		: [...ZOOM_OPTIONS, Number(currentZoomLevel.toFixed(2))].sort((left, right) => left - right);
@@ -901,45 +835,37 @@ function PDFViewerToolbar({
 			</div>
 			<TooltipProvider>
 				<div className='flex shrink-0 items-center justify-end gap-1 max-md:w-full'>
-					{showRotateControls ? (
-						<>
-							<div className='flex flex-none items-center gap-1 max-md:hidden'>
-								<ToolbarTooltip label={labels.rotateCounterclockwise}>
-									<Button
-										type='button'
-										variant='ghost'
-										size='icon-sm'
-										aria-label={labels.rotateCounterclockwise}
-										disabled={controlsDisabled}
-										onClick={() => onRotate(-1)}
-									>
-										<HugeiconsIcon
-											icon={RotateClockwiseIcon}
-											strokeWidth={1.75}
-											className='size-4'
-										/>
-									</Button>
-								</ToolbarTooltip>
-								<ToolbarTooltip label={labels.rotateClockwise}>
-									<Button
-										type='button'
-										variant='ghost'
-										size='icon-sm'
-										aria-label={labels.rotateClockwise}
-										disabled={controlsDisabled}
-										onClick={() => onRotate(1)}
-									>
-										<HugeiconsIcon
-											icon={RotateClockwiseIcon}
-											strokeWidth={1.75}
-											className='size-4 -scale-x-100'
-										/>
-									</Button>
-								</ToolbarTooltip>
-							</div>
-							<Separator orientation='vertical' className='mx-1 h-4 self-center max-md:hidden' />
-						</>
-					) : null}
+					<div className='flex flex-none items-center gap-1 max-md:hidden'>
+						<ToolbarTooltip label={labels.rotateCounterclockwise}>
+							<Button
+								type='button'
+								variant='ghost'
+								size='icon-sm'
+								aria-label={labels.rotateCounterclockwise}
+								disabled={controlsDisabled}
+								onClick={() => onRotate(-1)}
+							>
+								<HugeiconsIcon icon={RotateClockwiseIcon} strokeWidth={1.75} className='size-4' />
+							</Button>
+						</ToolbarTooltip>
+						<ToolbarTooltip label={labels.rotateClockwise}>
+							<Button
+								type='button'
+								variant='ghost'
+								size='icon-sm'
+								aria-label={labels.rotateClockwise}
+								disabled={controlsDisabled}
+								onClick={() => onRotate(1)}
+							>
+								<HugeiconsIcon
+									icon={RotateClockwiseIcon}
+									strokeWidth={1.75}
+									className='size-4 -scale-x-100'
+								/>
+							</Button>
+						</ToolbarTooltip>
+					</div>
+					<Separator orientation='vertical' className='mx-1 h-4 self-center max-md:hidden' />
 					<div className='flex flex-none items-center gap-1'>
 						<ToolbarTooltip label={labels.zoomOut}>
 							<Button
@@ -962,7 +888,7 @@ function PDFViewerToolbar({
 							value={selectValue}
 							onValueChange={(value) => {
 								const next = String(value);
-								onZoomChange(isZoomMode(next) ? next : Number(next));
+								onZoomChange(isZoomMode(next) ? toZoomLevel(next) : Number(next));
 							}}
 							disabled={controlsDisabled}
 							modal={false}
@@ -977,9 +903,9 @@ function PDFViewerToolbar({
 								</SelectValue>
 							</SelectTrigger>
 							<SelectContent alignItemWithTrigger={false}>
-								{(Object.keys(ZOOM_MODE_LABELS) as ZoomMode[]).map((mode) => (
+								{Object.entries(ZOOM_MODE_LABELS).map(([mode, label]) => (
 									<SelectItem key={mode} value={mode}>
-										{ZOOM_MODE_LABELS[mode]}
+										{label}
 									</SelectItem>
 								))}
 								{zoomOptions.map((option) => (
@@ -1031,14 +957,6 @@ function PDFViewerToolbar({
 		</div>
 	);
 }
-function setPdfViewerRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
-	if (!ref) return;
-	if (typeof ref === "function") {
-		ref(value);
-	} else {
-		ref.current = value;
-	}
-}
 function PDFViewerScrollArea({
 	children,
 	className,
@@ -1052,28 +970,15 @@ function PDFViewerScrollArea({
 	viewportProps?: React.HTMLAttributes<HTMLDivElement>;
 	viewportRef?: React.Ref<HTMLDivElement>;
 }) {
-	const resolveScrollAreaViewport = React.useContext(PDFViewerScrollAreaResolverContext);
 	const containerRef = React.useRef<HTMLDivElement | null>(null);
 	const { className: viewportPropsClassName, ...resolvedViewportProps } = viewportProps ?? {};
-	const setViewportRef = React.useCallback(
-		(viewport: HTMLDivElement | null) => {
-			setPdfViewerRef(viewportRef, viewport);
-		},
-		[viewportRef]
-	);
 	React.useLayoutEffect(() => {
-		const container = containerRef.current;
-		if (!container) return;
-		const viewport = resolveScrollAreaViewport(container);
-		if (!viewport) {
-			console.error(
-				`PDFViewer could not resolve the scroll viewport. Add ${DEFAULT_SCROLL_AREA_VIEWPORT_SELECTOR} to your ScrollArea viewport or pass resolveScrollAreaViewport.`
-			);
-			return;
-		}
+		const viewport = containerRef.current?.querySelector<HTMLDivElement>('[data-slot="scroll-area-viewport"]');
+		if (!viewport) return;
+		const setViewportRef = composeRefs(viewportRef);
 		setViewportRef(viewport);
 		return () => setViewportRef(null);
-	}, [resolveScrollAreaViewport, setViewportRef]);
+	}, [viewportRef]);
 	return (
 		<div
 			ref={containerRef}
@@ -1398,8 +1303,8 @@ function PDFViewerScrollAreaViewport({
 		</ViewportElementContext.Provider>
 	);
 }
-// Captures the scrollable viewport element so the imperative handle can expose
-// it.
+// Captures the scrollable viewport element so page rotation can keep the scroll
+// position anchored.
 function PDFViewerViewportBridge({
 	viewportElementRef,
 }: {
@@ -1773,7 +1678,6 @@ function PDFViewerScroller({
 	);
 }
 type PDFViewerInnerProps = {
-	viewerRef: React.ForwardedRef<PDFViewerHandle>;
 	pdfFile: string;
 	documentId: string;
 	document: PdfDocumentObject | null;
@@ -1781,22 +1685,11 @@ type PDFViewerInnerProps = {
 	className?: string;
 	fileName?: string;
 	showDownload: boolean;
-	showToolbar: boolean;
-	showRotateControls: boolean;
 	showUpload: boolean;
 	toolbarActions?: React.ReactNode;
-	pageClassName?: (pageNumber: number) => string | undefined;
-	renderPageOverlay?: (props: PDFViewerPageOverlayProps) => React.ReactNode;
-	onActivePageChange?: (pageNumber: number) => void;
-	onPdfUpload?: (file: File) => void;
-	onPagePointerDown?: PDFViewerProps["onPagePointerDown"];
-	onPagePointerMove?: PDFViewerProps["onPagePointerMove"];
-	onPagePointerUp?: PDFViewerProps["onPagePointerUp"];
-	onPagePointerCancel?: PDFViewerProps["onPagePointerCancel"];
 	onUploadFile: (file: File) => void;
 };
 function PDFViewerInner({
-	viewerRef,
 	pdfFile,
 	documentId,
 	document: pdfDocument,
@@ -1804,18 +1697,8 @@ function PDFViewerInner({
 	className,
 	fileName,
 	showDownload,
-	showToolbar,
-	showRotateControls,
 	showUpload,
 	toolbarActions,
-	pageClassName,
-	renderPageOverlay,
-	onActivePageChange,
-	onPdfUpload,
-	onPagePointerDown,
-	onPagePointerMove,
-	onPagePointerUp,
-	onPagePointerCancel,
 	onUploadFile,
 }: PDFViewerInnerProps) {
 	const { registry } = useRegistry();
@@ -1832,7 +1715,7 @@ function PDFViewerInner({
 		[pdfDocument]
 	);
 	const [viewerShellRef, viewerShellWidth] = useElementWidth<HTMLDivElement>();
-	const sidebarInline = useInlineThumbnailSidebar(viewerShellWidth);
+	const sidebarInline = viewerShellWidth >= 768;
 	const viewportElementRef = React.useRef<HTMLDivElement | null>(null);
 	const pageRotationDeltasRef = React.useRef(pageRotationDeltas);
 	const selectedPageIndexesRef = React.useRef(selectedPageIndexes);
@@ -1853,9 +1736,6 @@ function PDFViewerInner({
 	React.useEffect(() => {
 		selectedPageIndexesRef.current = selectedPageIndexes;
 	}, [selectedPageIndexes]);
-	React.useEffect(() => {
-		if (activePage > 0) onActivePageChange?.(activePage);
-	}, [activePage, onActivePageChange]);
 	React.useEffect(() => {
 		if (activePage < 1 || numPages < 1) return;
 		const activePageIndex = activePage - 1;
@@ -1905,11 +1785,8 @@ function PDFViewerInner({
 		zoom.requestZoom(toZoomLevel(defaultZoom));
 	}, [defaultZoom, documentId, pdfDocument, zoom]);
 	const scrollToPage = React.useCallback(
-		(pageNumber: number, options?: ScrollIntoViewOptions) => {
-			scroll?.scrollToPage({
-				pageNumber,
-				behavior: options?.behavior === "smooth" ? "smooth" : "auto",
-			});
+		(pageNumber: number) => {
+			scroll?.scrollToPage({ pageNumber, behavior: "auto" });
 		},
 		[scroll]
 	);
@@ -1942,30 +1819,6 @@ function PDFViewerInner({
 			scrollToPage(pageNumber);
 		},
 		[activePage, numPages, scrollToPage]
-	);
-	React.useImperativeHandle(
-		viewerRef,
-		() => ({
-			scrollToPage,
-			scrollToPageArea: (pageNumber, area, options) => {
-				const pageSize = pdfDocument?.pages[pageNumber - 1]?.size;
-				scroll?.scrollToPage({
-					pageNumber,
-					...(pageSize
-						? {
-								pageCoordinates: {
-									x: ((area.left ?? 0) / 100) * pageSize.width,
-									y: (area.top / 100) * pageSize.height,
-								},
-								alignY: 25,
-							}
-						: {}),
-					behavior: options?.behavior === "smooth" ? "smooth" : "auto",
-				});
-			},
-			getViewportElement: () => viewportElementRef.current,
-		}),
-		[pdfDocument, scroll, scrollToPage]
 	);
 	const handleDownload = React.useCallback(async () => {
 		if (!pdfFile || isPreparingDownload) return;
@@ -2050,13 +1903,6 @@ function PDFViewerInner({
 		},
 		[activePage, basePageRotations, currentZoomLevel, documentId, pdfDocument, registry, thumbnailPlugin]
 	);
-	const handleUpload = React.useCallback(
-		(file: File) => {
-			onUploadFile(file);
-			onPdfUpload?.(file);
-		},
-		[onPdfUpload, onUploadFile]
-	);
 	const renderPage = React.useCallback(
 		(page: PageLayout) => {
 			const pageNumber = page.pageNumber;
@@ -2073,23 +1919,8 @@ function PDFViewerInner({
 						rotation={pageRotation}
 						key={`${page.pageIndex}-${pageRotation}`}
 						data-pdf-viewer-page={pageNumber}
-						className={cn(
-							"relative border border-transparent bg-transparent shadow-xs select-none selection:bg-transparent selection:text-inherit",
-							pageClassName?.(pageNumber)
-						)}
+						className='relative border border-transparent bg-transparent shadow-xs select-none selection:bg-transparent selection:text-inherit'
 						style={{ backgroundColor: "transparent" }}
-						onPointerDown={(event: React.PointerEvent<HTMLDivElement>) =>
-							onPagePointerDown?.(event, pageNumber)
-						}
-						onPointerMove={(event: React.PointerEvent<HTMLDivElement>) =>
-							onPagePointerMove?.(event, pageNumber)
-						}
-						onPointerUp={(event: React.PointerEvent<HTMLDivElement>) =>
-							onPagePointerUp?.(event, pageNumber)
-						}
-						onPointerCancel={(event: React.PointerEvent<HTMLDivElement>) =>
-							onPagePointerCancel?.(event, pageNumber)
-						}
 					>
 						<div aria-hidden='true' className='pointer-events-none absolute inset-0 bg-white' />
 						<RenderLayer
@@ -2117,65 +1948,43 @@ function PDFViewerInner({
 							pageIndex={page.pageIndex}
 							scale={currentZoomLevel}
 						/>
-						{renderPageOverlay?.({
-							pageNumber,
-							pageWidth: page.width,
-							pageHeight: page.height,
-							scale: currentZoomLevel,
-							rotation: rotationToDegrees(pageRotation),
-						})}
 					</PagePointerProvider>
 				</Rotate>
 			);
 		},
-		[
-			basePageRotations,
-			currentZoomLevel,
-			onPagePointerCancel,
-			onPagePointerDown,
-			onPagePointerMove,
-			onPagePointerUp,
-			pageClassName,
-			pageRotationDeltas,
-			renderPageOverlay,
-			documentId,
-			pdfDocument,
-		]
+		[basePageRotations, currentZoomLevel, pageRotationDeltas, documentId, pdfDocument]
 	);
 	return (
 		<div
 			data-slot='pdf-viewer'
 			className={cn("flex h-full max-h-full min-h-0 w-full flex-col overflow-hidden bg-background", className)}
 		>
-			{showToolbar ? (
-				<PDFViewerToolbar
-					activePage={activePage}
-					controlsDisabled={controlsDisabled}
-					currentZoomLevel={currentZoomLevel}
-					downloadDisabled={downloadDisabled}
-					isPreparingDownload={isPreparingDownload}
-					numPages={numPages}
-					searchControl={
-						<PDFViewerSearchControl
-							key={documentId}
-							documentId={documentId}
-							controlsDisabled={controlsDisabled}
-						/>
-					}
-					sidebarOpen={sidebarOpen}
-					showDownload={showDownload}
-					showRotateControls={showRotateControls}
-					showUpload={showUpload}
-					toolbarActions={toolbarActions}
-					onDownload={handleDownload}
-					onPageChange={scrollToPage}
-					onRotate={rotateSelectedPages}
-					onToggleSidebar={() => setSidebarOpen((open) => !open)}
-					onUploadFile={handleUpload}
-					onZoomChange={(zoomLevel) => zoom?.requestZoom(zoomLevel)}
-					zoomLevel={zoomState.zoomLevel}
-				/>
-			) : null}
+			<PDFViewerToolbar
+				activePage={activePage}
+				controlsDisabled={controlsDisabled}
+				currentZoomLevel={currentZoomLevel}
+				downloadDisabled={downloadDisabled}
+				isPreparingDownload={isPreparingDownload}
+				numPages={numPages}
+				searchControl={
+					<PDFViewerSearchControl
+						key={documentId}
+						documentId={documentId}
+						controlsDisabled={controlsDisabled}
+					/>
+				}
+				sidebarOpen={sidebarOpen}
+				showDownload={showDownload}
+				showUpload={showUpload}
+				toolbarActions={toolbarActions}
+				onDownload={handleDownload}
+				onPageChange={scrollToPage}
+				onRotate={rotateSelectedPages}
+				onToggleSidebar={() => setSidebarOpen((open) => !open)}
+				onUploadFile={onUploadFile}
+				onZoomChange={(zoomLevel) => zoom?.requestZoom(zoomLevel)}
+				zoomLevel={zoomState.zoomLevel}
+			/>
 			<div ref={viewerShellRef} className='relative flex min-h-0 flex-1 overflow-hidden bg-muted/30'>
 				{isLoading ? (
 					<PDFViewerLoadingSkeleton sidebarInline={sidebarInline} sidebarOpen={sidebarOpen} />
@@ -2224,20 +2033,12 @@ function PDFViewerInner({
 }
 function PDFViewerDocumentLoader({
 	pdfFile,
-	onDocumentLoadSuccess,
 	...innerProps
-}: {
-	pdfFile: string;
-	onDocumentLoadSuccess?: (numPages: number) => void;
-} & Omit<PDFViewerInnerProps, "pdfFile" | "documentId" | "document">) {
+}: { pdfFile: string } & Omit<PDFViewerInnerProps, "pdfFile" | "documentId" | "document">) {
 	const { provides: documentManager } = useDocumentManagerCapability();
 	const { activeDocumentId, activeDocument } = useActiveDocument();
 	const [loadError, setLoadError] = React.useState(false);
 	const openedFileRef = React.useRef<string | null>(null);
-	const onDocumentLoadSuccessRef = React.useRef(onDocumentLoadSuccess);
-	React.useEffect(() => {
-		onDocumentLoadSuccessRef.current = onDocumentLoadSuccess;
-	});
 	React.useEffect(() => {
 		if (!documentManager || !pdfFile) return;
 		if (openedFileRef.current === pdfFile) return;
@@ -2253,8 +2054,7 @@ function PDFViewerDocumentLoader({
 				mode: pdfFile.startsWith("blob:") ? "full-fetch" : "auto",
 			})
 			.wait((response) => {
-				response.task.wait((openedDocument) => {
-					onDocumentLoadSuccessRef.current?.(openedDocument.pageCount);
+				response.task.wait(() => {
 					previousDocumentIds.forEach((documentIdToClose) => {
 						documentManager.closeDocument(documentIdToClose).wait(
 							() => undefined,
@@ -2272,16 +2072,11 @@ function PDFViewerDocumentLoader({
 				className={innerProps.className}
 				defaultZoom={innerProps.defaultZoom}
 				showDownload={innerProps.showDownload}
-				showRotateControls={innerProps.showRotateControls}
-				showToolbar={innerProps.showToolbar}
 				showUpload={innerProps.showUpload}
 				sidebarOpen={false}
 				state={!pdfFile ? "empty" : documentFailed ? "error" : "loading"}
 				toolbarActions={innerProps.toolbarActions}
-				onUploadFile={(file) => {
-					innerProps.onUploadFile(file);
-					innerProps.onPdfUpload?.(file);
-				}}
+				onUploadFile={innerProps.onUploadFile}
 			/>
 		);
 	}
@@ -2295,30 +2090,15 @@ function PDFViewerDocumentLoader({
 		/>
 	);
 }
-export const PDFViewer = React.forwardRef<PDFViewerHandle, PDFViewerProps>(function PDFViewer(
-	{
-		className,
-		defaultZoom = DEFAULT_ZOOM,
-		fileName,
-		resolveScrollAreaViewport,
-		showDownload = true,
-		showRotateControls = true,
-		showToolbar = true,
-		showUpload = true,
-		src,
-		toolbarActions,
-		pageClassName,
-		renderPageOverlay,
-		onActivePageChange,
-		onDocumentLoadSuccess,
-		onPdfUpload,
-		onPagePointerDown,
-		onPagePointerMove,
-		onPagePointerUp,
-		onPagePointerCancel,
-	},
-	ref
-) {
+export function PDFViewer({
+	className,
+	defaultZoom = DEFAULT_ZOOM,
+	fileName,
+	showDownload = true,
+	showUpload = true,
+	src,
+	toolbarActions,
+}: PDFViewerProps) {
 	const { engine, error: engineError } = useSharedPdfEngine();
 	const [uploadedPdfFile, setUploadedPdfFile] = React.useState<{
 		src: string | undefined;
@@ -2379,87 +2159,33 @@ export const PDFViewer = React.forwardRef<PDFViewerHandle, PDFViewerProps>(funct
 		}),
 		createPluginRegistration(RotatePluginPackage),
 	]);
-	if (engineError) {
+	if (engineError || !engine) {
 		return (
 			<PDFViewerFallbackShell
 				className={className}
 				defaultZoom={defaultZoom}
-				errorMessage='Unable to load the PDF engine.'
+				errorMessage={engineError ? "Unable to load the PDF engine." : undefined}
 				showDownload={showDownload}
-				showRotateControls={showRotateControls}
-				showToolbar={showToolbar}
 				showUpload={showUpload}
 				sidebarOpen={false}
-				state='error'
+				state={engineError ? "error" : "loading"}
 				toolbarActions={toolbarActions}
-				onUploadFile={(file) => {
-					handleUploadFile(file);
-					onPdfUpload?.(file);
-				}}
+				onUploadFile={handleUploadFile}
 			/>
 		);
 	}
-	if (!engine) {
-		return (
-			<PDFViewerFallbackShell
-				className={className}
+	return (
+		<EmbedPDF engine={engine} plugins={plugins}>
+			<PDFViewerDocumentLoader
+				pdfFile={pdfFile}
 				defaultZoom={defaultZoom}
+				className={className}
+				fileName={fileName}
 				showDownload={showDownload}
-				showRotateControls={showRotateControls}
-				showToolbar={showToolbar}
 				showUpload={showUpload}
-				sidebarOpen={false}
-				state='loading'
 				toolbarActions={toolbarActions}
-				onUploadFile={(file) => {
-					handleUploadFile(file);
-					onPdfUpload?.(file);
-				}}
+				onUploadFile={handleUploadFile}
 			/>
-		);
-	}
-	return (
-		<PDFViewerScrollAreaResolverContext.Provider
-			value={resolveScrollAreaViewport ?? resolveDefaultScrollAreaViewport}
-		>
-			<EmbedPDF engine={engine} plugins={plugins}>
-				<PDFViewerDocumentLoader
-					viewerRef={ref}
-					pdfFile={pdfFile}
-					defaultZoom={defaultZoom}
-					className={className}
-					fileName={fileName}
-					showDownload={showDownload}
-					showToolbar={showToolbar}
-					showRotateControls={showRotateControls}
-					showUpload={showUpload}
-					toolbarActions={toolbarActions}
-					pageClassName={pageClassName}
-					renderPageOverlay={renderPageOverlay}
-					onActivePageChange={onActivePageChange}
-					onDocumentLoadSuccess={onDocumentLoadSuccess}
-					onPdfUpload={onPdfUpload}
-					onPagePointerDown={onPagePointerDown}
-					onPagePointerMove={onPagePointerMove}
-					onPagePointerUp={onPagePointerUp}
-					onPagePointerCancel={onPagePointerCancel}
-					onUploadFile={handleUploadFile}
-				/>
-			</EmbedPDF>
-		</PDFViewerScrollAreaResolverContext.Provider>
-	);
-});
-function InlineSpinner({ className, ...props }: InlineRegistryIconProps) {
-	const labels = useDocumentViewerLabels();
-	return (
-		<HugeiconsIcon
-			icon={Loading03Icon}
-			strokeWidth={1.75}
-			role='status'
-			aria-label={labels.loading}
-			className={cn("size-4 animate-spin", className)}
-			{...props}
-		/>
+		</EmbedPDF>
 	);
 }
-type InlineRegistryIconProps = Omit<React.ComponentProps<"svg">, "children" | "strokeWidth"> & { strokeWidth?: number };

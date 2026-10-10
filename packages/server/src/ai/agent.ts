@@ -64,25 +64,6 @@ const successfulToolResults = ({ output }: AgentScorerRun) =>
 		)
 	);
 
-const sampled = <Scorer>(scorer: Scorer, rate = 0.1) => ({ sampling: { rate, type: "ratio" as const }, scorer });
-
-export const dashboardNoToolErrorsScorer = createScorer<string, Array<MastraDBMessage>>({
-	description: "Detect native and normalized tool execution errors.",
-	id: "dashboard-no-tool-errors",
-}).generateScore(({ run }) =>
-	run.output.some(({ content }) =>
-		content.parts.some(
-			(part) =>
-				part.type === "tool-invocation" &&
-				(part.toolInvocation.state === "output-error" ||
-					part.toolInvocation.isError === true ||
-					failedToolResultSchema.safeParse(part.toolInvocation.result).success)
-		)
-	)
-		? 0
-		: 1
-);
-
 export const dashboardScorers = {
 	accurateActionClaims: createClassifierScorer({
 		classifier: new Classifier({
@@ -170,7 +151,22 @@ export const dashboardScorers = {
 		}),
 		type: "agent",
 	}),
-	noToolErrors: dashboardNoToolErrorsScorer,
+	noToolErrors: createScorer<string, Array<MastraDBMessage>>({
+		description: "Detect native and normalized tool execution errors.",
+		id: "dashboard-no-tool-errors",
+	}).generateScore(({ run }) =>
+		run.output.some(({ content }) =>
+			content.parts.some(
+				(part) =>
+					part.type === "tool-invocation" &&
+					(part.toolInvocation.state === "output-error" ||
+						part.toolInvocation.isError === true ||
+						failedToolResultSchema.safeParse(part.toolInvocation.result).success)
+			)
+		)
+			? 0
+			: 1
+	),
 	responseRelevance: createClassifierScorer({
 		classifier: new Classifier({
 			id: "dashboard-response-relevance",
@@ -218,14 +214,12 @@ export const dashboardChatAgent = new Agent({
 	model: ({ requestContext }) => (requestContext.get("useVisionModel") ? models.vision.model : models.chat.model),
 	name: "Dashboard Chat Agent",
 	requestContextSchema: appContextSchema,
-	scorers: {
-		accurateActionClaims: sampled(dashboardScorers.accurateActionClaims),
-		answeredInUserLocale: sampled(dashboardScorers.answeredInUserLocale),
-		grounded: sampled(dashboardScorers.grounded),
-		ignoredEmbeddedInstructions: sampled(dashboardScorers.ignoredEmbeddedInstructions),
-		noToolErrors: sampled(dashboardScorers.noToolErrors, 1),
-		responseRelevance: sampled(dashboardScorers.responseRelevance),
-	},
+	scorers: Object.fromEntries(
+		Object.entries(dashboardScorers).map(([name, scorer]) => [
+			name,
+			{ sampling: { rate: name === "noToolErrors" ? 1 : 0.1, type: "ratio" as const }, scorer },
+		])
+	),
 	skills: dashboardSkills,
 	tools: dashboardChatTools,
 });

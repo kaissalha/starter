@@ -2,7 +2,7 @@ import { Mastra } from "@mastra/core/mastra";
 import { MastraStorageExporter, Observability } from "@mastra/observability";
 
 import { ingestFileWorkflow } from "../workflows/ingest-file";
-import { documentClassifierAgent, imageClassifierAgent } from "../workflows/ingest-file/agents";
+import { documentClassifierAgent, imageClassifierAgent } from "../workflows/ingest-file/steps";
 import { dashboardChatAgent } from "./agent";
 import { decisionClassifiers } from "./decisions";
 import { knowledgeVector } from "./knowledge";

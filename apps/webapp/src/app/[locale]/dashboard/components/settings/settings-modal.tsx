@@ -14,9 +14,7 @@ import {
 } from "@starter/ui/components/credenza";
 import { useIsMobile } from "@starter/ui/hooks/use-is-mobile";
 
-const DesktopSettings = dynamic(async () => (await import("./desktop-settings")).DesktopSettings);
-
-const MobileSettings = dynamic(async () => (await import("./mobile-settings")).MobileSettings);
+const SettingsPanels = dynamic(async () => (await import("./settings-panels")).SettingsPanels);
 
 export const SettingsModal = () => {
 	const t = useTranslations("breadcrumbs");
@@ -36,7 +34,7 @@ export const SettingsModal = () => {
 					<CredenzaTitle>{t("settings")}</CredenzaTitle>
 					<CredenzaDescription>{t("settings")}</CredenzaDescription>
 				</CredenzaHeader>
-				{isMobile ? <MobileSettings /> : <DesktopSettings />}
+				<SettingsPanels isMobile={isMobile} />
 			</CredenzaContent>
 		</Credenza>
 	);

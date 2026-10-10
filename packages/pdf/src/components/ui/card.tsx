@@ -3,9 +3,7 @@ import type { ReactNode } from "react";
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
 
 export type CardVariant = "default" | "bordered" | "muted";
 
@@ -57,8 +55,8 @@ const createCardStyles = (t: PdfxTheme) => {
 };
 
 export const Card = ({ children, padding = "md", style, title, variant = "default", wrap = false }: CardProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createCardStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createCardStyles(theme);
 	const paddingMap = { lg: styles.paddingLg, md: styles.paddingMd, sm: styles.paddingSm };
 	const cardStyles: Array<Style> = [styles.card];
 

@@ -3,7 +3,7 @@
 import { ComputerIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
-export type ErrorPageViewProps = {
+type ErrorPageViewProps = {
 	description: string;
 	retryControl: React.ReactNode;
 	title: string;

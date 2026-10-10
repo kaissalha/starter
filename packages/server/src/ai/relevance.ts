@@ -1,9 +1,9 @@
-import type { ClassifierAnswer, ScoreQuestion } from "@mastra/core/classifier";
+import type { Classifier, ClassifierAnswer, ScoreQuestion } from "@mastra/core/classifier";
 import type { RelevanceScoreProvider } from "@mastra/core/relevance";
 import type { QueryResult } from "@mastra/core/vector";
 import { rerankWithScorer } from "@mastra/rag";
 
-import { type DecisionClassifier, evaluateDecision } from "./decisions";
+import { evaluateDecision } from "./decisions";
 
 const relevanceLevels = ["Unrelated", "Background context", "Relevant evidence", "Directly addresses the request"];
 
@@ -26,11 +26,11 @@ type PendingScore = { reject: (error: Error) => void; resolve: (score: number) =
 class ClassifierRelevanceScorer implements RelevanceScoreProvider {
 	readonly #abortSignal?: AbortSignal;
 
-	readonly #classifier: DecisionClassifier;
+	readonly #classifier: Classifier;
 
 	readonly #pending: Array<PendingScore> = [];
 
-	constructor({ abortSignal, classifier }: { abortSignal?: AbortSignal; classifier: DecisionClassifier }) {
+	constructor({ abortSignal, classifier }: { abortSignal?: AbortSignal; classifier: Classifier }) {
 		this.#abortSignal = abortSignal;
 		this.#classifier = classifier;
 	}
@@ -85,18 +85,20 @@ export const rerankQueryResults = async ({
 	classifier,
 	query,
 	results,
+	weights,
 }: {
 	abortSignal?: AbortSignal;
-	classifier: DecisionClassifier;
+	classifier: Classifier;
 	query: string;
 	results: Array<QueryResult>;
+	weights?: { position: number; semantic: number; vector: number };
 }) => {
 	if (results.length < 2 || results.length > maxRerankCandidates) {
 		return results;
 	}
 
 	const reranked = await rerankWithScorer({
-		options: { topK: results.length },
+		options: { topK: results.length, weights },
 		query,
 		results,
 		scorer: new ClassifierRelevanceScorer({ abortSignal, classifier }),
@@ -106,35 +108,28 @@ export const rerankQueryResults = async ({
 };
 
 export const rankRelevantCandidates = async <Candidate>({
-	abortSignal,
 	candidates,
-	classifier,
-	query,
 	text,
+	...options
 }: {
 	abortSignal?: AbortSignal;
 	candidates: Array<Candidate>;
-	classifier: DecisionClassifier;
+	classifier: Classifier;
 	query: string;
 	text: (candidate: Candidate) => string;
 }) => {
-	if (candidates.length < 2 || candidates.length > maxRerankCandidates) {
-		return candidates;
-	}
-
-	const reranked = await rerankWithScorer({
-		options: { topK: candidates.length, weights: { position: 0.1, semantic: 0.9, vector: 0 } },
-		query,
+	const ranked = await rerankQueryResults({
+		...options,
 		results: candidates.map((candidate, index) => ({
 			id: `${index}`,
 			metadata: { text: text(candidate) },
 			score: 0,
 		})),
-		scorer: new ClassifierRelevanceScorer({ abortSignal, classifier }),
+		weights: { position: 0.1, semantic: 0.9, vector: 0 },
 	});
 
-	return reranked.flatMap(({ result }) => {
-		const candidate = candidates[Number(result.id)];
+	return ranked.flatMap(({ id }) => {
+		const candidate = candidates[Number(id)];
 
 		return candidate === undefined ? [] : [candidate];
 	});

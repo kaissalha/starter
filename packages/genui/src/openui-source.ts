@@ -15,8 +15,6 @@ const openUINumberLiteralPattern =
 
 const decimalLiteralPattern = /^([+-]?)(?:(\d+)(?:\.(\d*))?|\.(\d+))(?:e([+-]?\d+))?$/iu;
 
-const inlineMarkdownNodeNames = new Set(["delete", "emphasis", "link", "paragraph", "strong", "tableCell"]);
-
 export const parseOpenUIFences = (text: string): Array<OpenUIFenceSegment> => {
 	const segments: Array<OpenUIFenceSegment> = [];
 	const document = fromMarkdown(text);
@@ -65,39 +63,6 @@ export const parseOpenUIFences = (text: string): Array<OpenUIFenceSegment> => {
 
 	return segments;
 };
-
-const getVisibleMarkdownNodeText = (node: ReturnType<typeof fromMarkdown>["children"][number]): string => {
-	if (node.type === "text") {
-		return node.value;
-	}
-
-	if (node.type === "break") {
-		return "\n";
-	}
-
-	if (node.type === "image") {
-		return node.alt ?? "";
-	}
-
-	if (node.type === "code" || node.type === "inlineCode") {
-		return node.value;
-	}
-
-	if (node.type === "html") {
-		return "";
-	}
-
-	if (!("children" in node)) {
-		return "";
-	}
-
-	const separator = inlineMarkdownNodeNames.has(node.type) ? "" : "\n";
-
-	return node.children.map(getVisibleMarkdownNodeText).join(separator);
-};
-
-export const getOpenUIVisibleMarkdownText = (text: string) =>
-	fromMarkdown(text).children.map(getVisibleMarkdownNodeText).join("\n");
 
 const maskOpenUIStringContents = (source: string) => {
 	const state = { escaped: false, quoted: false };

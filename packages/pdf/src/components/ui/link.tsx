@@ -3,10 +3,7 @@ import type React from "react";
 import { Link as PDFLink, StyleSheet } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
-import { resolvePdfColor } from "./utils/color";
-
-type PdfxTheme = ReturnType<typeof usePdfxTheme>;
+import { defaultTheme, resolvePdfColor, type PdfxTheme } from "../../lib/theme";
 
 export type LinkVariant = "default" | "muted" | "primary";
 
@@ -47,8 +44,8 @@ const createLinkStyles = (t: PdfxTheme) => {
 };
 
 export const Link = ({ align, children, color, href, style, underline, variant = "default" }: LinkProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createLinkStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createLinkStyles(theme);
 	const variantMap = { default: styles.default, muted: styles.muted, primary: styles.primary };
 	const underlineMap = { always: styles.underlineAlways, none: styles.underlineNone };
 	const styleArray: Array<Style> = [variantMap[variant]];

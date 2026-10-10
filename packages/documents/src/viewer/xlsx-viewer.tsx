@@ -3,7 +3,6 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
 
-import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 import {
 	useXlsxViewer,
 	useXlsxViewerController,
@@ -21,7 +20,6 @@ import {
 	ArrowLeft01Icon,
 	ArrowRight01Icon,
 	Download01Icon,
-	Loading03Icon,
 	MinusSignCircleIcon,
 	MoreHorizontalIcon,
 	PlusSignCircleIcon,
@@ -41,17 +39,17 @@ import {
 } from "@starter/ui/components/dropdown-menu";
 import { Input } from "@starter/ui/components/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@starter/ui/components/popover";
-import { ScrollArea as InlineScrollArea, ScrollBar } from "@starter/ui/components/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@starter/ui/components/select";
 import { Separator } from "@starter/ui/components/separator";
 import { Tabs, TabsList, TabsTrigger } from "@starter/ui/components/tabs";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@starter/ui/components/tooltip";
+import { TooltipProvider } from "@starter/ui/components/tooltip";
 import { cn } from "@starter/ui/lib/utils";
 
-import { useDocumentViewerLabels } from "./labels";
-import { useDocumentViewerToolbarLeading } from "./toolbar-leading";
+import { XLSX_MIME_TYPE } from "../file";
+import { useDocumentViewerLabels, useDocumentViewerToolbarLeading } from "./context";
+import { ToolbarTooltip, ViewerLoadingSurface, ViewerScrollArea, useDelayedLoadingIndicator } from "./viewer-shared";
+import { downloadBlob, ensureExtension, formatFileName } from "./viewer-utils";
 
-const XLSX_LOADING_INDICATOR_DELAY_MS = 300;
 const XLSX_DROPDOWN_Z_INDEX_CLASS = "z-40";
 const XLSX_SEARCH_BATCH_ROW_COUNT = 500;
 const XLSX_SEARCH_DEBOUNCE_MS = 300;
@@ -89,36 +87,10 @@ type XlsxBatchRow = {
 	cells?: unknown;
 	index?: unknown;
 };
-function formatWorkbookName(fileName: string | undefined, url: string) {
-	if (fileName?.trim()) return fileName;
-	const pathname = url.split("?")[0] ?? "";
-	const rawName = pathname.split("/").pop() ?? "workbook.xlsx";
-	try {
-		return decodeURIComponent(rawName);
-	} catch {
-		return rawName;
-	}
-}
-function ensureWorkbookExtension(fileName: string) {
-	const lowerFileName = fileName.toLowerCase();
-	return lowerFileName.endsWith(".xlsx") || lowerFileName.endsWith(".xls") ? fileName : `${fileName}.xlsx`;
-}
 function downloadWorkbookBuffer(buffer: ArrayBuffer, fileName: string) {
-	const resolvedFileName = ensureWorkbookExtension(fileName);
-	const blob = new Blob([buffer], {
-		type: resolvedFileName.toLowerCase().endsWith(".xls")
-			? "application/vnd.ms-excel"
-			: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-	});
-	const url = URL.createObjectURL(blob);
-	const anchor = document.createElement("a");
-	anchor.href = url;
-	anchor.download = resolvedFileName;
-	anchor.rel = "noopener";
-	document.body.append(anchor);
-	anchor.click();
-	anchor.remove();
-	window.setTimeout(() => URL.revokeObjectURL(url), 0);
+	const resolvedFileName = ensureExtension(fileName, ["xlsx", "xls"]);
+	const type = resolvedFileName.toLowerCase().endsWith(".xls") ? "application/vnd.ms-excel" : XLSX_MIME_TYPE;
+	downloadBlob(new Blob([buffer], { type }), resolvedFileName);
 }
 function normalizeSearchText(value: unknown) {
 	return typeof value === "string" ? value : value === null || value === undefined ? "" : String(value);
@@ -301,37 +273,6 @@ function scrollXlsxCellIntoView({
 		behavior: "auto",
 	});
 }
-function useDelayedLoadingIndicator(isLoading: boolean, delayMs: number) {
-	const [showSpinner, setShowSpinner] = React.useState(false);
-	const [previousIsLoading, setPreviousIsLoading] = React.useState(isLoading);
-	if (previousIsLoading !== isLoading) {
-		setPreviousIsLoading(isLoading);
-		setShowSpinner(false);
-	}
-	React.useEffect(() => {
-		if (!isLoading) return;
-		const timeoutId = window.setTimeout(() => {
-			setShowSpinner(true);
-		}, delayMs);
-		return () => window.clearTimeout(timeoutId);
-	}, [delayMs, isLoading]);
-	return isLoading && showSpinner;
-}
-function ToolbarTooltip({ label, children }: { label: string; children: React.ReactNode }) {
-	return (
-		<Tooltip>
-			<TooltipTrigger render={<span className='inline-flex'>{children}</span>}></TooltipTrigger>
-			<TooltipContent side='bottom'>{label}</TooltipContent>
-		</Tooltip>
-	);
-}
-function ViewerLoadingSurface({ showSpinner = true }: { showSpinner?: boolean }) {
-	return (
-		<div className='grid h-full min-h-52 w-full min-w-full place-items-center bg-transparent'>
-			{showSpinner ? <InlineSpinner className='size-4' /> : null}
-		</div>
-	);
-}
 function WorkbookFileActionsMenu({
 	onDownload,
 	onUploadClick,
@@ -372,14 +313,7 @@ function WorkbookFileActionsMenu({
 		</DropdownMenu>
 	);
 }
-export function renderXlsxScroller({ children, viewportProps }: XlsxScrollerRenderProps) {
-	return (
-		<InlineScrollArea2 className='h-full min-h-0 w-full min-w-0 flex-1' viewportProps={viewportProps}>
-			{children}
-		</InlineScrollArea2>
-	);
-}
-export function WorkbookTableHeaderMenu({
+function WorkbookTableHeaderMenu({
 	direction,
 	sortAscending,
 	sortDescending,
@@ -420,13 +354,14 @@ export function WorkbookTableHeaderMenu({
 						setOpen(false);
 					}}
 				>
-					<DropdownMenuRadioItem value='ascending'>Sort ascending</DropdownMenuRadioItem>
-					<DropdownMenuRadioItem value='descending'>Sort descending</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value='ascending'>{labels.sortAscending}</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value='descending'>{labels.sortDescending}</DropdownMenuRadioItem>
 				</DropdownMenuRadioGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
 }
+const renderWorkbookTableHeaderMenu = (props: XlsxTableHeaderMenuRenderProps) => <WorkbookTableHeaderMenu {...props} />;
 function WorkbookSearchPopover({ viewportRef }: { viewportRef: React.RefObject<HTMLDivElement | null> }) {
 	const labels = useDocumentViewerLabels();
 	const controller = useXlsxViewer();
@@ -772,7 +707,7 @@ type WorkbookSheetTabsInnerProps = {
 	onActiveSheetIndexChange: (index: number) => void;
 	sheets: WorkbookSheetTab[];
 };
-export function WorkbookSheetTabs({ workbookIdentity }: { workbookIdentity: string }) {
+function WorkbookSheetTabs({ workbookIdentity }: { workbookIdentity: string }) {
 	const { activeSheetIndex, setActiveSheetIndex, sheets } = useXlsxViewer();
 	const handleActiveSheetIndexChange = React.useCallback(
 		(index: number) => setActiveSheetIndex(index),
@@ -932,7 +867,7 @@ const WorkbookSheetTabsInner = React.memo(function WorkbookSheetTabsInner({
 				onValueChange={(value) => onActiveSheetIndexChange(Number(value))}
 				className='gap-0'
 			>
-				<InlineScrollArea2
+				<ViewerScrollArea
 					orientation='horizontal'
 					scrollbarGutter
 					className='h-10 w-full has-[[data-slot=scroll-area-viewport][data-has-overflow-x]]:h-[50px]'
@@ -956,7 +891,7 @@ const WorkbookSheetTabsInner = React.memo(function WorkbookSheetTabsInner({
 							))}
 						</TabsList>
 					</div>
-				</InlineScrollArea2>
+				</ViewerScrollArea>
 			</Tabs>
 			{typeof document !== "undefined" && previewSheet && visiblePreviewIndex !== null && previewUrl
 				? createPortal(
@@ -984,14 +919,12 @@ const WorkbookSheetTabsInner = React.memo(function WorkbookSheetTabsInner({
 		</div>
 	);
 });
-export function XlsxWorkbookSurface({
+function XlsxWorkbookSurface({
 	className,
 	isDark,
 	onDownload,
 	onUploadClick,
-	renderTableHeaderMenu,
 	showDownloadButton = true,
-	showToolbar = true,
 	showUploadButton = true,
 	toolbarActions,
 	workbookIdentity,
@@ -1000,9 +933,7 @@ export function XlsxWorkbookSurface({
 	isDark: boolean;
 	onDownload?: () => void;
 	onUploadClick: () => void;
-	renderTableHeaderMenu: (props: XlsxTableHeaderMenuRenderProps) => React.ReactNode;
 	showDownloadButton?: boolean;
-	showToolbar?: boolean;
 	showUploadButton?: boolean;
 	toolbarActions?: React.ReactNode;
 	workbookIdentity: string;
@@ -1012,29 +943,27 @@ export function XlsxWorkbookSurface({
 	const viewportRef = React.useRef<HTMLDivElement | null>(null);
 	const renderSearchableScroller = React.useCallback(
 		({ children, viewportProps }: XlsxScrollerRenderProps) => (
-			<InlineScrollArea2
+			<ViewerScrollArea
 				className='h-full min-h-0 w-full min-w-0 flex-1'
 				viewportProps={viewportProps}
 				viewportRef={viewportRef}
 			>
 				{children}
-			</InlineScrollArea2>
+			</ViewerScrollArea>
 		),
 		[]
 	);
 	return (
 		<div className={cn("flex h-[640px] min-h-0 flex-col overflow-hidden bg-background", className)}>
-			{showToolbar ? (
-				<WorkbookToolbar
-					onDownload={onDownload}
-					onUploadClick={onUploadClick}
-					showDownloadButton={showDownloadButton}
-					showUploadButton={showUploadButton}
-					toolbarActions={toolbarActions}
-					viewportRef={viewportRef}
-					workbookIdentity={workbookIdentity}
-				/>
-			) : null}
+			<WorkbookToolbar
+				onDownload={onDownload}
+				onUploadClick={onUploadClick}
+				showDownloadButton={showDownloadButton}
+				showUploadButton={showUploadButton}
+				toolbarActions={toolbarActions}
+				viewportRef={viewportRef}
+				workbookIdentity={workbookIdentity}
+			/>
 			<div className='flex min-h-0 flex-1 flex-col'>
 				<div className='min-h-0 flex-1 bg-muted/20' dir='ltr'>
 					<XlsxViewer
@@ -1055,14 +984,14 @@ export function XlsxWorkbookSurface({
 								</div>
 							</div>
 						}
-						loadingState={<ViewerLoadingSurface />}
+						loadingState={<ViewerLoadingSurface className='w-full min-w-full' />}
 						renderScroller={renderSearchableScroller}
+						renderTableHeaderMenu={renderWorkbookTableHeaderMenu}
 						errorState={
 							<div className='grid h-full w-full min-w-full place-items-center p-6 text-sm text-destructive'>
 								{error?.message ?? labels.unableToDisplay}
 							</div>
 						}
-						renderTableHeaderMenu={renderTableHeaderMenu}
 					/>
 				</div>
 				<WorkbookSheetTabs workbookIdentity={workbookIdentity} />
@@ -1070,63 +999,32 @@ export function XlsxWorkbookSurface({
 		</div>
 	);
 }
-export function XlsxViewerPreview({
-	className,
-	fileName,
-	isDark,
-	showDownload = true,
-	showToolbar = true,
-	showUpload = true,
-	src,
-	toolbarActions,
-}: {
+type XlsxViewerPreviewProps = {
 	className?: string;
 	fileName?: string;
 	isDark: boolean;
 	showDownload?: boolean;
-	showToolbar?: boolean;
 	showUpload?: boolean;
 	src?: string;
 	toolbarActions?: React.ReactNode;
-}) {
-	return (
-		<XlsxViewerContent
-			key={src}
-			className={className}
-			effectiveIsDark={isDark}
-			fileName={fileName}
-			showDownload={showDownload}
-			showToolbar={showToolbar}
-			showUpload={showUpload}
-			toolbarActions={toolbarActions}
-			url={src}
-		/>
-	);
+};
+export function XlsxViewerPreview(props: XlsxViewerPreviewProps) {
+	return <XlsxViewerContent key={props.src} {...props} />;
 }
 function XlsxViewerContent({
 	className,
-	effectiveIsDark,
 	fileName,
-	showDownload,
-	showToolbar = true,
-	showUpload,
+	isDark,
+	showDownload = true,
+	showUpload = true,
+	src: url,
 	toolbarActions,
-	url,
-}: {
-	className?: string;
-	effectiveIsDark: boolean;
-	fileName?: string;
-	showDownload: boolean;
-	showToolbar?: boolean;
-	showUpload: boolean;
-	toolbarActions?: React.ReactNode;
-	url?: string;
-}) {
+}: XlsxViewerPreviewProps) {
 	const labels = useDocumentViewerLabels();
 	const fileInputRef = React.useRef<HTMLInputElement>(null);
 	const [uploadedWorkbook, setUploadedWorkbook] = React.useState<UploadedWorkbook | null>(null);
 	const sourceFileName = React.useMemo(
-		() => (url ? formatWorkbookName(fileName, url) : (fileName ?? "workbook.xlsx")),
+		() => (url ? formatFileName(fileName, url, "workbook.xlsx") : (fileName ?? "workbook.xlsx")),
 		[fileName, url]
 	);
 	const displayFileName = React.useMemo(
@@ -1139,10 +1037,7 @@ function XlsxViewerContent({
 	);
 	const [workbookBuffer, setWorkbookBuffer] = React.useState<ArrayBuffer | null>(null);
 	const [loadError, setLoadError] = React.useState<string>();
-	const shouldShowLoadingSpinner = useDelayedLoadingIndicator(
-		!workbookBuffer && !loadError && !uploadedWorkbook,
-		XLSX_LOADING_INDICATOR_DELAY_MS
-	);
+	const shouldShowLoadingSpinner = useDelayedLoadingIndicator(!workbookBuffer && !loadError && !uploadedWorkbook);
 	React.useEffect(() => {
 		let isCurrent = true;
 		async function loadWorkbook(): Promise<void> {
@@ -1178,123 +1073,70 @@ function XlsxViewerContent({
 		});
 	}
 	const activeBuffer = uploadedWorkbook?.buffer ?? workbookBuffer;
-	const activeFileName = uploadedWorkbook?.fileName ?? displayFileName;
-	const activeIdentity = workbookIdentity;
-	if (!url && !uploadedWorkbook) {
-		return (
-			<div className={cn("flex h-[640px] min-h-0 flex-col overflow-hidden bg-background", className)}>
-				<input
-					ref={fileInputRef}
-					type='file'
-					aria-label={labels.upload}
-					accept='.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'
-					className='hidden'
-					onChange={handleUpload}
-				/>
-				<WorkbookStandaloneToolbar
-					onUploadClick={() => fileInputRef.current?.click()}
-					showUploadButton={showUpload}
-					toolbarActions={toolbarActions}
-				/>
-				<div className='grid min-h-0 flex-1 place-items-center bg-muted/30 p-4'>
-					<div className='max-w-md rounded-lg border bg-background p-4 text-center text-sm shadow-xs'>
-						<p className='font-medium'>Upload a workbook to preview</p>
-						<p className='mt-1 text-muted-foreground'>
-							Pass an XLSX URL with the <code>src</code> prop or upload a file.
-						</p>
-						<Button
-							type='button'
-							variant='outline'
-							size='sm'
-							className='mt-4'
-							onClick={() => fileInputRef.current?.click()}
-						>
-							<HugeiconsIcon icon={Upload01Icon} strokeWidth={1.75} className='size-4' />
-							Upload XLSX
-						</Button>
-					</div>
-				</div>
-			</div>
-		);
-	}
-	if (loadError && !activeBuffer) {
-		return (
-			<div className={cn("flex h-[640px] min-h-0 flex-col overflow-hidden bg-background", className)}>
-				<input
-					ref={fileInputRef}
-					type='file'
-					aria-label={labels.upload}
-					accept='.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'
-					className='hidden'
-					onChange={handleUpload}
-				/>
-				<WorkbookStandaloneToolbar
-					onUploadClick={() => fileInputRef.current?.click()}
-					showUploadButton={showUpload}
-					toolbarActions={toolbarActions}
-				/>
-				<div className='grid min-h-0 flex-1 place-items-center bg-muted/30 p-4'>
-					<div className='max-w-md rounded-lg border bg-background p-4 text-sm'>
-						<p className='font-medium'>{labels.unableToDisplay}</p>
-						<p className='mt-1 text-muted-foreground'>{loadError}</p>
-						<Button
-							type='button'
-							variant='outline'
-							size='sm'
-							className='mt-4'
-							onClick={() => fileInputRef.current?.click()}
-						>
-							<HugeiconsIcon icon={Upload01Icon} strokeWidth={1.75} className='size-4' />
-							Upload XLSX
-						</Button>
-					</div>
-				</div>
-			</div>
-		);
-	}
+	const openFilePicker = () => fileInputRef.current?.click();
+	const fileInput = (
+		<input
+			ref={fileInputRef}
+			type='file'
+			aria-label={labels.upload}
+			accept='.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'
+			className='hidden'
+			onChange={handleUpload}
+		/>
+	);
+	const uploadButton = (
+		<Button type='button' variant='outline' size='sm' className='mt-4' onClick={openFilePicker}>
+			<HugeiconsIcon icon={Upload01Icon} strokeWidth={1.75} className='size-4' />
+			Upload XLSX
+		</Button>
+	);
 	if (!activeBuffer) {
 		return (
 			<div className={cn("flex h-[640px] min-h-0 flex-col overflow-hidden bg-background", className)}>
-				<input
-					ref={fileInputRef}
-					type='file'
-					aria-label={labels.upload}
-					accept='.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'
-					className='hidden'
-					onChange={handleUpload}
-				/>
+				{fileInput}
 				<WorkbookStandaloneToolbar
-					onUploadClick={() => fileInputRef.current?.click()}
+					onUploadClick={openFilePicker}
 					showUploadButton={showUpload}
 					toolbarActions={toolbarActions}
 				/>
-				<ViewerLoadingSurface showSpinner={shouldShowLoadingSpinner} />
+				{!url ? (
+					<div className='grid min-h-0 flex-1 place-items-center bg-muted/30 p-4'>
+						<div className='max-w-md rounded-lg border bg-background p-4 text-center text-sm shadow-xs'>
+							<p className='font-medium'>Upload a workbook to preview</p>
+							<p className='mt-1 text-muted-foreground'>
+								Pass an XLSX URL with the <code>src</code> prop or upload a file.
+							</p>
+							{uploadButton}
+						</div>
+					</div>
+				) : loadError ? (
+					<div className='grid min-h-0 flex-1 place-items-center bg-muted/30 p-4'>
+						<div className='max-w-md rounded-lg border bg-background p-4 text-sm'>
+							<p className='font-medium'>{labels.unableToDisplay}</p>
+							<p className='mt-1 text-muted-foreground'>{loadError}</p>
+							{uploadButton}
+						</div>
+					</div>
+				) : (
+					<ViewerLoadingSurface className='w-full min-w-full' showSpinner={shouldShowLoadingSpinner} />
+				)}
 			</div>
 		);
 	}
 	return (
 		<div className={cn("overflow-hidden", className)}>
-			<input
-				ref={fileInputRef}
-				type='file'
-				aria-label={labels.upload}
-				accept='.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'
-				className='hidden'
-				onChange={handleUpload}
-			/>
+			{fileInput}
 			<XlsxWorkbookLoadedViewer
 				className={className}
-				fileName={activeFileName}
-				isDark={effectiveIsDark}
-				onDownload={() => downloadWorkbookBuffer(activeBuffer, activeFileName)}
-				onUploadClick={() => fileInputRef.current?.click()}
-				renderTableHeaderMenu={(props) => <WorkbookTableHeaderMenu {...props} />}
+				fileName={displayFileName}
+				isDark={isDark}
+				onDownload={() => downloadWorkbookBuffer(activeBuffer, displayFileName)}
+				onUploadClick={openFilePicker}
 				showDownloadButton={showDownload}
-				showToolbar={showToolbar}
 				showUploadButton={showUpload}
 				toolbarActions={toolbarActions}
 				workbookBuffer={activeBuffer}
-				workbookIdentity={activeIdentity}
+				workbookIdentity={workbookIdentity}
 			/>
 		</div>
 	);
@@ -1305,9 +1147,7 @@ function XlsxWorkbookLoadedViewer({
 	isDark,
 	onDownload,
 	onUploadClick,
-	renderTableHeaderMenu,
 	showDownloadButton,
-	showToolbar = true,
 	showUploadButton,
 	toolbarActions,
 	workbookBuffer,
@@ -1318,9 +1158,7 @@ function XlsxWorkbookLoadedViewer({
 	isDark: boolean;
 	onDownload: () => void;
 	onUploadClick: () => void;
-	renderTableHeaderMenu: (props: XlsxTableHeaderMenuRenderProps) => React.ReactNode;
 	showDownloadButton: boolean;
-	showToolbar?: boolean;
 	showUploadButton: boolean;
 	toolbarActions?: React.ReactNode;
 	workbookBuffer: ArrayBuffer;
@@ -1346,9 +1184,7 @@ function XlsxWorkbookLoadedViewer({
 				isDark={isDark}
 				onDownload={onDownload}
 				onUploadClick={onUploadClick}
-				renderTableHeaderMenu={renderTableHeaderMenu}
 				showDownloadButton={showDownloadButton}
-				showToolbar={showToolbar}
 				showUploadButton={showUploadButton}
 				toolbarActions={toolbarActions}
 				workbookIdentity={workbookIdentity}
@@ -1356,108 +1192,3 @@ function XlsxWorkbookLoadedViewer({
 		</XlsxViewerProvider>
 	);
 }
-function InlineScrollArea2({
-	className,
-	children,
-	orientation = "both",
-	scrollFade = false,
-	scrollbarGutter = false,
-	scrollbarOverflowOnly = false,
-	viewportClassName,
-	viewportProps,
-	viewportRef,
-	...props
-}: InlineScrollAreaProps) {
-	const { className: viewportPropsClassName, ref: viewportPropsRef, ...resolvedViewportProps } = viewportProps ?? {};
-	const composedViewportRef = React.useMemo(
-		() => InlineComposeRefs(viewportPropsRef, viewportRef),
-		[viewportPropsRef, viewportRef]
-	);
-
-	if (
-		!viewportProps &&
-		!viewportRef &&
-		!viewportClassName &&
-		!scrollFade &&
-		!scrollbarGutter &&
-		!scrollbarOverflowOnly
-	) {
-		return (
-			<InlineScrollArea
-				{...props}
-				className={cn(
-					"size-full min-h-0",
-					orientation === "horizontal" && "[&>[data-orientation=vertical]]:hidden",
-					className
-				)}
-			>
-				{children}
-				{orientation !== "vertical" ? <ScrollBar orientation='horizontal' /> : null}
-			</InlineScrollArea>
-		);
-	}
-
-	return (
-		<ScrollAreaPrimitive.Root
-			className={cn(
-				"size-full min-h-0",
-				scrollbarOverflowOnly &&
-					"[&:not(:has([data-slot=scroll-area-viewport][data-has-overflow-x]))_[data-orientation=horizontal]]:hidden [&:not(:has([data-slot=scroll-area-viewport][data-has-overflow-y]))_[data-orientation=vertical]]:hidden",
-				className
-			)}
-			{...props}
-		>
-			<ScrollAreaPrimitive.Viewport
-				{...resolvedViewportProps}
-				ref={composedViewportRef}
-				className={cn(
-					"h-full rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-ring",
-					scrollFade &&
-						"mask-t-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-start)))] mask-r-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-end)))] mask-b-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-end)))] mask-l-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-start)))] [--fade-size:1.5rem]",
-					scrollbarGutter && orientation !== "vertical" && "pb-3.5",
-					scrollbarGutter && orientation !== "horizontal" && "pe-3.5",
-					viewportPropsClassName,
-					viewportClassName
-				)}
-				data-slot='scroll-area-viewport'
-			>
-				{children}
-			</ScrollAreaPrimitive.Viewport>
-			{orientation !== "horizontal" ? <ScrollBar orientation='vertical' /> : null}
-			{orientation !== "vertical" ? <ScrollBar orientation='horizontal' /> : null}
-			{orientation === "both" ? <ScrollAreaPrimitive.Corner /> : null}
-		</ScrollAreaPrimitive.Root>
-	);
-}
-type InlineScrollAreaProps = ScrollAreaPrimitive.Root.Props & {
-	orientation?: "vertical" | "horizontal" | "both";
-	scrollFade?: boolean;
-	scrollbarGutter?: boolean;
-	scrollbarOverflowOnly?: boolean;
-	viewportClassName?: string;
-	viewportProps?: ScrollAreaPrimitive.Viewport.Props;
-	viewportRef?: React.Ref<HTMLDivElement>;
-};
-function InlineComposeRefs<T>(...refs: Array<React.Ref<T> | undefined>) {
-	return (node: T | null) => {
-		for (const ref of refs) {
-			if (!ref) continue;
-			if (typeof ref === "function") ref(node);
-			else ref.current = node;
-		}
-	};
-}
-function InlineSpinner({ className, ...props }: InlineRegistryIconProps) {
-	const labels = useDocumentViewerLabels();
-	return (
-		<HugeiconsIcon
-			icon={Loading03Icon}
-			strokeWidth={1.75}
-			role='status'
-			aria-label={labels.loading}
-			className={cn("size-4 animate-spin", className)}
-			{...props}
-		/>
-	);
-}
-type InlineRegistryIconProps = Omit<React.ComponentProps<"svg">, "children" | "strokeWidth"> & { strokeWidth?: number };

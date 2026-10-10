@@ -7,16 +7,13 @@ import { XMLReader } from "@vectorstores/readers/xml";
 import { unzipSync } from "fflate";
 import { z } from "zod";
 
+import { DOCX_MIME_TYPE, TEXT_FILE_EXTENSIONS, XLSX_MIME_TYPE } from "./file";
 import { MAX_INGEST_FILE_SIZE_BYTES, MAX_INGEST_TEXT_LENGTH } from "./upload";
 
 type RagFile = {
 	extension: string;
 	mimeType: string;
 };
-
-const TEXT_FILE_EXTENSIONS = new Set(["json", "log", "md", "mdx", "txt", "yaml", "yml"]);
-
-const XLSX_MIME_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
 const MAX_XLSX_EXPANDED_BYTES = 20 * 1024 * 1024;
 
@@ -238,9 +235,7 @@ const RAG_FILE_EXTRACTORS: Array<RagFileExtractor> = [
 
 			return extractWithReader({ content, reader: new DocxReader() });
 		},
-		matches: ({ extension, mimeType }) =>
-			mimeType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
-			extension === "docx",
+		matches: ({ extension, mimeType }) => mimeType === DOCX_MIME_TYPE || extension === "docx",
 	},
 	{
 		extract: async ({ buffer }) => {

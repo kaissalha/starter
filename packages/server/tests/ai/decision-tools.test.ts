@@ -16,7 +16,11 @@ vi.mock("../../src/services/permissions", () => ({
 	requireOrganizationPermission: mocks.requireOrganizationPermission,
 }));
 
-vi.mock("../../src/lib/firecrawl", () => ({ firecrawl: { search: mocks.search } }));
+vi.mock("firecrawl", () => ({
+	Firecrawl: class {
+		search = mocks.search;
+	},
+}));
 
 import { decisionClassifiers } from "../../src/ai/decisions";
 import { rankRelevantCandidates, relevanceRank } from "../../src/ai/relevance";

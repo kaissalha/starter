@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 
 import { useSearchParams } from "next/navigation";
 
@@ -24,7 +24,8 @@ import { LastUsedLoginMethod } from "./components/last-used-login-method";
 import { LoginGoogleButton } from "./components/login-google-button";
 import { LoginVideoBackground } from "./components/login-video-background";
 import { OTPVerificationForm } from "./components/otp-verification-form";
-import { useLastLoginMethod } from "./use-last-login-method";
+
+const subscribeToLastLoginMethod = () => () => undefined;
 
 const enter = {
 	opacity: 1,
@@ -41,7 +42,12 @@ export const LoginPageClient = () => {
 		getLoginRedirect(searchParams.get("redirect_url")) ??
 		localizedPath({ defaultLocale, locale, pathname: "/dashboard" });
 
-	const lastLoginMethod = useLastLoginMethod();
+	const lastLoginMethod = useSyncExternalStore(
+		subscribeToLastLoginMethod,
+		() => authClient.getLastUsedLoginMethod(),
+		() => null
+	);
+
 	const [isEmailPath, setIsEmailPath] = useState(false);
 
 	const { beginOtp, email, isOtpSent, otpSentAt, reset } = useAuthLoginFlowStore((s) => ({

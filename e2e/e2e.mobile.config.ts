@@ -3,7 +3,7 @@ import { gateway } from "ai";
 import type { E2EConfig } from "e2e";
 
 const context = [
-	"starter is an organization dashboard with an AI assistant, a Library of documents and images, and notifications.",
+	"starter is an organization dashboard with an AI assistant and notifications.",
 	"The screen is a phone. The dashboard sections are behind the Toggle navigation menu button at the top left.",
 ].join(" ");
 

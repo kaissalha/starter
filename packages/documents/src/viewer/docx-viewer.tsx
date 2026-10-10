@@ -2,7 +2,6 @@
 
 import * as React from "react";
 
-import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 import {
 	DocxEditorViewer,
 	useDocxComments,
@@ -10,9 +9,11 @@ import {
 	useDocxPageLayout,
 	useDocxTrackChanges,
 	useDocxViewerThumbnails,
+	type DocxCommentCardRenderProps,
 	type DocxDocumentTheme,
 	type DocxEditorController,
 	type DocxPageThumbnailItem,
+	type DocxTrackedChangeCardRenderProps,
 	type ViewerZoomLevel,
 	type ViewerZoomState,
 } from "@extend-ai/react-docx";
@@ -20,7 +21,6 @@ import {
 	Comment01Icon,
 	Download01Icon,
 	FileDiffIcon,
-	Loading03Icon,
 	MinusSignCircleIcon,
 	MoreHorizontalIcon,
 	PlusSignCircleIcon,
@@ -30,7 +30,9 @@ import {
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 
+import { Badge } from "@starter/ui/components/badge";
 import { Button } from "@starter/ui/components/button";
+import { Card } from "@starter/ui/components/card";
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -40,30 +42,29 @@ import {
 	DropdownMenuTrigger,
 } from "@starter/ui/components/dropdown-menu";
 import { Input } from "@starter/ui/components/input";
-import { ScrollArea as InlineScrollArea, ScrollBar } from "@starter/ui/components/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@starter/ui/components/select";
 import { Separator } from "@starter/ui/components/separator";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@starter/ui/components/tooltip";
+import { TooltipProvider } from "@starter/ui/components/tooltip";
 import { cn } from "@starter/ui/lib/utils";
 
-import { DocumentViewerThumbnailSidebar, useElementWidth, useInlineThumbnailSidebar } from "./document-viewer-sidebar";
-import { createDocxCommentCardRenderer, createDocxTrackedChangeCardRenderer } from "./docx-annotation-card";
-import { FileThumbnail } from "./file-thumbnail";
-import { useDocumentViewerLabels } from "./labels";
-import { useDocumentViewerToolbarLeading } from "./toolbar-leading";
+import { DOCX_MIME_TYPE } from "../file";
+import { useDocumentViewerLabels, useDocumentViewerToolbarLeading } from "./context";
+import {
+	DocumentViewerThumbnailSidebar,
+	ToolbarTooltip,
+	ViewerLoadingSurface,
+	ViewerScrollArea,
+	ViewerSpinner,
+	useDelayedLoadingIndicator,
+	useElementWidth,
+} from "./viewer-shared";
+import { ZOOM_MODE_LABELS, downloadBlob, ensureExtension, formatFileName, isZoomMode } from "./viewer-utils";
 
-const DOCX_MIME_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-const DOCX_LOADING_INDICATOR_DELAY_MS = 300;
 const DOCX_THUMBNAIL_WIDTH = 92;
 const DOCX_THUMBNAIL_LIST_PADDING = 16;
 const DOCX_THUMBNAIL_ROW_ESTIMATE = 172;
 const DEFAULT_ZOOM = 50;
 const ZOOM_OPTIONS = [50, 75, 100, 125, 150, 175, 200] as const;
-const ZOOM_MODE_LABELS = {
-	"fit-page": "Fit page",
-	"fit-width": "Fit width",
-	automatic: "Automatic",
-} satisfies Record<Exclude<ViewerZoomLevel, number>, string>;
 const DOCX_PADDING_WARNING_TEXT = "a style property during rerender";
 const DOCX_THUMBNAIL_FOCUS_RING_CLASS =
 	"group-focus-visible/docx-thumbnail-sidebar:ring-2 group-focus-visible/docx-thumbnail-sidebar:ring-ring group-focus-visible/docx-thumbnail-sidebar:ring-offset-1 group-focus-visible/docx-thumbnail-sidebar:ring-offset-background";
@@ -120,33 +121,9 @@ async function loadDocxFile(url: string, displayFileName: string): Promise<File>
 		type: blob.type || DOCX_MIME_TYPE,
 	});
 }
-function formatDocumentName(fileName: string | undefined, url: string) {
-	if (fileName?.trim()) return fileName;
-	const pathname = url.split("?")[0] ?? "";
-	const rawName = pathname.split("/").pop() ?? "document.docx";
-	try {
-		return decodeURIComponent(rawName);
-	} catch {
-		return rawName;
-	}
-}
-function ensureDocxExtension(fileName: string) {
-	return fileName.toLowerCase().endsWith(".docx") ? fileName : `${fileName}.docx`;
-}
-function downloadBlob(blob: Blob, fileName: string) {
-	const url = URL.createObjectURL(blob);
-	const anchor = document.createElement("a");
-	anchor.href = url;
-	anchor.download = fileName;
-	anchor.rel = "noopener";
-	document.body.append(anchor);
-	anchor.click();
-	anchor.remove();
-	window.setTimeout(() => URL.revokeObjectURL(url), 0);
-}
 async function downloadDocxFile({ file, fileName, url }: { file?: File; fileName: string; url?: string }) {
 	if (file) {
-		downloadBlob(file, ensureDocxExtension(fileName));
+		downloadBlob(file, ensureExtension(fileName, ["docx"]));
 		return;
 	}
 	if (!url) return;
@@ -154,7 +131,7 @@ async function downloadDocxFile({ file, fileName, url }: { file?: File; fileName
 	if (!response.ok) {
 		throw new Error(`Failed to download DOCX (${response.status})`);
 	}
-	downloadBlob(await response.blob(), ensureDocxExtension(fileName));
+	downloadBlob(await response.blob(), ensureExtension(fileName, ["docx"]));
 }
 function getNextZoomScale(currentZoomScale: number, direction: 1 | -1) {
 	if (direction > 0) {
@@ -165,28 +142,6 @@ function getNextZoomScale(currentZoomScale: number, direction: 1 | -1) {
 		if (value < currentZoomScale) return value;
 	}
 	return currentZoomScale;
-}
-function normalizeDocxZoomLevel(value: ViewerZoomLevel | undefined): ViewerZoomLevel {
-	return value ?? DEFAULT_ZOOM;
-}
-function isZoomMode(value: string): value is Exclude<ViewerZoomLevel, number> {
-	return value in ZOOM_MODE_LABELS;
-}
-function useDelayedLoadingIndicator(isLoading: boolean, delayMs: number) {
-	const [showSpinner, setShowSpinner] = React.useState(false);
-	const [previousIsLoading, setPreviousIsLoading] = React.useState(isLoading);
-	if (previousIsLoading !== isLoading) {
-		setPreviousIsLoading(isLoading);
-		setShowSpinner(false);
-	}
-	React.useEffect(() => {
-		if (!isLoading) return;
-		const timeoutId = window.setTimeout(() => {
-			setShowSpinner(true);
-		}, delayMs);
-		return () => window.clearTimeout(timeoutId);
-	}, [delayMs, isLoading]);
-	return isLoading && showSpinner;
 }
 function isDocxPaddingWarning(args: unknown[]) {
 	return (
@@ -218,20 +173,138 @@ function isInteractiveViewerTarget(target: EventTarget | null) {
 		)
 	);
 }
-function ToolbarTooltip({ label, children }: { label: string; children: React.ReactNode }) {
+type AnnotationBadgeVariant = "outline" | "secondary" | "success" | "error" | "warning" | "info";
+function trackedChangeBadgeVariant(kind: DocxTrackedChangeCardRenderProps["change"]["kind"]): AnnotationBadgeVariant {
+	switch (kind) {
+		case "insertion":
+		case "move-to":
+			return "success";
+		case "deletion":
+		case "move-from":
+			return "error";
+		default:
+			return "warning";
+	}
+}
+function trackedChangeBadgeLabel({
+	change,
+	kindLabel,
+}: Pick<DocxTrackedChangeCardRenderProps, "change" | "kindLabel">) {
+	switch (change.kind) {
+		case "insertion":
+			return "Inserted";
+		case "deletion":
+			return "Removed";
+		case "move-from":
+			return "Moved from";
+		case "move-to":
+			return "Moved to";
+		default:
+			return kindLabel;
+	}
+}
+function DocxAnnotationCard({
+	anchorText,
+	badge,
+	badgeVariant = "outline",
+	date,
+	meta,
+	documentTheme,
+	snippet,
+	style,
+}: {
+	anchorText?: string;
+	badge: string;
+	badgeVariant?: AnnotationBadgeVariant;
+	date?: string;
+	documentTheme: DocxDocumentTheme;
+	meta: string;
+	snippet: string;
+	style: React.CSSProperties;
+}) {
+	const isDarkDocument = documentTheme === "dark";
+	const cardStyle: React.CSSProperties = {
+		...style,
+		backgroundColor: isDarkDocument ? "rgb(24 24 27 / 0.95)" : "rgb(255 255 255 / 0.95)",
+		color: isDarkDocument ? "#f4f4f5" : "#18181b",
+	};
+	const mutedTextColor = isDarkDocument ? "#a1a1aa" : "#71717a";
+	const anchorStyle: React.CSSProperties = {
+		backgroundColor: isDarkDocument ? "rgb(63 63 70 / 0.55)" : "rgb(244 244 245 / 0.75)",
+		color: mutedTextColor,
+	};
 	return (
-		<Tooltip>
-			<TooltipTrigger render={<span className='inline-flex'>{children}</span>}></TooltipTrigger>
-			<TooltipContent side='bottom'>{label}</TooltipContent>
-		</Tooltip>
+		<Card
+			style={cardStyle}
+			className='pointer-events-auto box-border gap-2 rounded-lg p-2 shadow-sm before:rounded-[7px]'
+		>
+			<div className='flex min-w-0 items-start justify-between gap-2'>
+				<div className='min-w-0 text-[11px] leading-tight font-medium' style={{ color: mutedTextColor }}>
+					<div className='truncate'>{meta}</div>
+					{date ? <div className='mt-0.5 truncate'>{date}</div> : null}
+				</div>
+				<Badge
+					variant={badgeVariant === "outline" ? "outline" : "secondary"}
+					className={cn(
+						"h-4 px-1 text-[10px]",
+						cn(
+							"max-w-[92px] truncate",
+							badgeVariant === "success" && "bg-green-500/10 text-green-700 dark:text-green-300",
+							badgeVariant === "error" && "bg-destructive/10 text-destructive",
+							badgeVariant === "warning" && "bg-amber-500/10 text-amber-700 dark:text-amber-300",
+							badgeVariant === "info" && "bg-blue-500/10 text-blue-700 dark:text-blue-300"
+						)
+					)}
+				>
+					{badge}
+				</Badge>
+			</div>
+			{anchorText ? (
+				<div className='rounded-md px-2 py-1 text-[11px] leading-snug italic' style={anchorStyle}>
+					{anchorText}
+				</div>
+			) : null}
+			<div className='text-xs leading-snug break-words'>{snippet}</div>
+		</Card>
 	);
 }
-function ViewerLoadingSurface({ showSpinner = true }: { showSpinner?: boolean }) {
-	return (
-		<div className='grid h-full min-h-52 place-items-center bg-transparent'>
-			{showSpinner ? <InlineSpinner className='size-4' /> : null}
-		</div>
-	);
+function createDocxTrackedChangeCardRenderer(documentTheme: DocxDocumentTheme) {
+	return function renderDocxTrackedChangeCard({
+		change,
+		formattedDate,
+		kindLabel,
+		snippet,
+		style,
+	}: DocxTrackedChangeCardRenderProps) {
+		return (
+			<DocxAnnotationCard
+				badge={trackedChangeBadgeLabel({ change, kindLabel })}
+				badgeVariant={trackedChangeBadgeVariant(change.kind)}
+				date={formattedDate}
+				documentTheme={documentTheme}
+				meta={change.author?.trim() || "Unknown author"}
+				snippet={snippet}
+				style={style}
+			/>
+		);
+	};
+}
+function createDocxCommentCardRenderer(documentTheme: DocxDocumentTheme) {
+	return function renderDocxCommentCard({ comment, formattedDate, snippet, style }: DocxCommentCardRenderProps) {
+		const badge = comment.resolved ? "Resolved" : comment.parentId !== undefined ? "Reply" : "Comment";
+		return (
+			<DocxAnnotationCard
+				anchorText={comment.anchorText}
+				badge={badge}
+				badgeVariant={comment.resolved ? "secondary" : "info"}
+				date={formattedDate}
+				documentTheme={documentTheme}
+				meta={comment.author?.trim() || "Unknown author"}
+				snippet={snippet}
+				style={style}
+			/>
+		);
+	};
 }
 function DocxFileActionsMenu({
 	controlsDisabled,
@@ -296,7 +369,7 @@ function DocxFileActionsMenu({
 				{showDownloadButton ? (
 					<DropdownMenuItem disabled={downloadDisabled} onClick={onDownload}>
 						{isPreparingDownload ? (
-							<InlineSpinner className='size-4' />
+							<ViewerSpinner />
 						) : (
 							<HugeiconsIcon icon={Download01Icon} strokeWidth={1.75} className='size-4' />
 						)}
@@ -543,55 +616,44 @@ function DocxToolbar({
 		</div>
 	);
 }
-function DocxSidebarThumbnail({
-	canvasRef,
-	displayFileName,
-	hasError,
-	isActive,
-	isLoading,
-	pageNumber,
-	pixelHeightPx,
-	pixelWidthPx,
-	previewAspectRatio,
-}: {
-	canvasRef: React.RefCallback<HTMLCanvasElement>;
-	displayFileName: string;
-	hasError: boolean;
-	isActive: boolean;
-	isLoading: boolean;
-	pageNumber: number;
-	pixelHeightPx: number;
-	pixelWidthPx: number;
-	previewAspectRatio: number;
-}) {
+function DocxSidebarThumbnail({ isActive, thumbnail }: { isActive: boolean; thumbnail: DocxPageThumbnailItem }) {
+	const isLoading = thumbnail.status !== "ready" && thumbnail.status !== "error";
 	return (
-		<FileThumbnail
-			file={{
-				name: `${displayFileName} page ${pageNumber}`,
-				type: DOCX_MIME_TYPE,
-			}}
-			previewAspectRatio={previewAspectRatio}
-			previewClassName='rounded-md bg-white'
-			previewContent={
-				<canvas
-					ref={canvasRef}
-					width={pixelWidthPx}
-					height={pixelHeightPx}
-					className='!size-full bg-white object-cover object-top'
-				/>
-			}
-			isLoading={isLoading}
-			hasError={hasError}
-			className={cn(
-				"w-[92px] rounded-md border-0 shadow-xs ring-0 transition-shadow duration-150",
-				isActive && "shadow-sm"
-			)}
-		/>
+		<div
+			className={`group overflow-hidden rounded-lg border bg-background text-foreground ${cn("w-[92px] rounded-md border-0 shadow-xs ring-0 transition-shadow duration-150", isActive && "shadow-sm")}`}
+		>
+			<div
+				className='relative aspect-square overflow-hidden bg-muted [contain:layout_paint] rounded-md bg-white'
+				style={thumbnail.aspectRatio ? { aspectRatio: String(thumbnail.aspectRatio) } : undefined}
+			>
+				<div
+					className={cn(
+						"absolute inset-0 size-full transition-[opacity,filter] duration-[160ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none",
+						isLoading ? "opacity-0 blur-sm" : "blur-0 opacity-100"
+					)}
+				>
+					<canvas
+						ref={thumbnail.canvasRef}
+						width={thumbnail.pixelWidthPx}
+						height={thumbnail.pixelHeightPx}
+						className='!size-full bg-white object-cover object-top'
+					/>
+				</div>
+				{isLoading ? (
+					<div aria-hidden='true' className='absolute inset-0 z-10 overflow-hidden bg-muted'>
+						<div className='absolute inset-0 bg-muted' />
+						<div className='absolute inset-0 animate-pulse bg-background/55 motion-reduce:animate-none' />
+					</div>
+				) : null}
+				{!isLoading && thumbnail.status === "error" ? (
+					<div className='absolute inset-0 bg-muted' aria-hidden='true' />
+				) : null}
+			</div>
+		</div>
 	);
 }
 function DocxThumbnailSidebarList({
 	activePage,
-	displayFileName,
 	isLoadingDocument,
 	onSelectPage,
 	onThumbnailRenderWindowChange,
@@ -600,7 +662,6 @@ function DocxThumbnailSidebarList({
 	thumbnails,
 }: {
 	activePage: number;
-	displayFileName: string;
 	isLoadingDocument: boolean;
 	onSelectPage: (pageNumber: number) => void;
 	onThumbnailRenderWindowChange: (renderWindow: DocxThumbnailRenderWindowState) => void;
@@ -686,7 +747,7 @@ function DocxThumbnailSidebarList({
 		[activePage, onSelectPage, pageCount]
 	);
 	return (
-		<InlineScrollArea2
+		<ViewerScrollArea
 			className='h-full'
 			scrollFade
 			viewportClassName='group/docx-thumbnail-sidebar focus-visible:ring-0 focus-visible:ring-offset-0'
@@ -757,15 +818,8 @@ function DocxThumbnailSidebarList({
 									}}
 								>
 									<DocxSidebarThumbnail
-										canvasRef={thumbnail.canvasRef}
-										displayFileName={displayFileName}
-										hasError={thumbnail.status === "error"}
 										isActive={thumbnail.pageNumber === activePage}
-										isLoading={thumbnail.status !== "ready" && thumbnail.status !== "error"}
-										pageNumber={thumbnail.pageNumber}
-										pixelHeightPx={thumbnail.pixelHeightPx}
-										pixelWidthPx={thumbnail.pixelWidthPx}
-										previewAspectRatio={thumbnail.aspectRatio}
+										thumbnail={thumbnail}
 									/>
 									{thumbnail.pageNumber}
 								</div>
@@ -774,12 +828,11 @@ function DocxThumbnailSidebarList({
 					})}
 				</div>
 			) : null}
-		</InlineScrollArea2>
+		</ViewerScrollArea>
 	);
 }
 function DocxThumbnailSidebarContent({
 	activePageStore,
-	displayFileName,
 	editor,
 	isLoadingDocument,
 	onSelectPage,
@@ -788,7 +841,6 @@ function DocxThumbnailSidebarContent({
 	sidebarOpen,
 }: {
 	activePageStore: DocxActivePageStore;
-	displayFileName: string;
 	editor: DocxEditorController;
 	isLoadingDocument: boolean;
 	onSelectPage: (pageNumber: number) => void;
@@ -838,7 +890,6 @@ function DocxThumbnailSidebarContent({
 	return (
 		<DocxThumbnailSidebarList
 			activePage={activePage}
-			displayFileName={displayFileName}
 			isLoadingDocument={isLoadingDocument}
 			onSelectPage={onSelectPage}
 			onThumbnailRenderWindowChange={handleThumbnailRenderWindowChange}
@@ -852,11 +903,10 @@ export function DocxViewerPreview({
 	className,
 	defaultZoom = DEFAULT_ZOOM,
 	fileName,
-	isDark,
+	isDark: effectiveIsDark,
 	showDownload = true,
-	showToolbar = true,
 	showUpload = true,
-	src,
+	src: url,
 	toolbarActions,
 }: {
 	className?: string;
@@ -864,45 +914,9 @@ export function DocxViewerPreview({
 	fileName?: string;
 	isDark: boolean;
 	showDownload?: boolean;
-	showToolbar?: boolean;
 	showUpload?: boolean;
 	src?: string;
 	toolbarActions?: React.ReactNode;
-}) {
-	return (
-		<DocxViewerContent
-			className={className}
-			defaultZoom={defaultZoom}
-			effectiveIsDark={isDark}
-			fileName={fileName}
-			showDownload={showDownload}
-			showToolbar={showToolbar}
-			showUpload={showUpload}
-			toolbarActions={toolbarActions}
-			url={src}
-		/>
-	);
-}
-function DocxViewerContent({
-	className,
-	defaultZoom,
-	effectiveIsDark,
-	fileName,
-	showDownload,
-	showToolbar = true,
-	showUpload,
-	toolbarActions,
-	url,
-}: {
-	className?: string;
-	defaultZoom?: ViewerZoomLevel;
-	effectiveIsDark: boolean;
-	fileName?: string;
-	showDownload: boolean;
-	showToolbar?: boolean;
-	showUpload: boolean;
-	toolbarActions?: React.ReactNode;
-	url?: string;
 }) {
 	const labels = useDocumentViewerLabels();
 	const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -912,16 +926,15 @@ function DocxViewerContent({
 	const [uploadedDocxFile, setUploadedDocxFile] = React.useState<UploadedDocxFile | null>(null);
 	const [sidebarOpen, setSidebarOpen] = React.useState(false);
 	const activePageStore = React.useMemo(() => createDocxActivePageStore(), []);
-	const resolvedDefaultZoomLevel = normalizeDocxZoomLevel(defaultZoom);
 	const activeUploadedDocxFile = uploadedDocxFile?.sourceUrl === url ? uploadedDocxFile : null;
 	const documentKey = activeUploadedDocxFile?.identity ?? url ?? "";
 	const setActivePage = activePageStore.setActivePage;
-	const sidebarInline = useInlineThumbnailSidebar(viewerShellWidth);
+	const sidebarInline = viewerShellWidth >= 768;
 	const viewerBackgroundColor = "color-mix(in oklab, var(--muted) 40%, transparent)";
 	const displayFileName = React.useMemo(
 		() =>
 			activeUploadedDocxFile?.file.name ??
-			(url ? formatDocumentName(fileName, url) : (fileName ?? "document.docx")),
+			(url ? formatFileName(fileName, url, "document.docx") : (fileName ?? "document.docx")),
 		[activeUploadedDocxFile?.file.name, fileName, url]
 	);
 	const [initialDocumentTheme] = React.useState<DocxDocumentTheme>(() => (effectiveIsDark ? "dark" : "light"));
@@ -940,17 +953,16 @@ function DocxViewerContent({
 	const [reportedPageCount, setReportedPageCount] = React.useState(0);
 	const [zoomState, setZoomState] = React.useState({
 		documentKey: "",
-		level: resolvedDefaultZoomLevel,
-		resolvedZoom: typeof resolvedDefaultZoomLevel === "number" ? resolvedDefaultZoomLevel : DEFAULT_ZOOM,
+		level: defaultZoom,
+		resolvedZoom: typeof defaultZoom === "number" ? defaultZoom : DEFAULT_ZOOM,
 	});
 	const activeZoomState =
 		zoomState.documentKey === documentKey
 			? zoomState
 			: {
 					documentKey,
-					level: resolvedDefaultZoomLevel,
-					resolvedZoom:
-						typeof resolvedDefaultZoomLevel === "number" ? resolvedDefaultZoomLevel : DEFAULT_ZOOM,
+					level: defaultZoom,
+					resolvedZoom: typeof defaultZoom === "number" ? defaultZoom : DEFAULT_ZOOM,
 				};
 	const setZoomLevel = React.useCallback(
 		(level: ViewerZoomLevel) => {
@@ -971,7 +983,7 @@ function DocxViewerContent({
 	const [loadError, setLoadError] = React.useState<string>();
 	const [isLoadingDocument, setIsLoadingDocument] = React.useState(true);
 	const [isPreparingDownload, setIsPreparingDownload] = React.useState(false);
-	const shouldShowDocumentSpinner = useDelayedLoadingIndicator(isLoadingDocument, DOCX_LOADING_INDICATOR_DELAY_MS);
+	const shouldShowDocumentSpinner = useDelayedLoadingIndicator(isLoadingDocument);
 	const loadingState = <ViewerLoadingSurface showSpinner={shouldShowDocumentSpinner} />;
 	const documentTheme = effectiveIsDark ? "dark" : "light";
 	const renderTrackedChangeCard = React.useMemo(
@@ -1138,7 +1150,7 @@ function DocxViewerContent({
 		const file = event.target.files?.[0];
 		event.target.value = "";
 		if (!file) return;
-		setZoomLevel(resolvedDefaultZoomLevel);
+		setZoomLevel(defaultZoom);
 		setActivePage(1);
 		setReportedPageCount(0);
 		setUploadedDocxFile({
@@ -1157,33 +1169,30 @@ function DocxViewerContent({
 				className='hidden'
 				onChange={handleUpload}
 			/>
-			{showToolbar ? (
-				<DocxToolbar
-					activePageStore={activePageStore}
-					controlsDisabled={controlsDisabled}
-					isPreparingDownload={isPreparingDownload}
-					onDownload={handleDownload}
-					onPageChange={scrollToPage}
-					onShowCommentsChange={setShowComments}
-					onShowTrackedChangesChange={setShowTrackedChanges}
-					onToggleSidebar={() => setSidebarOpen((open) => !open)}
-					onUploadClick={() => fileInputRef.current?.click()}
-					pageCount={pageCount}
-					onZoomChange={setZoomLevel}
-					showComments={showComments}
-					showDownloadButton={showDownload}
-					showTrackedChanges={showTrackedChanges}
-					showUploadButton={showUpload}
-					toolbarActions={toolbarActions}
-					resolvedZoom={activeZoomState.resolvedZoom}
-					zoomLevel={activeZoomState.level}
-				/>
-			) : null}
+			<DocxToolbar
+				activePageStore={activePageStore}
+				controlsDisabled={controlsDisabled}
+				isPreparingDownload={isPreparingDownload}
+				onDownload={handleDownload}
+				onPageChange={scrollToPage}
+				onShowCommentsChange={setShowComments}
+				onShowTrackedChangesChange={setShowTrackedChanges}
+				onToggleSidebar={() => setSidebarOpen((open) => !open)}
+				onUploadClick={() => fileInputRef.current?.click()}
+				pageCount={pageCount}
+				onZoomChange={setZoomLevel}
+				showComments={showComments}
+				showDownloadButton={showDownload}
+				showTrackedChanges={showTrackedChanges}
+				showUploadButton={showUpload}
+				toolbarActions={toolbarActions}
+				resolvedZoom={activeZoomState.resolvedZoom}
+				zoomLevel={activeZoomState.level}
+			/>
 			<div ref={viewerShellRef} className='relative flex min-h-0 flex-1 overflow-hidden bg-muted/30'>
 				<DocumentViewerThumbnailSidebar inline={sidebarInline} open={thumbnailSidebarVisible}>
 					<DocxThumbnailSidebarContent
 						activePageStore={activePageStore}
-						displayFileName={displayFileName}
 						editor={editor}
 						isLoadingDocument={isLoadingDocument}
 						onSelectPage={scrollToPage}
@@ -1192,7 +1201,7 @@ function DocxViewerContent({
 						sidebarOpen={thumbnailSidebarVisible}
 					/>
 				</DocumentViewerThumbnailSidebar>
-				<InlineScrollArea2
+				<ViewerScrollArea
 					className='min-h-0 flex-1'
 					style={{ backgroundColor: viewerBackgroundColor }}
 					viewportClassName='px-4 py-6'
@@ -1261,113 +1270,8 @@ function DocxViewerContent({
 							</div>
 						</div>
 					)}
-				</InlineScrollArea2>
+				</ViewerScrollArea>
 			</div>
 		</div>
 	);
 }
-function InlineScrollArea2({
-	className,
-	children,
-	orientation = "both",
-	scrollFade = false,
-	scrollbarGutter = false,
-	scrollbarOverflowOnly = false,
-	viewportClassName,
-	viewportProps,
-	viewportRef,
-	...props
-}: InlineScrollAreaProps) {
-	const { className: viewportPropsClassName, ref: viewportPropsRef, ...resolvedViewportProps } = viewportProps ?? {};
-	const composedViewportRef = React.useMemo(
-		() => InlineComposeRefs(viewportPropsRef, viewportRef),
-		[viewportPropsRef, viewportRef]
-	);
-
-	if (
-		!viewportProps &&
-		!viewportRef &&
-		!viewportClassName &&
-		!scrollFade &&
-		!scrollbarGutter &&
-		!scrollbarOverflowOnly
-	) {
-		return (
-			<InlineScrollArea
-				{...props}
-				className={cn(
-					"size-full min-h-0",
-					orientation === "horizontal" && "[&>[data-orientation=vertical]]:hidden",
-					className
-				)}
-			>
-				{children}
-				{orientation !== "vertical" ? <ScrollBar orientation='horizontal' /> : null}
-			</InlineScrollArea>
-		);
-	}
-
-	return (
-		<ScrollAreaPrimitive.Root
-			className={cn(
-				"size-full min-h-0",
-				scrollbarOverflowOnly &&
-					"[&:not(:has([data-slot=scroll-area-viewport][data-has-overflow-x]))_[data-orientation=horizontal]]:hidden [&:not(:has([data-slot=scroll-area-viewport][data-has-overflow-y]))_[data-orientation=vertical]]:hidden",
-				className
-			)}
-			{...props}
-		>
-			<ScrollAreaPrimitive.Viewport
-				{...resolvedViewportProps}
-				ref={composedViewportRef}
-				className={cn(
-					"h-full rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-ring",
-					scrollFade &&
-						"mask-t-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-start)))] mask-r-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-end)))] mask-b-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-end)))] mask-l-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-start)))] [--fade-size:1.5rem]",
-					scrollbarGutter && orientation !== "vertical" && "pb-3.5",
-					scrollbarGutter && orientation !== "horizontal" && "pe-3.5",
-					viewportPropsClassName,
-					viewportClassName
-				)}
-				data-slot='scroll-area-viewport'
-			>
-				{children}
-			</ScrollAreaPrimitive.Viewport>
-			{orientation !== "horizontal" ? <ScrollBar orientation='vertical' /> : null}
-			{orientation !== "vertical" ? <ScrollBar orientation='horizontal' /> : null}
-			{orientation === "both" ? <ScrollAreaPrimitive.Corner /> : null}
-		</ScrollAreaPrimitive.Root>
-	);
-}
-type InlineScrollAreaProps = ScrollAreaPrimitive.Root.Props & {
-	orientation?: "vertical" | "horizontal" | "both";
-	scrollFade?: boolean;
-	scrollbarGutter?: boolean;
-	scrollbarOverflowOnly?: boolean;
-	viewportClassName?: string;
-	viewportProps?: ScrollAreaPrimitive.Viewport.Props;
-	viewportRef?: React.Ref<HTMLDivElement>;
-};
-function InlineComposeRefs<T>(...refs: Array<React.Ref<T> | undefined>) {
-	return (node: T | null) => {
-		for (const ref of refs) {
-			if (!ref) continue;
-			if (typeof ref === "function") ref(node);
-			else ref.current = node;
-		}
-	};
-}
-function InlineSpinner({ className, ...props }: InlineRegistryIconProps) {
-	const labels = useDocumentViewerLabels();
-	return (
-		<HugeiconsIcon
-			icon={Loading03Icon}
-			strokeWidth={1.75}
-			role='status'
-			aria-label={labels.loading}
-			className={cn("size-4 animate-spin", className)}
-			{...props}
-		/>
-	);
-}
-type InlineRegistryIconProps = Omit<React.ComponentProps<"svg">, "children" | "strokeWidth"> & { strokeWidth?: number };

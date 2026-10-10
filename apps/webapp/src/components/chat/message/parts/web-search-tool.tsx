@@ -12,8 +12,19 @@ import { TextShimmer } from "@starter/ui/components/text-shimmer";
 import { getHostnameFromUrl } from "@starter/utils";
 
 import { ChatStepItem } from "../chat-step-item";
-import type { ToolState } from "./tool-part-types";
-import { formatPublishedDate } from "./utils/published-date";
+import type { ToolState } from "./tool-part";
+
+const formatPublishedDate = ({ locale, value }: { locale: string; value?: string | null }) => {
+	if (!value) {
+		return null;
+	}
+
+	const parsedDate = new Date(value);
+
+	return Number.isNaN(parsedDate.getTime())
+		? null
+		: new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", year: "numeric" }).format(parsedDate);
+};
 
 type WebSearchResult = {
 	description?: string;
@@ -105,7 +116,7 @@ const SearchSource = ({ result }: { result: WebSearchResult }) => {
 	);
 };
 
-export type WebSearchToolProps = {
+type WebSearchToolProps = {
 	errorText?: string;
 	input?: unknown;
 	isLast?: boolean;

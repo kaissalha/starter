@@ -1,7 +1,7 @@
 import { Text as PDFText, StyleSheet, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
-import { usePdfxTheme, useSafeMemo } from "../../lib/theme-context";
+import { defaultTheme, type PdfxTheme } from "../../lib/theme";
 
 export type PageNumberAlign = "left" | "center" | "right";
 
@@ -17,7 +17,7 @@ export type PageNumberProps = {
 	style?: Style;
 };
 
-const createPageNumberStyles = (t: ReturnType<typeof usePdfxTheme>) => {
+const createPageNumberStyles = (t: PdfxTheme) => {
 	const { colors, primitives, typography } = t;
 
 	return StyleSheet.create({
@@ -45,8 +45,8 @@ export const PageNumber = ({
 	size = "sm",
 	style,
 }: PageNumberProps) => {
-	const theme = usePdfxTheme();
-	const styles = useSafeMemo(() => createPageNumberStyles(theme), [theme]);
+	const theme = defaultTheme;
+	const styles = createPageNumberStyles(theme);
 
 	const alignMap = {
 		center: styles.alignCenter,
