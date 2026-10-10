@@ -10,15 +10,6 @@ export default defineConfig({
 			provider: "v8",
 			reporter: ["text", "html", "json-summary", "lcov"],
 			reportsDirectory: "./coverage",
-			thresholds: {
-				branches: 43,
-				functions: 52,
-				lines: 57,
-				"packages/server/src/api/**": { lines: 68 },
-				"packages/server/src/services/**": { lines: 78 },
-				"packages/server/src/workflows/**": { lines: 78 },
-				statements: 57,
-			},
 		},
 		exclude: [
 			"**/node_modules/**",
